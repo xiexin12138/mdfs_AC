@@ -5,9 +5,17 @@
 const app = require('electron').remote.app
 let configPath = app.getPath('userData')+'\\serverConfig.json'
 const fs = require('fs')
-let configObj = {}
+let configObj = {
+			host:'219.223.192.110',
+			hostBackup:'219.223.192.106'
+		}
 if (fs.existsSync(configPath)) {
-	configObj = JSON.parse(fs.readFileSync(configPath).toString())
+	try{
+		configObj = JSON.parse(fs.readFileSync(configPath).toString())
+	}catch(e){
+		console.log('JSON file is wrong ')
+	}
+	
 }
 // console.log(configObj)
 const net = require('net')
