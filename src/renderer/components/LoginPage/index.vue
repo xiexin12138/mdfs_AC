@@ -1,0 +1,112 @@
+<template>
+<el-row type="flex" align="middle" style="height:500px">
+<el-col style="height:200px;">
+<el-row type="flex" justify="center">
+<el-col style="width:400px;height:200px;">
+	<el-form status-icon label-width="60px" ref="userform" :model="userform" :rules="userrule" >
+		<el-form-item label="用户名" prop="username" >
+			<el-input style="width:250px;" v-model="userform.username"></el-input>
+		</el-form-item>
+		<el-form-item label="密码" prop="password" >
+			<el-input style="width:250px;" type="password" auto-complete="off" v-model="userform.password"></el-input>
+			<!-- <span style="cursor:pointer;" @click="resetPwd()">忘记密码？</span> -->
+			<el-button type='text' size='small' @click="resetPwd()">忘记密码？</el-button>	
+		</el-form-item>
+		<el-form-item>
+			<el-button type="primary" @click="submitForm('userform')" @keyup.enter="submitForm('userform')">登录</el-button>
+			<el-button @click="resetForm('userform')">重置</el-button>
+		</el-form-item>
+
+	</el-form>
+</el-col>
+</el-row>
+</el-col>
+</el-row>
+</template>
+
+<script>
+	import Vue from 'vue'
+	import { Button, Input, Form, FormItem, Message, Row, Col } from 'element-ui'
+
+	Vue.use(Row)
+	Vue.use(Col)
+	Vue.use(Button)
+	Vue.use(Input)
+	Vue.use(Form)
+	Vue.use(FormItem)
+	/**
+	 * 说明：用户登录表单，记录了用户名和密码，需要在每次跳转的检验用户是否登录的状态，redirect
+	 * 
+	 */
+	export default {
+
+		data(){
+			let validatePassword = (rule, value, callback)=>{
+				if (value === '') {
+					callback(new Error('请输入密码'))
+				} else {
+					callback()
+				}
+			}
+			let validateUsername = (rule, value, callback)=>{
+				if (value === '') {
+					callback(new Error('请输入用户名'))
+				} else {
+					callback()
+				}
+			}
+			return {
+				userform: {
+					username: '',
+					password: ''
+				},
+				userrule:{
+					password:[
+						{ validator:validatePassword, trigger: 'blur'}
+					],
+					username:[
+						{ validator:validateUsername, trigger: 'blur'}
+					]
+				}
+			}
+		},
+		methods:{
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						let data = {
+							username:this.userform.username,
+							password:this.userform.password
+						}
+						this.$store.dispatch('checkuser',data).then(()=>{
+							Message({
+								showClose: true,
+								message:'登录成功',
+								type:'success',
+								duration:2000
+							})
+							this.$router.push({ path: '/home' })
+						}).catch((e)=>{
+							Message({
+								showClose: true,
+								message:e.message,
+								type:'error',
+								duration:2000
+							})
+						})
+						
+
+					} else {
+						return false
+					}
+				})
+			},
+			resetForm(formName) {
+				this.$refs[formName].resetFields()
+			},
+			resetPwd(){
+				this.$router.push({ path: '/resetpassword' })
+			}
+		}
+	}
+</script>
