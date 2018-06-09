@@ -1,10 +1,16 @@
 <template>
 	<div>
-		<el-row type="flex" align="middle" style="height:600px">
-		<el-col style="height:600px;">
-		<el-row type="flex" justify="center">
-		<el-col style="width:600px;height:600px;">
-			<div class="monitor-graph"></div>
+		<bar></bar>
+		<el-row type="flex" align="middle" style="height:800">
+		<el-col style="height:800;">
+		<el-row type="flex" justify="center" >
+		<el-col style="width:1000px;height:800px;">
+			<svg class="descrition" width="1000" height="100" ></svg>
+			<el-row type="flex" justify="center" >
+			<el-col style="width:800px;height:800px;">
+				<div class="monitor-graph"></div>
+			</el-col>
+			</el-row>
 			<el-dialog
 			  title="文件系统信息"
 			  :visible.sync="fsVisible"
@@ -64,11 +70,11 @@
 
 	.log_list{
         float:left;
-        width: 380px;
+        width: 400px;
 		/*background-color: blue;*/
 		margin-top: 30px;
-		margin-left:15%;
-		margin-right:-15%;
+		/*margin-left:5%;*/
+		/*margin-right:-15%;*/
 	}
 
 
@@ -93,7 +99,7 @@ import Bar from '@/components/common/Bar'
 import Vue from 'vue'
 import { Message, Row, Col, Dialog } from 'element-ui'
 import d3 from 'd3'
-import * as status from '../../../api/status' 
+import * as status from '../../api/status' 
 import LogList from './LogList'
 import Foot from '@/components/common/Foot'
 Vue.use(Row)
@@ -102,7 +108,7 @@ Vue.use(Dialog)
 
 
 // 背景宽度
-let width = 600
+let width = 800
 // 背景长度
 let height = 600
 // 正常文件的颜色
@@ -133,12 +139,15 @@ function shuffle(array){
 // }
 
 
-
-var circleColorList = ["#F0F8FF","#F5FFFA","#FFFFF0"]; 
-var borderColorList = ["#87CEFA","#B4EEB4","#FFEC8B"]; 
-
+// 原设计
+// var circleColorList = ["#F0F8FF","#F5FFFA","#FFFFF0"]; 
+// var borderColorList = ["#87CEFA","#B4EEB4","#FFEC8B"]; 
+// 演示
+var circleColorList = ["#F0F8FF","#F0FFFA","#FFFFF0"]; 
+var borderColorList = ["#87CEFA","#00EEB4","#ed7d31"]; 
 var abnormalCircleColor="#FFFAFA";
-var abnormalBorderColor="#F08080";
+// var abnormalBorderColor="#F08080";
+var abnormalBorderColor="#f20c00";
 
 var circleColorIndex=0;
 var borderColorIndex=0;
@@ -210,9 +219,9 @@ function strokeWidth(d){
 	if (d.depth == 0) {
 		return 'none'  //最底层
 	}else if (d.depth == 1) {   //文件系统
-		return '1'
+		return '4'
 	}else if (d.depth == 2) {  //异常
-		return '1'
+		return '3'
 		 // return '#8B0000'
 	}
 }
@@ -401,12 +410,76 @@ export default {
 				})
 				.attr('r',circleRadius)
 				.attr('style',circleDisplay)
+			let dataset = [0,1,2],recWidth = 15
+			d3.select('.descrition')
+				// .attr('transform', 'translate(-45,0)')
+				.append('g')
+				.selectAll("rect")  
+	          	.data(dataset)  
+	          	.enter()  
+	          	.append("rect")  
+	        	.attr("y",50)//每个矩形的起始x坐标  
+	        	.attr("x",function(d,i){//每个矩形的起始y坐标  
+	                return i * recWidth;  
+	          	})  
+	        	.attr("width",function(d){//每个矩形的宽度   
+	                return 10;  
+	         	})  
+	        	.attr("height",recWidth-2)//每个矩形的高度  
+	        	.attr("fill",function(d,i){//每个矩形的颜色 
+	                if (i== 0) {
+	                	return "#87CEFA"
+	                }else if (i == 1) {
+	                	return "#00EEB4"
+	                } else{
+	                	return "#ed7d31"
+	                }
+	          	});//填充颜色  
+			d3.select('.descrition')
+				.append('g')
+				.selectAll('text')
+				.data('[]')
+				.enter()
+				.append('text')
+				.text('文件系统')
+				.attr('transform', 'translate(45,63)')
+				.attr('font-family', 'Arial')
+				.attr('fill', 'black')
+				.attr('font-size', '20px')
+			d3.select('.descrition')
+				.append('g')
+				.selectAll("rect")  
+	          	.data([1])  
+	          	.enter()  
+	          	.append("rect")  
+	        	.attr("y",80)//每个矩形的起始x坐标  
+	        	.attr("x",function(d,i){//每个矩形的起始y坐标  
+	                return i * recWidth;  
+	          	})  
+	        	.attr("width",function(d){//每个矩形的宽度   
+	                return 10;  
+	         	})  
+	        	.attr("height",recWidth-2)//每个矩形的高度  
+	        	.attr("fill",function(d,i){//每个矩形的颜色 
+	                return abnormalBorderColor
+	          	});//填充颜色  
+			d3.select('.descrition')
+				.append('g')
+				.selectAll('text')
+				.data('[]')
+				.enter()
+				.append('text')
+				.text('异常')
+				.attr('transform', 'translate(45,93)')
+				.attr('font-family', 'Arial')
+				.attr('fill', 'black')
+				.attr('font-size', '20px')
 		},
 
 		updateData() {
 			let data = [
 				{
-					fs_name: 'fs1',
+					fs_name: 'sf1',
 					fs_type:'ceph3',
 					fs_error: [
 						{
@@ -467,7 +540,7 @@ export default {
 					]
 				},
 				{
-					fs_name: 'fs2',
+					fs_name: 'sf2',
 					fs_type:'ceph1',
 					fs_error: [
 						{
@@ -523,7 +596,7 @@ export default {
 					]
 				},
 				{
-					fs_name: 'fs3',
+					fs_name: 'sf3',
 					fs_type:'ceph2',
 					fs_error: [
 						{
@@ -604,17 +677,17 @@ export default {
 		
 		initGraphData() {
 			let cc1 = {
-				name: 'fs1',
+				name: 'sf1',
 				fs_type:'ceph1',
 				children: []
 			}
 			let cc2 = {
-				name: 'fs2',
+				name: 'sf2',
 				fs_type:'ceph13',
 				children: []
 			}
 			let cc3 = {
-				name: 'fs3',
+				name: 'sf3',
 				fs_type:'ceph14',
 				children: []
 			}
