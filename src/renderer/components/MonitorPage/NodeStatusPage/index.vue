@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<bar></bar>
 		<div class="status-force-graph"></div>
 		<!-- <el-button type="text" @click="mountVisible = true">点击打开mount</el-button> -->
 		<!-- <el-button type="text" @click="userVisible = true">点击打开user</el-button> -->
@@ -156,7 +157,7 @@ import Bar from '@/components/common/Bar'
 import { Row, Col, Button, Dialog, Message } from 'element-ui'
 import Vue from 'vue'
 import d3 from 'd3'
-import * as status from '../../../api/status'
+import * as status from '../../api/status'
 let MOUNT = 'mount' // 0
 let USER = 'user'
 
@@ -182,7 +183,7 @@ Vue.use(Col)
 
 
 
-let mountColorA = d3.rgb('#37C6C0')
+let mountColorA = d3.rgb('#a0c386')
 let mountColorB = d3.rgb('#ffc386')
 // 上述两个值分别为下述函数的值域0,1
 let computeMountColor = d3.interpolate(mountColorA,mountColorB)
@@ -190,10 +191,11 @@ let computeMountColor = d3.interpolate(mountColorA,mountColorB)
 function borderColor(d){
 	let Color
 	if (d.type == MOUNT) {
-		Color = computeMountColor(Math.random())
-		// Color = getColorByRandom(colorList)
+		// Color = computeMountColor(Math.random())
+		Color = '#00c386'
 	} else if (d.type == USER) {
-		Color = '#f2c386'
+		// Color = '#f2c386'
+		Color = '#2b579a'
 	}
 	return Color
 }
@@ -362,8 +364,8 @@ export default {
 			this._nodesAllValidMap = new Map()
 			this._force = d3.layout
 				.force()
-				.size([600, 600])
-				.linkDistance(100)
+				.size([1000, 800])
+				.linkDistance(150)
 				.charge(-500)
 				.nodes([])
 				.links([])
@@ -374,8 +376,8 @@ export default {
 			this._svg = d3
 				.select('.status-force-graph')
 				.append('svg')
-				.attr('width', 800)
-				.attr('height', 600)
+				.attr('width', 1200)
+				.attr('height', 800)
 
 			this._nodesAction = this._force.nodes()
 			this._links = this._force.links()
@@ -443,9 +445,9 @@ export default {
 					let CircleSize
 					if (d.type == MOUNT) {
 						//CircleColor="#A254A2";
-						CircleSize = 30
+						CircleSize = 45
 					} else if (d.type == USER) {
-						CircleSize = 15
+						CircleSize = 30
 					}
 					return CircleSize
 				})
@@ -528,12 +530,12 @@ export default {
 				//.attr("markerUnits","strokeWidth")//设置为strokeWidth箭头会随着线的粗细发生变化
 				.attr('markerUnits', 'userSpaceOnUse')
 				.attr('viewBox', '0 -5 10 10') //坐标系的区域
-				.attr('refX', 32) //箭头坐标
-				.attr('refY', -1)
-				.attr('markerWidth', 12) //标识的大小
-				.attr('markerHeight', 12)
+				.attr('refX', 40) //箭头坐标
+				.attr('refY', 0)
+				.attr('markerWidth', 15) //标识的大小
+				.attr('markerHeight', 15)
 				.attr('orient', 'auto') //绘制方向，可设定为：auto（自动确认方向）和 角度值
-				.attr('stroke-width', 2) //箭头宽度
+				.attr('stroke-width', 5) //箭头宽度
 				.append('path')
 				.attr('d', 'M0,-5L10,0L0,5') //箭头的路径
 				//根据不同组设定箭头颜色
@@ -544,7 +546,7 @@ export default {
 					} else if (d.target.target == 'Mount2') {
 						Color = '#DEB887'
 					}
-					return '#DEB887'
+					return '#2b579a'
 				})
 
 			// 更新需要增加的线段，设置class（除了link）增加了一个根据source的type+name+target的class
@@ -568,9 +570,9 @@ export default {
 					} else if (d.target.target == 'Mount2') {
 						Color = '#DEB887'
 					}
-					return '#DEB887'
+					return '#2b579a'
 				})
-				.style('stroke-width', 0.5) //线条粗细
+				.style('stroke-width', 1) //线条粗细
 
 				.attr('marker-end', function(d) {
 					return 'url(#' + d.target.target + ')'
@@ -601,10 +603,11 @@ export default {
 						d3
 							.select(this)
 							.append('tspan')
+							.style('font-family',"Microsoft YaHei,SimHei")
 							.attr('x', 0)
 							.attr('y', 2)
 							.text(function() {
-								return d.name
+								return '用户:'+d.name
 							})
 					} else if (d.name.length <= 4) {
 						//如果小于四个字符，不换行
@@ -617,30 +620,40 @@ export default {
 								return d.name
 							})
 					} else {
-						var top = d.name.substring(0, 4)
-						var bot = d.name.substring(4, d.name.length)
-
-						d3.select(this).text(function() {
-							return ''
-						})
-
+						// 挥哥说名字不要断断续续的
 						d3
 							.select(this)
 							.append('tspan')
-							.attr('x', 0)
-							.attr('y', -7)
-							.text(function() {
-								return top
-							})
-
-						d3
-							.select(this)
-							.append('tspan')
+							.style('font-family',"Microsoft YaHei,SimHei")
 							.attr('x', 0)
 							.attr('y', 10)
 							.text(function() {
-								return bot
+								return '挂载节点:'+d.name
 							})
+						// var top = d.name.substring(0, 4)
+						// var bot = d.name.substring(4, d.name.length)
+
+						// d3.select(this).text(function() {
+						// 	return ''
+						// })
+
+						// d3
+						// 	.select(this)
+						// 	.append('tspan')
+						// 	.attr('x', 0)
+						// 	.attr('y', -7)
+						// 	.text(function() {
+						// 		return top
+						// 	})
+
+						// d3
+						// 	.select(this)
+						// 	.append('tspan')
+						// 	.attr('x', 0)
+						// 	.attr('y', 10)
+						// 	.text(function() {
+						// 		return bot
+						// 	})
 					}
 				})
 				.attr('class', function(d) {
