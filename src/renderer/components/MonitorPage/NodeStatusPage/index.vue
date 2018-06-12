@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<bar></bar>
 		<div class="status-force-graph"></div>
 		<!-- <el-button type="text" @click="mountVisible = true">点击打开mount</el-button> -->
 		<!-- <el-button type="text" @click="userVisible = true">点击打开user</el-button> -->
@@ -157,7 +156,7 @@ import Bar from '@/components/common/Bar'
 import { Row, Col, Button, Dialog, Message } from 'element-ui'
 import Vue from 'vue'
 import d3 from 'd3'
-import * as status from '../../api/status'
+import * as status from '../../../api/status'
 let MOUNT = 'mount' // 0
 let USER = 'user'
 
@@ -366,7 +365,7 @@ export default {
 				.force()
 				.size([1000, 800])
 				.linkDistance(150)
-				.charge(-500)
+				.charge(-1000)
 				.nodes([])
 				.links([])
 				.start()

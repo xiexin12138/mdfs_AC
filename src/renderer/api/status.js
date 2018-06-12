@@ -9,16 +9,16 @@ import Socket from './socket'
  */
 export async function GetMountNode(para) {
 	try {
-// 		return {
-// 	type:'getMountNode',
-// 	state: 0,  // 错误类型码，0表示成功
-// 	errormessage:'', // 错误信息
-// 	id:1,
-// 	name:'Mount2', // 主机名
-// 	status:'action',  // 节点状态
-// 	duration:'8分钟', // 状态持续时间
-// 	user:'guest1、guest2' // 连接的用户
-// }
+		return {
+	type:'getMountNode',
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'', // 错误信息
+	id:1,
+	name:'Mount2', // 主机名
+	status:'action',  // 节点状态
+	duration:'8分钟', // 状态持续时间
+	user:'guest1、guest2' // 连接的用户
+}
 		let socket = new Socket()
 		let data = {
 			type: type.GET_MOUNT_NODE,
@@ -45,16 +45,16 @@ export async function GetMountNode(para) {
  */
 export async function GetUserNode(para) {
 	try {
-// 		return {
-// 	type:'getUserNode',
-// 	state: 0,  // 错误类型码，0表示成功
-// 	errormessage:'', // 错误信息
-// 	id:11,
-// 	name:'guest', // 用户节点名
-// 	ip:'192.168.1.1', 
-// 	mac:'00.as.12.df.3d.4f.23',
-// 	duration:'35分钟' // 登录时长
-// }
+		return {
+	type:'getUserNode',
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'', // 错误信息
+	id:11,
+	name:'guest', // 用户节点名
+	ip:'192.168.1.1', 
+	mac:'00.as.12.df.3d.4f.23',
+	duration:'35分钟' // 登录时长
+}
 		let socket = new Socket()
 		let data = {
 			type: type.GET_USER_NODE,
@@ -228,7 +228,7 @@ export async function GetNodeStatus() {
 					target: 'Mount4'
 				},
 			]
-		// return GetNodeStatusHelper(newData)
+		return GetNodeStatusHelper(newData)
 		let socket = new Socket()
 		let data = {
 			type: type.GET_NODE_STATUS
@@ -324,7 +324,7 @@ export async function ManageMount(para) {
  */
 export async function ManageUser(para) {
 	try {
-		// return true
+		return true
 		let socket = new Socket()
 		let data = {
 			type: type.MANAGE_USER,
@@ -352,7 +352,7 @@ export async function ManageUser(para) {
 export async function MonitorFS(){
 	try {
 
-		// return n
+		return n
 		let socket = new Socket()
 		let data = {
 			type: type.MONITOR_FS
@@ -381,7 +381,7 @@ export async function MonitorFS(){
 export async function MonitorMetadata(){
 	try {
 
-		// return n
+		return n
 		let socket = new Socket()
 		let data = {
 			type:type.MON_PIE

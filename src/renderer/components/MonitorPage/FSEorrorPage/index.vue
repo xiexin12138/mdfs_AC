@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<bar></bar>
 		<el-row type="flex" align="middle" style="height:800">
 		<el-col style="height:800;">
 		<el-row type="flex" justify="center" >
@@ -99,7 +98,7 @@ import Bar from '@/components/common/Bar'
 import Vue from 'vue'
 import { Message, Row, Col, Dialog } from 'element-ui'
 import d3 from 'd3'
-import * as status from '../../api/status' 
+import * as status from '../../../api/status' 
 import LogList from './LogList'
 import Foot from '@/components/common/Foot'
 Vue.use(Row)
@@ -110,7 +109,7 @@ Vue.use(Dialog)
 // 背景宽度
 let width = 800
 // 背景长度
-let height = 600
+let height = 900
 // 正常文件的颜色
 let color_nomal_file = '#77c34f'
 // shuffle 本来是得到一个随机副本，看到generator的实现后改了，后来发现还是下面这个省事
@@ -262,7 +261,7 @@ function circleDisplay(d){
 }
 function circleRadius(d){
 	if (d.depth == 1) {
-		return 120
+		return 160
 	}else {
 		return d.r
 	}
@@ -381,12 +380,13 @@ export default {
 			this._svg = d3
 				.select('.monitor-graph')
 				.append('svg')
+				.attr('id','svg_graph')
 				.attr('width', width)
 				.attr('height', height)
 			this._pack = d3.layout
 				.pack()
 				.size([width, height])
-				.padding(10)
+				.padding(40)
 			this._svg
 				.selectAll('circle')
 				.data(this._pack.nodes(this._root))
@@ -649,8 +649,8 @@ export default {
 			return data
 		},
 		async bindData() {
-			// let data = this.updateData()
-			let data = await status.MonitorFS()
+			let data = this.updateData()
+			// let data = await status.MonitorFS()
 			console.log(data)
 			this.ListData = handleList(data)
 			
@@ -839,4 +839,10 @@ export default {
 	}
 }
 </script>
-
+<style>
+	#svg_graph{
+      position: absolute;
+      top:-180px;
+      z-index: -10;
+	}
+</style>

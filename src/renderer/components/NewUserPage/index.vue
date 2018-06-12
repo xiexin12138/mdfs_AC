@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<bar></bar>
   		<el-row type="flex" justify="center">
   		<el-col style="width:500px;">
 		<div style="margin:20px 0;">
