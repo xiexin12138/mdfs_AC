@@ -27,12 +27,19 @@
 				<span>监控视图</span>
 			</template>
 			<el-menu-item index="/monitor/fseorror">文件系统监控</el-menu-item>
-			<!-- <el-menu-item index="/config/mountnode">挂载节点配置</el-menu-item> -->
 			<el-menu-item index="/monitor/nodestatus">节点状态监控</el-menu-item>
 			<el-menu-item index="/monitor/edataeorror">元数据监控</el-menu-item>
 		</el-submenu>        
          
-
+		<el-submenu index="/mounter">
+			<template slot='title'>
+				<i class="el-icon-info"></i>
+				<span>挂载管理</span>
+			</template>
+			<el-menu-item index="/mounter/mountermanage">挂载节点配置</el-menu-item>
+			<el-menu-item index="/mounter/mountFS">文件系统挂载</el-menu-item>
+			<el-menu-item index="/mounter/showfsmount">挂载信息</el-menu-item>
+		</el-submenu>
 
 	</el-menu>
 	</el-header>

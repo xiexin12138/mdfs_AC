@@ -359,4 +359,84 @@ res:
 		node:'node1',  						// 导致这个错误的所在的nfs节点
 	}]
 }
+
+// mount节点的增删改查
+Req：
+{
+	“type”:”mounterManage”,//对应的请求码是31
+	“operation”;”add”,//表示操作类型，查(query=1)、增（add=2）、删(del=3)、改(update=4)
+	“id”:”21”,//表示mounter的id
+	“mounterType”:”CentOS”,//mounter所在操作系统的类型，查询操作时这个字段也要填，为空字符
+	“address”:”192.168.1.100”,//mounter所在机器的ip，查询操作时这个字段也要填，为空字符
+	}
+Resp：// 查询返回的结果
+{
+	“type”: ”mounterManage”,//对应的请求码是31
+	“id”:”21”,//表示mounter的id
+	“mounterType”:”CentOS”,//mounter所在操作系统的类型
+	“address”:”192.168.1.100”,//mounter所在机器的ip
+	“status”:”init”	//	mounter的状态
+	“online”:”1”//是否在线，0：不在线  1：在线
+}
+Resp: // 其他操作返回的结果
+{
+	“type”:”mountFs”,//请求码是31
+	“state”:” 0”,  // 错误类型码，0表示成功
+	“errormessage”:”” // 错误信息
+}
+
+// 返回所有的mount节点信息：
+
+Req:
+{
+         “type”:”getMounters”    //请求码是34
+}
+Resp:
+{
+         “type”:”getMounters”,   //请求码是34
+         “detail”:” [{
+                   “id”:”21”,//mounter的id
+                   “os”:”CentOS”,//操作系统类型
+                   “ip”,”192.168.1.130”,//mounter的ip
+                   “state”:”initing”,//mounter的状态
+                   “online”:”1”     //表示mounter是否上线，0：下线，1：上线
+}]”
+}
+
+// 文件系统挂载
+Req:
+{
+	“type”:”mountFs”,//请求码是32
+	“mounterId”:”101”,//挂载节点的id，与cmNode的id保持一致
+	“fsId”:”21”,//文件系统id
+	“mountAddr”:”/mnt/fs1”,//文件系统的挂载路径
+}
+
+Resp:
+{
+	“type”:”mountFs”,//请求码是32
+	“state”:” 0”,  // 错误类型码，0表示成功
+	“errormessage”:”” // 错误信息
+}
+
+// 前端可能需要：显示文件系统挂载信息
+Req
+{
+	“type”:”showFsMount”,//请求码是33
+}
+
+Resp
+{
+	“type”:” showFsMount”,
+	“detail”:”[
+	{
+		“mounterId”:”21”,
+		“fsId”:”101”,
+		“mountAddr”:”/mnt/fs1”,
+		“judge”:”1”,  //是否具有判决能力，1：具有判决能力  0：否
+		“sync”:”1”  //是否同步，1：已同步   0：未同步
+}
+]”
+}
+
 ```

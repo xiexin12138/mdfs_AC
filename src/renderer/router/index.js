@@ -21,6 +21,12 @@ import FSEorrorPage from '@/components/MonitorPage/FSEorrorPage'
 import NodeStatusPage from '@/components/MonitorPage/NodeStatusPage'
 import EDataEorrorPage from '@/components/MonitorPage/EDataEorrorPage'
 
+import MounterPage from '@/components/MounterPage'
+import MounterManage from '@/components/MounterPage/MounterManage'
+import MountFS from '@/components/MounterPage/MountFS'
+import ShowFSMount from '@/components/MounterPage/ShowFSMount'
+import AddMounter from '@/components/MounterPage/AddMounter'
+import UpdateMounter from '@/components/MounterPage/UpdateMounter'
 
 Vue.use(Router)
 
@@ -82,6 +88,41 @@ let router = new Router({
 
 			]
 		},
+		{
+			path:'/mounter',
+			component: MounterPage,
+			// vue-router的嵌套路由
+			children:[
+				{
+					path:'mountermanage',
+					component:MounterManage
+				},
+				{
+					path:'mountFS',
+					component:MountFS
+				},
+				{
+					path:'showfsmount',
+					component:ShowFSMount
+				},
+				{
+					path:'addmounter',
+					component:AddMounter
+				},
+				{
+					path:'updatemounter',
+					component:UpdateMounter
+				}
+			]
+		},
+		{
+			path:'/newuser',
+			component: NewUserPage
+		},
+		{
+			path:'/updateuser/:id',
+			component: UpdateUserPage
+		}
 	]
 
 })
