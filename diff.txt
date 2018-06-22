@@ -1,0 +1,50 @@
+diff --git a/src/renderer/api/user.js b/src/renderer/api/user.js
+index 2f58da0..52b2db4 100644
+--- a/src/renderer/api/user.js
++++ b/src/renderer/api/user.js
+@@ -10,7 +10,7 @@ import * as type from './type'
+  */
+ export async function CheckUser(username, password) {
+ 	try {
+-		// return true
++		return true
+ 		let socket = new Socket()
+ 		let data = {
+ 			type: type.LOGIN,
+diff --git a/src/renderer/components/MonitorPage/FSEorrorPage/index.vue b/src/renderer/components/MonitorPage/FSEorrorPage/index.vue
+index 74a84fe..933f778 100644
+--- a/src/renderer/components/MonitorPage/FSEorrorPage/index.vue
++++ b/src/renderer/components/MonitorPage/FSEorrorPage/index.vue
+@@ -99,7 +99,7 @@ import Bar from '@/components/common/Bar'
+ import Vue from 'vue'
+ import { Message, Row, Col, Dialog } from 'element-ui'
+ import d3 from 'd3'
+-import * as status from '../../api/status' 
++import * as status from '../../../api/status' 
+ import LogList from './LogList'
+ import Foot from '@/components/common/Foot'
+ Vue.use(Row)
+@@ -649,8 +649,8 @@ export default {
+ 			return data
+ 		},
+ 		async bindData() {
+-			// let data = this.updateData()
+-			let data = await status.MonitorFS()
++			let data = this.updateData()
++			// let data = await status.MonitorFS()
+ 			console.log(data)
+ 			this.ListData = handleList(data)
+ 			
+diff --git a/src/renderer/components/MonitorPage/NodeStatusPage/index.vue b/src/renderer/components/MonitorPage/NodeStatusPage/index.vue
+index d33bf3d..5882e1c 100644
+--- a/src/renderer/components/MonitorPage/NodeStatusPage/index.vue
++++ b/src/renderer/components/MonitorPage/NodeStatusPage/index.vue
+@@ -157,7 +157,7 @@ import Bar from '@/components/common/Bar'
+ import { Row, Col, Button, Dialog, Message } from 'element-ui'
+ import Vue from 'vue'
+ import d3 from 'd3'
+-import * as status from '../../api/status'
++import * as status from '../../../api/status'
+ let MOUNT = 'mount' // 0
+ let USER = 'user'
+ 
