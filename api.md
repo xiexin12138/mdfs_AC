@@ -398,7 +398,7 @@ Resp:
                    “id”:”21”,//mounter的id
                    “os”:”CentOS”,//操作系统类型
                    “ip”,”192.168.1.130”,//mounter的ip
-                   “state”:”initing”,//mounter的状态
+                   “state”:”initing”,//mounter的状态,与单个挂载节点的state不一致
                    “online”:”1”     //表示mounter是否上线，0：下线，1：上线
 }]”
 }

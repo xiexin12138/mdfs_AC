@@ -110,7 +110,7 @@ let router = new Router({
 					component:AddMounter
 				},
 				{
-					path:'updatemounter',
+					path:'updatemounter/:id',
 					component:UpdateMounter
 				}
 			]
