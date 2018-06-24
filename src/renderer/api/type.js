@@ -55,7 +55,14 @@ export const MON_PIETOTABLE = 29
 //在前端页面配置文件系统与mount节点之间的映射关系，添加文件系统的挂载节点
 export const MountFS_ADD = 32
 
+// 获取所有的挂载节点信息
+export const GET_MOUNTERS = 34
 
+// 管理单个挂载节点信息的增删改查
+export const MOUNTER_MANAGE = 31
+
+// 获取每个挂载节点中文件系统挂载信息
+export const SHOW_FS_MOUNT = 33
 /*****************************未实现的接口***********************************************/
 
 
