@@ -133,3 +133,39 @@ export async function submitGlobal(param) {
 		throw new Error(e.toString())
 	}
 }
+
+/**
+ * @author saisai
+ * @version 
+ * @date    2018-06-24
+ * @param   {Object}   data 一个对象，包含下面的字段
+ * @return  {Boolean}        true为正确提交，报错则不正确
+ * @description 新增文件系统挂载节点mountFs
+ */
+export async function submitMountFS(param) {
+	try {
+		// return true
+		let socket = new Socket()
+		let data = {
+			type: type.MountFS_ADD,
+			fsId:param.fsId,  //文件系统id
+			mounterId: param.mounterId, //挂载节点的id，与cmNode的id保持一致
+			mountAddr:param.mountAddr,  //文件系统的挂载路径          
+		}
+		let d = JSON.stringify(data)
+		let f = JSON.parse(d)
+
+		socket.write(JSON.stringify(data))
+		
+		let response = await socket.read()
+		console.log(response,2)
+		let obj = JSON.parse(response)
+		if (obj.state == 0) {
+			return true
+		} else {
+			throw new Error(obj.errormessage)
+		}
+	} catch (e) {
+		throw new Error(e.toString())
+	}
+}
