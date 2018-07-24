@@ -39,6 +39,7 @@
       </el-table-column>
       
     </el-table>
+    
     <el-row type="flex" class="row-bg" justify="end">
       <el-col style="width:480px;">
         <div class="divide">

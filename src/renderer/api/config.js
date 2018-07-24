@@ -148,8 +148,8 @@ export async function submitMountFS(param) {
 		let socket = new Socket()
 		let data = {
 			type: type.MountFS_ADD,
-			fsId:param.fsId,  //文件系统id
 			mounterId: param.mounterId, //挂载节点的id，与cmNode的id保持一致
+			fsId:param.fsId,  //文件系统id			
 			mountAddr:param.mountAddr,  //文件系统的挂载路径          
 		}
 		let d = JSON.stringify(data)

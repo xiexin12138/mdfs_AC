@@ -73,8 +73,9 @@ export default {
 				if (valid) {
 					// TODO 注释掉的文件上传需要重新开启，看后台实现没
 					let data = {
-						fsId:this.mountfsform.fsId,
+
 						mounterId: this.mountfsform.mounterId,
+						fsId:this.mountfsform.fsId,
 						mountAddr: this.mountfsform.mountAddr,
 					}
 					

@@ -15,29 +15,26 @@
       border
       style="width: 100%"
       height="300"
-
       >
 
       <el-table-column
-        prop="date"
+        prop="time"
         label="日期"
         width="280"
         >
       </el-table-column>
       <el-table-column
-        prop="fsystem"
+        prop="fs_name"
         label="文件系统"
         width="280">
       </el-table-column>
       <el-table-column
-        prop="errordata"
+        prop="error"
         label="错误数据"
         width="339">
       </el-table-column>
-
     </el-table>
-
-
+  
     <el-row type="flex" class="row-bg" justify="end">
       <el-col style="width:480px;">
         <div class="divide">
@@ -78,42 +75,60 @@ export default {
 	data(){
 		return {
 			chart:null,
+			table:null,
 			tableData: null,
-          	total:null,
-          	currentPage:null,
-          	pageSize:null,
-          	id:null
+          	total:20,
+          	currentPage:1,
+          	pageSize:10,
+          	id:1
+
+
 		}
 	},
+
+
 	methods:{
 		async handleCurrentChange(val){
 			let data = {
 				id:this.id,
 				pageSize:10,
-				currentPage:+val-1
+				currentPage:+val
 			}
 			// 取数据
 			let table = await status.MonitorPieTable(data)
+			 console.log(table)
 			this.tableData = table.data
-			this.total = table.total
-			this.currentPage = table.currentPage
-			this.pageSize = table.pageSize
+			this.total = +table.total
+			this.currentPage = +table.currentPage
+		    console.log(this.currentPage)
+			this.pageSize = +table.pageSize
+		
 		},
+
+
+
 		async handlePieClick(params){
+         
 			this.id = params.data.id
-			console.log(params.data.id)	// 这是对应点击部位的id，即文件系统的id
+			// console.log(params.data.id)	// 这是对应点击部位的id，即文件系统的id
 			let data = {
 				id:params.data.id,
 				pageSize:10,
-				currentPage:0
+				currentPage:1
 			}
 			// 取数据
 			let table = await status.MonitorPieTable(data)
+			 // console.log(table)
 			this.tableData = table.data
-			this.total = table.total
-			this.currentPage = table.currentPage
-			this.pageSize = table.pageSize
+			// console.log(table.data)
+			this.total = +table.total
+			// console.log(this.total)
+			this.currentPage = +table.currentPage
+			// console.log("currentPage is"+ this.currentPage)
+			this.pageSize = +table.pageSize
+			// console.log("pageSize is"+ this.pageSize)
 		},
+
 		getPie(data){
 			// 下面这个是示例，通过修改示例的data数据即可成功展示我们的内容
 			let option = {
@@ -191,20 +206,21 @@ export default {
 	},
 	mounted:async function(){
 		this.chart = echarts.init(document.getElementById('mainPie'))
-		// let data = await status.MonitorMetadata()
-		let data = [{
-					id:1,
-					sum:1,
-					fs_name:'fs1'
-				},{
-					id:2,
-					sum:4,
-					fs_name:'fs2'
-				},{
-					id:3,
-					sum:9,
-					fs_name:'fs3'
-				}]
+		let data = await status.MonitorMetadata()
+		// let data = [{
+		// 			id:1,
+		// 			sum:1,
+		// 			fs_name:'fs1'
+		// 		},{
+		// 			id:2,
+		// 			sum:4,
+		// 			fs_name:'fs2'
+		// 		},{
+		// 			id:3,
+		// 			sum:9,
+		// 			fs_name:'fs3'
+		// 		}]
+		// console.log(data);
 		this.getPie(data)
 	}
 }

@@ -27,7 +27,7 @@ const getters = {
 		return state.pageSize
 	},
 	getDataCurrentPage: state => {
-		return state.currentPage + 1
+		return state.currentPage +1
 	}
 }
 const mutations = {

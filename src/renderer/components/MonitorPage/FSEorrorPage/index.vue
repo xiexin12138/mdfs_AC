@@ -649,8 +649,8 @@ export default {
 			return data
 		},
 		async bindData() {
-			let data = this.updateData()
-			// let data = await status.MonitorFS()
+			// let data = this.updateData()
+			let data = await status.MonitorFS()
 			console.log(data)
 			this.ListData = handleList(data)
 			

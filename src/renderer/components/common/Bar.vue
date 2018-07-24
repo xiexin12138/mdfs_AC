@@ -36,9 +36,11 @@
 				<i class="el-icon-info"></i>
 				<span>挂载管理</span>
 			</template>
-			<el-menu-item index="/mounter/mountermanage">挂载节点配置</el-menu-item>
-			<el-menu-item index="/mounter/mountFS">文件系统挂载</el-menu-item>
-			<el-menu-item index="/mounter/showfsmount">挂载信息</el-menu-item>
+			<el-menu-item index="/mounter/mountFS">文件系统挂载关系配置</el-menu-item>
+			<el-menu-item index="/mounter/showfsmount">文件系统挂载关系展示</el-menu-item>
+			<el-menu-item index="/mounter/mountermanage">挂载节点管理</el-menu-item>
+			
+			
 		</el-submenu>
 
 	</el-menu>

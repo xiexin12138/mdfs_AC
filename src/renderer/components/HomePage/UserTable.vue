@@ -198,7 +198,7 @@ export default {
     handleCurrentChange(val) {
       this.$store.dispatch('getdatatable', {
         pageSize: this.pageSize,
-        currentPage: val
+        currentPage: val-1
       })
     },
     handleSelectionChange(val) {

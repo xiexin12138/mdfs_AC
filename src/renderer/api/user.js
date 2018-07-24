@@ -10,7 +10,7 @@ import * as type from './type'
  */
 export async function CheckUser(username, password) {
 	try {
-		return true
+		// return true
 		let socket = new Socket()
 		let data = {
 			type: type.LOGIN,
@@ -38,7 +38,7 @@ export async function CheckUser(username, password) {
  */
 export async function ChangePass(param){
 		try {
-		return true
+		// return true
 		let socket = new Socket()
 		let data = {
 			type: type.CHANGE_PASS,
@@ -67,7 +67,7 @@ export async function ChangePass(param){
  */
 export async function GetCaptcha(param){
 		try {
-		return true
+		// return true
 		let socket = new Socket()
 		let data = {
 			type: type.GET_CAPTCHA,
