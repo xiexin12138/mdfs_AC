@@ -28,6 +28,10 @@ import ShowFSMount from '@/components/MounterPage/ShowFSMount'
 import AddMounter from '@/components/MounterPage/AddMounter'
 import UpdateMounter from '@/components/MounterPage/UpdateMounter'
 
+import AuthManagePage from '@/components/AuthManagePage'
+import CreatDir from '@/components/AuthManagePage/CreatDir'
+import GroupManage from '@/components/AuthManagePage/GroupManage'
+
 Vue.use(Router)
 
 let router = new Router({
@@ -122,7 +126,24 @@ let router = new Router({
 		{
 			path:'/updateuser/:id',
 			component: UpdateUserPage
-		}
+		},
+		
+		{
+			path:'/auth',
+			component: AuthManagePage,
+			// vue-router的嵌套路由
+			children:[
+				{
+					path:'creatdir',
+					component:CreatDir
+				},
+				{
+					path:'groupmanage',
+					component:GroupManage
+				},
+			]
+		},
+
 	]
 
 })

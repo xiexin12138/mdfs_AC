@@ -63,6 +63,14 @@ export const MOUNTER_MANAGE = 31
 
 // 获取每个挂载节点中文件系统挂载信息
 export const SHOW_FS_MOUNT = 33
+
+//添加用户权限目录
+export const createDir = 35
+
+//修改用户的用户组
+export const ManageUserAndGroup = 36
+
+
 /*****************************未实现的接口***********************************************/
 
 

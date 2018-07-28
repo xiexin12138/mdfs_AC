@@ -38,9 +38,16 @@
 			</template>
 			<el-menu-item index="/mounter/mountFS">文件系统挂载关系配置</el-menu-item>
 			<el-menu-item index="/mounter/showfsmount">文件系统挂载关系展示</el-menu-item>
-			<el-menu-item index="/mounter/mountermanage">挂载节点管理</el-menu-item>
-			
-			
+			<el-menu-item index="/mounter/mountermanage">挂载节点管理</el-menu-item>			
+		</el-submenu>
+
+		<el-submenu index="/auth">
+			<template slot='title'>
+				<i class="el-icon-edit-outline"></i>
+				<span>权限管理</span>
+			</template>
+			<el-menu-item index="/auth/creatdir">创建目录</el-menu-item>
+			<el-menu-item index="/auth/groupmanage">用户组管理</el-menu-item>			
 		</el-submenu>
 
 	</el-menu>
