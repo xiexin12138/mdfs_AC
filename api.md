@@ -194,9 +194,10 @@ res:
 req:
 {
 	type:'addFS',   // 对应的请求码是20
-	fsId:1,			// 文件系统对应的id
+    id:’1’,			//文件系统id
 	fsName:'ceph1',   // 文件系统名称
 	fsType:'ceph',   // 文件系统类型
+    mountPoint:’/mnt/fs1’,	//文件系统挂载路径    ------------新增字段
 	matadatePool:'ceph mata', // 元数据池名称
 	dataPools:'ceph data',  // 数据池名称
 	fsIP:'127.0.0.1',  // 文件服务器地址
@@ -211,6 +212,7 @@ res:
 	state: 0,  // 错误类型码，0表示成功
 	errormessage:'' // 错误信息
 }
+
 
 // 新增挂载节点 这个功能已经取消
 req:
@@ -438,5 +440,33 @@ Resp
 }
 ]”
 }
+
+//添加用户权限目录：
+req{
+	type : createDir 	//35
+	dirName : temp  //目录名称
+	user : scott      //用户名
+	group : group1   //用户组名
+	auth : 755		//该目录对应的权限
+}
+res:{
+	type: createDir,
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+}
+
+//修改用户的用户组：
+Req{
+		type : ManageUserAndGroup 	//36
+user : scott					//用户名
+group : group1					//用户组名
+operation : add				//对应的操作
+}
+res:{
+type: ManageUserAndGroup,
+state: 0,  // 错误类型码，0表示成功
+errormessage:'' // 错误信息
+}
+
 
 ```

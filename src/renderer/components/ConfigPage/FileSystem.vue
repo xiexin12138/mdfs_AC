@@ -3,7 +3,7 @@
   		<el-row type="flex" justify="center">
   		<el-col style="width:500px;">
 		<div style="margin:20px 0;">
-			<el-form status-icon label-width="130px" ref="fsform" :model="fsform" :rules="newrule">
+			<el-form status-icon label-width="140px" ref="fsform" :model="fsform" :rules="newrule">
 				<el-form-item label="文件系统id" prop="fsId" >
 					<el-input size="small" v-model="fsform.fsId"></el-input>
 				</el-form-item>
@@ -12,6 +12,9 @@
 				</el-form-item>
 				<el-form-item label="文件系统类型" prop="fsType" >
 					<el-input size="small" v-model="fsform.fsType"></el-input>
+				</el-form-item>	
+				<el-form-item label="文件系统挂载路径" prop="mountPoint" >
+					<el-input size="small" v-model="fsform.mountPoint"></el-input>                
 				</el-form-item>
 				<el-form-item label="元数据池名称" prop="matadatePool" >
 					<el-input size="small" v-model="fsform.matadatePool"></el-input>
@@ -87,6 +90,7 @@ export default {
 				fsId:null,
 				fsName:null,
 				fsType:null,
+				mountPoint:null,
 				matadatePool:null,
 				dataPools:null,
 				fsIP:null,
@@ -106,6 +110,9 @@ export default {
 				],
 				fsType:[
 					{ required:true, message:'请输入文件系统类型及版本号', trigger:'blur'}
+				],
+				mountPoint:[
+					{ required:true, message:'请输入文件系统挂载路径', trigger:'blur'}
 				],
 				matadatePool:[
 					{ required:true, message:'请输入元数据池名称', trigger:'blur'}
@@ -142,6 +149,7 @@ export default {
 						fsId:this.fsform.fsId,
 						fsName:this.fsform.fsName,
 						fsType:this.fsform.fsType,
+						mountPoint:this.fsform.mountPoint,
 						matadatePool:this.fsform.matadatePool,
 						dataPools:this.fsform.dataPools,
 						fsIP:this.fsform.fsIP,

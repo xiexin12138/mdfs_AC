@@ -29,9 +29,9 @@ export async function submitCertExpire(param) {
 	}
 }
 /**
- * @author Craig
+ * @author saisai
  * @version 1.0.0
- * @date    2018-04-06
+ * @date    2018-07-28
  * @param   {Object}   data 一个对象，包含下面的字段
  * @return  {Boolean}        true为正确提交，报错则不正确
  * @description 新增文件系统
@@ -45,6 +45,7 @@ export async function submitFS(param) {
 			fsId: param.fsId, // 文件系统名称
 			fsName: param.fsName, // 文件系统名称
 			fsType: param.fsType, // 文件系统名称
+			mountPoint: param.mountPoint, //文件系统挂载路径————新增字段
 			matadatePool: param.matadatePool, // 元数据池名称
 			dataPools: param.dataPools, // 数据池名称
 			fsIP: param.fsIP, // 文件服务器地址
