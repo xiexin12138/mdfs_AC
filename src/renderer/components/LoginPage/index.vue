@@ -85,7 +85,7 @@
 								type:'success',
 								duration:2000
 							})
-							this.$router.push({ path: '/home' })
+							this.$router.push({ path: '/user/userlist' })
 						}).catch((e)=>{
 							Message({
 								showClose: true,

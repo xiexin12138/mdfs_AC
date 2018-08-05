@@ -441,19 +441,47 @@ Resp
 ]”
 }
 
-//添加用户权限目录：
+//管理用户权限目录：
 req{
-	type : createDir 	//35
+	type : manageDir 	//35
+operation:search  //1: query, 2: add, 3：delete 
 	dirName : temp  //目录名称
 	user : scott      //用户名
 	group : group1   //用户组名
 	auth : 755		//该目录对应的权限
+pagesize :			//一也可以有多少项
+currentPage :		//当前页码
+id: …..
 }
-res:{
-	type: createDir,
+    Add和delete操作的返回信息：
+res:{ 
+	type: manageDir,
 	state: 0,  // 错误类型码，0表示成功
 	errormessage:'' // 错误信息
 }
+    query操作的返回信息：
+res:{ 
+		//query返回信息
+	type: manageDir,
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+total:28		//总数量
+pagesize :			//一也可以有多少项
+currentPage :		//当前页码
+	userDir:[
+		{
+			id:3
+			dirName : temp
+			user : scott
+			group : group1
+			auth : 755
+},
+{
+….
+}
+]
+}
+
 
 //修改用户的用户组：
 Req{

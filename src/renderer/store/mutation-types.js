@@ -9,3 +9,9 @@ export const GET_DATATABLE="GET_DATATABLE"
 export const GET_MOUNTERS = "GET_MOUNTERS"
 // 删除挂载节点信息
 export const DELETE_MOUNTERS = "DELETE_MOUNTERS"
+
+
+// 获取所有目录权限信息
+export const GET_DIRS = "GET_DIRS"
+// 删除挂载目前权限信息
+export const DELETE_DIRS = "DELETE_DIRS"

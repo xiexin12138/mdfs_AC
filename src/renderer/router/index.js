@@ -6,7 +6,7 @@ import Router from 'vue-router'
 
 import ResetPasswordPage from '@/components/ResetPasswordPage'
 import LoginPage from '@/components/LoginPage'
-import HomePage from '@/components/HomePage'
+// import HomePage from '@/components/HomePage'
 import NewUserPage from '@/components/NewUserPage'
 import UpdateUserPage from '@/components/UpdateUserPage'
 
@@ -30,7 +30,12 @@ import UpdateMounter from '@/components/MounterPage/UpdateMounter'
 
 import AuthManagePage from '@/components/AuthManagePage'
 import CreatDir from '@/components/AuthManagePage/CreatDir'
-import GroupManage from '@/components/AuthManagePage/GroupManage'
+import AddDir from '@/components/AuthManagePage/AddDir'
+
+import UserManagePage from '@/components/UserManagePage'
+import UserListPage from '@/components/UserManagePage/UserListPage'
+import GroupListPage from '@/components/UserManagePage/GroupListPage'
+import UserGroupManagePage from '@/components/UserManagePage/UserGroupManagePage'
 
 Vue.use(Router)
 
@@ -45,10 +50,32 @@ let router = new Router({
 			path:'/',
 			component: LoginPage
 		},
+
+		
 		{
-			path:'/home',
-			component: HomePage
+			path:'/user',
+			component: UserManagePage,
+			// vue-router的嵌套路由
+			children:[
+				{
+					path:'userlist',
+					component:UserListPage
+				},
+				{
+					path:'grouplist',
+					component:GroupListPage
+				},
+				{
+					path:'usergroupmanage',
+					component:UserGroupManagePage
+				},
+
+			]
 		},
+		// {
+		// 	path:'/home',
+		// 	component: HomePage
+		// },
 		{
 			path:'/config',
 			component: ConfigPage,
@@ -138,11 +165,12 @@ let router = new Router({
 					component:CreatDir
 				},
 				{
-					path:'groupmanage',
-					component:GroupManage
+					path:'adddir',
+					component:AddDir
 				},
 			]
 		},
+
 
 	]
 

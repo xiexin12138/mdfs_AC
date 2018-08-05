@@ -33,7 +33,7 @@
  */
 import Vue from 'vue'
 import { Button, Input, Form, FormItem, Message, Row, Col, Upload } from 'element-ui'
-import * as authGroup from '../../api/authGroup'
+import * as authGroup from '../../../api/authGroup'
 
 Vue.use(Button)
 Vue.use(Input)

@@ -2,10 +2,22 @@
 
 <el-header>
 	<el-menu :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="" v-bind:router="true">
-		<el-menu-item index="/home" >
+       	
+       	<el-submenu index="/user">
+			<template slot='title'>
+				<i class="el-icon-document"></i>
+				<span>用户管理</span>
+			</template>
+			<el-menu-item index="/user/userlist">用户列表管理</el-menu-item>
+			<el-menu-item index="/user/grouplist">用户组管理</el-menu-item>
+			<el-menu-item index="/user/usergroupmanage">用户与组映射关系管理</el-menu-item>
+		</el-submenu>
+
+
+	<!-- 	<el-menu-item index="/home" >
 			<i class="el-icon-document"></i>
 			<span slot="title">用户管理</span>
-		</el-menu-item>
+		</el-menu-item> -->
 		<!-- <el-menu-item index="/config" >
 			<i class="el-icon-setting"></i>
 			<span slot="title">配置管理</span>
@@ -46,8 +58,8 @@
 				<i class="el-icon-edit-outline"></i>
 				<span>权限管理</span>
 			</template>
-			<el-menu-item index="/auth/creatdir">创建目录</el-menu-item>
-			<el-menu-item index="/auth/groupmanage">用户组管理</el-menu-item>			
+			<el-menu-item index="/auth/creatdir">目录管理</el-menu-item>
+		
 		</el-submenu>
 
 	</el-menu>
