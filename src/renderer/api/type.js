@@ -67,8 +67,25 @@ export const SHOW_FS_MOUNT = 33
 // 管理用户权限目录信息
 export const MANAGE_DIRS = 35
 
+//修改用户目录
+export const CHANGE_DIR = 44
+
 //修改用户的用户组
 export const ManageUserAndGroup = 36
+
+//查询所有群组
+export const GROUP_INFO = 39
+
+//修改组群
+export const CHANGE_GROUP = 40
+
+//删除选中组群
+export const DELETE_GROUP = 41
+
+//新建组群
+export const CREATE_GROUP = 42
+
+
 
 
 

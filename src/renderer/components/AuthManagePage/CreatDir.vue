@@ -8,7 +8,7 @@
         <div style="margin-bottom:10px;">
         <el-button type="primary" size="medium" @click="goToNewDir" round>新建</el-button>
         <el-button type="primary" size="medium" @click="deleteDirs" round>删除</el-button>
-        <!-- <el-button type="primary" size="medium" @click="goToUpdateMounter" round>修改</el-button> -->
+        <el-button type="primary" size="medium" @click="goToUpdateDir" round>修改</el-button>
         </div>
       </el-col>
     </el-row>
@@ -164,19 +164,20 @@ export default {
       this.$router.push({ path: '/auth/adddir' })
     },
 
-    // goToUpdateMounter() {
-    //   if (this.multipleSelection.length !== 1) {
-    //     Message({
-    //       showClose: true,
-    //       message: '请选择一项用户进行修改',
-    //       type: 'error',
-    //       duration: 2000
-    //     })
-    //     return false
-    //   }
-    //   let id = this.multipleSelection[0].id
-    //   this.$router.push({ path: '/mounter/updatemounter/' + id })
-    // },
+    goToUpdateDir() {
+      if (this.multipleSelection.length !== 1) {
+        Message({
+          showClose: true,
+          message: '请选择一个目录项进行修改',
+          type: 'error',
+          duration: 2000
+        })
+        return false
+      }
+      let id = this.multipleSelection[0].id
+      console.log(id)
+      this.$router.push({ path: '/auth/upadatedir/' + id })
+    },
 
    async deleteDirs() {
       if (this.multipleSelection.length === 0) {
@@ -228,7 +229,7 @@ export default {
       // 选中的都是一整行数据
       this.multipleSelection = val
       // console.log( this.multipleSelection[0].user)
-      console.log( this.multipleSelection.length)
+      // console.log( this.multipleSelection.length)
     }
   }
 

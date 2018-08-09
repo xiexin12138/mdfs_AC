@@ -15,3 +15,8 @@ export const DELETE_MOUNTERS = "DELETE_MOUNTERS"
 export const GET_DIRS = "GET_DIRS"
 // 删除挂载目前权限信息
 export const DELETE_DIRS = "DELETE_DIRS"
+
+//获取所有组群信息
+export const GET_GROUPS = "GET_GROUPS"
+//删除组群
+export const DELETE_GROUPS = "DELETE_GROUPS"

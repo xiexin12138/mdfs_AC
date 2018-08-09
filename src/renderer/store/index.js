@@ -4,6 +4,7 @@ import user from './modules/user'
 import userTable from './modules/userTable'
 import mounter from './modules/mounter'
 import dir from './modules/dir'
+import group from './modules/group'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
 		user,
 		userTable,
 		mounter,
-		dir
+		dir,
+		group,
 	}
 	
 })

@@ -31,10 +31,14 @@ import UpdateMounter from '@/components/MounterPage/UpdateMounter'
 import AuthManagePage from '@/components/AuthManagePage'
 import CreatDir from '@/components/AuthManagePage/CreatDir'
 import AddDir from '@/components/AuthManagePage/AddDir'
+import UpdateDir from '@/components/AuthManagePage/UpdateDir'
+
 
 import UserManagePage from '@/components/UserManagePage'
 import UserListPage from '@/components/UserManagePage/UserListPage'
 import GroupListPage from '@/components/UserManagePage/GroupListPage'
+import AddGroup from '@/components/UserManagePage/GroupListPage/AddGroup'
+import UpdateGroup from '@/components/UserManagePage/GroupListPage/UpdateGroup'
 import UserGroupManagePage from '@/components/UserManagePage/UserGroupManagePage'
 
 Vue.use(Router)
@@ -64,6 +68,14 @@ let router = new Router({
 				{
 					path:'grouplist',
 					component:GroupListPage
+				},
+				{
+					path:'addgroup',
+					component:AddGroup
+				},
+				{
+					path:'updategroup/:id',
+					component:UpdateGroup
 				},
 				{
 					path:'usergroupmanage',
@@ -167,6 +179,10 @@ let router = new Router({
 				{
 					path:'adddir',
 					component:AddDir
+				},
+				{
+					path:'upadatedir/:id',
+					component:UpdateDir
 				},
 			]
 		},

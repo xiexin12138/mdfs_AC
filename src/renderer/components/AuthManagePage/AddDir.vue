@@ -29,6 +29,8 @@
 
                  <el-form-item label="目录对应权限" prop="auth"></el-form-item>
 
+                 <div class="auth_grap">
+
                  <el-form-item label="拥有者：">
 				    <el-checkbox v-model="checkeduser_r" label="r"></el-checkbox>
 				    <el-checkbox v-model="checkeduser_w" label="w"></el-checkbox> 
@@ -46,12 +48,14 @@
 				    <el-checkbox v-model="checkedother_w" label="w"></el-checkbox> 
 				    <el-checkbox v-model="checkedother_x" label="x"></el-checkbox>                
 				</el-form-item>
+			   </div>
 
-				
-				<el-form-item >
+				<div class="btn_grap">
+				<el-form-item  >
 					<el-button type="primary" @click="submitForm('dirform')">提交</el-button>
 					<el-button @click="resetForm('dirform')">重置</el-button>
 				</el-form-item>
+			</div>
 			</el-form>
 		</div>
 		</el-col>
@@ -236,3 +240,16 @@ export default {
 }
 
 </script>
+
+<style>
+	.auth_grap{
+		display: block;
+		margin-left: 25%;
+
+		/*text-align: center;*/
+	}
+	.btn_grap{
+		display: block;
+		margin-left: 20%;
+	}
+</style>
