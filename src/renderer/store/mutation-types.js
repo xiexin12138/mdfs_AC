@@ -20,3 +20,8 @@ export const DELETE_DIRS = "DELETE_DIRS"
 export const GET_GROUPS = "GET_GROUPS"
 //删除组群
 export const DELETE_GROUPS = "DELETE_GROUPS"
+
+//获取所有用户与组群关系信息
+export const GET_GROUPSRELA = "GET_GROUPSRELA"
+//删除特定用户与组群关系
+export const DELETE_GROUPSRELA = "DELETE_GROUPSRELA"

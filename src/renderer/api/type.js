@@ -85,6 +85,9 @@ export const DELETE_GROUP = 41
 //新建组群
 export const CREATE_GROUP = 42
 
+//查询用户与组群的关系
+export const USER_GROUP = 43
+
 
 
 

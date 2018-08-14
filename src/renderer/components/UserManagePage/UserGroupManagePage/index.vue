@@ -6,9 +6,9 @@
   <el-row type="flex" justify="end">
       <el-col style="width:250px;">
         <div style="margin-bottom:10px;">
-        <el-button type="primary" size="medium" @click="goToNewGroup" round>新建</el-button>
-        <el-button type="primary" size="medium" @click="deletegrouprelas" round>删除</el-button>
-        <el-button type="primary" size="medium" @click="goToUpdategrouprelas" round>修改</el-button>
+        <el-button type="primary" size="medium" @click="goToNewGroupRela" round>新建</el-button>
+        <el-button type="primary" size="medium" @click="deleteGrouprelas" round>删除</el-button>
+        <el-button type="primary" size="medium" @click="goToUpdateGrouprelas" round>修改</el-button>
         </div>
       </el-col>
     </el-row>
@@ -100,123 +100,130 @@ export default {
   },
 
   methods: {
-    // 将更新整个页面的功能抽离成一个公共函数
- //    async updatePage(){
- //      await this.$store.dispatch('getgrouprelas', { 
+    //将更新整个页面的功能抽离成一个公共函数
+    async updatePage(){
+      await this.$store.dispatch('getgrouprelas', { 
 
- //        pageSize: 10,
- //        currentPage: 1,
+        pageSize: 10,
+        currentPage: 1,
          
 
- //      }).catch((e)=>{
- //        Message({
- //            showClose: true,
- //            message: e.toString(),
- //            type: 'error',
- //            duration: 2000
- //          })
- //      })
- //      let g = this.$store.getters.getgrouprelas
- //      // console.log(g)
- //      this.grouprelas = g.grouprelas
- //      this.total = +g.total
- //      this.pageSize= +g.pageSize
- //      this.currentPage= +g.currentPage
- //    },
+      }).catch((e)=>{
+        Message({
+            showClose: true,
+            message: e.toString(),
+            type: 'error',
+            duration: 2000
+          })
+      })
+      let g = this.$store.getters.getGrouprelas
+      // console.log(g)
+      this.grouprelas = g.userGroups
+      this.total = +g.total
+      this.pageSize= +g.pageSize
+      this.currentPage= +g.currentPage
+    },
 
 
-	// 	async handleCurrentChange(val){
+		async handleCurrentChange(val){
 
- //      await this.$store.dispatch('getgrouprelas', { 
+      await this.$store.dispatch('getgrouprelas', { 
 
- //        pageSize: 10,
- //        currentPage: val,
+        pageSize: 10,
+        currentPage: val,
       
- //      }).catch((e)=>{
- //        Message({
- //            showClose: true,
- //            message: e.toString(),
- //            type: 'error',
- //            duration: 2000
- //          })
- //      })
- //      let g = this.$store.getters.getgrouprelas
- //      this.grouprelas = g.grouprelas
- //      this.total = +g.total
- //      this.pageSize= +g.pageSize
- //      this.currentPage= +g.currentPage
+      }).catch((e)=>{
+        Message({
+            showClose: true,
+            message: e.toString(),
+            type: 'error',
+            duration: 2000
+          })
+      })
+      let g = this.$store.getters.getgrouprelas
+      this.grouprelas = g.userGroups
+      this.total = +g.total
+      this.pageSize= +g.pageSize
+      this.currentPage= +g.currentPage
 		
-	// 	},
+		},
 
- // //新建目录，跳转至新建目录页面
- //    goToNewGroup() {
- //      this.$router.push({ path: '/user/addgroup' })
- //    },
+ //新建目录，跳转至新建目录页面
+    goToNewGroupRela() {
+      this.$router.push({ path: '/user/addgrouprela' })
+    },
 
- //    goToUpdategrouprelas() {
- //      if (this.multipleSelection.length !== 1) {
- //        Message({
- //          showClose: true,
- //          message: '请选择一个组进行修改',
- //          type: 'error',
- //          duration: 2000
- //        })
- //        return false
- //      }
- //      let id = this.multipleSelection[0].id
- //      // console.log(id)
- //      // this.$router.push({ path: '/user/updategroup/' })
- //      this.$router.push({ path: '/user/updategroup/' + id })
- //    },
+    goToUpdateGrouprelas() {
+      if (this.multipleSelection.length !== 1) {
+        Message({
+          showClose: true,
+          message: '请选择一个用户与组的关系进行修改',
+          type: 'error',
+          duration: 2000
+        })
+        return false
+      }
+      let targetuser = this.multipleSelection[0].user
+      // console.log(id)
+      // this.$router.push({ path: '/user/updategroup/' })
+      this.$router.push({ path: '/user/updategrouprela/' + targetuser })
+    },
 
- //   async deletegrouprelas() {
- //    console.log(this.multipleSelection.length)
- //      if (this.multipleSelection.length === 0) {
- //        Message({
- //          showClose: true,
- //          message: '请选择需要删除的目录',
- //          type: 'error',
- //          duration: 2000
- //        })
- //        return false
- //      }
- //       // let id = this.multipleSelection.map(({ id }) => id)
- //      var id=new Array();
- //      var groupname= new Array();
+   async deleteGrouprelas() {
+    console.log(this.multipleSelection.length)
+      if (this.multipleSelection.length === 0) {
+        Message({
+          showClose: true,
+          message: '请选择需要删除的目录',
+          type: 'error',
+          duration: 2000
+        })
+        return false
+      }
+       // let id = this.multipleSelection.map(({ id }) => id)
+      var id=new Array();
+      var user= new Array();
+      var group= new Array();
+      var operation = new Array();
 
- //      for (let i = 0; i < this.multipleSelection.length; i++) {
- //        groupname.push(this.multipleSelection[i].groupName)
- //        id.push(this.multipleSelection[i].id)
- //      }
- //       // console.log(groupname)
- //       // console.log(id)
+      for (let i = 0; i < this.multipleSelection.length; i++) {
+        group.push(this.multipleSelection[i].userGroup )
+        id.push(this.multipleSelection[i].id)
+        user.push(this.multipleSelection[i].user)
+        operation.push('del')
 
- //      // TODO 返回结果的处理
- //      this.$store
- //        .dispatch('deletegrouprelas', {
- //          id,
- //          groupname,
- //        })
- //        .then(() => {
- //          Message({
- //            showClose: true,
- //            message: '操作成功',
- //            type: 'success',
- //            duration: 2000
- //          })
- //        })
- //        .catch(e => {
- //          Message({
- //            showClose: true,
- //            message: e.message,
- //            type: 'error',
- //            duration: 2000
- //          })
- //        })
+      }
+       // console.log(groupname)
+       // console.log(id)
 
- //        await this.updatePage()
+      // TODO 返回结果的处理
+      this.$store
+        .dispatch('deletegrouprelas', {
+          id,
+          user,
+          group,
+          operation,
+        })
+        .then(() => {
+          Message({
+            showClose: true,
+            message: '操作成功',
+            type: 'success',
+            duration: 2000
+          })
+        })
+        .catch(e => {
+          Message({
+            showClose: true,
+            message: e.message,
+            type: 'error',
+            duration: 2000
+          })
+        })
 
- //    },
+        await this.updatePage()
+
+    },
 
     handleSelectionChange(val) {
       // 选中的都是一整行数据

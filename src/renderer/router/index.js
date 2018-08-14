@@ -40,6 +40,8 @@ import GroupListPage from '@/components/UserManagePage/GroupListPage'
 import AddGroup from '@/components/UserManagePage/GroupListPage/AddGroup'
 import UpdateGroup from '@/components/UserManagePage/GroupListPage/UpdateGroup'
 import UserGroupManagePage from '@/components/UserManagePage/UserGroupManagePage'
+import AddGroupRela from '@/components/UserManagePage/UserGroupManagePage/AddGroupRela'
+import UpdateGroupRela from '@/components/UserManagePage/UserGroupManagePage/UpdateGroupRela'
 
 Vue.use(Router)
 
@@ -80,6 +82,14 @@ let router = new Router({
 				{
 					path:'usergroupmanage',
 					component:UserGroupManagePage
+				},
+				{
+					path:'addgrouprela',
+					component:AddGroupRela
+				},
+				{
+					path:'updategrouprela/:targetuser',
+					component:UpdateGroupRela
 				},
 
 			]

@@ -1,7 +1,7 @@
 /**
  * @author Sai
  * @version 
- * @date    2018-07-29
+ * @date    2018-08-14
  * @description  目录管理
  *              这里的actions采用了async await，并且把错误抛出，交给调用者处理。
  */
@@ -12,39 +12,39 @@ import * as authGroup from '../../api/authGroup'
  * @type {Object}
  */
 const state = {
-	dirs: []
+	grouprelas: []
 }
 
 const getters = {
-	getDirs: state => {
-		return state.dirs
+	getGrouprelas: state => {
+		return state.grouprelas
 	}
 }
 const mutations = {
-	[types.DELETE_DIRS](state, payload) {
-		state.dirs = [
-			...state.dirs.filter(value => {
+	[types.DELETE_GROUPSRELA](state, payload) {
+		state.grouprelas = [
+			...state.grouprelas.filter(value => {
 				return !payload.id.includes(value.id)
 			})
 		]
 	},
-	[types.GET_DIRS](state, payload) {
-		state.dirs = payload.dirs
+	[types.GET_GROUPSRELA](state, payload) {
+		state.grouprelas = payload.grouprelas
 	}
 }
 
 const actions = {
-	async deletedirs({ commit }, payload) {
-		let result = await authGroup.DeleteDirs(payload.id,payload.username)
-		commit(types.DELETE_DIRS, payload)
+	async deletegrouprelas({ commit }, payload) {
+		let result = await authGroup.DeleteGroupsRela(payload.user,payload.group,payload.operation)
+		// commit(types.DELETE_GROUPSRELA, payload)
 	},
-	async getdirs({ commit }, payload) {
-		let data = await authGroup.GetDirs(payload)
+	async getgrouprelas({ commit }, payload) {
+		let data = await authGroup.GetGroupRelas(payload)
 		// console.log(payload);
 		let datanew = data || {
-			dirs: []
+			grouprelas: []
 		}
-		commit(types.GET_DIRS, datanew)
+		commit(types.GET_GROUPSRELA, datanew)
 		if (!data) {
 			throw new Error('服务器出错！')
 		}

@@ -56,17 +56,17 @@ export default {
 				// id: group.id,
 				// groupName: group.groupName,
 
-				id:'4',
-				groupName:'hh'
+				id:targetID,
+				groupName:''
 			},
 			// group:group,
 			newrule: {
-				id:[
-					{ required:true, message:'请输入组群id', trigger:'blur'}
-				],
-				// groupName:[
-				// 	{ required:true, message:'请输入新的组群名称', trigger:'blur'}
+				// id:[
+				// 	{ required:true, message:'请输入组群id', trigger:'blur'}
 				// ],
+				groupName:[
+					{ required:true, message:'请输入新的组群名称', trigger:'blur'}
+				],
 
 			}
 		}
@@ -99,6 +99,8 @@ export default {
 								duration: 2000
 							})
 						})
+				
+
 				} else {
 					return false
 				}

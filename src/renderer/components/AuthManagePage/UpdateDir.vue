@@ -7,18 +7,19 @@
 				<el-form-item label="目录id" prop="id" >
 					<el-input size="small" v-model="changedirform.id" disabled></el-input>
 				</el-form-item>
-				<el-form-item label="目录原名称" prop="dirName" >
+<!-- 				<el-form-item label="目录原名称" prop="dirName" >
 					<el-input size="small" v-model="changedirform.dirName" disabled></el-input>
-				</el-form-item>
+				</el-form-item> -->
 				<el-form-item label="目录新名称" prop="newDirName" >
 					<el-input size="small" v-model="changedirform.newDirName"></el-input>
 				</el-form-item>
-				<el-form-item label="目录原路径" prop="path " >
+<!-- 				<el-form-item label="目录原路径" prop="path " >
 					<el-input size="small" v-model="changedirform.path " disabled></el-input>
-				</el-form-item>
+				</el-form-item> -->
 				<el-form-item label="目录新路径" prop="newPath " >
 					<el-input size="small" v-model="changedirform.newPath"></el-input>
 				</el-form-item>
+
 
             <div class="btn_grap">
 				<el-form-item >
@@ -69,11 +70,11 @@ export default {
 				// newPath:dir.path,
 				// newDirName:dir.dirName,
 
-				id:'5',
+				id:targetID,
 				path:'/fs1',
 				dirName:'yu1',
-				newPath:'/fs1',
-				newDirName:'yu1',
+				newPath:'',
+				newDirName:'',
 			},
 			// group:group,
 			newrule: {
@@ -83,7 +84,6 @@ export default {
 				newDirName:[
 					{ required:true, message:'请输入新目录名', trigger:'blur'}
 				],
-
 			}
 		}
 	},
