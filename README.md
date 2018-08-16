@@ -29,6 +29,8 @@ yarn test
 ```
 这个文件被放置在Windows中%APPDATA%目录下的mimic文件夹中，一般是C:\Users\xxx\AppData\Roaming\mimic
 
+****注意！还需自行安装freeSSHd.exe********
+
 ### 统计代码的行数
 ```
  find -name "*[.vue|.js]" -type f | xargs cat | wc -l

@@ -56,10 +56,10 @@
 		<el-submenu index="/auth">
 			<template slot='title'>
 				<i class="el-icon-edit-outline"></i>
-				<span>权限管理</span>
+				<span>其他管理</span>
 			</template>
 			<el-menu-item index="/auth/creatdir">目录管理</el-menu-item>
-		
+			<el-menu-item index="/auth/errorfilemanage">异常文件管理</el-menu-item>			
 		</el-submenu>
 
 	</el-menu>
@@ -85,9 +85,10 @@ export default {
 	name:'Bar',
 	data() {
 		return {
-			route1:{ path:'/home'},
+			route1:{ path:'/user'},
 			route2:{ path:'/config'},
 			route3:{ path:'/monitor'},
+			route4:{ path:'/auth'},
 		}
 	}
 }

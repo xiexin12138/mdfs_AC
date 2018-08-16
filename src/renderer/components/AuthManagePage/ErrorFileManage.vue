@@ -4,36 +4,49 @@
   <el-col style="width:750px;">
   <div class="grid-content">
   <el-row type="flex" justify="end">
-      <el-col style="width:250px;">
+      <el-col style="width:75px;">
         <div style="margin-bottom:10px;">
-        <el-button type="primary" size="medium" @click="goToNewGroup" round>新建</el-button>
-        <el-button type="primary" size="medium" @click="deleteGroups" round>删除</el-button>
-        <el-button type="primary" size="medium" @click="goToUpdateGroups" round>修改</el-button>
+        <el-button type="primary" size="medium" @click="goToDownloadErrorFile" round>下载</el-button>
         </div>
       </el-col>
     </el-row>
     <el-table
-      :data="groups"
+      :data="errorfiles"
       stripe
       border
       style="width: 100%"
       height="300"
       @selection-change="handleSelectionChange">
+
       <el-table-column
         type="selection"
         width="50">
       </el-table-column>
+
       <el-table-column
-        prop="id"
-        label="组群id"
+        prop="exFsName"
+        label="异常文件名称"
         width="150">
       </el-table-column>
+
       <el-table-column
-        prop="groupName"
-        label="组群名称"
-        width="549">
+        prop="fsid"
+        label="所属文件系统ID"
+        width="150">
       </el-table-column>
-     
+
+      <el-table-column
+        prop="time"
+        label="异常文件生成时间"
+        width="200">
+      </el-table-column>
+
+      <el-table-column
+        prop="srcPath"
+        label="异常文件全路径"
+        width="199">
+      </el-table-column>
+
 
       
     </el-table>
@@ -90,14 +103,14 @@ export default {
       total:10,
       currentPage:1,
       pageSize:10,
-      groups: []
+      errorfiles: []
     }
   },
 
   methods: {
     // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
-      await this.$store.dispatch('getgroups', { 
+      await this.$store.dispatch('getefiles', { 
 
         pageSize: 10,
         currentPage: 1,
@@ -111,9 +124,9 @@ export default {
             duration: 2000
           })
       })
-      let g = this.$store.getters.getGroups
-      // console.log(g)
-      this.groups = g.groups
+      let g = this.$store.getters.getEfiles
+      console.log(g)
+      this.errorfiles = g.fsList 
       this.total = +g.total
       this.pageSize= +g.pageSize
       this.currentPage= +g.currentPage
@@ -135,8 +148,9 @@ export default {
             duration: 2000
           })
       })
-      let g = this.$store.getters.getGroups
-      this.groups = g.groups
+      let g = this.$store.getters.getEfiles
+      console.log(g)
+      this.errorfiles = g.fsList 
       this.total = +g.total
       this.pageSize= +g.pageSize
       this.currentPage= +g.currentPage
@@ -144,74 +158,28 @@ export default {
 		},
 
  //新建目录，跳转至新建目录页面
-    goToNewGroup() {
-      this.$router.push({ path: '/user/addgroup' })
-    },
+    goToDownloadErrorFile() {
 
-    goToUpdateGroups() {
       if (this.multipleSelection.length !== 1) {
         Message({
           showClose: true,
-          message: '请选择一个组进行修改',
+          message: '请选择一个异常文件进行下载',
           type: 'error',
           duration: 2000
         })
         return false
       }
-      let id = this.multipleSelection[0].id
+
+      let download_info=this.multipleSelection[0].exFsName
+      console.log(download_info)
+ 
+
       // console.log(id)
-      // this.$router.push({ path: '/user/updategroup/' })
-      this.$router.push({ path: '/user/updategroup/' + id })
+      // this.$router.push({ path: '/auth/upadatedir/' + id })
+      this.$router.push({ path: '/auth/downloadfile/' + download_info})
     },
 
-   async deleteGroups() {
-    console.log(this.multipleSelection.length)
-      if (this.multipleSelection.length === 0) {
-        Message({
-          showClose: true,
-          message: '请选择需要删除的目录',
-          type: 'error',
-          duration: 2000
-        })
-        return false
-      }
-       // let id = this.multipleSelection.map(({ id }) => id)
-      var id=new Array();
-      var groupname= new Array();
 
-      for (let i = 0; i < this.multipleSelection.length; i++) {
-        groupname.push(this.multipleSelection[i].groupName)
-        id.push(this.multipleSelection[i].id)
-      }
-       // console.log(groupname)
-       // console.log(id)
-
-      // TODO 返回结果的处理
-      this.$store
-        .dispatch('deletegroups', {
-          id,
-          groupname,
-        })
-        .then(() => {
-          Message({
-            showClose: true,
-            message: '操作成功',
-            type: 'success',
-            duration: 2000
-          })
-        })
-        .catch(e => {
-          Message({
-            showClose: true,
-            message: e.message,
-            type: 'error',
-            duration: 2000
-          })
-        })
-
-        await this.updatePage()
-
-    },
 
     handleSelectionChange(val) {
       // 选中的都是一整行数据

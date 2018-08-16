@@ -46,7 +46,7 @@
       <el-table-column
         prop="online"
         label="是否在线"
-        width="150">
+        width="159">
       </el-table-column>
       
     </el-table>

@@ -11,6 +11,6 @@ import Bar from '@/components/common/Bar'
 export default {
 	components: {
 		Bar
-	}
+	},
 }
 </script>

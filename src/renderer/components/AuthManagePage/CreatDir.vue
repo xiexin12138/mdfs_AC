@@ -34,14 +34,14 @@
         width="150">
       </el-table-column>
       <el-table-column
-        prop="group "
+        prop="group"
         label="用户组名"
         width="190">
       </el-table-column>
       <el-table-column
         prop="auth"
         label="目录对应权限"
-        width="190">
+        width="209">
       </el-table-column>
 
       

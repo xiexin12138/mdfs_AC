@@ -51,7 +51,7 @@
       <el-table-column
         prop="mac"
         label="登录终端MAC"
-        width="150">
+        width="159">
       </el-table-column>
     </el-table>
     <el-row type="flex" class="row-bg" justify="end">

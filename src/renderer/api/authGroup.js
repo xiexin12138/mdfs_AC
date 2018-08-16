@@ -361,7 +361,7 @@ export async function UpdateGroup(param) {
  * @version 1.0.0
  * @date    2018-08-015
  * @param   {Object}   null
- * @description 查询群组信息
+ * @description 查询群组与用户的关系信息
  */
 export async function GetGroupRelas(param) {
 	try {
@@ -370,8 +370,8 @@ export async function GetGroupRelas(param) {
 		let socket = new Socket()
 		let data = {
 			type: type.USER_GROUP,
-			// pagesize :param.pageSize,
-			// currentPage : param.currentPage ,
+			pagesize :param.pageSize,
+			currentPage : param.currentPage ,
 
 		}
 		socket.write(JSON.stringify(data))

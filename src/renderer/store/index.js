@@ -6,6 +6,7 @@ import mounter from './modules/mounter'
 import dir from './modules/dir'
 import group from './modules/group'
 import userGroupRela from './modules/userGroupRela'
+import errorfiles from './modules/errorfiles'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
 		dir,
 		group,
 		userGroupRela,
+		errorfiles,
 	}
 	
 })

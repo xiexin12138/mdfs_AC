@@ -25,3 +25,7 @@ export const DELETE_GROUPS = "DELETE_GROUPS"
 export const GET_GROUPSRELA = "GET_GROUPSRELA"
 //删除特定用户与组群关系
 export const DELETE_GROUPSRELA = "DELETE_GROUPSRELA"
+
+//获取所有的异常文件信息
+export const GET_ERRORFILES = "GET_ERRORFILES"
+

@@ -451,7 +451,6 @@ operation:search  //1: query, 2: add, 3：delete
 	auth : 755		//该目录对应的权限
 pagesize :			//一也可以有多少项
 currentPage :		//当前页码
-id: …..
 }
     Add和delete操作的返回信息：
 res:{ 
@@ -482,19 +481,161 @@ currentPage :		//当前页码
 ]
 }
 
+//修改用户目录
+req:
+{	type : changUserDir,		//请求码44
+	id : 						//用户目录id
+	path : 					//用户目录原路径，不包含目录名
+	dirName :				//原目录名
+	newPath : 				//新用户目录路径，不包含目录名
+	newDirName : 			//新目录名
+}
+resp{
+	type : changUserDir,		//43
+state :  0,  				// 错误类型码，0表示成功
+	errormessage :			// 错误信息
+}
 
-//修改用户的用户组：
-Req{
+
+
+
+//管理用户组和群组关系：
+req{
 		type : ManageUserAndGroup 	//36
 user : scott					//用户名
 group : group1					//用户组名
-operation : add				//对应的操作
+operation : add				//对应的操作分为三种  add  del  change
 }
 res:{
 type: ManageUserAndGroup,
 state: 0,  // 错误类型码，0表示成功
 errormessage:'' // 错误信息
 }
+
+
+//查询用户组和群组关系
+req{
+	type : queryUserAndGroup	//43
+pageSize: 10, 				// 每一页包含10行数据
+	currentPage: 1 			// 当前页为第一页
+}
+
+resp{
+	type : queryUserAndGroup,	//43
+state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+	total : 
+pageSize: 10, 				// 每一页包含10行数据
+	currentPage: 1 			// 当前页为第一页
+	userGroups:[
+		{
+	id : 				//id   无意义   主键
+	user : 			//用户
+	userGroup :		//群组名称
+	isMainGroup		//该群组是否为用户的主群组
+}
+]
+}
+
+//查询群组
+Req{
+	type : group_query	,	//请求码是39
+	pageSize： 			//每一页的数量
+	currentPage:			//当前是第几页
+}
+Resp{
+type : group_query	,	//请求码是39
+	state :
+	errormessage :
+	total : 
+	pageSize : 
+	currentPage : 
+	groups[
+		{
+			id:			//群组id			
+			groupName	//群组名称
+}
+		{
+			id:			//群组id			
+			groupName	//群组名称
+}
+		。。。。。。
+]
+}
+
+//修改群组
+Req{
+		type : group_change	//请求码是40
+		id： 				//群组id
+		groupName:			//群组名称
+}
+	Resp{
+type : group_ change,	//请求码是40
+		state :
+		errormessage :
+	}
+
+//删除群组
+Req{
+type : group_delete		//请求码是41
+id： 					//群组id
+groupName:			//群组名称
+}
+Resp{
+type : group_ delete,	//请求码是41
+		state :
+		errormessage :
+	}
+
+//添加群组
+	Req{
+type : group_add		//请求码是42
+groupName:			//群组名称
+}
+Resp{
+type : group_ add,	//请求码是42
+		state :
+		errormessage :
+	}
+
+//异常文件查询
+
+req{
+	type : queryExFs	//请求码45
+pageSize: 10, 		// 每一页包含10行数据
+	currentPage: 1 	// 当前页为第一页
+}
+
+res{
+	type : queryExFs	//请求码45
+	state : 0			// 错误类型码，0 表示成功
+	errormessage:'	 // 错误信息
+		total : 
+pageSize: 10, 				// 每一页包含10行数据
+		currentPage: 1 			// 当前页为第一页
+	fsList : [{
+		id : 			//
+		fsid : 		//异常文件所在文件系统id
+		exFsName : 	//异常文件名，以UUID命名
+		time : 		//
+		srcPath : 		//异常文件全路径
+}]
+}
+
+
+//异常文件下载（需自行安装freeSSHd.exe）
+req{
+	type : downloadExFs	//请求码46
+	host : 				//前端所在机器的ip地址
+fsName : 			//异常文件名，以uuid命名
+	newName : 			//下载到前端所在机器时的文件名
+	desPath : 			//下载到前端所在机器时的路径
+}
+res:{
+type: downloadExFs,
+state: 0, // 错误类型码，0 表示成功
+errormessage:'' // 错误信息
+
 
 
 ```

@@ -36,7 +36,7 @@
        <el-table-column
         prop="isMainGroup"
         label="是否为用户的主群组"
-        width="390">
+        width="399">
       </el-table-column>
      
 
@@ -117,8 +117,11 @@ export default {
           })
       })
       let g = this.$store.getters.getGrouprelas
-      // console.log(g)
-      this.grouprelas = g.userGroups
+       // console.log(g.total)
+      let grela = g.userGroups
+      console.log(grela)
+      this.grouprelas =this.translate(grela)
+
       this.total = +g.total
       this.pageSize= +g.pageSize
       this.currentPage= +g.currentPage
@@ -141,14 +144,30 @@ export default {
           })
       })
       let g = this.$store.getters.getgrouprelas
-      this.grouprelas = g.userGroups
+      let grela = g.userGroups
+      this.grouprelas =this.translate(grela)
+      // console.log(grela.userGroups)
+
       this.total = +g.total
       this.pageSize= +g.pageSize
       this.currentPage= +g.currentPage
 		
 		},
 
- //新建目录，跳转至新建目录页面
+    // 是否为主组群的字段需要翻译一下
+      translate(arr){
+      return arr.map(value=>{
+        if (value.isMainGroup == 1) {
+          value.isMainGroup = '是'
+        } else {
+          value.isMainGroup = '否'
+        }
+        // TODO state状态翻译还未完成
+        return value
+      })
+    },
+
+ //新建，跳转
     goToNewGroupRela() {
       this.$router.push({ path: '/user/addgrouprela' })
     },

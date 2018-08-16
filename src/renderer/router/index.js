@@ -33,6 +33,9 @@ import CreatDir from '@/components/AuthManagePage/CreatDir'
 import AddDir from '@/components/AuthManagePage/AddDir'
 import UpdateDir from '@/components/AuthManagePage/UpdateDir'
 
+import ErrorFileManage from '@/components/AuthManagePage/ErrorFileManage'
+import DownloadErrorFile from '@/components/AuthManagePage/DownloadErrorFile'
+
 
 import UserManagePage from '@/components/UserManagePage'
 import UserListPage from '@/components/UserManagePage/UserListPage'
@@ -194,6 +197,15 @@ let router = new Router({
 					path:'upadatedir/:id',
 					component:UpdateDir
 				},
+				
+				{
+					path:'errorfilemanage',
+					component:ErrorFileManage
+				},
+				{
+					path:'downloadfile/:download_info',
+					component:DownloadErrorFile
+				}
 			]
 		},
 

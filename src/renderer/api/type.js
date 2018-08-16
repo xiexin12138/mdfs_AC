@@ -88,6 +88,13 @@ export const CREATE_GROUP = 42
 //查询用户与组群的关系
 export const USER_GROUP = 43
 
+//查询所有的异常文件
+export const GET_ERRORfILES = 45
+
+//异常文件下载
+export const DOWNLOAD_ERRORfILES = 46
+
+
 
 
 
