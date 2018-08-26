@@ -578,7 +578,7 @@ export default {
 				}) //根据箭头标记的id号标记箭头
 
 				.on('click', function(d) {
-					console.log(d.target.target)
+					// console.log(d.target.target)
 				})
 			// 更新需要删除的线段
 			this._svg

@@ -228,6 +228,8 @@ export async function GetNodeStatus() {
 	// 				target: 'Mount4'
 	// 			},
 	// 		]
+
+		// console.log(GetNodeStatusHelper(newData))
 		// return GetNodeStatusHelper(newData)
 		let socket = new Socket()
 		let data = {
@@ -237,9 +239,10 @@ export async function GetNodeStatus() {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
-			// console.log(obj)
+			 console.log(obj)
 			// return []
 			return GetNodeStatusHelper(obj.node)
+			// return obj.node
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -352,7 +355,7 @@ export async function ManageUser(para) {
 export async function MonitorFS(){
 	try {
 
-		// return n
+		return n
 		let socket = new Socket()
 		let data = {
 			type: type.MONITOR_FS

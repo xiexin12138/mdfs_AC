@@ -142,8 +142,8 @@ function shuffle(array){
 // var circleColorList = ["#F0F8FF","#F5FFFA","#FFFFF0"]; 
 // var borderColorList = ["#87CEFA","#B4EEB4","#FFEC8B"]; 
 // 演示
-var circleColorList = ["#F0F8FF","#F0FFFA","#FFFFF0"]; 
-var borderColorList = ["#87CEFA","#00EEB4","#ed7d31"]; 
+var circleColorList = ["#F0F8FF","#F0FFFA","#FFFFF0","#FFFFF0"]; 
+var borderColorList = ["#87CEFA","#00EEB4","#ed7d31","#FFD700"]; 
 var abnormalCircleColor="#FFFAFA";
 // var abnormalBorderColor="#F08080";
 var abnormalBorderColor="#f20c00";
@@ -155,7 +155,7 @@ function getCircleColor(colorList){
 	var color = colorList[circleColorIndex]; 
 	
 	circleColorIndex=circleColorIndex+1; 
-	if(circleColorIndex==3){
+	if(circleColorIndex==4){
 		circleColorIndex=0;
 	}
     return color; 
@@ -166,32 +166,18 @@ function getBordereColor(colorList){
 	var color = colorList[borderColorIndex]; 
 	
 	borderColorIndex=borderColorIndex+1; 
-	if(borderColorIndex==3){
+	if(borderColorIndex==4){
 		borderColorIndex=0;
 	}
     return color; 
 } 
 
 
-
-// function getColorByRandom(colorList){ 
-// var colorIndex = Math.floor(Math.random()*colorList.length); 
-// var color = colorList[colorIndex]; 
-// // colorList.splice(colorIndex,1); 
-// return color; 
-// } 
-
 // 圆的色彩显示函数，暂定根据层级显示颜色
 function circleColor(d){
 	if (d.depth == 0) {
 		return '#fff'   //最底层
 	}else if (d.depth == 1) {   //文件系统
-		// return '#0feba0'
-					console.log(d.r)
-		// let color = computeFSColor(typeToValue(d.fs_type))
-		// var color = getColorByRandom(colorList);
-		// var color="rgb(31, 119, 180)";
-		// var color="#FFFFF0"
 		var color= getCircleColor(circleColorList);
 		 console.log(circleColorIndex);
 		return color
@@ -225,16 +211,6 @@ function strokeWidth(d){
 	}
 }
 
-// function strokeoPacity(d){
-// 	if (d.depth == 0) {
-// 		return 'none'  //最底层
-// 	}else if (d.depth == 1) {   //文件系统
-// 		return 'none'
-// 	}else if (d.depth == 2) {  //异常
-// 		return '0.1'
-// 		 // return '#8B0000'
-// 	}
-// }
 
 // 弃用的opacity显示方法
 function circleOpacity(d){
@@ -261,7 +237,7 @@ function circleDisplay(d){
 }
 function circleRadius(d){
 	if (d.depth == 1) {
-		return 160
+		return 130
 	}else {
 		return d.r
 	}
@@ -386,7 +362,7 @@ export default {
 			this._pack = d3.layout
 				.pack()
 				.size([width, height])
-				.padding(40)
+				.padding(30)
 			this._svg
 				.selectAll('circle')
 				.data(this._pack.nodes(this._root))
@@ -410,7 +386,7 @@ export default {
 				})
 				.attr('r',circleRadius)
 				.attr('style',circleDisplay)
-			let dataset = [0,1,2],recWidth = 15
+			let dataset = [0,1,2,3],recWidth = 15
 			d3.select('.descrition')
 				// .attr('transform', 'translate(-45,0)')
 				.append('g')
@@ -427,14 +403,9 @@ export default {
 	         	})  
 	        	.attr("height",recWidth-2)//每个矩形的高度  
 	        	.attr("fill",function(d,i){//每个矩形的颜色 
-	                if (i== 0) {
-	                	return "#87CEFA"
-	                }else if (i == 1) {
-	                	return "#00EEB4"
-	                } else{
-	                	return "#ed7d31"
-	                }
+                    return borderColorList[i]
 	          	});//填充颜色  
+
 			d3.select('.descrition')
 				.append('g')
 				.selectAll('text')
@@ -442,7 +413,7 @@ export default {
 				.enter()
 				.append('text')
 				.text('文件系统')
-				.attr('transform', 'translate(45,63)')
+				.attr('transform', 'translate(60,63)')
 				.attr('font-family', 'Arial')
 				.attr('fill', 'black')
 				.attr('font-size', '20px')
@@ -644,14 +615,72 @@ export default {
 							repair: 0,
 							repair_fs: 'fs2'
 						}]
-				}
+				},
+				{
+					fs_name: 'sf4',
+					fs_type:'ceph15',
+					fs_error: [
+						{
+							file_name: '/temp',
+							repair: 1,
+							repair_fs: 'fs1'
+						},
+						{
+							file_name: '/tem',
+							repair: 0,
+							repair_fs: null
+						},
+						{
+							file_name: '/tem',
+							repair: 0,
+							repair_fs: null
+						},
+						{
+							file_name: '/tem',
+							repair: 0,
+							repair_fs: null
+						},
+						{
+							file_name: '/tem',
+							repair: 0,
+							repair_fs: null
+						},
+						{
+							file_name: '/temp/data',
+							repair: 1,
+							repair_fs: 'fs3'
+						},
+						{
+							file_name: '/temp/data',
+							repair: 1,
+							repair_fs: 'fs1'
+						},
+						{
+							file_name: '/temp/data',
+							repair: 1,
+							repair_fs: 'fs1'
+						},
+						{
+							file_name: '/temp/data',
+							repair: 1,
+							repair_fs: 'fs1'
+						},
+						{
+							file_name: '/temp/data',
+							repair: 0,
+							repair_fs: 'fs1'
+						}
+					]
+				},
 			]
 			return data
 		},
 		async bindData() {
-			// let data = this.updateData()
-			let data = await status.MonitorFS()
-			console.log(data)
+			let data = this.updateData()
+			// let data = await status.MonitorFS()
+			// console.log("#########")
+			// console.log(data)
+			// console.log("&&&&&&&&&")
 			this.ListData = handleList(data)
 			
 			for (let i = 0; i < data.length; i++) {
@@ -691,6 +720,11 @@ export default {
 				fs_type:'ceph14',
 				children: []
 			}
+			let cc4 = {
+				name: 'sf3',
+				fs_type:'ceph15',
+				children: []
+			}
 			// 初步生成内部圆的时候，一定要多留一个空白圆，这样就能保证修复圆不从错误圆里跑出来
 			for (let i = 0; i < 16; i++) {
 				let c = 0
@@ -715,10 +749,17 @@ export default {
 					state: c,
 					repair: repair
 				})
+				cc4.children.push({
+					name: 'hehe',
+					value: Math.ceil(10 * Math.random()),
+					state: c,
+					repair: repair
+				})
 			}
 			this._root.children.push(cc1)
 			this._root.children.push(cc2)
 			this._root.children.push(cc3)
+			this._root.children.push(cc4)
 		},
 		updateGraph() {
 
