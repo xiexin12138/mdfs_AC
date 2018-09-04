@@ -165,21 +165,6 @@ Vue.use(Dialog)
 Vue.use(Row)
 Vue.use(Col)
 
-// 文件系统的颜色区域
-// var colorList = ["#6699CC","#666699","#99CCCC","#003366","#FFBD9D","#C7A3ED","#CC9898","#8AC007","#CCC007","#FFAD5C"]; 
-
-
-// function getColorByRandom(colorList){ 
-// 	var colorIndex = Math.floor(Math.random()*colorList.length); 
-// 	var color = colorList[colorIndex]; 
-// 	colorList.splice(colorIndex,1); 
-// 	return color; 
-// }
-
-
-
-
-
 
 
 let mountColorA = d3.rgb('#a0c386')

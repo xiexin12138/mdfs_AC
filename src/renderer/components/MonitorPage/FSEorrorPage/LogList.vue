@@ -29,12 +29,12 @@
 		      </template>
 
 		    </el-table-column>
-		    <el-table-column
+<!-- 		    <el-table-column
 		      label="错误类型"
 		      prop="errorType"
 		      width="90"
 		      >
-		    </el-table-column>
+		    </el-table-column> -->
 		    <el-table-column
 		      label="产生时间"
 		      prop="time"
@@ -62,7 +62,7 @@
 function handle(data){
 	for(let value of data){
 		value.repair_fs_file = value.repair_fs+':'+value.repair_file
-		console.log( value.repair)
+		// console.log( value.repair)
 		if (value.repair == '1') {
 			value.repair = '是'
 		}else if(value.repair == '0'){
@@ -78,45 +78,6 @@ export default {
 			return handle(this.ListData)
 		}
 	}
-	// data() {
-	// 	console.log(this.ListData)
- //      return {
- //      	LogData: ()=>{
- //      		return handle(this.ListData)
- //      	}
-      	
-        // LogData: [
-	       //  {
-	       //    errorCode: '99',
-	       //    errorType: '判决错误',
-	       //    time: '20180630',
-	       //    file_name: '/temp',
-	       //    detail: '详细信息',
-	       //    repair: '1',
-	       //    repair_fs_file: 'fs2/temp'
-	       //  },
-	       //  {
-	       //    errorCode: '99',
-	       //    errorType: '判决错误',
-	       //    time: '20180630',
-	       //    file_name: '/temp',
-	       //    detail: '详细信息',
-	       //    repair: '1',
-	       //    repair_fs_file: 'fs2/temp'
-	       //  },
-	       //  {
-	       //    errorCode: '99',
-	       //    errorType: '判决错误',
-	       //    time: '20180630',
-	       //    file_name: '/temp',
-	       //    detail: '详细信息',
-	       //    repair: '1',
-	       //    repair_fs_file: 'fs2/temp'
-	       //  },
-
-        // ]
-    //   }
-    // }
 
   }
 </script>

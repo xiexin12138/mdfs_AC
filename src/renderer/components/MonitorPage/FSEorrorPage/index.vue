@@ -38,10 +38,7 @@
 				<el-col :span="8":offset="2"><div style="text-align:right;">error文件名:</div></el-col>
 				<el-col :span="14" ><div>{{errorObj.name}}</div></el-col>
 			</el-row>
-			<el-row >
-				<el-col :span="8":offset="2"><div style="text-align:right;">error类型:</div></el-col>
-				<el-col :span="10" ><div>{{errorObj.type}}</div></el-col>
-			</el-row>
+
 			<el-row >
 				<el-col :span="8":offset="2"><div style="text-align:right;">产生时间:</div></el-col>
 				<el-col :span="14" ><div>{{errorObj.time}}</div></el-col>
@@ -55,10 +52,6 @@
 		</el-col>
 		</el-row>
 
-<!--    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-     <stop offset="0%"   stop-color="#05a" stop-opacity="0.5" />
-     <stop offset="100%" stop-color="#0a5" stop-opacity="1.0" />
-   </linearGradient> -->
 
 		<foot></foot>
 
@@ -120,24 +113,6 @@ function shuffle(array){
 	return array
 }
 
-// // 这个数组是一个中转站，目前考虑最多5种文件系统的颜色，颜色的区域值分别如下。
-// let randomNum = shuffle([1,3,5,7,9])
-// // 文件系统的颜色区域
-// let fsColorA = d3.rgb('#D5E5F5')
-// let fsColorB = d3.rgb('#91A1B1')
-// // 上述两个值分别为下述函数的值域0,1
-// let computeFSColor = d3.interpolate(fsColorA,fsColorB)
-// 转换fs类型到0-1值
-
-// function typeToValue(type){
-// 	// TODO 映射关系比较简单
-// 	// return Math.random()
-// 	// let n = (randomNum.next().value)/10
-// 	let typeN = Number(type.substr(0,1).charCodeAt(0)+type.substr(-1).charCodeAt(0))
-// 	return (randomNum[typeN%5])/10
-// }
-
-
 // 原设计
 // var circleColorList = ["#F0F8FF","#F5FFFA","#FFFFF0"]; 
 // var borderColorList = ["#87CEFA","#B4EEB4","#FFEC8B"]; 
@@ -179,7 +154,6 @@ function circleColor(d){
 		return '#fff'   //最底层
 	}else if (d.depth == 1) {   //文件系统
 		var color= getCircleColor(circleColorList);
-		 console.log(circleColorIndex);
 		return color
 	}else if (d.depth == 2) {  //异常
 		// return '#8B0000'
@@ -192,7 +166,6 @@ function strokeColor(d){
 		return 'none'  //最底层
 	}else if (d.depth == 1) {   //文件系统
 		var color= getBordereColor(borderColorList);
-		// console.log(borderColorIndex);
 		return color
 	}else if (d.depth == 2) {  //异常
 		return abnormalBorderColor
@@ -244,12 +217,9 @@ function circleRadius(d){
 }
 
 function handleList(init_data){
-	console.log(init_data)
 	function sortNumber(a,b) { 
 		return -(a[1] - b[1]) 
 	} 
-
-
 	function handle_errorListData(init_data){
 		let fs_error_set=[];   //各文件系统下记录各error详细信息条目的集合
 		let errortime_set=[];  //errortime_set中每个元素包含两个元素:[对应fs_error_set中条目的序号, error发生的时间]
@@ -267,7 +237,6 @@ function handleList(init_data){
 
 		for (let [index, elem] of fs_error_set.entries()) {
 		  let seconds_total=Date.parse(elem.time); //转换时间格式,解析一个表示日期的字符串，并返回从 1970-1-1 00:00:00 所经过的毫秒数。
-		  // console.log(seconds_total);
 
 		  let errortime= [index, seconds_total];
 		  errortime_set.push(errortime);  
@@ -275,29 +244,23 @@ function handleList(init_data){
 
 
 		//根据error发生时间( errortime_set[1] ),从大到小排序errortime_set数组
-
 		errortime_set.sort(sortNumber);
-
-		// console.log(errortime_set);
 
 		//取最近发生的十个错误时间,从errortime_set中
 		latest_time=errortime_set.slice(0,10);
-		// console.log(latest_time);
-
 
 		//根据记录的对应条目编号(errortime[0]=latest_time[0])在fs_error_set取出 push存入latest_errorData;
 		for( let errortime of latest_time){
 		      let error_index= errortime[0];
 		      latest_errorData.push(fs_error_set[error_index]);
 		}
-		// console.log(latest_errorData);
-
 		return latest_errorData;
 	}
-
-
+    // console.log(handle_errorListData(init_data))
 	return handle_errorListData(init_data);
 }
+
+
 export default {
 	components: {
 		Bar,
@@ -319,8 +282,7 @@ export default {
 			},
 			errorObj:{
 				name:null,
-				type:null,
-				time:null
+				time:null,
 			},
 			ListData:[],
 			timer:null,
@@ -338,7 +300,7 @@ export default {
 		// },5000)
 		// 设置一个变量timer用来记录这个定时器
 		this.timer = setInterval(()=>{
-			console.log('begin')
+			// console.log('begin')
 			this.bindData()
 		},5000)
 	},
@@ -362,7 +324,8 @@ export default {
 			this._pack = d3.layout
 				.pack()
 				.size([width, height])
-				.padding(30)
+				.padding(25)
+
 			this._svg
 				.selectAll('circle')
 				.data(this._pack.nodes(this._root))
@@ -370,6 +333,7 @@ export default {
 				.append('circle')
 				// .attr('opacity', circleOpacity)
 				.attr('class', function(d) {
+					// console.log(d)
 					if (d.state == 1) {
 						return d.parent.name + ' errors'
 					} else if (d.state == 2) {
@@ -381,11 +345,14 @@ export default {
 					}
 				})
 				// .attr('fill', circleColor)
-				.attr('transform', function(d) {
-					return 'translate(' + d.x + ',' + d.y + ')'
+				.attr('transform', function(d,i) {
+				   return 'translate(' + d.x + ',' + d.y + ')'
 				})
 				.attr('r',circleRadius)
 				.attr('style',circleDisplay)
+
+
+
 			let dataset = [0,1,2,3],recWidth = 15
 			d3.select('.descrition')
 				// .attr('transform', 'translate(-45,0)')
@@ -404,7 +371,7 @@ export default {
 	        	.attr("height",recWidth-2)//每个矩形的高度  
 	        	.attr("fill",function(d,i){//每个矩形的颜色 
                     return borderColorList[i]
-	          	});//填充颜色  
+	          	});//填充颜色 
 
 			d3.select('.descrition')
 				.append('g')
@@ -448,244 +415,16 @@ export default {
 		},
 
 		updateData() {
-			let data = [
-				{
-					fs_name: 'sf1',
-					fs_type:'ceph3',
-					fs_error: [
-						{
-							file_name: '/temp',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs3'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs3'
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs3'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs3'
-						}
-					]
-				},
-				{
-					fs_name: 'sf2',
-					fs_type:'ceph1',
-					fs_error: [
-						{
-							file_name: '/temp',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs3'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs1'
-						}
-					]
-				},
-				{
-					fs_name: 'sf3',
-					fs_type:'ceph2',
-					fs_error: [
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs2'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs2'
-						}]
-				},
-				{
-					fs_name: 'sf4',
-					fs_type:'ceph15',
-					fs_error: [
-						{
-							file_name: '/temp',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/tem',
-							repair: 0,
-							repair_fs: null
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs3'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 1,
-							repair_fs: 'fs1'
-						},
-						{
-							file_name: '/temp/data',
-							repair: 0,
-							repair_fs: 'fs1'
-						}
-					]
-				},
-			]
-			return data
+			// 
 		},
 		async bindData() {
-			let data = this.updateData()
-			// let data = await status.MonitorFS()
-			// console.log("#########")
-			// console.log(data)
-			// console.log("&&&&&&&&&")
+			// let data = this.updateData()
+			let data = await status.MonitorFS()
+
 			this.ListData = handleList(data)
 			
 			for (let i = 0; i < data.length; i++) {
-				this._root.children[i].name = data[i].fs_name
-				this._root.children[i].fs_type = data[i].fs_type 
+				this._root.children[i].name = data[i].fs_name 
 				for (let j = 0; j < data[i].fs_error.length; j++) {
 					this._root.children[i].children[j].name =
 						data[i].fs_error[j].file_name
@@ -697,13 +436,12 @@ export default {
 
 					this._root.children[i].children[j].time =
 						data[i].fs_error[j].time
-					this._root.children[i].children[j].detail =
-						data[i].fs_error[j].detail
 				}
 			}
 			await this.updateGraph()
 		},
 		
+		//初始四个大圆代表四个不同的文件系统
 		initGraphData() {
 			let cc1 = {
 				name: 'sf1',
@@ -721,7 +459,7 @@ export default {
 				children: []
 			}
 			let cc4 = {
-				name: 'sf3',
+				name: 'sf4',
 				fs_type:'ceph15',
 				children: []
 			}
@@ -761,8 +499,9 @@ export default {
 			this._root.children.push(cc3)
 			this._root.children.push(cc4)
 		},
-		updateGraph() {
 
+
+		updateGraph() {
 			let self = this
 			this._svg
 				.selectAll('circle')
@@ -781,7 +520,6 @@ export default {
 				})
 				.attr('fill', circleColor)
 				.attr('stroke',strokeColor)
-				// .attr("fill-opacity","0.4")   //变淡!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				.attr('stroke-width',strokeWidth)
 				// .attr('strokeo-opacity',strokeoPacity)
 				.attr('transform', function(d) {
@@ -792,6 +530,7 @@ export default {
 					return d.name
 				})
 				.on('click',function(d){
+					console.log("hhh")
 					if (d.depth == 1) {
 						let fs = {}
 						fs.name = d.name
@@ -802,7 +541,7 @@ export default {
 					}else if (d.depth == 2) {
 						let errorObj = {}
 						errorObj.name = d.name
-						errorObj.type = d.errorType
+						// errorObj.type = d.errorType
 						errorObj.time = d.time
 						self.errorObj = errorObj
 						self.errorVisible = true
@@ -810,8 +549,11 @@ export default {
 				})
 				.attr('style',circleDisplay)
 				
-			this.animationRecover()
+			// this.animationRecover()        //执行修复动画
 		},
+
+
+		//修复动画
 		animationRecover() {
 			this._recover = []
 			let self = this
@@ -886,4 +628,5 @@ export default {
       top:-180px;
       z-index: -10;
 	}
+
 </style>

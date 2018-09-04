@@ -6,7 +6,7 @@ const app = require('electron').remote.app
 let configPath = app.getPath('userData')+'\\serverConfig.json'
 const fs = require('fs')
 let configObj = {
-			host:'219.223.199.154',
+			host:'219.223.197.76',
 			hostBackup:'192.168.1.71'
 		}
 if (fs.existsSync(configPath)) {

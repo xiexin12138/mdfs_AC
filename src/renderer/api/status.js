@@ -80,157 +80,37 @@ export async function GetUserNode(para) {
  */
 export async function GetNodeStatus() {
 	try {
-	// let newData =  [
-	// 			{
-	// 				id: 1,
-	// 				type: '0',
-	// 				name: 'Mount1',
-	// 				status: '0',
-	// 				target: 'Mount1'
-	// 			},
-	// 			{
-	// 				id: 2,
-	// 				type: '-1',
-	// 				name: 'Guest1',
-	// 				status: '1',
-	// 				target: 'Mount1'
-	// 			},
-	// 			{
-	// 				id: 3,
-	// 				type: '-1',
-	// 				name: 'Guest2',
-	// 				status: '1',
-	// 				target: 'Mount1'
-	// 			},
-	// 			{
-	// 				id: 23,
-	// 				type: '-1',
-	// 				name: 'Guest23',
-	// 				status: '1',
-	// 				target: 'Mount1'
-	// 			},
-	// 			{
-	// 				id: 33,
-	// 				type: '-1',
-	// 				name: 'Guest33',
-	// 				status: '1',
-	// 				target: 'Mount1'
-	// 			},
-	// 			{
-	// 				id: 5,
-	// 				type: '0',
-	// 				name: 'Mount2',
-	// 				status: '1',
-	// 				target: 'Mount2'
-	// 			},
-	// 			{
-	// 				id: 6,
-	// 				type: '-1',
-	// 				name: 'Guest4',
-	// 				status: '1',
-	// 				target: 'Mount2'
-	// 			},
-	// 			{
-	// 				id: 7,
-	// 				type: '-1',
-	// 				name: 'Guest5',
-	// 				status: '1',
-	// 				target: 'Mount2'
-	// 			},
-	// 			{
-	// 				id: 17,
-	// 				type: '-1',
-	// 				name: 'Guest17',
-	// 				status: '1',
-	// 				target: 'Mount2'
-	// 			},
-	// 			{
-	// 				id: 9,
-	// 				type: '0',
-	// 				name: 'Mount3',
-	// 				status: '2',
-	// 				target: 'Mount3'
-	// 			},
-	// 			{
-	// 				id: 9,
-	// 				type: '0',
-	// 				name: 'Mount6',
-	// 				status: '2',
-	// 				target: 'Mount6'
-	// 			},{
-	// 				id: 9,
-	// 				type: '0',
-	// 				name: 'Mount8',
-	// 				status: '2',
-	// 				target: 'Mount8'
-	// 			},
-	// 			{
-	// 				id: 10,
-	// 				type: '0',
-	// 				name: 'Mount5',
-	// 				status: '3',
-	// 				target: 'Mount5'
-	// 			},
-	// 			{
-	// 				id: 10,
-	// 				type: '0',
-	// 				name: 'Mount7',
-	// 				status: '3',
-	// 				target: 'Mount7'
-	// 			},
-	// 			{
-	// 				id: 41,
-	// 				type: '-1',
-	// 				name: 'User41',
-	// 				status: '1',
-	// 				target: 'Mount4'
-	// 			},
-	// 			{
-	// 				id: 14,
-	// 				type: '-1',
-	// 				name: 'User14',
-	// 				status: '1',
-	// 				target: 'Mount4'
-	// 			},
-	// 			{
-	// 				id: 45,
-	// 				type: '-1',
-	// 				name: 'User45',
-	// 				status: '1',
-	// 				target: 'Mount4'
-	// 			},
-	// 			{
-	// 				id: 43,
-	// 				type: '-1',
-	// 				name: 'Guest43',
-	// 				status: '1',
-	// 				target: 'Mount4'
-	// 			},
-	// 			{
-	// 				id: 42,
-	// 				type: '-1',
-	// 				name: 'Guest42',
-	// 				status: '1',
-	// 				target: 'Mount4'
-	// 			},
-	// 			{
-	// 				id: 48,
-	// 				type: '-1',
-	// 				name: 'Guest48',
-	// 				status: '1',
-	// 				target: 'Mount4'
-	// 			},
-	// 			{
-	// 				id: 44,
-	// 				type: '0',
-	// 				name: 'Mount4',
-	// 				status: '0',
-	// 				target: 'Mount4'
-	// 			},
-	// 		]
 
-		// console.log(GetNodeStatusHelper(newData))
-		// return GetNodeStatusHelper(newData)
+	let newData2 =  [
+				{
+					id: 1,
+					
+					name: 'Mount1',
+					status: 'action',
+					target: 'Mount1',
+					type: 'mount',
+				},
+				{
+					id: 2,
+					
+					name: 'Guest1',
+					status: 'action',
+					target: 'Mount1',
+					type: 'user',
+				},
+				{
+					id: 3,
+					
+					name: 'Guest2',
+					status: 'action',
+					target: 'Mount1',
+					type: 'user',
+				},
+				]
+		// let datat = GetNodeStatusHelper(newData)
+		// console.log(datat)
+		 // return GetNodeStatusHelper(newData2)
+		 return newData2
 		let socket = new Socket()
 		let data = {
 			type: type.GET_NODE_STATUS
@@ -241,8 +121,8 @@ export async function GetNodeStatus() {
 		if (obj.state == 0) {
 			 console.log(obj)
 			// return []
-			return GetNodeStatusHelper(obj.node)
-			// return obj.node
+			// return GetNodeStatusHelper(obj.node)
+			return obj.node
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -263,33 +143,33 @@ export async function GetNodeStatus() {
  * 					 
  * 				cm中的节点（不含用户）的status有好几种，简单列举了目前要用的几种在下面switch里
  */
-function GetNodeStatusHelper(data){
-	// let nda = data
-	// console.log(nda,22)
-	for (let i = 0; i < data.length; i++) {
-		if (data[i].type == '-1') {
-			data[i].type = 'user'
-			data[i].status = 'action'
-		}else if (data[i].type == '0') {
-			data[i].type = 'mount'
-			switch (data[i].status){
-				case '0':
-				case '1':
-					data[i].status = 'action'
-					break
-				case '2':
-					// data[i].status = 'action'
-					data[i].status = 'sleeping'
-					break
-				case '3':
-					data[i].status = 'shutdown'
-					break
-				default:break
-			}
-		}
-	}
-	return data
-}
+// function GetNodeStatusHelper(data){
+// 	// let nda = data
+// 	// console.log(nda,22)
+// 	for (let i = 0; i < data.length; i++) {
+// 		if (data[i].type == '-1') {
+// 			data[i].type = 'user'
+// 			data[i].status = 'action'
+// 		}else if (data[i].type == '0') {
+// 			data[i].type = 'mount'
+// 			switch (data[i].status){
+// 				case '0':
+// 				case '1':
+// 					data[i].status = 'action'
+// 					break
+// 				case '2':
+// 					// data[i].status = 'action'
+// 					data[i].status = 'sleeping'
+// 					break
+// 				case '3':
+// 					data[i].status = 'shutdown'
+// 					break
+// 				default:break
+// 			}
+// 		}
+// 	}
+// 	return data
+// }
 /**
  * @author Craig
  * @version 1.0.0
@@ -350,16 +230,16 @@ export async function ManageUser(para) {
  * @author Craig
  * @version 1.0.0
  * @date    2018-04-27
- * @description 文件系统 监控界面 获取识图数据
+ * @description 文件系统异常监控界面 获取识图数据
  */
 export async function MonitorFS(){
 	try {
 
-		return n
+		// return n
 		let socket = new Socket()
 		let data = {
 			type: type.MONITOR_FS
-			// type: 26
+			// type: 22
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
@@ -379,7 +259,7 @@ export async function MonitorFS(){
  * @author Craig
  * @version 1.0.0
  * @date    2019-04-27
- * @description 文件系统 监控界面 获取识图数据
+ * @description 元数据错误监控界面 获取识图数据
  */
 export async function MonitorMetadata(){
 	try {
@@ -392,7 +272,7 @@ export async function MonitorMetadata(){
 		
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
-		console.log(response,28)
+		// console.log(response,28)
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
 			return obj.data
