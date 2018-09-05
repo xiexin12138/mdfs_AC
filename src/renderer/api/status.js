@@ -110,19 +110,20 @@ export async function GetNodeStatus() {
 		// let datat = GetNodeStatusHelper(newData)
 		// console.log(datat)
 		 // return GetNodeStatusHelper(newData2)
-		 return newData2
+		 // return newData2
 		let socket = new Socket()
 		let data = {
 			type: type.GET_NODE_STATUS
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
+		// console.log(response,7)
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
-			 console.log(obj)
-			// return []
-			// return GetNodeStatusHelper(obj.node)
-			return obj.node
+			 // console.log(obj)
+			 // console.log(GetNodeStatusHelper(obj.node))
+			 return GetNodeStatusHelper(obj.node)
+			//return obj.node
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -143,33 +144,33 @@ export async function GetNodeStatus() {
  * 					 
  * 				cm中的节点（不含用户）的status有好几种，简单列举了目前要用的几种在下面switch里
  */
-// function GetNodeStatusHelper(data){
-// 	// let nda = data
-// 	// console.log(nda,22)
-// 	for (let i = 0; i < data.length; i++) {
-// 		if (data[i].type == '-1') {
-// 			data[i].type = 'user'
-// 			data[i].status = 'action'
-// 		}else if (data[i].type == '0') {
-// 			data[i].type = 'mount'
-// 			switch (data[i].status){
-// 				case '0':
-// 				case '1':
-// 					data[i].status = 'action'
-// 					break
-// 				case '2':
-// 					// data[i].status = 'action'
-// 					data[i].status = 'sleeping'
-// 					break
-// 				case '3':
-// 					data[i].status = 'shutdown'
-// 					break
-// 				default:break
-// 			}
-// 		}
-// 	}
-// 	return data
-// }
+function GetNodeStatusHelper(data){
+	// let nda = data
+	// console.log(nda,22)
+	for (let i = 0; i < data.length; i++) {
+		if (data[i].type == '-1') {
+			data[i].type = 'user'
+			data[i].status = 'action'
+		}else if (data[i].type == '0') {
+			data[i].type = 'mount'
+			switch (data[i].status){
+				case '0':
+				case '1':
+					data[i].status = 'action'
+					break
+				case '2':
+					// data[i].status = 'action'
+					data[i].status = 'sleeping'
+					break
+				case '3':
+					data[i].status = 'shutdown'
+					break
+				default:break
+			}
+		}
+	}
+	return data
+}
 /**
  * @author Craig
  * @version 1.0.0
@@ -243,7 +244,7 @@ export async function MonitorFS(){
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
-		console.log(response,7)
+		console.log(response,22)
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
 			return obj.fs

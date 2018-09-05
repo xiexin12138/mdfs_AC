@@ -250,7 +250,7 @@ export default {
 			await this.updateData()
 			this.splitNode()
 			this.updateGraph()
-		}, 5000)
+		}, 12000)
 	},
 	destroyed: function(){
 		clearInterval(this.timer)
@@ -848,6 +848,7 @@ export default {
 				id: this.mount.id,
 				state: value
 			}
+			console.log(data,8)
 			let self = this
 			status
 				.ManageMount(data)
@@ -858,7 +859,7 @@ export default {
 						showClose: true,
 						message: '操作成功',
 						type: 'success',
-						duration: 2000
+						duration: 12000
 					})
 				})
 				.then(() => {
@@ -906,7 +907,7 @@ export default {
 						showClose: true,
 						message: '操作成功',
 						type: 'success',
-						duration: 2000
+						duration: 12000
 					})
 				})
 				.catch(e => {
