@@ -549,7 +549,7 @@ export default {
 				})
 				.attr('style',circleDisplay)
 				
-			// this.animationRecover()        //执行修复动画
+			 this.animationRecover()        //执行修复动画
 		},
 
 
@@ -625,8 +625,8 @@ export default {
 <style>
 	#svg_graph{
       position: absolute;
-      top:-180px;
-      z-index: -10;
+      top:-120px;
+      /*z-index: -10;*/
 	}
 
 </style>
