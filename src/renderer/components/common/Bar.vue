@@ -11,6 +11,8 @@
 			<el-menu-item index="/user/userlist">用户列表管理</el-menu-item>
 			<el-menu-item index="/user/grouplist">用户组管理</el-menu-item>
 			<el-menu-item index="/user/usergroupmanage">用户与组映射关系管理</el-menu-item>
+			<!--  -->
+			<el-menu-item index="/user/groupmanage">组管理</el-menu-item>
 		</el-submenu>
 
 

@@ -61,7 +61,7 @@
 	Vue.use(Upload)
 function handle(data){
 	for(let value of data){
-		value.repair_fs_file = value.repair_fs+':'+value.repair_file
+		value.repair_fs_file = value.repair_fs
 		// console.log( value.repair)
 		if (value.repair == '1') {
 			value.repair = '是'
