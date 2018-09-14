@@ -12,15 +12,16 @@
       stripe
       border
       style="width: 100%"
-      height="300">
+      height="300"
+      @current-change="Select_group">
 
       <el-table-column
-        prop="date"
-        label="组群id"
+        prop="id"
+        label="id"
         width="85">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="group"
         label="组群名称"
         width="120">
       </el-table-column>  
@@ -30,7 +31,7 @@
       width="120">
       <template slot-scope="scope">
         <el-button
-          @click.native.prevent="deleteRow(scope.$index, tableData1)"
+          @click.native.prevent="DeleteGroup(scope.$index, tableData1)"
           type="text"
           size="small">
           删除
@@ -77,23 +78,20 @@
       </el-table-column>
 
       <el-table-column
-        prop="name"
+        prop="userName"
         label="组内成员"
         width="150">
       </el-table-column> 
 
     </el-table>
-
+ 	<el-row type="flex" justify="center">
+        <el-button type="primary" size="medium"  @click="DeleteChoose()" round>删除</el-button> 		
+ 	</el-row>
   </el-col>
 
 <!-- 组内用户管理操作按钮 -->
  <el-col style="width:100px;">
- 	<el-row type="flex" justify="center">
-         <el-button type="primary" size="medium" @click="AddChoose()" round>添加</el-button>		
- 	</el-row>
- 	<el-row type="flex" justify="center">
-        <el-button type="primary" size="medium"  @click="DeleteChoose()" round>删除</el-button> 		
- 	</el-row>
+
  </el-col>
 
 
@@ -113,12 +111,16 @@
         width="50">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="userName"
         label="可选用户"
         width="150">
       </el-table-column> 
     
     </el-table>
+
+ 	<el-row type="flex" justify="center">
+         <el-button type="primary" size="medium" @click="AddChoose()" round>添加</el-button>		
+ 	</el-row>
 
   </el-col>
   </el-row>
@@ -139,6 +141,7 @@ import {
 
 } from 'element-ui'
 import Vue from 'vue'
+import * as authGroup from '../../../api/authGroup'
 
 Vue.use(Table)
 Vue.use(TableColumn)
@@ -150,74 +153,123 @@ Vue.use(Col)
 // Vue.use(MessageBox)
 
 export default {
+  mounted: async function() {
+    await this.updatePage()  
+  },
 
  data() {
       return {
       	
         multipleSelection_groupmember: [],
         multipleSelection_user: [],
+        select_group:0,
 
       	//表内数据
-        tableData1: [{
-          date: '2016-05-03',
-          name: '王虎',
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-        }],
+        tableData1: [], //组
 
-        tableData2: [{
-          name: 'A',
-        }, {
-          name: 'B',
-        }, {
-          name: 'C',
-        }],
+        tableData2: [], //组成员
 
-        tableData3: [{
-          name: 'D',
-        }, {
-          name: 'E',
-        }, {
-          name: 'F',
-        }, {
-          name: 'G',
-        }],
+        tableData3: [], //用户
       }
     },
 
 
 
 
-    methods: {
+ methods: {
+     // 将更新整个页面的功能抽离成一个公共函数
+    async updatePage(){
+ 		this.tableData1 = await authGroup.GetGroups()
+    },
 
-     //删除组
-      deleteRow(index, rows) {
+     //删除行
+     deleteRow(index, rows) {
         rows.splice(index, 1);
 
       },
+
+     //删除组
+  async DeleteGroup(index, rows) {
+        let select_id= rows[index].id
+        let select_group= rows[index].group
+         console.log(select_id)   
+        await authGroup.DeleteGroup(select_id,select_group)
+        .then(() => {
+          rows.splice(index, 1);
+
+          Message({
+            showClose: true,
+            message: '操作成功',
+            type: 'success',
+            duration: 2000
+          })
+        })
+        .catch(e => {
+          Message({
+            showClose: true,
+            message: e.message,
+            type: 'error',
+            duration: 2000
+          })
+        })
+
+      },
+
      //新建组
      CreatGroup(table){
-        var list = {
-          date: "1",
-          name: "二哈"
-      }
-        table.unshift(list)   	
+
+        MessageBox.prompt('请输入新组名', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+
+          //设置输入格式
+          // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+          // inputErrorMessage: '邮箱格式不正确',
+
+           beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '执行中...';
+
+              setTimeout(() => {
+                done();
+                //将按钮恢复成原样
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 3000);
+
+            } else {
+              done();
+              instance.confirmButtonLoading = false;
+            }
+          }
+
+        }).then(({ value }) => {
+
+              //反馈更名信息至后台
+              console.log(value)
+              authGroup.CreateGroup(value)
+
+          //反馈成功信息
+          Message({
+            type: 'success',
+            message: '成功创建新组：'+ value
+          });
+          //将新组在表格中显示出来
+	      var list = {
+	          id: "#",
+	          group: value
+	      }
+	        table.unshift(list) 
+        }).catch(() => {
+          Message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
+
+
      },
 
      //重命名组
@@ -235,8 +287,6 @@ export default {
               instance.confirmButtonLoading = true;
               instance.confirmButtonText = '执行中...';
 
-              //反馈更名信息至后台
-              console.log("new name now")
 
               setTimeout(() => {
                 done();
@@ -251,13 +301,20 @@ export default {
           }
 
         }).then(({ value }) => {
+
+           //反馈更名信息至后台
+           console.log("new name now")
+           let selectID = rows[index].id
+           let selectGroup = rows[index].group
+           authGroup.ChangeGroupName(selectID,value)
+
           //反馈成功信息
           Message({
             type: 'success',
-            message: rows[index].name+' 组的名字已更新为：'+ value
+            message: selectGroup +' 组的名字已更新为：'+ value
           });
           //将表格中替换为新组名
-          rows[index].name=value
+          rows[index].group=value
         }).catch(() => {
           Message({
             type: 'info',
@@ -277,8 +334,10 @@ export default {
         this.multipleSelection_groupmember.forEach((value,index,array)=>{
         	   //将选择对象从组内成员表中移除
         		this.tableData2.forEach((v,i,a)=>{
-        			if(value.name==v.name){
+        			if(value.userName==v.userName){
         				row_index=i
+        				let select_user= this.tableData2[row_index].userName
+        				authGroup.submitGroupManage(select_user,this.select_group,'del')
         				this.deleteRow(row_index,this.tableData2) //执行对应行相关操作
         			}
         		})
@@ -286,7 +345,7 @@ export default {
 		        if(choosen.indexOf(value)==-1){
 		         	choosen.push(value)
 			        let list = {
-			          name: value.name
+			          userName: value.userName
 			         };
 			         this.tableData3.unshift(list)
 		         }
@@ -296,7 +355,7 @@ export default {
       },
 
       //添加用户列表中全部用户至某组中
-      AddChoose(){
+    AddChoose(){
         let row_index='';
         let choosen=[];
 
@@ -305,20 +364,35 @@ export default {
 	        if(choosen.indexOf(value)==-1){
 	         	choosen.push(value)
 		        let list = {
-		          name: value.name
+		          userName: value.userName
 		         };
 		         this.tableData2.unshift(list)
 	         }
             //将选择对象从用户列表中移除
         	this.tableData3.forEach((v,i,a)=>{
-        			if(value.name==v.name){
+        			if(value.userName==v.userName){
         				row_index=i
+        				let select_user= this.tableData3[row_index].userName
+        				authGroup.submitGroupManage(select_user,this.select_group,'add')
         				this.deleteRow(row_index,this.tableData3) //执行对应行相关操作
         			}
         		})
         })
 
       },
+
+      //选择当前组查看其成员
+    async Select_group(val){
+
+     	let selectGroup = val.group
+
+     	this.select_group= selectGroup
+     	console.log(this.select_group)
+  
+
+     	this.tableData2 = await authGroup.GroupUserRela(selectGroup,"groupUsers") //获取对应组内成员数据
+     	this.tableData3 = await authGroup.GroupUserRela(selectGroup,"notGroupUsers") //获取对应可选用户列表数据
+     },
 
       //处理组内成员列表多选
 	     handleSelectionChange_group(val) {

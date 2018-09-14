@@ -70,14 +70,14 @@ export const MANAGE_DIRS = 35
 //修改用户目录
 export const CHANGE_DIR = 44
 
-//修改用户的用户组
+//管理用户组中的用户
 export const ManageUserAndGroup = 36
 
-//查询所有群组
+//查询组内成员信息及不属于该组的用户信息
 export const GROUP_INFO = 39
 
-//修改组群
-export const CHANGE_GROUP = 40
+//修改组名
+export const CHANGE_GROUPNAME = 40
 
 //删除选中组群
 export const DELETE_GROUP = 41
@@ -85,8 +85,8 @@ export const DELETE_GROUP = 41
 //新建组群
 export const CREATE_GROUP = 42
 
-//查询用户与组群的关系
-export const USER_GROUP = 43
+//查询所有组群
+export const GET_GROUP = 43
 
 //查询所有的异常文件
 export const GET_ERRORfILES = 45
