@@ -335,94 +335,94 @@ export async function ChangeGroupName(ID,newGroupName) {
 	}
 }
 
-/**
- * @author Saisai
- * @version 1.0.0
- * @date    2018-08-015
- * @param   {Object}   null
- * @description 查询群组与用户的关系信息
- */
-export async function GetGroupRelas(param) {
-	try {
+// /**
+//  * @author Saisai
+//  * @version 1.0.0
+//  * @date    2018-08-015
+//  * @param   {Object}   null
+//  * @description 查询群组与用户的关系信息
+//  */
+// export async function GetGroupRelas(param) {
+// 	try {
 
         
-		let socket = new Socket()
-		let data = {
-			type: type.USER_GROUP,
-			pagesize :param.pageSize,
-			currentPage : param.currentPage ,
+// 		let socket = new Socket()
+// 		let data = {
+// 			type: type.USER_GROUP,
+// 			pagesize :param.pageSize,
+// 			currentPage : param.currentPage ,
 
-		}
-		socket.write(JSON.stringify(data))
+// 		}
+// 		socket.write(JSON.stringify(data))
 
-		let response = await socket.read()
-		let obj = JSON.parse(response)
-		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj) {
+// 		let response = await socket.read()
+// 		let obj = JSON.parse(response)
+// 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
+// 		if (obj) {
 				
-			console.log(obj)
-			return {
-				grouprelas:obj
-			}
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
-}
+// 			console.log(obj)
+// 			return {
+// 				grouprelas:obj
+// 			}
+// 		} else {
+// 			throw new Error(obj.errormessage)
+// 		}
+// 	} catch (e) {
+// 		throw new Error(e.toString())
+// 	}
+// }
 
-/**
- * @author saisai
- * @version 1.1.0
- * @date    2018-08-014
- * @param   {Object}   data 一个对象，包含下面的字段
- * @return  {Boolean}        true为正确提交，报错则不正确
- * @description 删除组群与用户的关系
- */
+// /**
+//  * @author saisai
+//  * @version 1.1.0
+//  * @date    2018-08-014
+//  * @param   {Object}   data 一个对象，包含下面的字段
+//  * @return  {Boolean}        true为正确提交，报错则不正确
+//  * @description 删除组群与用户的关系
+//  */
 
-export async function DeleteGroupsRela(usernameArray,groupnameArray,operationArray) {
-	try {
-		// console.log(idArray)
-		// console.log(groupnameArray)
-		for (let i = 0; i < operationArray.length; i++) {
-			// console.log(idArray[i])
-			await deletegrouprelasHelper(usernameArray[i],groupnameArray[i],operationArray[i])
+// export async function DeleteGroupsRela(usernameArray,groupnameArray,operationArray) {
+// 	try {
+// 		// console.log(idArray)
+// 		// console.log(groupnameArray)
+// 		for (let i = 0; i < operationArray.length; i++) {
+// 			// console.log(idArray[i])
+// 			await deletegrouprelasHelper(usernameArray[i],groupnameArray[i],operationArray[i])
 
-		}
-		return true
-	} catch (e) {
-		throw new Error(e.toString())
-	}
-}
+// 		}
+// 		return true
+// 	} catch (e) {
+// 		throw new Error(e.toString())
+// 	}
+// }
 
-async function deletegrouprelasHelper(user,group,operation){
-	try {
-		// return true
-		let socket = new Socket()
-		let data = {
-			type: type.ManageUserAndGroup ,
-			user : user , //挂载节点的id，与cmNode的id保持一致
-			group :group ,  //文件系统id			
-			operation :operation ,  //文件系统的挂载路径          
-		}
+// async function deletegrouprelasHelper(user,group,operation){
+// 	try {
+// 		// return true
+// 		let socket = new Socket()
+// 		let data = {
+// 			type: type.ManageUserAndGroup ,
+// 			user : user , //挂载节点的id，与cmNode的id保持一致
+// 			group :group ,  //文件系统id			
+// 			operation :operation ,  //文件系统的挂载路径          
+// 		}
 
-		let d = JSON.stringify(data)
-		let f = JSON.parse(d)
+// 		let d = JSON.stringify(data)
+// 		let f = JSON.parse(d)
 
-		socket.write(JSON.stringify(data))
+// 		socket.write(JSON.stringify(data))
 		
-		let response = await socket.read()
-		let obj = JSON.parse(response)
-		if (obj.state == 0) {
-			return true
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
-}
+// 		let response = await socket.read()
+// 		let obj = JSON.parse(response)
+// 		if (obj.state == 0) {
+// 			return true
+// 		} else {
+// 			throw new Error(obj.errormessage)
+// 		}
+// 	} catch (e) {
+// 		throw new Error(e.toString())
+// 	}
+// }
 
 
 /**

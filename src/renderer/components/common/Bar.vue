@@ -8,22 +8,11 @@
 				<i class="el-icon-document"></i>
 				<span>用户管理</span>
 			</template>
-			<el-menu-item index="/user/userlist">用户列表管理</el-menu-item>
-			<el-menu-item index="/user/grouplist">用户组管理</el-menu-item>
-			<el-menu-item index="/user/usergroupmanage">用户与组映射关系管理</el-menu-item>
+			<el-menu-item index="/user/userlist">用户管理</el-menu-item>
 			<!--  -->
 			<el-menu-item index="/user/groupmanage">组管理</el-menu-item>
 		</el-submenu>
 
-
-	<!-- 	<el-menu-item index="/home" >
-			<i class="el-icon-document"></i>
-			<span slot="title">用户管理</span>
-		</el-menu-item> -->
-		<!-- <el-menu-item index="/config" >
-			<i class="el-icon-setting"></i>
-			<span slot="title">配置管理</span>
-		</el-menu-item> -->
 		<el-submenu index="/config">
 			<template slot='title'>
 				<i class="el-icon-setting"></i>

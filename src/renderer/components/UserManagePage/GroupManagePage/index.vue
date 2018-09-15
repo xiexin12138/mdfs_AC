@@ -5,6 +5,11 @@
   <!-- 组列表 -->	
   <el-col style="width:350px;">
  	<!-- <el-row type="flex" justify="center">组列表</el-row> -->
+    <!-- 组管理操作按钮 -->
+    <el-row type="flex" justify="end">
+        <el-button type="primary" size="medium" @click="CreatGroup(tableData1)" round class="btn-operation">+</el-button>
+    </el-row>
+
     <el-table
       ref="singleTable"
       highlight-current-row
@@ -12,7 +17,7 @@
       stripe
       border
       style="width: 100%"
-      height="300"
+      height="400"
       @current-change="Select_group">
 
       <el-table-column
@@ -46,14 +51,7 @@
     </el-table-column>  
     </el-table>
 
-    <!-- 组管理操作按钮 -->
-    <el-row type="flex" justify="end">
-      <el-col style="width:250px;">
-        <div style="margin-bottom:10px;">
-        <el-button type="primary" size="medium" @click="CreatGroup(tableData1)" round>新建</el-button>
-        </div>
-      </el-col>
-    </el-row>
+
 
   </el-col>
 
@@ -63,13 +61,17 @@
 <!-- 组内成员 -->
   <el-col style="width:250px;">
 <!--  	<el-row type="flex" justify="center">组内成员</el-row> -->
+ 	<el-row type="flex" justify="end">
+        <el-button type="primary" size="medium"  @click="DeleteChoose()" round class="btn-operation">-</el-button> 		
+ 	</el-row>
+
     <el-table
       ref="GroupUsersTable"
       :data="tableData2"
       stripe
       border
       style="width: 100%"
-      height="300"
+      height="400"
       @selection-change="handleSelectionChange_group">
 
       <el-table-column
@@ -80,13 +82,11 @@
       <el-table-column
         prop="userName"
         label="组内成员"
-        width="150">
+        width="199">
       </el-table-column> 
 
     </el-table>
- 	<el-row type="flex" justify="center">
-        <el-button type="primary" size="medium"  @click="DeleteChoose()" round>删除</el-button> 		
- 	</el-row>
+
   </el-col>
 
 <!-- 组内用户管理操作按钮 -->
@@ -98,13 +98,18 @@
 <!-- 用户列表 -->
   <el-col style="width:250px;">
 <!--  	<el-row type="flex" justify="center">可选用户</el-row> -->
+
+ 	<el-row type="flex" justify="end">
+         <el-button type="primary" size="medium" @click="AddChoose()" round class="btn-operation">+</el-button>		
+ 	</el-row>
+
     <el-table
       ref="UsersTable"
       :data="tableData3"
       stripe
       border
       style="width: 100%"
-      height="300"
+      height="400"
       @selection-change="handleSelectionChange_user">
       <el-table-column
         type="selection"
@@ -113,14 +118,11 @@
       <el-table-column
         prop="userName"
         label="可选用户"
-        width="150">
+        width="199">
       </el-table-column> 
     
     </el-table>
 
- 	<el-row type="flex" justify="center">
-         <el-button type="primary" size="medium" @click="AddChoose()" round>添加</el-button>		
- 	</el-row>
 
   </el-col>
   </el-row>
@@ -429,4 +431,17 @@ export default {
   padding: 10px 0;
   background-color: #f9fafc;
 }	
+.btn-operation{
+	position: absolute;
+	margin-top: 3px;
+
+	z-index: 50;
+	background-color:transparent; 
+	color: #66b1ff;
+	border: none;
+	font-size: 23px;
+	font-weight:bold;
+	height: 40px;
+	text-align: center;
+}
 </style>

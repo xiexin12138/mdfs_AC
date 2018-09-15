@@ -495,12 +495,12 @@ state :  0,  				// 错误类型码，0表示成功
 
 
 
-//管理用户组和群组关系：
+//管理用户组中的用户
 req{
-		type : ManageUserAndGroup 	//36
-user : scott					//用户名
-group : group1					//用户组名
-operation : add				//对应的操作分为三种  add  del  change
+		type : ‘36‘’’					//请求码是36
+user :‘scott’					//用户名
+group :‘group1’				//用户组名
+operation : add				//对应的操作分为三种  add  del  
 }
 res:{
 type: ManageUserAndGroup,
@@ -509,90 +509,91 @@ errormessage:'' // 错误信息
 }
 
 
-//查询用户组和群组关系
-req{
-	type : queryUserAndGroup	//43
-pageSize: 10, 				// 每一页包含10行数据
-	currentPage: 1 			// 当前页为第一页
+
+//显示所有的组信息
+req:{
+	type : “43”,				//请求码是43	
+}
+resp:{
+	type : “43”,				//请求码是43
+	state : “0”,				//错误类型码，0：成功，1：表示失败
+	errormessage : “”,			// 错误信息
+	groups : [{				//所有的组信息
+	“id” : “2”,				//组id
+	“group” : “lzl”			//组名
+},
+{
+	“id” : “2”,				//组id
+	“group” : “lzl”			//组名
+}]
 }
 
-resp{
-	type : queryUserAndGroup,	//43
-state: 0,  // 错误类型码，0表示成功
-	errormessage:'' // 错误信息
-	total : 
-pageSize: 10, 				// 每一页包含10行数据
-	currentPage: 1 			// 当前页为第一页
-	userGroups:[
-		{
-	id : 				//id   无意义   主键
-	user : 			//用户
-	userGroup :		//群组名称
-	isMainGroup		//该群组是否为用户的主群组
+
+//显示组内成员信息
+req : {
+	type : “39”,			//请求码是39
+	group: “test”			//用户组名
 }
-]
+resp : {
+	type : “39”,				//请求码是39
+	state : “0”,				//错误类型码，0：成功，1：表示失败
+	errormessage : “”,			// 错误信息
+	groupUsers : [{			//该组内用户
+	“id” : “2”,						//用户id
+	“userName” : “yuhy”			//用户名
+},
+{
+	“id” : “6”,						//用户id
+	“userName” : “linzhili”			//用户名
+}]，
+notGroupUsers: [{			//不在该组中的用户
+	“id” : “3”,						//用户id
+	“userName” : “lixin”			//用户名
+},
+{
+	“id” : “4”,						//用户id
+	“userName” : “yongle”			//用户名
+}]
 }
 
-//查询群组
-Req{
-	type : group_query	,	//请求码是39
-	pageSize： 			//每一页的数量
-	currentPage:			//当前是第几页
+
+//修改组名
+req:{
+	type :’ 40’,		//请求码40
+	id : ‘3’,			//用户组id
+	group : ‘test’		//用户组名称(修改后的名称)
 }
-Resp{
-type : group_query	,	//请求码是39
-	state :
-	errormessage :
-	total : 
-	pageSize : 
-	currentPage : 
-	groups[
-		{
-			id:			//群组id			
-			groupName	//群组名称
-}
-		{
-			id:			//群组id			
-			groupName	//群组名称
-}
-		。。。。。。
-]
+resp : {
+	type : ‘40’,			//请求码40
+	state : “0”,			//错误类型码，0：成功，1：表示失败
+	errormessage : “”,		// 错误信息
 }
 
-//修改群组
-Req{
-		type : group_change	//请求码是40
-		id： 				//群组id
-		groupName:			//群组名称
-}
-	Resp{
-type : group_ change,	//请求码是40
-		state :
-		errormessage :
-	}
 
 //删除群组
-Req{
-type : group_delete		//请求码是41
-id： 					//群组id
-groupName:			//群组名称
+req{
+type : ‘41’			//请求码是41
+id： ‘2’				//群组id
+groupName : ‘test’		//群组名称
 }
-Resp{
-type : group_ delete,	//请求码是41
-		state :
-		errormessage :
-	}
+resp : {
+	type : ‘40’,			//请求码40
+	state : “0”,			//错误类型码，0：成功，1：表示失败
+	errormessage : “”,		// 错误信息
+}
 
-//添加群组
-	Req{
-type : group_add		//请求码是42
-groupName:			//群组名称
+
+//新建用户组
+req:{
+	type :’ 42’,		//请求码42
+	group : ‘test’		//用户组名称
 }
-Resp{
-type : group_ add,	//请求码是42
-		state :
-		errormessage :
-	}
+resp : {
+	type : ‘42’,			//请求码42
+	state : “0”,			//错误类型码，0：成功，1：表示失败
+	errormessage : “”,		// 错误信息
+}
+
 
 //异常文件查询
 

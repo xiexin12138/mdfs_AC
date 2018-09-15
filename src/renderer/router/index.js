@@ -39,13 +39,6 @@ import DownloadErrorFile from '@/components/AuthManagePage/DownloadErrorFile'
 
 import UserManagePage from '@/components/UserManagePage'
 import UserListPage from '@/components/UserManagePage/UserListPage'
-import GroupListPage from '@/components/UserManagePage/GroupListPage'
-import AddGroup from '@/components/UserManagePage/GroupListPage/AddGroup'
-import UpdateGroup from '@/components/UserManagePage/GroupListPage/UpdateGroup'
-import UserGroupManagePage from '@/components/UserManagePage/UserGroupManagePage'
-import AddGroupRela from '@/components/UserManagePage/UserGroupManagePage/AddGroupRela'
-import UpdateGroupRela from '@/components/UserManagePage/UserGroupManagePage/UpdateGroupRela'
-//
 import GroupManagePage from '@/components/UserManagePage/GroupManagePage'
 
 Vue.use(Router)
@@ -71,32 +64,7 @@ let router = new Router({
 				{
 					path:'userlist',
 					component:UserListPage
-				},
-				{
-					path:'grouplist',
-					component:GroupListPage
-				},
-				{
-					path:'addgroup',
-					component:AddGroup
-				},
-				{
-					path:'updategroup/:id',
-					component:UpdateGroup
-				},
-				{
-					path:'usergroupmanage',
-					component:UserGroupManagePage
-				},
-				{
-					path:'addgrouprela',
-					component:AddGroupRela
-				},
-				{
-					path:'updategrouprela/:targetuser',
-					component:UpdateGroupRela
-				},
-				//
+				},				
 				{
 					path:'groupmanage',
 					component:GroupManagePage
@@ -104,10 +72,6 @@ let router = new Router({
 
 			]
 		},
-		// {
-		// 	path:'/home',
-		// 	component: HomePage
-		// },
 		{
 			path:'/config',
 			component: ConfigPage,
