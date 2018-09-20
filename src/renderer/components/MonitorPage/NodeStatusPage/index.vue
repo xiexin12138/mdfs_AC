@@ -614,30 +614,6 @@ export default {
 							.text(function() {
 								return '挂载节点:'+d.name
 							})
-						// var top = d.name.substring(0, 4)
-						// var bot = d.name.substring(4, d.name.length)
-
-						// d3.select(this).text(function() {
-						// 	return ''
-						// })
-
-						// d3
-						// 	.select(this)
-						// 	.append('tspan')
-						// 	.attr('x', 0)
-						// 	.attr('y', -7)
-						// 	.text(function() {
-						// 		return top
-						// 	})
-
-						// d3
-						// 	.select(this)
-						// 	.append('tspan')
-						// 	.attr('x', 0)
-						// 	.attr('y', 10)
-						// 	.text(function() {
-						// 		return bot
-						// 	})
 					}
 				})
 				.attr('class', function(d) {

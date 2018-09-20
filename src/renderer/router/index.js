@@ -11,10 +11,16 @@ import NewUserPage from '@/components/NewUserPage'
 import UpdateUserPage from '@/components/UpdateUserPage'
 
 import ConfigPage from '@/components/ConfigPage'
+// 
 import FileSystem from '@/components/ConfigPage/FileSystem'
 import Cert from '@/components/ConfigPage/Cert'
 import GlobalPara from '@/components/ConfigPage/GlobalPara'
 import MountNode from '@/components/ConfigPage/MountNode'
+// 
+import SystemStructure from '@/components/ConfigPage/SystemStructure'
+//图标
+// import Img from '@/components/ConfigPage/img'
+// import _User from '@/components/ConfigPage/img/user.jpg'
 
 import MonitorPage from '@/components/MonitorPage'
 import FSEorrorPage from '@/components/MonitorPage/FSEorrorPage'
@@ -89,10 +95,13 @@ let router = new Router({
 					path:'globalpara',
 					component:GlobalPara
 				},
-				// {
-				// 	path:'mountnode',
-				// 	component:MountNode
-				// },
+				// 
+				{
+					path:'systemstructure',
+					component:SystemStructure
+				},
+				//img
+
 			]
 		},
 		{

@@ -147,7 +147,7 @@ export default {
 								type:'success',
 								duration:2000
 							})
-							this.$router.push({ path: '/home' })
+							this.$router.push({ path: '/user' })
 						}).catch((e)=>{
 							Message({
 								showClose: true,

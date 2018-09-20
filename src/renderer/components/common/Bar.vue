@@ -22,6 +22,7 @@
 			<!-- <el-menu-item index="/config/mountnode">挂载节点配置</el-menu-item> -->
 			<el-menu-item index="/config/cert">全局证书配置</el-menu-item>
 			<el-menu-item index="/config/globalpara">全局参数配置</el-menu-item>
+			<el-menu-item index="/config/systemstructure">系统功能结构</el-menu-item>
 		</el-submenu>
 
 		<el-submenu index="/monitor">
