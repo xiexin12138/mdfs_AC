@@ -11,6 +11,7 @@
 			<el-menu-item index="/user/userlist">用户管理</el-menu-item>
 			<!--  -->
 			<el-menu-item index="/user/groupmanage">组管理</el-menu-item>
+			<el-menu-item index="/user/changepassword">登录管理</el-menu-item>
 		</el-submenu>
 
 		<el-submenu index="/config">
@@ -51,7 +52,8 @@
 				<span>其他管理</span>
 			</template>
 			<el-menu-item index="/auth/creatdir">目录管理</el-menu-item>
-			<el-menu-item index="/auth/errorfilemanage">异常文件管理</el-menu-item>			
+			<el-menu-item index="/auth/errorfilemanage">异常文件管理</el-menu-item>
+			<el-menu-item index="/auth/errorfs">异常文件系统管理</el-menu-item>				
 		</el-submenu>
 
 	</el-menu>

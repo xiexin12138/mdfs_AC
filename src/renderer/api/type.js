@@ -94,7 +94,11 @@ export const GET_ERRORfILES = 45
 //异常文件下载
 export const DOWNLOAD_ERRORfILES = 46
 
+//查询所有的文件系统的相关信息
+export const GET_FS = 47
 
+//对可清洗的文件系统进行清洗
+export const CLEAN_FS = 48
 
 
 

@@ -633,6 +633,50 @@ type: downloadExFs,
 state: 0, // 错误类型码，0 表示成功
 errormessage:'' // 错误信息
 
+//询问文件系统相关信息
+Req{
+	“type” : “47”		//请求码
+}
+Resp{
+	“type” : “47”,				//请求码
+	“state” : “0”,				//错误类型码，0：成功，1：表示失败
+	“errormessage” : “”,		// 错误信息
+   “fs” : [{					//所有文件系统的信息
+		“id” : “2”,				//文件系统id
+		“name” : “fs1”,			//文件系统名
+		“type” : “ceph”,			//文件系统类型
+		“mountPath” : “/mnt/fs1”,	//文件系统挂载路径
+		“mountAddr” : “192.168.1.136”,	//文件服务器地址
+		“mountport” : “”,			//端口号
+		“fssize” ：””,			//存储空间
+		“fsused” : “”,			//已用空间
+		“fsavail” : “”,			//剩余空间
+		“fsstate” : “”,			//文件系统状态
+		“judge” : “”,				//是否提供判决服务1:提供判决服务 0：未提供判决服务
+		“sync” : “”,				//是否已同步，1：已同步  0：未同步
+}]
+}
+其中，文件系统状态如下：
+	0----running
+    1----ready
+	2----repairing
+	3----stopping
+	4----stop_breakdown
+	5----stop_running
+	6----stop_repairing
+
+
+//前端向CM发出请求，对可清洗的文件系统进行清洗
+Req{
+	“type” : “48”，		//请求码
+	“fsid” : “”			//文件系统id
+}
+Resp{
+	“type” : “48”,			//请求码
+	“state” : “0”,				//错误类型码，0：成功，1：表示失败
+	“errormessage” : “”,		// 错误信息
+}
+
 
 
 ```

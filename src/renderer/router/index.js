@@ -18,9 +18,7 @@ import GlobalPara from '@/components/ConfigPage/GlobalPara'
 import MountNode from '@/components/ConfigPage/MountNode'
 // 
 import SystemStructure from '@/components/ConfigPage/SystemStructure'
-//图标
-// import Img from '@/components/ConfigPage/img'
-// import _User from '@/components/ConfigPage/img/user.jpg'
+
 
 import MonitorPage from '@/components/MonitorPage'
 import FSEorrorPage from '@/components/MonitorPage/FSEorrorPage'
@@ -42,10 +40,13 @@ import UpdateDir from '@/components/AuthManagePage/UpdateDir'
 import ErrorFileManage from '@/components/AuthManagePage/ErrorFileManage'
 import DownloadErrorFile from '@/components/AuthManagePage/DownloadErrorFile'
 
+import ErrorFS from '@/components/AuthManagePage/ErrorFS'
+
 
 import UserManagePage from '@/components/UserManagePage'
 import UserListPage from '@/components/UserManagePage/UserListPage'
 import GroupManagePage from '@/components/UserManagePage/GroupManagePage'
+import ChangePassword from '@/components/UserManagePage/ChangePassword'
 
 Vue.use(Router)
 
@@ -75,6 +76,10 @@ let router = new Router({
 					path:'groupmanage',
 					component:GroupManagePage
 				},
+				{
+					path:'changepassword',
+					component:ChangePassword
+				},				
 
 			]
 		},
@@ -185,7 +190,11 @@ let router = new Router({
 				{
 					path:'downloadfile/:download_info',
 					component:DownloadErrorFile
-				}
+				},
+				{
+					path:'errorfs',
+					component:ErrorFS
+				},
 			]
 		},
 
