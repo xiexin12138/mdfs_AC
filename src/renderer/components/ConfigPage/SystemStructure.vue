@@ -1,79 +1,6 @@
 <template>
-	<div>
- <svg class="wrap">
-
-    <g class="UserAndClient-wrap">
-	    <image width="50px" height="50px" x="0" y="100"
-		        xlink:href="./img/user.jpg" @click="showDitail()">
-		</image>
-	    <image width="50px" height="50px" x="0" y="200"
-		        xlink:href="./img/client.jpg" @click="showDitail()">
-		</image>
-    </g>
-
-    <g class="LVS-wrap">
-    	<rect width="70px" height="290px" x="102" y="40" class="rect-wrap" id="lvs-wrap"></rect>
-	    <image width="50px" height="50px" x="110" y="50"
-		        xlink:href="./img/lvs.jpg" @click="showDitail()">
-		</image>
-	    <image width="50px" height="50px" x="110" y="250"
-		        xlink:href="./img/lvs.jpg" @click="showDitail()">
-		</image>
-    </g>
-
-    <g class="CM-wrap">
-    	<rect width="170px" height="150px" x="198" y="0" class="rect-wrap" id="cm-wrap"></rect>
-    	<!-- zk -->
- 	    <image width="50px" height="50px" x="200" y="5"
-		        xlink:href="./img/zk.jpg" @click="showDitail()">
-		</image>  
- 	    <image width="50px" height="50px" x="260" y="5"
-		        xlink:href="./img/zk.jpg" @click="showDitail()">
-		</image>
- 	    <image width="50px" height="50px" x="320" y="5"
-		        xlink:href="./img/zk.jpg" @click="showDitail()">
-		</image> 
-		<!-- cm -->
- 	    <image width="50px" height="50px" x="230" y="80"
-		        xlink:href="./img/cm.jpg" @click="showDitail()">
-		</image> 
- 	    <image width="50px" height="50px" x="310" y="80"
-		        xlink:href="./img/cm.jpg" @click="showDitail()">
-		</image> 	
-    </g>
-
-    <g class="Mount-wrap">
-        <rect width="170px" height="150px" x="198" y="270" class="rect-wrap" id="mount-wrap"></rect>
- 	    <image width="50px" height="50px" x="210" y="280"
-		        xlink:href="./img/cm.jpg" @click="showDitail()">
-		</image> 	
- 	    <image width="50px" height="50px" x="290" y="280"
-		        xlink:href="./img/cm.jpg" @click="showDitail()">
-		</image> 	
- 	    <image width="50px" height="50px" x="210" y="350"
-		        xlink:href="./img/cm.jpg" @click="showDitail()">
-		</image> 	
- 	    <image width="50px" height="50px" x="290" y="350"
-		        xlink:href="./img/cm.jpg" @click="showDitail()">
-		</image>
-    </g>
-
-    <g class="FS-wrap">
-    	<rect width="70px" height="420px" x="450" y="0" class="rect-wrap" id="fs-wrap"></rect>
- 	    <image width="50px" height="50px" x="460" y="5"
-		        xlink:href="./img/fs.jpg" @click="showDitail()">
-		</image>  
- 	    <image width="50px" height="50px" x="460" y="130"
-		        xlink:href="./img/fs.jpg" @click="showDitail()">
-		</image>
- 	    <image width="50px" height="50px" x="460" y="240"
-		        xlink:href="./img/fs.jpg" @click="showDitail()">
-		</image>
- 	    <image width="50px" height="50px" x="460" y="350"
-		        xlink:href="./img/fs.jpg" @click="showDitail()">
-		</image>
-    </g>
- </svg>
+	<div class="wrap">
+ 		<svg class="structure"></svg>
 	</div>
 </template>
 
@@ -93,12 +20,51 @@ export default {
 			// 这里的数据并没有被初始化
 			//整体画布
 			_svg:null,
+			_rect:null,
 			//五大部分
 			_client:null,
 			_lvs:null,
-			_cm:null,
+			_cmAndzk:null,
 			_mount:null,
 			_fs:null,
+
+
+
+		rect_info:[
+			{width:"70px", height:"170px", x:"0", y:"90", id:"client-wrap"}, //client
+			{width:"70px", height:"290px", x:"102", y:"40", id:"lvs-wrap"}, //lvs
+			{width:"170px", height:"150px", x:"198", y:"0", id:"cm-wrap"}, //cm
+			{width:"170px", height:"150px", x:"198", y:"270", id:"mount-wrap"}, //mount
+			{width:"70px", height:"420px", x:"450", y:"0", id:"fs-wrap"}, //fs
+		],
+		img_info_client:[
+			{width:"50px", height:"50px", x:"5", y:"100", xlink:"../../src/renderer/components/ConfigPage/img/user.jpg"},
+			{width:"50px", height:"50px", x:"5", y:"200", xlink:"../../src/renderer/components/ConfigPage/img/client.jpg"},
+		],
+		img_info_lvs:[
+			{width:"50px", height:"50px", x:"110", y:"50", xlink:"../../src/renderer/components/ConfigPage/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"250", xlink:"../../src/renderer/components/ConfigPage/img/lvs.jpg"},
+		],
+		img_info_cmAndzk:[
+			{width:"50px", height:"50px", x:"200", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"260", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"320", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"230", y:"80", xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"},
+			{width:"50px", height:"50px", x:"310", y:"80", xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"},
+		],
+		img_info_mount:[
+			{width:"50px", height:"50px", x:"210", y:"280", xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"},
+			{width:"50px", height:"50px", x:"290", y:"280", xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"},
+			{width:"50px", height:"50px", x:"210", y:"350", xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"},
+			{width:"50px", height:"50px", x:"290", y:"350", xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"},
+		],
+		img_info_fs:[
+			{width:"50px", height:"50px", x:"460", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/fs.jpg"},
+			{width:"50px", height:"50px", x:"460", y:"130", xlink:"../../src/renderer/components/ConfigPage/img/fs.jpg"},
+			{width:"50px", height:"50px", x:"460", y:"240", xlink:"../../src/renderer/components/ConfigPage/img/fs.jpg"},
+			{width:"50px", height:"50px", x:"460", y:"350", xlink:"../../src/renderer/components/ConfigPage/img/fs.jpg"},
+		],
+
 		}
 	},
 
@@ -111,41 +77,72 @@ export default {
 	},
 
 	methods: {
+
 	
 		// 新建图像
-		createGraph: function() {
-  //       this._svg=d3.select('.wrap')     //选择文档中的xx元素中的首个
-		//             .append("svg")  //添加一个svg元素
-		//             .attr("width", 300)  //设定宽度
-		//             .attr("height", 300) //设定高度
-		//             // .attr('style','background-color:red')
-		// this._client=this._svg.append('div')
-		//                   .attr('id','client-wrap')
-		//                   .attr('class','five-wrap')
-		//                   .attr('style','background-color:red')
-		// this._lvs=this._svg.append('div')
-		//                   .attr('id','lvs-wrap')
-		//                   .attr('class','five-wrap')
-		// this._cm=this._svg.append('div')
-		//                   .attr('id','cm-wrap')
-		//                   .attr('class','five-wrap')		
-		// this._mount=this._svg.append('div')
-		//                   .attr('id','mount-wrap')
-		//                   .attr('class','five-wrap')
-		// this._fs=this._svg.append('div')
-		//                   .attr('id','fs-wrap')
-		//                   .attr('class','five-wrap')
+	createGraph: function() {
 
-		this._svg=d3.select('.wrap')
+		this._svg=d3.select('.structure')
 
-		this._lvs=this._svg.select('.LVS-wrap').selectAll('image')
-		console.log(this._lvs)
+		this._rect= this._svg.selectAll(".rectBorder")
+		                       .data(this.rect_info)
+		                       .enter().append("rect")
+		                       .attr("width",function(d){return d.width})
+		                       .attr("height",function(d){return d.height})
+		                       .attr("x",function(d){return d.x})
+		                       .attr("y",function(d){return d.y})
+		                       .attr("id",function(d){return d.id})	
+		                       .attr("class","rect-wrap")	
 
+		this._client= this._svg.selectAll(".client")
+		                       .data(this.img_info_client)
+		                       .enter().append("image")
+		                       .attr("width",function(d){return d.width})
+		                       .attr("height",function(d){return d.height})
+		                       .attr("x",function(d){return d.x})
+		                       .attr("y",function(d){return d.y})
+		                       .attr("xlink:href",function(d){return d.xlink})
+
+		this._lvs= this._svg.selectAll(".lvs")
+		                       .data(this.img_info_lvs)
+		                       .enter().append("image")
+		                       .attr("width",function(d){return d.width})
+		                       .attr("height",function(d){return d.height})
+		                       .attr("x",function(d){return d.x})
+		                       .attr("y",function(d){return d.y})
+		                       .attr("xlink:href",function(d){return d.xlink})
+
+		this._cmAndzk= this._svg.selectAll(".cmAndzk")
+		                       .data(this.img_info_cmAndzk)
+		                       .enter().append("image")
+		                       .attr("width",function(d){return d.width})
+		                       .attr("height",function(d){return d.height})
+		                       .attr("x",function(d){return d.x})
+		                       .attr("y",function(d){return d.y})
+		                       .attr("xlink:href",function(d){return d.xlink})
+
+		this._mount= this._svg.selectAll(".mount")
+		                       .data(this.img_info_mount)
+		                       .enter().append("image")
+		                       .attr("width",function(d){return d.width})
+		                       .attr("height",function(d){return d.height})
+		                       .attr("x",function(d){return d.x})
+		                       .attr("y",function(d){return d.y})
+		                       .attr("xlink:href",function(d){return d.xlink})
+		this._fs= this._svg.selectAll(".fs")
+		                       .data(this.img_info_fs)
+		                       .enter().append("image")
+		                       .attr("width",function(d){return d.width})
+		                       .attr("height",function(d){return d.height})
+		                       .attr("x",function(d){return d.x})
+		                       .attr("y",function(d){return d.y})
+		                       .attr("xlink:href",function(d){return d.xlink})
 		
 		},
+
 		showDitail(){
-			var trytry=d3.selectAll('image')
-			console.log(trytry[0][1].x.animVal.value)
+			// var trytry=d3.selectAll('image')
+			// console.log(trytry[0][1].x.animVal.value)
 		},
 	}
 
@@ -154,7 +151,7 @@ export default {
 </script>
 
 <style>
-.wrap{
+.structure{
 	height:600px;
 	width:600px;	
 	margin-left: 150px;
