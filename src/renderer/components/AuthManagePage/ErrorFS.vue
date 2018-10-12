@@ -114,16 +114,27 @@ Vue.use(Row)
 Vue.use(Col)
 
 export default {
-  mounted: async function() {
-    await this.updatePage()  
-    console.log()
-  },
+
     data() {
       return {
+        timer:null,
       	      	//表内数据
         tableData1: [], //
       }
     },
+  mounted: async function() {
+    await this.updatePage()  
+    console.log()
+
+    this.timer = setInterval(async () => {
+      await this.updatePage()
+    }, 5000)
+
+  },
+  destroyed: function(){
+    clearInterval(this.timer)
+  },
+
 methods: {
      // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){

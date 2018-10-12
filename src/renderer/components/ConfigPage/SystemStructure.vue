@@ -1,6 +1,15 @@
 <template>
 	<div class="wrap">
  		<svg class="structure"></svg>
+
+<el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+  <el-table :data="gridData">
+    <el-table-column property="date" label="日期" width="150"></el-table-column>
+    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+    <el-table-column property="address" label="地址"></el-table-column>
+  </el-table>
+</el-dialog>
+
 	</div>
 </template>
 
@@ -17,6 +26,28 @@ Vue.use(Dialog)
 export default {
 	data() {
 		return {
+
+
+        gridData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }],
+        dialogTableVisible: false,
+
+
 			// 这里的数据并没有被初始化
 			//整体画布
 			_svg:null,
@@ -72,7 +103,6 @@ export default {
 	// 挂载完毕后，即页面基本形成后，会调用下面的内容
 	mounted: async function() {
 		this.createGraph()
-		console.log("hh")
 
 	},
 
@@ -81,6 +111,7 @@ export default {
 	
 		// 新建图像
 	createGraph: function() {
+		let self = this
 
 		this._svg=d3.select('.structure')
 
@@ -102,6 +133,10 @@ export default {
 		                       .attr("x",function(d){return d.x})
 		                       .attr("y",function(d){return d.y})
 		                       .attr("xlink:href",function(d){return d.xlink})
+							   .on('click',function(d){
+												  self.dialogTableVisible = true
+						
+												})
 
 		this._lvs= this._svg.selectAll(".lvs")
 		                       .data(this.img_info_lvs)
@@ -142,7 +177,7 @@ export default {
 
 		showDitail(){
 			// var trytry=d3.selectAll('image')
-			// console.log(trytry[0][1].x.animVal.value)
+			console.log("hhh")
 		},
 	}
 

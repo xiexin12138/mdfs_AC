@@ -91,7 +91,7 @@ export async function GetFSs(param) {
 export async function CleanFS(param) {
 	try {
 		// TODO 接口格式
-		 return true
+		 // return true
 		let socket = new Socket()
 		let data = {
 			type: type.CLEAN_FS,
