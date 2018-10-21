@@ -100,6 +100,8 @@ export const GET_FS = 47
 //对可清洗的文件系统进行清洗
 export const CLEAN_FS = 48
 
+//查询CM信息，CM返回正在运行的CM信息
+export const RUNING_CM_INFO = 49
 
 
 
