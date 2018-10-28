@@ -16,7 +16,7 @@ export async function GetFSs(param) {
           id: '1',
           name: 'fs1',
           type: 'ceph',
-          mountPath: '/mnt/fs1',
+          mountPoint: '/mnt/fs1',
           mountAddr: '192.168.1.136',
           mountport: '1080',
           fssize: '1080',
@@ -30,7 +30,7 @@ export async function GetFSs(param) {
           id: '2',
           name: 'fs1',
           type: 'ceph',
-          mountPath: '/mnt/fs1',
+          mountPoint: '/mnt/fs1',
           mountAddr: '192.168.1.136',
           mountport: '1080',
           fssize: '1080',
@@ -44,7 +44,7 @@ export async function GetFSs(param) {
           id: '3',
           name: 'fs1',
           type: 'ceph',
-          mountPath: '/mnt/fs1',
+          mountPoint: '/mnt/fs1',
           mountAddr: '192.168.1.136',
           mountport: '1080',
           fssize: '1080',
@@ -56,7 +56,7 @@ export async function GetFSs(param) {
         }, 
         ]
         // console.log(44,tableData5)
-	    // return tableData5
+	    return tableData5
 		let socket = new Socket()
 		let data = {
 			type: type.GET_FS,

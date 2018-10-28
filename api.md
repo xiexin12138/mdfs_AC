@@ -645,7 +645,7 @@ Resp{
 		“id” : “2”,				//文件系统id
 		“name” : “fs1”,			//文件系统名
 		“type” : “ceph”,			//文件系统类型
-		“mountPath” : “/mnt/fs1”,	//文件系统挂载路径
+		“mountPoint” : “/mnt/fs1”,	//文件系统挂载路径
 		“mountAddr” : “192.168.1.136”,	//文件服务器地址
 		“mountport” : “”,			//端口号
 		“fssize” ：””,			//存储空间

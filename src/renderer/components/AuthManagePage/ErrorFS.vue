@@ -25,7 +25,7 @@
             <span>{{ props.row.type }}</span>
           </el-form-item>
           <el-form-item label="挂载路径">
-            <span>{{ props.row.mountPath }}</span>
+            <span>{{ props.row.mountPoint }}</span>
           </el-form-item>
           <el-form-item label="服务器地址">
             <span>{{ props.row.mountAddr }}</span>

@@ -103,6 +103,14 @@ export const CLEAN_FS = 48
 //查询CM信息，CM返回正在运行的CM信息
 export const RUNING_CM_INFO = 49
 
+//查询FS信息，分类返回
+export const SIX_FS_INFO = 51
+
+//文件系统池的基本信息
+export const FSPOOL_INFO = 52
+
+//根据ID查询特定文件系统的基本信息
+export const FSBYID = 53
 
 
 

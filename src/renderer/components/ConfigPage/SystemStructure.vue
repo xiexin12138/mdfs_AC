@@ -40,7 +40,7 @@
 				</el-row>
 				<el-row >
 					<el-col :span="15"><div style="text-align:right;">挂载路径:</div></el-col>
-					<el-col :span="5" ><div>{{fs_info.mountPath}}</div></el-col>
+					<el-col :span="5" ><div>{{fs_info.mountPoint}}</div></el-col>
 				</el-row>
 				<el-row >
 					<el-col :span="15"><div style="text-align:right;">服务器地址:</div></el-col>
@@ -103,12 +103,105 @@
 				</el-row>
 			</el-dialog>
 
+			<el-dialog
+			  title="文件系统池信息"
+			  :visible.sync="FSpoolVisible"
+			  width="30%"
+			  center>
+              	<el-row >
+					<el-col :span="10"><div style="text-align:right;">文件系统总数量:</div></el-col>
+					<el-col :span="10" ><div>{{FSpool_info.fsnumber}}</div></el-col>
+				</el-row>
+              	<el-row >
+					<el-col :span="17"><div style="text-align:right;">可用存储空间（最小文件系统为准:</div></el-col>
+					<el-col :span="5" ><div>{{FSpool_info.fs_avail_size}}</div></el-col>
+				</el-row>
+
+						  <el-table
+						    :data="FSpool_info.fs_running"
+						    border
+						    style="width: 100%">
+						    <el-table-column
+						      fixed
+						      prop="name"
+						      label="fs_running"
+						      width="150">
+						    </el-table-column>
+						    <el-table-column>
+						      <template slot-scope="scope">
+						        <el-button @click="fsIDtoInfo(scope.$index,FSpool_info.fs_running)" type="text" size="small">查看</el-button>
+						        <el-button type="text" size="small">移除</el-button>
+						      </template>
+						    </el-table-column>
+
+						  </el-table>
+						  <el-table
+						    :data="FSpool_info.fs_ready"
+						    border
+						    style="width: 100%">
+						    <el-table-column
+						      fixed
+						      prop="name"
+						      label="fs_ready"
+						      width="150">
+						    </el-table-column>
+						    <el-table-column>
+						      <template slot-scope="scope">
+						        <el-button @click="fsIDtoInfo(scope.$index,FSpool_info.fs_ready)" type="text" size="small">查看</el-button>
+						        <el-button type="text" size="small">移除</el-button>
+						      </template>
+						    </el-table-column>
+						  </el-table>
+
+						  <el-table
+						    :data="FSpool_info.fs_repairing"
+						    border
+						    style="width: 100%">
+						    <el-table-column
+						      fixed
+						      prop="name"
+						      label="fs_repairing"
+						      width="150">
+						    </el-table-column>
+						    <el-table-column>
+						      <template slot-scope="scope">
+						        <el-button @click="fsIDtoInfo(scope.$index,FSpool_info.fs_repairing)" type="text" size="small">查看</el-button>
+						        <el-button type="text" size="small">移除</el-button>
+						      </template>
+						    </el-table-column>
+						  </el-table>
+
+						  <el-table
+						    :data="FSpool_info.fs_stopping"
+						    border
+						    style="width: 100%">
+						    <el-table-column
+						      fixed
+						      prop="name"
+						      label="fs_stopping"
+						      width="150">
+						    </el-table-column>
+						    <el-table-column>
+						      <template slot-scope="scope">
+						        <el-button @click="fsIDtoInfo(scope.$index,FSpool_info.fs_stopping)" type="text" size="small">查看</el-button>
+						        <el-button type="text" size="small">修复</el-button>
+						        <el-button type="text" size="small">移除</el-button>
+						      </template>
+						    </el-table-column>
+						  </el-table>
+                
+                <el-row style="text-align:center;margin-top:10px;">
+					<el-button @click="addFS()" type="primary" round size="small">新增文件系统</el-button>
+				</el-row>
+			</el-dialog>
+
+
 	</div>
 </template>
 
 <script>
 
-import {Button, Dialog, Message } from 'element-ui'
+import {Button, Dialog, Message, Card } from 'element-ui'
 import Vue from 'vue'
 import d3 from 'd3'
 import * as fivePart from '../../api/fivePart'
@@ -119,7 +212,6 @@ Vue.use(Dialog)
 export default {
 	data() {
 		return {
-
 
 			// 这里的数据并没有被初始化
 			//整体画布
@@ -137,7 +229,14 @@ export default {
 			_lvs:null,
 			_cmAndzk:null,
 			_mount:null,
-			_fs:null,
+
+			_fs_running:null,
+			_fs_ready:null,
+			_fs_repairing:null,
+			_fs_stop_breakdown:null,
+			_fs_stop_running:null,
+			_fs_stop_repairing:null,
+
 
 			//setting
 			_fs_set:null,
@@ -158,20 +257,19 @@ export default {
 
        //---------------------fs----------------------------------------
         fs:[],                            //FS信息集合
-        running_fs:[],                    //正在运行的FS信息集合
-        fs_amount:null,                   //正在运行的FS个数
-        fs_position:[                     //FS坐标管理集合
-			{x:"460", y:"5"},
-			{x:"460", y:"130"},
-			{x:"460", y:"240"},
-			{x:"460", y:"350"},
-        ],
+	    fs_running: [],		    //正在判决 类型的文件系统
+		fs_ready: [],			//准备 类型的文件系统id列表
+		fs_repairing: [],			//修复 类型的文件系统id列表
+	    fs_stop_breakdown: [],	//宕机等异常造成的离线 类型的文件系统id列表 
+	    fs_stop_running: [],     //无法修复导致的离线 类型的文件系统id列表
+	    fs_stop_repairing: [],	   //异常过多导致的离线修复类型的文件系统id列表
+
         fsVisible:false,                  //单击显示FS信息展示内容
         fs_info:{
 	        id:null,        //文件系统id
 			name:null,		//文件系统名
 			type:null,	    //文件系统类型
-			mountPath:null,	//文件系统挂载路径
+			mountPoint:null,	//文件系统挂载路径
 			mountAddr:null,	//文件服务器地址
 			mountport:null,	//端口号
 			fssize:null,	//存储空间
@@ -181,7 +279,19 @@ export default {
 			judge:null,		//是否提供判决服务1:提供判决服务 0：未提供判决服务
 			sync:null,		//是否已同步，1：已同步  0：未同步
         },
-       
+
+       //---------------------FSpool----------------------------------------
+       fsPool:[],
+       FSpoolVisible:false,               //单击显示文件系统池整体信息
+       FSpool_info:{
+       	    // fsnumber:null,
+            // fs_running:[],
+            // fs_ready:[],
+            // fs_repairing:[],
+            // fs_stopping:[],
+            // fs_avail_size:null,      //文件系统池可用的存储空间（最小文件系统为准）
+       },
+
        //---------------------mount----------------------------------------
        mount:[],                           //mount信息集合
        mount_amount:null,                  //所有的mount的数量总和
@@ -239,6 +349,7 @@ export default {
 	 async createGraph() {
 		let self = this
         
+
         //---------------------CM----------------------------------------
         //获取正在运行的CM信息
         this.cm= await fivePart.GetcmInfo() //获取正在运行的CM信息
@@ -254,22 +365,14 @@ export default {
        
         //---------------------FS----------------------------------------
         //获取正在运行的FS信息
-        this.fs= await fivePart.GetfsInfo() //获取所有的fs信息                   
-        for (let i=0;i<this.fs.length;i++)  //获取正在运行的fs
-        {
-            if(this.fs[i].fsstate=="running"){
-            	this.running_fs.push(this.fs[i])
-            }
-        }
-        this.fs_amount=this.running_fs.length     //获取正在运行的fs的个数
-        for(let i=0;i<this.fs_amount;i++)    //根据获取的正在运行的FSs个数在坐标管理集合中得到最终需要展示的绑定数据集合
-        {
-			let i_x=this.fs_position[i].x
- 			let i_y=this.fs_position[i].y
+        this.fs= await fivePart.GetfsInfo() //获取所有的fs信息
+        this.fs_running= this.fs.fs_running
+        this.fs_ready= this.fs.fs_ready
+        this.fs_repairing= this.fs.fs_repairing
+        this.fs_stop_breakdown=this.fs.fs_stop_breakdown
+        this.fs_stop_running= this.fs.fs_stop_running
+        this.fs_stop_repairing=this.fs.fs_stop_repairing
 
-			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/components/ConfigPage/img/fs.jpg"}
-			this.img_info_fs.push(img_info) //最终需要展示的绑定数据集合       	
-        }
 
         //---------------------Mount----------------------------------------    
         //获取所有的Mount信息
@@ -325,25 +428,36 @@ export default {
 		                       .attr("id","mount-wrap")	
 		                       .attr("class","rect-wrap")
 
-		this._rect_fs= this._svg
-		                       .append("rect")
-		                       .attr("width",70)
-		                       .attr("height",455)
-		                       .attr("x",450)
-		                       .attr("y",0)
-		                       .attr("id","fs-wrap")	
-		                       .attr("class","rect-wrap")
+		// this._rect_fs= this._svg
+		//                        .append("rect")
+		//                        .attr("width",70)
+		//                        .attr("height",455)
+		//                        .attr("x",450)
+		//                        .attr("y",0)
+		//                        .attr("id","fs-wrap")	
+		//                        .attr("class","rect-wrap")
 
 //-----------------------setting-------------------------------------------------	
 		this._fs_set= this._svg.append("image")
 					            .attr("width",30)
 					            .attr("height",30)
-					            .attr("x",487)
-					            .attr("y",420)
+					            .attr("x",470)
+					            .attr("y",572)
 					            .attr("xlink:href","../../src/renderer/components/ConfigPage/img/set.jpg")
-		                        .on('click',function(){
-		                       	   self.$router.push({ path: '/auth/errorfs' })
+		                        .on('click',async function(){
+		                       	   // self.$router.push({ path: '/auth/errorfs' })
+		                       	   self.FSpool_info= await fivePart.GetfsPool() //获取fspool信息		                       
+		                       	   self.FSpoolVisible=true
 		                        })
+
+		     //                           FSpool_info:{
+       // 	    fsnumber:null,
+       //      fs_running:[],
+       //      fs_ready:[],
+       //      fs_repairing:[],
+       //      fs_stopping:[],
+       //      fs_avail_size:null,      //文件系统池可用的存储空间（最小文件系统为准）
+       // },
 
 //---------------------------image-------------------------------------------------
 
@@ -392,28 +506,105 @@ export default {
 														self.mount_info= self.mount[i] //读取某个fs的信息
 														self.mountVisible = true
 						
-												})
 
-		this._fs= this._svg.selectAll(".fs")
-		                       .data(this.img_info_fs)
+ 										})
+
+     
+		this._fs_running= this._svg.selectAll(".fs_running")
+		                       .data(this.fs_running)
 		                       .enter().append("image")
-		                       .attr("width",function(d){return d.width})
-		                       .attr("height",function(d){return d.height})
-		                       .attr("x",function(d){return d.x})
-		                       .attr("y",function(d){return d.y})
-		                       .attr("xlink:href",function(d){return d.xlink})
+		                       .attr("width",50)
+		                       .attr("height",50)
+		                       .attr("x",function(d,i){return 460+i*55})
+		                       .attr("y",function(d,i){return 5})
+		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
 							   .on('click',function(d,i){	
-														self.fs_info= self.running_fs[i] //读取某个fs的信息
-														self.fsVisible = true
-						
+														self.fs_info= self.fs_running[i] //读取某个fs的信息
+														self.fsVisible = true					
 												})
-		
+		this._fs_ready= this._svg.selectAll(".fs_ready")
+		                       .data(this.fs_ready)
+		                       .enter().append("image")
+		                       .attr("width",50)
+		                       .attr("height",50)
+		                       .attr("x",function(d,i){return 460+i*55})
+		                       .attr("y",function(d,i){return 100})
+		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+							   .on('click',function(d,i){	
+														self.fs_info= self.fs_ready[i] //读取某个fs的信息
+														self.fsVisible = true		
+
+												})	
+
+		this._fs_repairing= this._svg.selectAll(".fs_repairing")
+		                       .data(this.fs_repairing)
+		                       .enter().append("image")
+		                       .attr("width",50)
+		                       .attr("height",50)
+		                       .attr("x",function(d,i){return 460+i*55})
+		                       .attr("y",function(d,i){return 200})
+		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+							   .on('click',function(d,i){	
+														self.fs_info= self.fs_repairing[i] //读取某个fs的信息
+														self.fsVisible = true					
+												})	
+
+		this._fs_stop_breakdown= this._svg.selectAll(".fs_stop_breakdown")
+		                       .data(this.fs_stop_breakdown)
+		                       .enter().append("image")
+		                       .attr("width",50)
+		                       .attr("height",50)
+		                       .attr("x",function(d,i){return 460+i*55})
+		                       .attr("y",function(d,i){return 300})
+		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+							   .on('click',function(d,i){	
+														self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
+														self.fsVisible = true	
+																	
+												})	
+
+		this._fs_stop_running= this._svg.selectAll(".fs_stop_running")
+		                       .data(this.fs_stop_running)
+		                       .enter().append("image")
+		                       .attr("width",50)
+		                       .attr("height",50)
+		                       .attr("x",function(d,i){return 460+i*55})
+		                       .attr("y",function(d,i){return 400})
+		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+							   .on('click',function(d,i){	
+														self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
+														self.fsVisible = true					
+												})	
+
+		this._fs_stop_repairing= this._svg.selectAll(".fs_stop_repairing")
+		                       .data(this.fs_stop_repairing)
+		                       .enter().append("image")
+		                       .attr("width",50)
+		                       .attr("height",50)
+		                       .attr("x",function(d,i){return 460+i*55})
+		                       .attr("y",function(d,i){return 500})
+		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+							   .on('click',function(d,i){	
+														self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息
+														self.fsVisible = true					
+												})	
+
+
+
 		},
 
-		showDitail(){
-			// var trytry=d3.selectAll('image')
-			console.log("hhh")
-		},
+	 async fsIDtoInfo(index, rows) {
+	        let fs_id= rows[index].id
+	         console.log(fs_id)  
+	        let fsByID =await fivePart.GetfsById(fs_id)	       
+	        this.fs_info=fsByID[0]
+	        this.fsVisible=true
+	     },
+
+	 addFS(){
+          console.log("新增一个文件系统")
+	   },
+
 	}
 
 
@@ -423,7 +614,7 @@ export default {
 <style>
 .structure{
 	height:600px;
-	width:600px;	
+	width:6000px;	
 	margin-left: 150px;
 	margin-top: 80px;
 }
