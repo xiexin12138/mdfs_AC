@@ -384,17 +384,19 @@ export async function GetfsInfo(param) {
 					}],	   //异常过多导致的离线修复类型的文件系统id列表
 
 		}
-		return obj
+		// return obj
 		let socket = new Socket()
 		let data = {
-			type: type.SIX_FS_INFO,//51
+			type:type.SIX_FS_INFO,//51
+			// type: 51,//51
 
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
-			return obj.fs_running
+			console.log(444,obj)
+			return obj
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -455,7 +457,7 @@ export async function GetfsPool(param) {
 	
 		}
 
-		return poolInfo
+		// return poolInfo
 		let socket = new Socket()
 		let data = {
 			type: type.FSPOOL_INFO, //52
@@ -465,6 +467,7 @@ export async function GetfsPool(param) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
+			console.log(52,obj)
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -498,7 +501,7 @@ export async function GetfsById(param) {
 						judge:"1",		//是否提供判决服务1:提供判决服务 0：未提供判决服务
 						sync:"1",		//是否已同步，1：已同步  0：未同步
 					}] 
-					return fs
+		// return fs
 		let socket = new Socket()
 		let data = {
 			type: type.FSBYID, //53
@@ -509,6 +512,20 @@ export async function GetfsById(param) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		if (obj.state == 0) {
+			console.log(53,obj.fs)
+			// await translate(obj.fs)
+			
+		if(obj.fs.judge=="1"){
+			obj.fs.judge="提供判决服务"
+		}else{
+			obj.fs.judge="未提供判决服务"
+		}
+		if(obj.fs.sync=="1"){
+			obj.fs.sync="已同步"
+		}else{
+			obj.fs.sync="未同步"
+		}
+
 			return obj.fs
 		} else {
 			throw new Error(obj.errormessage)
@@ -517,4 +534,5 @@ export async function GetfsById(param) {
 		throw new Error(e.toString())
 	}
 }
+
 

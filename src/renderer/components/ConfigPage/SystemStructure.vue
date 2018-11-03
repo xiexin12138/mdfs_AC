@@ -356,6 +356,13 @@ export default {
 		this.cm_amount= this.cm.length //获取正在运行的CM个数      
         for (let i=0;i<this.cm_amount;i++) //根据获取的正在运行的CM个数在坐标管理集合中得到最终需要展示的绑定数据集合
 		{
+
+				     		if( this.cm[i].service=="0"){
+									 this.cm[i].service="否"
+								}else{
+									 this.cm[i].service="是"
+							}
+				     	
 			let i_x=this.cm_position[i].x
 			let i_y=this.cm_position[i].y
 
@@ -366,20 +373,28 @@ export default {
         //---------------------FS----------------------------------------
         //获取正在运行的FS信息
         this.fs= await fivePart.GetfsInfo() //获取所有的fs信息
-        this.fs_running= this.fs.fs_running
-        this.fs_ready= this.fs.fs_ready
-        this.fs_repairing= this.fs.fs_repairing
-        this.fs_stop_breakdown=this.fs.fs_stop_breakdown
-        this.fs_stop_running= this.fs.fs_stop_running
-        this.fs_stop_repairing=this.fs.fs_stop_repairing
+        this.fs_running= this.translateFS(this.fs.fs_running)
+        this.fs_ready=  this.translateFS(this.fs.fs_ready)
+        this.fs_repairing=  this.translateFS(this.fs.fs_repairing)
+        this.fs_stop_breakdown= this.translateFS(this.fs.fs_stop_breakdown)
+        this.fs_stop_running=  this.translateFS(this.fs.fs_stop_running)
+        this.fs_stop_repairing= this.translateFS(this.fs.fs_stop_repairing)
 
 
         //---------------------Mount----------------------------------------    
         //获取所有的Mount信息
-        this.mount=  await fivePart.GetmountInfo() //获取所有的Mount信息
+        this.mount=  await fivePart.GetmountInfo() //获取所有的Mount信息     
         this.mount_amount= this.mount.length //获取正在运行的mount个数
+        // this.mount= this.translateMount(this.mount)
         for (let i=0;i<this.mount_amount;i++) //根据获取的正在运行的mount个数在坐标管理集合中得到最终需要展示的绑定数据集合
-		{
+		{   
+			       
+				     		if( this.mount[i].online=="0"){
+									 this.mount[i].online="下线"
+								}else{
+									 this.mount[i].online="上线"
+							}
+				     	
 			let i_x=this.mount_position[i].x
 			let i_y=this.mount_position[i].y
 
@@ -392,41 +407,41 @@ export default {
 		this._svg=d3.select('.structure')
 
 //---------------------rect-----------------------------------
-		this._rect_client= this._svg
-		                       .append("rect")
-		                       .attr("width",70)
-		                       .attr("height",170)
-		                       .attr("x",0)
-		                       .attr("y",90)
-		                       .attr("id","client-wrap")	
-		                       .attr("class","rect-wrap")	
+		// this._rect_client= this._svg
+		//                        .append("rect")
+		//                        .attr("width",70)
+		//                        .attr("height",170)
+		//                        .attr("x",0)
+		//                        .attr("y",90)
+		//                        .attr("id","client-wrap")	
+		//                        .attr("class","rect-wrap")	
 
-		this._rect_lvs= this._svg
-		                       .append("rect")
-		                       .attr("width",70)
-		                       .attr("height",290)
-		                       .attr("x",102)
-		                       .attr("y",40)
-		                       .attr("id","lvs-wrap")	
-		                       .attr("class","rect-wrap")
+		// this._rect_lvs= this._svg
+		//                        .append("rect")
+		//                        .attr("width",70)
+		//                        .attr("height",290)
+		//                        .attr("x",102)
+		//                        .attr("y",40)
+		//                        .attr("id","lvs-wrap")	
+		//                        .attr("class","rect-wrap")
 
-		this._rect_cmAndzk= this._svg
-		                       .append("rect")
-		                       .attr("width",170)
-		                       .attr("height",150)
-		                       .attr("x",198)
-		                       .attr("y",0)
-		                       .attr("id","cm-wrap")	
-		                       .attr("class","rect-wrap")
+		// this._rect_cmAndzk= this._svg
+		//                        .append("rect")
+		//                        .attr("width",170)
+		//                        .attr("height",150)
+		//                        .attr("x",198)
+		//                        .attr("y",0)
+		//                        .attr("id","cm-wrap")	
+		//                        .attr("class","rect-wrap")
 
-		this._rect_mount= this._svg
-		                       .append("rect")
-		                       .attr("width",170)
-		                       .attr("height",150)
-		                       .attr("x",198)
-		                       .attr("y",270)
-		                       .attr("id","mount-wrap")	
-		                       .attr("class","rect-wrap")
+		// this._rect_mount= this._svg
+		//                        .append("rect")
+		//                        .attr("width",170)
+		//                        .attr("height",150)
+		//                        .attr("x",198)
+		//                        .attr("y",270)
+		//                        .attr("id","mount-wrap")	
+		//                        .attr("class","rect-wrap")
 
 		// this._rect_fs= this._svg
 		//                        .append("rect")
@@ -595,15 +610,66 @@ export default {
 
 	 async fsIDtoInfo(index, rows) {
 	        let fs_id= rows[index].id
-	         console.log(fs_id)  
-	        let fsByID =await fivePart.GetfsById(fs_id)	       
-	        this.fs_info=fsByID[0]
+	         // console.log(fs_id)  
+	         // console.log(rows[index].id) 
+	        let fsByID =await fivePart.GetfsById(fs_id)	
+	        console.log(fsByID)       
+	        this.fs_info=fsByID
 	        this.fsVisible=true
 	     },
 
 	 addFS(){
           console.log("新增一个文件系统")
 	   },
+
+     translateFS(param){
+     	for(let i=0;i<param.length;i++){
+     		if(param[i].judge=="1"){
+					param[i].judge="提供判决服务"
+				}else{
+					param[i].judge="未提供判决服务"
+				}
+			if(param[i].sync=="1"){
+					param[i].sync="已同步"
+				}else{
+					param[i].sync="未同步"
+				}
+			if(param[i].fsstate=="0"){
+				param[i].fsstate="正在判决"
+			}
+			if(param[i].fsstate=="1"){
+				param[i].fsstate="准备"
+			}
+			if(param[i].fsstate=="2"){
+				param[i].fsstate="修复中"
+			}
+			if(param[i].fsstate=="3"){
+				param[i].fsstate="宕机等异常造成的离线"
+			}
+			if(param[i].fsstate=="4"){
+				param[i].fsstate="无法修复导致的离线"
+			}
+			if(param[i].fsstate=="5"){
+				param[i].fsstate="异常过多导致的离线"
+			}
+     	}
+     	return param			  	
+	  },
+     
+     translateCM(param){
+
+
+     },
+
+    //  translateMount(param){
+    //     for(let i=0;i<this.mount_amount;i++){
+    //  		if(param[i].online=="0"){
+				// 	param[i].online="下线"
+				// }else{
+				// 	param[i].online="上线"
+				// }
+    //  	}
+    //  },
 
 	}
 
