@@ -8,12 +8,18 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
+const electron = require('electron')
+/*获取electron窗体的菜单栏*/
+const Menu = electron.Menu
+
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
 function createWindow () {
+  /*隐藏electron创听的菜单栏*/
+  Menu.setApplicationMenu(null)
   /**
    * Initial window options
    */
@@ -22,6 +28,7 @@ function createWindow () {
     useContentSize: true,
     width: 1200
   })
+
 
   mainWindow.loadURL(winURL)
   // 如果需要在正式应用，release版本中开启调试，please uncomment the next line

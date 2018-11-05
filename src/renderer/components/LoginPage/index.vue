@@ -10,7 +10,7 @@
 		<el-form-item label="密码" prop="password" >
 			<el-input style="width:250px;" type="password" auto-complete="off" v-model="userform.password"></el-input>
 			<!-- <span style="cursor:pointer;" @click="resetPwd()">忘记密码？</span> -->
-			<el-button type='text' size='small' @click="resetPwd()">忘记密码？</el-button>	
+			<el-button type='text' size='small' @click="resetPwd()">忘记密码？</el-button>
 		</el-form-item>
 		<el-form-item>
 			<el-button type="primary" @click="submitForm('userform')" @keyup.enter="submitForm('userform')">登录</el-button>
@@ -36,7 +36,7 @@
 	Vue.use(FormItem)
 	/**
 	 * 说明：用户登录表单，记录了用户名和密码，需要在每次跳转的检验用户是否登录的状态，redirect
-	 * 
+	 *
 	 */
 	export default {
 
@@ -85,7 +85,7 @@
 								type:'success',
 								duration:2000
 							})
-							this.$router.push({ path: '/user/userlist' })
+							this.$router.push({ path: '/content/summary' })
 						}).catch((e)=>{
 							Message({
 								showClose: true,
@@ -94,7 +94,7 @@
 								duration:2000
 							})
 						})
-						
+
 
 					} else {
 						return false

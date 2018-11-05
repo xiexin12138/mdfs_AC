@@ -29,3 +29,5 @@ export const DELETE_GROUPSRELA = "DELETE_GROUPSRELA"
 //获取所有的异常文件信息
 export const GET_ERRORFILES = "GET_ERRORFILES"
 
+//获取系统概况信息
+export const GET_SUMMARY = "GET_SUMMARY"
