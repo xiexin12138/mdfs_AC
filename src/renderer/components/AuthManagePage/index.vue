@@ -1,9 +1,13 @@
 <template>
-	<div>
-		<bar></bar>
-		<router-view></router-view>
-		<foot></foot>
-	</div>
+  	<el-container style="height:100%">
+  			<el-header style="background-color:#f9fafc">
+  				<h1 id="head">其他管理</h1>
+  			</el-header>
+  			<el-main id="main" style="height:100%">
+  				<router-view></router-view>
+  			</el-main>
+  			<foot></foot>
+  	 </el-container>
 </template>
 
 <script>
@@ -13,7 +17,7 @@ import Foot from '@/components/common/Foot'
 export default {
 	components: {
 		Bar,
-		Foot 
+		Foot
 	},
 }
 </script>
