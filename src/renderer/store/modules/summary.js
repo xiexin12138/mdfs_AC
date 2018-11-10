@@ -18,9 +18,9 @@ const state = {
   mountersum: 0,// mounter的总数量
   mounteronline: 0,// 在线的mounter数量
   mounteroffline: 0,// 离线的mounter数量
-  // spaceSize: 0,// fs所能用的剩余空间
-  // spaceUsed: 0,// fs已用的空间
-  // spaceAvail: 0,// fs剩余可用的空间
+  spaceSize: 0,// fs所能用的剩余空间
+  spaceUsed: 0,// fs已用的空间
+  spaceAvail: 0,// fs剩余可用的空间
   fserrstate: 1,// fs错误状态，1表示真，此时文件系统状态正常
   fsrepairing: 0,// 正在修复的fs数量
   fsrepairinglist: [],// 正在修复的fs列表list
@@ -57,39 +57,38 @@ const getters = {
   getSummaryUsersFreeze: state => state.usersfreeze, // 冻结的用户数量
   // 系统日志
   // TODO:后续logs需要区分文件系统日志、安全日志和用户日志
-  getSummaryLog: state => state.logs  // 获取日志
+  // getSummaryLog: state => state.logs,  // 获取日志
   // getSummaryFsLog: state => state.fslog, // 文件系统日志
   // getSummarySafeLog: state => state.safelog, // 安全日志
   // getSummaryUsersLog: state => state.userslog, // 用户日志
   // TODO:后续需要更新SpaceUsed的方法，数据库中暂时没有对应的参数提供
   // 文件系统空间使用情况(表中字段未使用，接口未开发，暂不展示)
-  // getSummarySpaceSize: state => state.spaceused,
-  // getSummarySpaceUsed: state => state.spaceused,
-  // getSummarySpaceAvail: state => state.spaceused,
+  getSummarySpaceSize: state => state.spaceSize,
+  getSummarySpaceUsed: state => state.spaceUsed,
+  getSummarySpaceAvail: state => state.spaceAvail,
 
 }
 const mutations = {
 	[types.GET_SUMMARY](state, payload) {
-    console.log('进入到mutations');
-    state.fssum = payload.fssum
-    state.fsonline = payload.fsonline
-    state.fsready  = payload.fsready
-    state.mountersum = payload.mountersum
-    state.mounteronline = payload.mounteronline
-    state.mounteroffline = payload.mounteroffline
-    state.spaceSize = payload.spaceSize
-    state.spaceUsed = payload.spaceUsed
-    state.spaceAvail = payload.spaceAvail
-    state.fserrstate = payload.fserrstate
-    state.fsrepairing = payload.fsrepairing
-    state.fsrepairinglist = payload.fsrepairinglist
-    state.fssyn = payload.fssyn
-    state.fssynlist = payload.fssynlist
-    state.fsstop = payload.fsstop
-    state.fsstoplist = payload.fsstoplist
-    state.userssum = payload.userssum
-    state.usersonline = payload.usersonline
-    state.usersfreeze = payload.usersfreeze
+    state.fssum = payload.fsState.fsSum
+    state.fsonline = payload.fsState.fsOnlineNum
+    state.fsready  = payload.fsState.fsReadyNum
+    state.mountersum = payload.mounterState.mounterSum
+    state.mounteronline = payload.mounterState.mounterOnlineNum
+    state.mounteroffline = payload.mounterState.mounterOfflineNum
+    state.spaceSize = payload.fsCapacity.fsSize
+    state.spaceUsed = payload.fsCapacity.fsUsed
+    state.spaceAvail = payload.fsCapacity.fsAvail
+    state.fserrstate = payload.fsErrStatus.fsErrState
+    state.fsrepairing = payload.fsErrStatus.fsRepairingNum
+    state.fsrepairinglist = payload.fsErrStatus.fsRepairingList
+    state.fssyn = payload.fsErrStatus.fsSyncNum
+    state.fssynlist = payload.fsErrStatus.fsSynList
+    state.fsstop = payload.fsErrStatus.fsStopNum
+    state.fsstoplist = payload.fsErrStatus.fsStopList
+    state.userssum = payload.userInfo.userSum
+    state.usersonline = payload.userInfo.userOnlineNum
+    state.usersfreeze = payload.userInfo.userFreezeNum
     state.logs = payload.logs
 	}
 }

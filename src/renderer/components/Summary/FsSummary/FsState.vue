@@ -8,19 +8,18 @@
   <el-row style="height:80%">
     <el-col class="center" :span="8" style="height:100%">
       <div class="center fsSumTitle">总数量</div>
-      <div class="fsSum" v-show='fssum != undefined'>{{ fssum }}</div>
-      <div class="fsSum" v-show='fssum == undefined'>0</div>
+      <div class="fsSum">{{ fssum }}</div>
+      <!--<div class="fsSum" v-show='fssum != undefined'>{{ fssum }}</div>
+      <div class="fsSum" v-show='fssum == undefined'>0</div>-->
       <!--<div class="fsSum">9</div>-->
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
       <div class="center runningTitle">使用中</div>
-      <div class="running" v-show='fsonline != undefined'>{{fsonline}}</div>
-      <div class="running" v-show='fsonline == undefined'>0</div>
+      <div class="running" >{{fsonline}}</div>
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
       <div class="center readyingTitle">后备中</div>
-      <div class="readying" v-show='fsready != undefined'>{{fsready}}</div>
-      <div class="readying" v-show='fsready == undefined'>0</div>
+      <div class="readying">{{fsready}}</div>
     </el-col>
   </el-row>
   </div>
@@ -42,11 +41,17 @@
 import { mapState } from 'vuex'
 export default {
   name: 'fsstate',
-  computed: mapState([
-   'fssum',
-   'fsonline',
-   'fsready'
- ])
+  computed: {
+   fssum () {
+     return this.$store.getters.getSummaryFsSum
+   },
+   fsonline () {
+     return this.$store.getters.getSummaryFsOnline
+   },
+   fsready () {
+     return this.$store.getters.getSummaryFsReady
+   }
+  }
 }
 </script>
 <style>

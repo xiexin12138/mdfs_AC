@@ -10,45 +10,43 @@
       </div>
       <div class="center safeStateTitle" v-show='!fsErr'>
         文件系统　
-        <div class="" style="color:#009900;">
-          正常
-        </div>
+        <div class="" style="color:#009900;" v-show="fserrstate <= 0">正常</div>
+        <div class="" style="color:#009900;" v-show="fserrstate > 0 ">异常</div>
       </div>
     </el-col>
   </el-row>
   <el-row style="height:80%;width:100%;">
     <el-col class="center" :span="8" style="height:100%">
-      <!--<div class="repairTitle"><i class="el-icon-time"></i> 修复中</div>-->
       <div class="repairTitle"> 修复中</div>
-      <div class="repair" v-show='fsrepairing == undefined'>0</div>
-      <div class="repair" v-show='fsrepairing != undefined'>{{fsrepairing}}</div>
+      <div class="repair">{{fsrepairing}}</div>
       <div class="repairList" v-show='!fsRepairingListNull'>
-        // TODO:这里需要改为v-for展示信息
-        <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> FS1 </a>
+        <div class=""  v-for="item in fsrepairinglist">
+          <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> {{item.fsName}} </a>
+        </div>
       </div>
       <div class="repairList" style='text-align: center;' v-show='fsRepairingListNull'>
         无
       </div>
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
-      <!--<div class="syncTitle"><i class="el-icon-refresh"></i> 同步中</div>-->
       <div class="syncTitle"> 同步中</div>
-      <div class="sync" v-show='fssyn == undefined'>0</div>
-      <div class="sync" v-show='fssyn != undefined'>{{fssyn}}</div>
+      <div class="sync">{{fssyn}}</div>
       <div class="syncList" v-show='!fsSynListNull'>
-        <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> FS3 </a>
+        <div class=""  v-for="item in fssynlist">
+          <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> {{item.fsName}} </a>
+        </div>
       </div>
       <div class="syncList" style='text-align: center;' v-show='fsSynListNull'>
         无
       </div>
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
-      <!--<div class="fsOfflineTitle"><i class="el-icon-circle-close-outline"></i> 已离线</div>-->
       <div class="fsOfflineTitle"> 已离线</div>
-      <div class="fsOffline" v-show='fsstop == undefined'>0</div>
-      <div class="fsOffline" v-show='fsstop != undefined'>{{fsstop}}</div>
+      <div class="fsOffline">{{fsstop}}</div>
       <div class="syncList" v-show='!fsStopingListNull'>
-        <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> FS7 <br/></a>
+        <div class=""  v-for="item in fssynlist">
+          <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> {{item.fsName}} </a>
+        </div>
       </div>
       <div class="syncList" style='text-align: center;' v-show='fsStopingListNull'>
         无
@@ -61,14 +59,28 @@
 import { mapState } from 'vuex'
 export default {
   name: 'safestate',
-  computed: mapState({
-    fserrstate: 'fserrstate',
-    fsrepairing: 'fsrepairing',
-    fsrepairinglist: 'fsrepairinglist',
-    fssyn: 'fssyn',
-    fssynlist: 'fssynlist',
-    fsstop: 'fsstop',
-    fsstoplist: 'fsstoplist',
+  computed: {
+    fserrstate () {
+      return this.$store.getters.getSummaryFsErrState
+    },
+    fsrepairing () {
+      return this.$store.getters.getSummaryFsRepairing
+    },
+    fsrepairinglist () {
+      return this.$store.getters.getSummaryFsRepairingList
+    },
+    fssyn () {
+      return this.$store.getters.getSummaryFsSyn
+    },
+    fssynlist () {
+      return this.$store.getters.getSummaryFsSynList
+    },
+    fsstop () {
+      return this.$store.getters.getSummaryFsStop
+    },
+    fsstoplist () {
+      return this.$store.getters.getSummaryFsStopList
+    },
     fsErr(state) {
       if(state.fserrstate == undefined || state.fserrstate == 0)
         return false
@@ -89,7 +101,7 @@ export default {
         return true
       return false
     }
-  })
+  }
 }
 </script>
 <style media="screen">

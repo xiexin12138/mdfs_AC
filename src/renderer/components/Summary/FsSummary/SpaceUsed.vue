@@ -10,16 +10,16 @@
       <div style="height:50%">
         <div class="">
           总空间：<br/>
-          <span class="spaceSum">12500</span>GB
+          <span class="spaceSum">{{spaceSum}}</span>GB
         </div>
         <div class="">
           已用空间：<br/>
-          <span class="spaceUsed">899</span>GB
+          <span class="spaceUsed">{{spaceUsed}}</span>GB
         </div>
         <div class="">
           <!--<div style="height:33.3%;width:100%">-->
           剩余空间：<br/>
-          <span class="spaceRemain">11601</span>GB
+          <span class="spaceRemain">{{spaceAvail}}</span>GB
         </div>
       </div>
       <div style="height:30%"></div>
@@ -37,6 +37,17 @@ export default {
     'spaceUsed',
     'spaceAvail'
   ]),*/
+  computed: {
+    spaceSum () {
+      return this.$store.getters.getSummarySpaceAvail
+    },
+    spaceUsed () {
+      return this.$store.getters.getSummarySpaceUsed
+    },
+    spaceAvail () {
+      return this.$store.getters.getSummarySpaceAvail
+    }
+  },
   mounted: async function() {
     var dom = document.getElementById("containerChart");
     /*数据量少且简单，使用svg性能更优*/
