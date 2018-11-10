@@ -2,16 +2,15 @@
 <div class="" style="height:100%;width:100%">
   <el-row style="height:20%">
     <el-col :span="24" style="height:100%">
-      <div class="center safeStateTitle" v-show='fsErr'>
+      <div class="center safeStateTitle" v-show='fsIsErr'>
         文件系统　
         <div class="" style="color: red;">
           异常
         </div>
       </div>
-      <div class="center safeStateTitle" v-show='!fsErr'>
+      <div class="center safeStateTitle" v-show='!fsIsErr'>
         文件系统　
-        <div class="" style="color:#009900;" v-show="fserrstate <= 0">正常</div>
-        <div class="" style="color:#009900;" v-show="fserrstate > 0 ">异常</div>
+        <div class="" style="color:#009900;">正常</div>
       </div>
     </el-col>
   </el-row>
@@ -81,23 +80,25 @@ export default {
     fsstoplist () {
       return this.$store.getters.getSummaryFsStopList
     },
-    fsErr(state) {
-      if(state.fserrstate == undefined || state.fserrstate == 0)
-        return false
-      return true
+    fsIsErr(state) {// 0: 成功 1：失败
+      if(state.fserrstate == 1 && (this.$store.getters.getSummaryFsRepairing > 0
+          || this.$store.getters.getSummaryFsSyn > 0
+          || this.$store.getters.getSummaryFsStop > 0))
+        return true
+      return false
     },
     fsRepairingListNull(state) {
-      if(state.fsrepairinglist == undefined || state.fsrepairinglist.length < 1)
+      if(state.fsrepairinglist == undefined || this.$store.getters.getSummaryFsRepairing < 1)
         return true
       return false
     },
     fsSynListNull(state) {
-      if(state.fssynlist == undefined || state.fssynlist.length < 1)
+      if(state.fssynlist == undefined || this.$store.getters.getSummaryFsSyn < 1)
         return true
       return false
     },
     fsStopingListNull(state) {
-      if(state.fsstoplist == undefined || state.fsstoplist.length < 1)
+      if(state.fsstoplist == undefined || this.$store.getters.getSummaryFsStop < 1)
         return true
       return false
     }

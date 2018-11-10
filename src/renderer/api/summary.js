@@ -8,14 +8,14 @@ import Socket from './socket'
  */
 export async function GetSummary() {
   try {
-    /*let socket = new Socket()
+    let socket = new Socket()
     let data = {
       type: type.GET_SUMMARY
     }
     socket.write(JSON.stringify(data))
-		let response = await socket.read()*/
-		/*let obj = JSON.parse(response)*/
-    let obj = {
+		let response = await socket.read()
+		let obj = JSON.parse(response)
+    /*let obj = {
     	"type": "54",
     	"state": "0",
     	"errormassage": "",
@@ -73,7 +73,7 @@ export async function GetSummary() {
     		"fsUsed": "6.0",
     		"fsAvail": "4.0"
     	}
-    };
+    };*/
     // 没有出错则为0
 		if (obj.state == 0) {
 			return obj

@@ -39,7 +39,7 @@ export default {
   ]),*/
   computed: {
     spaceSum () {
-      return this.$store.getters.getSummarySpaceAvail
+      return this.$store.getters.getSummarySpaceSize
     },
     spaceUsed () {
       return this.$store.getters.getSummarySpaceUsed
@@ -76,13 +76,12 @@ export default {
           },
           center: ['50%', '50%'],
           data: [{
-              value: 899,
-              name: '已用'
+              value: this.$store.getters.getSummarySpaceUsed,
+              name: '剩余'
             },
             {
-              value: 11601,
-              name: '剩余',
-              selected: true
+              value: this.$store.getters.getSummarySpaceAvail,
+              name: '已用',
             }
           ],
           color: ['#ACACAC', '#26A0DA'],
