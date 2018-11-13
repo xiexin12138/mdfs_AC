@@ -4,7 +4,7 @@
     容量情况
   </div>
   <el-row class="" style="height:90%">
-    <el-col :span=16 id="containerChart" style="height:100%"></el-col>
+    <el-col :span=16 id="containerChart" style="height:100%" ref="mychart"></el-col>
     <el-col :span=8 id="containerDetail" class="containerDetail">
       <div style="height:20%"> </div>
       <div style="height:50%">
@@ -29,6 +29,7 @@
 </template>
 <script>
 import echarts from 'echarts'
+import * as summary from '../../../api/summary'
 
 export default {
   name: 'spaceuse',
@@ -37,27 +38,36 @@ export default {
     'spaceUsed',
     'spaceAvail'
   ]),*/
-  computed: {
-    spaceSum () {
-      return this.$store.getters.getSummarySpaceSize
-    },
-    spaceUsed () {
-      return this.$store.getters.getSummarySpaceUsed
-    },
-    spaceAvail () {
-      return this.$store.getters.getSummarySpaceAvail
+  data() {
+    return {
+      myChart: [],
     }
   },
+  computed: {
+    spaceSum() {
+      return this.$store.getters.getSummarySpaceSize
+    },
+    spaceUsed() {
+      return this.$store.getters.getSummarySpaceUsed
+    },
+    spaceAvail() {
+      return this.$store.getters.getSummarySpaceAvail
+    },
+  },
+  methods: {
+    async getSpaceUsed() {
+      let pieCapacity = await summary.GetPieCapacity()
+      return pieCapacity.fsUsed;
+    },
+    async getSpaceAvail() {
+      let pieCapacity = await summary.GetPieCapacity()
+      return pieCapacity.fsAvail;
+    },
+  },
   mounted: async function() {
-    var dom = document.getElementById("containerChart");
-    /*数据量少且简单，使用svg性能更优*/
-    var myChart = echarts.init(dom, null, {
-      renderer: 'canvas'
-      /*renderer: 'svg'*/
-    });
-    var app = {};
-    let option = null;
-    option = {
+    let thisVue = this; // 作用域问题，在getOverViewEveryTwoSec中直接使用的this指向global对象而非VueComponent
+    let timeInterval = 2000; // 时间间隔为2秒
+    let opt = {
       baseOption: {
         animation: false,
         tooltip: {
@@ -76,15 +86,15 @@ export default {
           },
           center: ['50%', '50%'],
           data: [{
-              value: this.$store.getters.getSummarySpaceUsed,
+              value: thisVue.spaceAvail,
               name: '剩余'
             },
             {
-              value: this.$store.getters.getSummarySpaceAvail,
+              value: thisVue.spaceUsed,
               name: '已用',
             }
           ],
-          color: ['#ACACAC', '#26A0DA'],
+          color: ['#26A0DA', '#ACACAC'],
         }]
       },
       media: [{
@@ -126,18 +136,57 @@ export default {
         }
       }],
     };
-    if (option && typeof option === "object") {
-      myChart.setOption(option, true);
+    let firstRefreshPie = async function() {
+      let dom = document.getElementById("containerChart");
+      /*数据量少且简单，使用svg性能更优*/
+      thisVue.myChart = echarts.init(dom, null, {
+        renderer: 'canvas'
+        /*renderer: 'svg'*/
+      });
+      thisVue.myChart.showLoading({
+        text: '',
+        zlevel: 0,
+        maskColor: 'rgba(255, 255, 255, 0)',
+      });
+      var app = {};
+      let option = opt;
+      if (option && typeof option === "object") {
+        thisVue.myChart.hideLoading()
+        thisVue.myChart.setOption(option, true);
+      }
+      window.onresize = thisVue.myChart.resize;
     }
-    /*console.log("typeof window.onresize");
-    console.log(typeof window.onresize);*/
-    window.onresize = myChart.resize;
-    //根据窗口的大小变动图表 --- 重点
-    /*window.onresize = function() {
-      myChart.resize();
-      //myChart1.resize();若有多个图表变动，可多写
-    }*/
+
+    let refreshPie = async function() {
+      let option = opt;
+      if (option && typeof option === "object") {
+        option.baseOption.series[0].data[0].value = thisVue.spaceAvail;
+        option.baseOption.series[0].data[1].value = thisVue.spaceUsed;
+        thisVue.myChart.setOption(option, true);
+      }
+      window.onresize = thisVue.myChart.resize;
+      setTimeout(refreshPie, timeInterval);
+    }
+    firstRefreshPie();
+    refreshPie();
+},
+watch: {
+  //观察option的变化
+  option: {
+    handler(newVal, oldVal) {
+      if (this.myChart) {
+        if (newVal) {
+          this.chart.setOption(newVal);
+        } else {
+          this.chart.setOption(oldVal);
+        }
+      } else {
+        this.init();
+      }
+    },
+    deep: true //对象内部属性的监听，关键。
   }
+}
 }
 </script>
 <style media="screen">

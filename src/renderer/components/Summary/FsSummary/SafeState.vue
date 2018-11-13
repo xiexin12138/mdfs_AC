@@ -43,7 +43,7 @@
       <div class="fsOfflineTitle"> 已离线</div>
       <div class="fsOffline">{{fsstop}}</div>
       <div class="syncList" v-show='!fsStopingListNull'>
-        <div class=""  v-for="item in fssynlist">
+        <div class=""  v-for="item in fsstoplist">
           <a href="#" class="syncListLink"><i class="el-icon-arrow-right"></i> {{item.fsName}} </a>
         </div>
       </div>
@@ -81,9 +81,7 @@ export default {
       return this.$store.getters.getSummaryFsStopList
     },
     fsIsErr(state) {// 0: 成功 1：失败
-      if(state.fserrstate == 1 && (this.$store.getters.getSummaryFsRepairing > 0
-          || this.$store.getters.getSummaryFsSyn > 0
-          || this.$store.getters.getSummaryFsStop > 0))
+      if(this.fsstoplist.length > 0)
         return true
       return false
     },
