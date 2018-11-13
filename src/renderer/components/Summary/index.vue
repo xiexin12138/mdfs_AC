@@ -77,6 +77,7 @@ export default {
           duration: 4000
         });
       });
+      console.log('获取数据！');
       // 将加载中的动画直接删除
       // document.querySelector('.el-loading-mask');
       // 递归调度，自动从后台获取overview对象，用于更新数据

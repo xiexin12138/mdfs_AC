@@ -8,18 +8,15 @@
   <el-row style="height:80%">
     <el-col class="center" :span="8" style="height:100%">
       <div class="mouterSumTitle">总数量</div>
-      <div class="mouterSum" v-show='mountersum != undefined'>{{mountersum}}</div>
-      <div class="mouterSum" v-show='mountersum == undefined'>0</div>
+      <div class="mouterSum">{{mountersum}}</div>
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
       <div class="onlineTitle">在线</div>
-      <div class="onlineNum" v-show='mounteronline != undefined'>{{mounteronline}}</div>
-      <div class="onlineNum" v-show='mounteronline == undefined'>0</div>
+      <div class="onlineNum">{{mounteronline}}</div>
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
       <div class="offlineTitle">离线</div>
-      <div class="offlineNum" v-show='mounteroffline != undefined'>{{mounteroffline}}</div>
-      <div class="offlineNum" v-show='mounteroffline == undefined'>0</div>
+      <div class="offlineNum">{{ mounteroffline }}</div>
     </el-col>
   </el-row>
 </div>
@@ -29,11 +26,17 @@
 import { mapState } from 'vuex'
 export default {
   name: 'mounterstate',
-  computed: mapState([
-    'mountersum',
-    'mounteronline',
-    'mounteroffline'
- ])
+  computed: {
+    mountersum () {
+      return this.$store.getters.getSummaryMounterSum
+    },
+    mounteronline () {
+       return this.$store.getters.getSummaryFsOnline
+     },
+     mounteroffline () {
+       return this.$store.getters.getSummaryMounterOffline
+     }
+  }
 }
 </script>
 <style>

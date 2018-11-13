@@ -10,22 +10,19 @@
         <div class="usersStateDetailTitle">
           总数量
         </div>
-        <div class="usersStateDetail" v-show='userssum == undefined'>0</div>
-        <div class="usersStateDetail" v-show='userssum != undefined'>{{userssum}}</div>
+        <div class="usersStateDetail">{{userssum}}</div>
       </div>
       <div class="usersNumTitle">
         <div class="usersStateDetailTitle">
           在线
         </div>
-        <div class="usersStateDetail onlineUserNum" v-show='usersonline == undefined'>0</div>
-        <div class="usersStateDetail onlineUserNum" v-show='usersonline != undefined'>{{usersonline}}</div>
+        <div class="usersStateDetail onlineUserNum">{{usersonline}}</div>
       </div>
       <div class="usersNumTitle">
         <div class="usersStateDetailTitle">
           冻结
         </div>
-        <div class="usersStateDetail freezeUserNum" v-show='usersfreeze == undefined'>0</div>
-        <div class="usersStateDetail freezeUserNum" v-show='usersfreeze != undefined'>{{usersfreeze}}</div>
+        <div class="usersStateDetail freezeUserNum">{{usersfreeze}}</div>
       </div>
     </div>
   </div>
@@ -35,9 +32,15 @@ import { mapState } from 'vuex'
 export default{
   name:"usersstate",
   computed: mapState({
-    userssum: 'userssum',
-    usersonline: 'usersonline',
-    usersfreeze: 'usersfreeze'
+    userssum () {
+      return this.$store.getters.getSummaryUsersSum
+    },
+    usersonline () {
+      return this.$store.getters.getSummaryUsersOnline;
+    },
+    usersfreeze () {
+      return this.$store.getters.getSummaryUsersFreeze
+    }
   })
 }
 </script>

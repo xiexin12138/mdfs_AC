@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<el-row type="flex" align="middle" style="height:800">
-		<el-col style="height:800;">
+		<el-row type="flex" align="middle" style="height:750">
+		<el-col style="height:750;">
 		<el-row type="flex" justify="center" >
-		<el-col style="width:1000px;height:800px;">
-			<svg class="descrition" width="1000" height="100" ></svg>
+		<el-col style="width:100%;height:750px;">
+			<svg class="descrition" width="100%" height="100" ></svg>
 			<el-row type="flex" justify="center" >
-			<el-col style="width:800px;height:800px;">
+			<el-col style="width:800px;height:750px;">
 				<div class="monitor-graph"></div>
 			</el-col>
 			</el-row>
@@ -102,7 +102,7 @@ Vue.use(Dialog)
 // 背景宽度
 let width = 800
 // 背景长度
-let height = 900
+let height = 800
 // 正常文件的颜色
 let color_nomal_file = '#77c34f'
 // shuffle 本来是得到一个随机副本，看到generator的实现后改了，后来发现还是下面这个省事
