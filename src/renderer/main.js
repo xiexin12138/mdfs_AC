@@ -7,6 +7,7 @@ import App from './App'
 
 import router from './router'
 import store from './store'
+import '../mock/mock.js'
 
 import ElementUI from 'element-ui'
 Vue.use(ElementUI)

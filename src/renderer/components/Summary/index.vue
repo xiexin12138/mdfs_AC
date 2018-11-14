@@ -15,7 +15,9 @@
                 <div class="" style="height:5%"></div>
               </el-col>
                 <el-col :span="12" class='fullScreen'>
-                <space-used style="height:95%" />
+                  <keep-alive>
+                    <space-used style="height:95%" />
+                  </keep-alive>
                 <div class="" style="height:5%"></div>
               </el-col>
             </div>
@@ -77,9 +79,6 @@ export default {
           duration: 4000
         });
       });
-      console.log('获取数据！');
-      // 将加载中的动画直接删除
-      // document.querySelector('.el-loading-mask');
       // 递归调度，自动从后台获取overview对象，用于更新数据
       setTimeout(getOverViewEveryTwoSec, timeInterval);
     }
