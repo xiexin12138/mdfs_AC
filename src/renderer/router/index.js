@@ -7,7 +7,7 @@ import Router from 'vue-router'
 import ResetPasswordPage from '@/components/ResetPasswordPage'
 import LoginPage from '@/components/LoginPage'
 // import HomePage from '@/components/HomePage'
-import NewUserPage from '@/components/NewUserPage'
+// import NewUserPage from '@/components/NewUserPage'
 import UpdateUserPage from '@/components/UpdateUserPage'
 
 import ConfigPage from '@/components/ConfigPage'
@@ -46,6 +46,7 @@ import UserManagePage from '@/components/UserManagePage'
 import UserListPage from '@/components/UserManagePage/UserListPage'
 import GroupManagePage from '@/components/UserManagePage/GroupManagePage'
 import ChangePassword from '@/components/UserManagePage/ChangePassword'
+import NewUserPage from '@/components/UserManagePage/NewUserPage'
 
 import Summary from '@/components/Summary'
 
@@ -85,7 +86,10 @@ let router = new Router({
       					path:'changepassword',
       					component:ChangePassword
       				},
-
+          		{
+          			path:'newuser',
+          			component: NewUserPage
+          		},
       			]
       		},
       		{
@@ -160,10 +164,6 @@ let router = new Router({
       					component:UpdateMounter
       				}
       			]
-      		},
-      		{
-      			path:'newuser',
-      			component: NewUserPage
       		},
       		{
       			path:'updateuser/:id',

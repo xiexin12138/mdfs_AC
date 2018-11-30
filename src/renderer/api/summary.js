@@ -12,10 +12,10 @@ export async function GetSummary() {
     let data = {
       type: type.GET_SUMMARY
     }
-    socket.write(JSON.stringify(data))
-		let response = await socket.read()
-		let obj = JSON.parse(response)
-    /*let Mock = require('mockjs')
+    /*socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)*/
+    let Mock = require('mockjs')
     let obj = Mock.mock({
     	"type": "54",
     	"state": "0",
@@ -70,20 +70,21 @@ export async function GetSummary() {
     		"userFreezeNum": "3"
     	},
     	"fsCapacity": {
-    		"fsSize|1-100.1": 100.0,
-    		"fsUsed|1-50000.1": 6.0,
-    		"fsAvail|1-50000.1": 4.0
+    		"fsSize|1-50000.1": 100.0,
+    		"fsUsed|1-50000.1": 60.0,
+    		"fsAvail|1-50000.1": 40.0
     	}
-    })*/
+    })
     // 没有出错则为0
-		if (obj.state == 0) {
-			return obj
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
+
+    if (obj.state == 0) {
+      return obj
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
 }
 
 
@@ -100,8 +101,8 @@ export async function GetPieCapacity() {
       type: type.GET_SUMMARY
     }
     socket.write(JSON.stringify(data))
-		let response = await socket.read()
-		let obj = JSON.parse(response)
+    let response = await socket.read()
+    let obj = JSON.parse(response)
     /*let Mock = require('mockjs')
     let obj = Mock.mock({
     	"type": "54",
@@ -163,12 +164,12 @@ export async function GetPieCapacity() {
     	}
     })*/
     // 没有出错则为0
-		if (obj.state == 0) {
-			return obj.fsCapacity
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
+    if (obj.state == 0) {
+      return obj.fsCapacity
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
 }

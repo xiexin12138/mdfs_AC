@@ -14,7 +14,7 @@
   <el-row style="height:90%">
     <el-col :span="24" style="height:100%">
       <div class="logDetail" v-show='!isNull'>
-        {{ logs }}
+        {{ fslog }}
       </div>
       <div class="logDetail" v-show='isNull'>
         [2018年9月26日23:34:24]xxxxxxxxxxx<br/>
@@ -60,15 +60,16 @@
 import { mapState } from 'vuex'
 export default {
   name: 'fslogs',
-  computed: mapState({
-    logs: 'logs',
+  computed: {
+    fslog () {
+      return this.$store.getters.getSummaryFsErrState
+    },
     isNull(state) {
       if(state.logs == undefined || state.logs.length < 1)
         return true
       return false
     }
-  })
-
+  }
 }
 </script>
 <style media="screen">

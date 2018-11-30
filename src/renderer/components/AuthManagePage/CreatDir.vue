@@ -44,7 +44,7 @@
         width="209">
       </el-table-column>
 
-      
+
     </el-table>
     <el-row type="flex" class="row-bg" justify="end">
       <el-col style="width:480px;">
@@ -60,7 +60,7 @@
         </div>
       </el-col>
     </el-row>
-    
+
     </div>
   </el-col>
   </el-row>
@@ -106,16 +106,13 @@ export default {
   methods: {
     // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
-      await this.$store.dispatch('getdirs', { 
-
+      await this.$store.dispatch('getdirs', {
         dirName:'temp',
         user:'scott',
         group:'group1',
         auth:'755',
         pageSize: 10,
         currentPage: 1,
-         
-
       }).catch((e)=>{
         Message({
             showClose: true,
@@ -133,16 +130,13 @@ export default {
 
 
 		async handleCurrentChange(val){
-
-      await this.$store.dispatch('getdirs', { 
-
+      await this.$store.dispatch('getdirs', {
         dirName:'temp',
         user:'scott',
         group:'group1',
         auth:'755',
         pageSize: 10,
         currentPage: val,
-      
       }).catch((e)=>{
         Message({
             showClose: true,
@@ -156,12 +150,11 @@ export default {
       this.total = +d.total
       this.pageSize= +d.pageSize
       this.currentPage= +d.currentPage
-		
 		},
 
  //新建目录，跳转至新建目录页面
     goToNewDir() {
-      this.$router.push({ path: '/auth/adddir' })
+      this.$router.push({ path: '/content/auth/adddir' })
     },
 
     goToUpdateDir() {
@@ -176,7 +169,7 @@ export default {
       }
       let id = this.multipleSelection[0].id
       console.log(id)
-      this.$router.push({ path: '/auth/upadatedir/' + id })
+      this.$router.push({ path: '/content/auth/upadatedir/' + id })
     },
 
    async deleteDirs() {

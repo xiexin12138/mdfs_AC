@@ -48,7 +48,7 @@
         label="是否在线"
         width="159">
       </el-table-column>
-      
+
     </el-table>
     <el-row type="flex" class="row-bg" justify="end">
       <el-col style="width:480px;">
@@ -64,7 +64,7 @@
         </div>
       </el-col>
     </el-row>
-    
+
     </div>
   </el-col>
   </el-row>
@@ -152,7 +152,7 @@ export default {
       })
     },
     goToNewMounter() {
-      this.$router.push({ path: '/mounter/addmounter' })
+      this.$router.push({ path: '/content/mounter/addmounter' })
     },
     goToUpdateMounter() {
       if (this.multipleSelection.length !== 1) {
@@ -165,7 +165,7 @@ export default {
         return false
       }
       let id = this.multipleSelection[0].id
-      this.$router.push({ path: '/mounter/updatemounter/' + id })
+      this.$router.push({ path: '/content/mounter/updatemounter/' + id })
     },
     deleteMounters() {
       if (this.multipleSelection.length === 0) {

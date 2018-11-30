@@ -147,7 +147,7 @@ export default {
   },
   methods: {
     goToNewUser() {
-      this.$router.push({ path: '/content/newuser' })
+      this.$router.push({ path: '/content/user/newuser' })
     },
     goToUpdateUser() {
       if (this.multipleSelection.length !== 1) {
