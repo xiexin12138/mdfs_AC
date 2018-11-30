@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<bar></bar>
   		<el-row type="flex" justify="center">
   		<el-col style="width:500px;">
 		<div style="margin:20px 0;">
@@ -50,7 +49,7 @@
 <style>
 /* 下面的代码是为了搞定时间选择器的显示问题*/
 	.el-time-spinner.has-seconds .el-time-spinner__wrapper:nth-child(2) {
-     margin-left: 0; 
+     margin-left: 0;
 }
 </style>
 <script>
@@ -60,7 +59,7 @@
 import Bar from '@/components/common/Bar'
 import Vue from 'vue'
 import { Button, Input, Form, FormItem, Message, DatePicker, Row, Col } from 'element-ui'
-import * as userTable from '../../api/userTable'
+import * as userTable from '../../../api/userTable'
 
 Vue.use(Button)
 Vue.use(Input)

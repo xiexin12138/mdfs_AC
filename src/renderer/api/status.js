@@ -51,7 +51,7 @@ export async function GetUserNode(para) {
 // 	errormessage:'', // 错误信息
 // 	id:11,
 // 	name:'guest', // 用户节点名
-// 	ip:'192.168.1.1', 
+// 	ip:'192.168.1.1',
 // 	mac:'00.as.12.df.3d.4f.23',
 // 	duration:'35分钟' // 登录时长
 // }
@@ -76,7 +76,7 @@ export async function GetUserNode(para) {
  * @author Craig
  * @version 1.0.0
  * @date    2018-04-08
- * @description 请求节点状态图的数据 
+ * @description 请求节点状态图的数据
  */
 export async function GetNodeStatus() {
 	try {
@@ -84,7 +84,7 @@ export async function GetNodeStatus() {
 	let newData2 =  [
 				{
 					id: 1,
-					
+
 					name: 'Mount1',
 					status: 'action',
 					target: 'Mount1',
@@ -92,7 +92,7 @@ export async function GetNodeStatus() {
 				},
 				{
 					id: 2,
-					
+
 					name: 'Guest1',
 					status: 'action',
 					target: 'Mount1',
@@ -100,7 +100,7 @@ export async function GetNodeStatus() {
 				},
 				{
 					id: 3,
-					
+
 					name: 'Guest2',
 					status: 'action',
 					target: 'Mount1',
@@ -141,7 +141,7 @@ export async function GetNodeStatus() {
  * 				type -1  -->  user  // 普通用户
  * 					 0   -->  mount // 挂载节点
  * 					 1   -->  ...   // 还有其他类型的暂时不管了
- * 					 
+ *
  * 				cm中的节点（不含用户）的status有好几种，简单列举了目前要用的几种在下面switch里
  */
 function GetNodeStatusHelper(data){
@@ -270,7 +270,7 @@ export async function MonitorMetadata(){
 		let data = {
 			type:type.MON_PIE
 		}
-		
+
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		// console.log(response,28)

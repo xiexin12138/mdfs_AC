@@ -1,6 +1,5 @@
 <template>
 	<div>
-		
 		<el-row type="flex" align="middle" style="height:800px">
 		<el-col style="height:600px;">
 			<el-row type="flex" justify="center">
@@ -34,7 +33,7 @@
         width="339">
       </el-table-column>
     </el-table>
-  
+
     <el-row type="flex" class="row-bg" justify="end">
       <el-col style="width:480px;">
         <div class="divide">
@@ -49,12 +48,12 @@
         </div>
       </el-col>
     </el-row>
-    
+
     </div>
 		</el-row>
 		</el-col>
 		</el-row>
-		
+
 	</div>
 </template>
 
@@ -81,11 +80,8 @@ export default {
           	currentPage:1,
           	pageSize:10,
           	id:1
-
-
 		}
 	},
-
 
 	methods:{
 		async handleCurrentChange(val){
@@ -96,19 +92,19 @@ export default {
 			}
 			// 取数据
 			let table = await status.MonitorPieTable(data)
-			 console.log(table)
+			// console.log(table)
 			this.tableData = table.data
 			this.total = +table.total
 			this.currentPage = +table.currentPage
-		    console.log(this.currentPage)
+		  // console.log('this.total')
+  		// console.log(this.total)
 			this.pageSize = +table.pageSize
-		
 		},
 
 
 
 		async handlePieClick(params){
-         
+
 			this.id = params.data.id
 			// console.log(params.data.id)	// 这是对应点击部位的id，即文件系统的id
 			let data = {
@@ -152,7 +148,7 @@ export default {
 			            mark : {show: true},
 			            dataView : {show: true, readOnly: false},
 			            magicType : {
-			                show: true, 
+			                show: true,
 			                type: ['pie', 'funnel'],
 			                option: {
 			                    funnel: {
@@ -199,8 +195,8 @@ export default {
 			option.series[0].data = series_data
 			// 设置初始化参数，渲染作用
 			this.chart.setOption(option)
-			// 绑定点击事件	
-			this.chart.on('click',this.handlePieClick)		
+			// 绑定点击事件
+			this.chart.on('click',this.handlePieClick)
 		},
 
 	},

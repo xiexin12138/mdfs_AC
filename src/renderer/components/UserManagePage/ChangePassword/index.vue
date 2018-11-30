@@ -1,6 +1,5 @@
 <template>
 <div id="stepsBar" >
-
 	<el-steps :active="active" finish-status="success" align-center style="margin-bottom:20px;">
 		<el-step title="验证邮箱"></el-step>
 		<el-step title="设置密码"></el-step>
@@ -11,7 +10,7 @@
 <el-row type="flex" justify="center">
 <el-col style="width:400px;">
 	<el-form v-show="showPass" status-icon label-width="100px" ref="resetPasswordForm" :model="resetPasswordForm" :rules="resetrule" >
-		
+
 		<el-form-item label="设置新密码" prop="pass">
 		    <el-input style="width:250px;" type="password" placeholder="请输入6~20位新密码" v-model="resetPasswordForm.pass" auto-complete="off"></el-input>
 		  </el-form-item>
@@ -36,10 +35,10 @@
 		<el-form-item style='margin-top:100px;'>
 		<!-- 	<el-button @click="login">返回登录页</el-button> -->
 			<el-button @click="next" @keyup.enter="next">下一步</el-button>
-			
+
 		</el-form-item>
 	</el-form>
-	
+
 	<el-form v-show="showLast" status-icon label-width="40px" >
 		<el-form-item >
 			<span>设置新密码成功！请点击下一步返回登录界面继续登录</span>
@@ -47,7 +46,7 @@
 
 		<el-form-item style='margin-top:150px;margin-left: 100px;'>
 			<el-button @click="login" @keyup.enter="login">完成</el-button>
-			
+
 		</el-form-item>
 	</el-form>
 </el-col>
@@ -63,8 +62,8 @@
 		position: relative;
 		margin-right: auto;
 		margin-left: auto;
-		width: 75%;	
-		top:40px;	
+		width: 75%;
+		top:40px;
 	}
 </style>
 <script>
@@ -125,7 +124,7 @@ export default {
 				checkPass: [{ validator: validatePass2, trigger: 'blur' },
 				{ min:6, max:20, message:'长度在6到20个字符', trigger:'blur'},
 				{ required: true, message: '请再次输入密码', trigger: 'blur' }],
-				
+
 			},
 			newrule:{
 				captcha: [
@@ -165,19 +164,19 @@ export default {
 						})
 				}
 			})
-			
+
 		},
 		next(){
 			this.$refs['newForm'].validate(valid => {
 				if (valid) {
-					this.active++ 
+					this.active++
 					this.showNext = false
 					this.showPass = true
 				}else {
 					return false
 				}
 			})
-			
+
 		},
 		back(){
 			this.active = 0
@@ -229,3 +228,8 @@ export default {
 	}
 }
 </script>
+<style media="screen">
+ .fullScreen{
+   height: 100%
+ }
+</style>

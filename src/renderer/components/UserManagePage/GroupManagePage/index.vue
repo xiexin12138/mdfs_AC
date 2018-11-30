@@ -2,7 +2,7 @@
 <div>
   <el-row type="flex" class="row-bg" justify="center">
 
-  <!-- 组列表 -->	
+  <!-- 组列表 -->
   <el-col style="width:350px;">
  	<!-- <el-row type="flex" justify="center">组列表</el-row> -->
     <!-- 组管理操作按钮 -->
@@ -29,7 +29,7 @@
         prop="group"
         label="组群名称"
         width="120">
-      </el-table-column>  
+      </el-table-column>
     <el-table-column
       fixed="right"
       label="操作"
@@ -48,7 +48,7 @@
           重命名
         </el-button>
       </template>
-    </el-table-column>  
+    </el-table-column>
     </el-table>
 
 
@@ -62,7 +62,7 @@
   <el-col style="width:250px;">
 <!--  	<el-row type="flex" justify="center">组内成员</el-row> -->
  	<el-row type="flex" justify="end">
-        <el-button type="primary" size="medium"  @click="DeleteChoose()" round class="btn-operation">-</el-button> 		
+        <el-button type="primary" size="medium"  @click="DeleteChoose()" round class="btn-operation">-</el-button>
  	</el-row>
 
     <el-table
@@ -76,14 +76,14 @@
 
       <el-table-column
         type="selection"
-        width="50">       
+        width="50">
       </el-table-column>
 
       <el-table-column
         prop="userName"
         label="组内成员"
         width="199">
-      </el-table-column> 
+      </el-table-column>
 
     </el-table>
 
@@ -100,7 +100,7 @@
 <!--  	<el-row type="flex" justify="center">可选用户</el-row> -->
 
  	<el-row type="flex" justify="end">
-         <el-button type="primary" size="medium" @click="AddChoose()" round class="btn-operation">+</el-button>		
+         <el-button type="primary" size="medium" @click="AddChoose()" round class="btn-operation">+</el-button>
  	</el-row>
 
     <el-table
@@ -119,14 +119,14 @@
         prop="userName"
         label="可选用户"
         width="199">
-      </el-table-column> 
-    
+      </el-table-column>
+
     </el-table>
 
 
   </el-col>
   </el-row>
-</div>	
+</div>
 
 </template>
 
@@ -156,49 +156,41 @@ Vue.use(Col)
 
 export default {
   mounted: async function() {
-    await this.updatePage()  
+    await this.updatePage()
   },
 
  data() {
       return {
-      	
+
         multipleSelection_groupmember: [],
         multipleSelection_user: [],
         select_group:0,
-
       	//表内数据
         tableData1: [], //组
-
         tableData2: [], //组成员
-
         tableData3: [], //用户
       }
     },
 
-
-
-
  methods: {
      // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
- 		this.tableData1 = await authGroup.GetGroups()
+ 		   this.tableData1 = await authGroup.GetGroups()
     },
 
      //删除行
      deleteRow(index, rows) {
         rows.splice(index, 1);
-
       },
 
      //删除组
   async DeleteGroup(index, rows) {
         let select_id= rows[index].id
         let select_group= rows[index].group
-         console.log(select_id)   
+         console.log(select_id)
         await authGroup.DeleteGroup(select_id,select_group)
         .then(() => {
           rows.splice(index, 1);
-
           Message({
             showClose: true,
             message: '操作成功',
@@ -214,7 +206,6 @@ export default {
             duration: 2000
           })
         })
-
       },
 
      //新建组
@@ -263,12 +254,12 @@ export default {
 	          id: "#",
 	          group: value
 	      }
-	        table.unshift(list) 
+	        table.unshift(list)
         }).catch(() => {
           Message({
             type: 'info',
             message: '取消输入'
-          });       
+          });
         });
 
 
@@ -321,7 +312,7 @@ export default {
           Message({
             type: 'info',
             message: '取消输入'
-          });       
+          });
         });
       },
 
@@ -390,7 +381,7 @@ export default {
 
      	this.select_group= selectGroup
      	console.log(this.select_group)
-  
+
 
      	this.tableData2 = await authGroup.GroupUserRela(selectGroup,"groupUsers") //获取对应组内成员数据
      	this.tableData3 = await authGroup.GroupUserRela(selectGroup,"notGroupUsers") //获取对应可选用户列表数据
@@ -412,10 +403,10 @@ export default {
 
     },
 
-   
 
 
-    
+
+
   }
 </script>
 
@@ -430,13 +421,13 @@ export default {
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
-}	
+}
 .btn-operation{
 	position: absolute;
 	margin-top: 3px;
 
 	z-index: 50;
-	background-color:transparent; 
+	background-color:transparent;
 	color: #66b1ff;
 	border: none;
 	font-size: 23px;

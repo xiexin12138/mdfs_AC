@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="height:100%">
   <el-row type="flex" class="row-bg" justify="center">
   <el-col style="width:900px;">
   <div class="grid-content">
@@ -68,7 +68,7 @@
         </div>
       </el-col>
     </el-row>
-    
+
     </div>
   </el-col>
   </el-row>
@@ -147,7 +147,7 @@ export default {
   },
   methods: {
     goToNewUser() {
-      this.$router.push({ path: '/newuser' })
+      this.$router.push({ path: '/content/user/newuser' })
     },
     goToUpdateUser() {
       if (this.multipleSelection.length !== 1) {
@@ -160,7 +160,7 @@ export default {
         return false
       }
       let id = this.multipleSelection[0].id
-      this.$router.push({ path: '/updateuser/' + id })
+      this.$router.push({ path: '/content/updateuser/' + id })
     },
     deleteUsers() {
       if (this.multipleSelection.length === 0) {
