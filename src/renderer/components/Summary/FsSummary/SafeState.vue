@@ -81,7 +81,7 @@ export default {
       return this.$store.getters.getSummaryFsStopList
     },
     fsIsErr(state) {// 0: 成功 1：失败
-      if(this.fsstoplist.length > 0)
+      if(this.fsstop > 0)
         return true
       return false
     },

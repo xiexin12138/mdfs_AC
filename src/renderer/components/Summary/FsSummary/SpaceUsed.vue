@@ -171,7 +171,7 @@ export default {
     refreshPie();
 },
 watch: {
-  //观察option的变化
+  //添加监听，观察option的变化，发生变化则重新刷新
   option: {
     handler(newVal, oldVal) {
       if (this.myChart) {

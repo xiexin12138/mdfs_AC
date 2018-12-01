@@ -20,7 +20,7 @@ const state = {
   mounteroffline: 0,// 离线的mounter数量
   spaceSize: 0,// fs所能用的剩余空间
   spaceUsed: 0,// fs已用的空间
-  spaceAvail: 0,// fs剩余可用的空间
+  spaceAvail: 100,// fs剩余可用的空间
   fserrstate: 1,// fs错误状态，1表示真，此时文件系统状态正常
   fsrepairing: 0,// 正在修复的fs数量
   fsrepairinglist: [],// 正在修复的fs列表list
