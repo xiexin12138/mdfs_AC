@@ -384,7 +384,7 @@ export async function GetfsInfo(param) {
 					}],	   //异常过多导致的离线修复类型的文件系统id列表
 
 		}
-		// return obj
+		return obj
 		let socket = new Socket()
 		let data = {
 			type:type.SIX_FS_INFO,//51
@@ -457,7 +457,7 @@ export async function GetfsPool(param) {
 	
 		}
 
-		// return poolInfo
+		return poolInfo
 		let socket = new Socket()
 		let data = {
 			type: type.FSPOOL_INFO, //52
@@ -501,7 +501,7 @@ export async function GetfsById(param) {
 						judge:"1",		//是否提供判决服务1:提供判决服务 0：未提供判决服务
 						sync:"1",		//是否已同步，1：已同步  0：未同步
 					}] 
-		// return fs
+		return fs
 		let socket = new Socket()
 		let data = {
 			type: type.FSBYID, //53

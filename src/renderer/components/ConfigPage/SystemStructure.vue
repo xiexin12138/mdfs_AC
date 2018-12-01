@@ -317,17 +317,17 @@ export default {
 
 
 		img_info_client:[
-			{width:"50px", height:"50px", x:"5", y:"100", xlink:"../../src/renderer/components/ConfigPage/img/user.jpg"},
-			{width:"50px", height:"50px", x:"5", y:"200", xlink:"../../src/renderer/components/ConfigPage/img/client.jpg"},
+			{width:"50px", height:"50px", x:"5", y:"100", xlink:"../../src/renderer/img/user.jpg"},
+			{width:"50px", height:"50px", x:"5", y:"200", xlink:"../../src/renderer/img/client.jpg"},
 		],
 		img_info_lvs:[
-			{width:"50px", height:"50px", x:"110", y:"50", xlink:"../../src/renderer/components/ConfigPage/img/lvs.jpg"},
-			{width:"50px", height:"50px", x:"110", y:"250", xlink:"../../src/renderer/components/ConfigPage/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"50", xlink:"../../src/renderer/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"250", xlink:"../../src/renderer/img/lvs.jpg"},
 		],
 		img_info_cmAndzk:[ //最终需要展示的cmAndzk绑定数据集合
-			{width:"50px", height:"50px", x:"200", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/zk.jpg"},
-			{width:"50px", height:"50px", x:"260", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/zk.jpg"},
-			{width:"50px", height:"50px", x:"320", y:"5", xlink:"../../src/renderer/components/ConfigPage/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"200", y:"5", xlink:"../../src/renderer/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"260", y:"5", xlink:"../../src/renderer/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"320", y:"5", xlink:"../../src/renderer/img/zk.jpg"},
 		],
 		img_info_mount:[],
 		img_info_fs:[],
@@ -366,7 +366,7 @@ export default {
 			let i_x=this.cm_position[i].x
 			let i_y=this.cm_position[i].y
 
-			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"}
+			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/img/cm.jpg"}
 			this.img_info_cmAndzk.push(img_info) //最终需要展示的绑定数据集合
 		}
        
@@ -398,7 +398,7 @@ export default {
 			let i_x=this.mount_position[i].x
 			let i_y=this.mount_position[i].y
 
-			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/components/ConfigPage/img/cm.jpg"}
+			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/img/cm.jpg"}
 			this.img_info_mount.push(img_info) //最终需要展示的绑定数据集合
 		} 
 
@@ -458,7 +458,7 @@ export default {
 					            .attr("height",30)
 					            .attr("x",470)
 					            .attr("y",572)
-					            .attr("xlink:href","../../src/renderer/components/ConfigPage/img/set.jpg")
+					            .attr("xlink:href","../../src/renderer/img/set.jpg")
 		                        .on('click',async function(){
 		                       	   // self.$router.push({ path: '/auth/errorfs' })
 		                       	   self.FSpool_info= await fivePart.GetfsPool() //获取fspool信息		                       
@@ -532,7 +532,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 5})
-		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
 							   .on('click',function(d,i){	
 														self.fs_info= self.fs_running[i] //读取某个fs的信息
 														self.fsVisible = true					
@@ -544,7 +544,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 100})
-		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
 							   .on('click',function(d,i){	
 														self.fs_info= self.fs_ready[i] //读取某个fs的信息
 														self.fsVisible = true		
@@ -558,7 +558,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 200})
-		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
 							   .on('click',function(d,i){	
 														self.fs_info= self.fs_repairing[i] //读取某个fs的信息
 														self.fsVisible = true					
@@ -571,7 +571,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 300})
-		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
 							   .on('click',function(d,i){	
 														self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
 														self.fsVisible = true	
@@ -585,7 +585,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 400})
-		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
 							   .on('click',function(d,i){	
 														self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
 														self.fsVisible = true					
@@ -598,7 +598,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 500})
-		                       .attr("xlink:href","../../src/renderer/components/ConfigPage/img/fs.jpg")
+		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
 							   .on('click',function(d,i){	
 														self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息
 														self.fsVisible = true					
