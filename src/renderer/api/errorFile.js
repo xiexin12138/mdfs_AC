@@ -9,13 +9,14 @@ import Socket from './socket'
  * @return  {Boolean}        true为正确提交，报错则不正确
  * @description 查询所有的异常文件
  */
-export async function GetErrorFiles(param) {
+export async function GetErrorFiles(pagesize,currentPage) {
 	try {        
+		
 		let socket = new Socket()
 		let data = {
 			type: type.GET_ERRORfILES,
-			pagesize :param.pageSize,
-			currentPage : param.currentPage ,
+			pagesize :pagesize,
+			currentPage :currentPage ,
 		}
 		socket.write(JSON.stringify(data))
 
@@ -25,9 +26,7 @@ export async function GetErrorFiles(param) {
 		if (obj) {
 				
 			// console.log(obj)
-			return {
-				errorfiles:obj
-			}
+			return obj
 		} else {
 			throw new Error(obj.errormessage)
 		}

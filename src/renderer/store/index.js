@@ -4,7 +4,6 @@ import user from './modules/user'
 import userTable from './modules/userTable'
 import mounter from './modules/mounter'
 import dir from './modules/dir'
-import errorfiles from './modules/errorfiles'
 import summary from './modules/summary'
 
 Vue.use(Vuex)
@@ -15,7 +14,6 @@ export default new Vuex.Store({
 		userTable,
 		mounter,
 		dir,
-		errorfiles,
     summary,
 	}
 
