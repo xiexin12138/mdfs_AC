@@ -85,6 +85,7 @@ import {
   Message
 } from 'element-ui'
 import Vue from 'vue'
+import * as errorFile from '../../api/errorFile'
 
 Vue.use(Table)
 Vue.use(TableColumn)
@@ -110,50 +111,25 @@ export default {
   methods: {
     // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
-      await this.$store.dispatch('getefiles', { 
 
-        pageSize: 10,
-        currentPage: 1,
-         
-
-      }).catch((e)=>{
-        Message({
-            showClose: true,
-            message: e.toString(),
-            type: 'error',
-            duration: 2000
-          })
-      })
-      let g = this.$store.getters.getEfiles
-      console.log(g)
-      this.errorfiles = g.fsList 
-      this.total = +g.total
-      this.pageSize= +g.pageSize
-      this.currentPage= +g.currentPage
+      let data = await errorFile.GetErrorFiles(this.pageSize,this.currentPage)
+      console.log(data.total)
+      this.errorfiles = data.fsList 
+      this.total = +data.total
+      this.pageSize= +data.pageSize
+      this.currentPage=+data.currentPage
     },
 
 
 		async handleCurrentChange(val){
 
-      await this.$store.dispatch('getgroups', { 
-
-        pageSize: 10,
-        currentPage: val,
-      
-      }).catch((e)=>{
-        Message({
-            showClose: true,
-            message: e.toString(),
-            type: 'error',
-            duration: 2000
-          })
-      })
-      let g = this.$store.getters.getEfiles
-      console.log(g)
-      this.errorfiles = g.fsList 
-      this.total = +g.total
-      this.pageSize= +g.pageSize
-      this.currentPage= +g.currentPage
+     this.currentPage= val
+      let data = await errorFile.GetErrorFiles(this.pageSize,this.currentPage)
+      console.log(data.total)
+      this.errorfiles = data.fsList 
+      this.total = +data.total
+      this.pageSize= +data.pageSize
+      this.currentPage=+data.currentPage
 		
 		},
 
