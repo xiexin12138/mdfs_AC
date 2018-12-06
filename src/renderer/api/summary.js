@@ -12,10 +12,10 @@ export async function GetSummary() {
     let data = {
       type: type.GET_SUMMARY
     }
-    /*socket.write(JSON.stringify(data))
+    socket.write(JSON.stringify(data))
     let response = await socket.read()
-    let obj = JSON.parse(response)*/
-    let Mock = require('mockjs')
+    let obj = JSON.parse(response)
+    /*let Mock = require('mockjs')
     let obj = Mock.mock({
     	"type": "54",
     	"state": "0",
@@ -74,7 +74,7 @@ export async function GetSummary() {
     		"fsUsed|1-50000.1": 60.0,
     		"fsAvail|1-50000.1": 40.0
     	}
-    })
+    })*/
     // 没有出错则为0
 
     if (obj.state == 0) {
