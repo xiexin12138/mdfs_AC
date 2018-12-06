@@ -189,7 +189,7 @@
 						      </template>
 						    </el-table-column>
 						  </el-table>
-                
+
                 <el-row style="text-align:center;margin-top:10px;">
 					<el-button @click="addFS()" type="primary" round size="small">新增文件系统</el-button>
 				</el-row>
@@ -242,7 +242,7 @@ export default {
 			_fs_set:null,
 
        //---------------------CM----------------------------------------
-        cm:[],                              //正在运行的CM信息集合                      
+        cm:[],                              //正在运行的CM信息集合
 		cm_amount:null,                     //正在运行的CM个数
 		cm_position:[{ x:"230", y:"80"},    //CM坐标管理集合
 					 {x:"310", y:"80"}
@@ -260,7 +260,7 @@ export default {
 	    fs_running: [],		    //正在判决 类型的文件系统
 		fs_ready: [],			//准备 类型的文件系统id列表
 		fs_repairing: [],			//修复 类型的文件系统id列表
-	    fs_stop_breakdown: [],	//宕机等异常造成的离线 类型的文件系统id列表 
+	    fs_stop_breakdown: [],	//宕机等异常造成的离线 类型的文件系统id列表
 	    fs_stop_running: [],     //无法修复导致的离线 类型的文件系统id列表
 	    fs_stop_repairing: [],	   //异常过多导致的离线修复类型的文件系统id列表
 
@@ -310,24 +310,18 @@ export default {
             online:null,     //表示mounter是否上线，0：下线，1：上线
        },
 
-
-
-      
-
-
-
 		img_info_client:[
-			{width:"50px", height:"50px", x:"5", y:"100", xlink:"../../src/renderer/img/user.jpg"},
-			{width:"50px", height:"50px", x:"5", y:"200", xlink:"../../src/renderer/img/client.jpg"},
+			{width:"50px", height:"50px", x:"5", y:"100", xlink:__static+'/img/user.jpg'},
+			{width:"50px", height:"50px", x:"5", y:"200", xlink:__static+"/img/client.jpg"},
 		],
 		img_info_lvs:[
-			{width:"50px", height:"50px", x:"110", y:"50", xlink:"../../src/renderer/img/lvs.jpg"},
-			{width:"50px", height:"50px", x:"110", y:"250", xlink:"../../src/renderer/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"50", xlink:__static+"/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"250", xlink:__static+"/img/lvs.jpg"},
 		],
 		img_info_cmAndzk:[ //最终需要展示的cmAndzk绑定数据集合
-			{width:"50px", height:"50px", x:"200", y:"5", xlink:"../../src/renderer/img/zk.jpg"},
-			{width:"50px", height:"50px", x:"260", y:"5", xlink:"../../src/renderer/img/zk.jpg"},
-			{width:"50px", height:"50px", x:"320", y:"5", xlink:"../../src/renderer/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"200", y:"5", xlink:__static+"/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"260", y:"5", xlink:__static+"/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"320", y:"5", xlink:__static+"/img/zk.jpg"},
 		],
 		img_info_mount:[],
 		img_info_fs:[],
@@ -344,16 +338,16 @@ export default {
 
 	methods: {
 
-	
+
 		// 创建图像
 	 async createGraph() {
 		let self = this
-        
+
 
         //---------------------CM----------------------------------------
         //获取正在运行的CM信息
         this.cm= await fivePart.GetcmInfo() //获取正在运行的CM信息
-		this.cm_amount= this.cm.length //获取正在运行的CM个数      
+		this.cm_amount= this.cm.length //获取正在运行的CM个数
         for (let i=0;i<this.cm_amount;i++) //根据获取的正在运行的CM个数在坐标管理集合中得到最终需要展示的绑定数据集合
 		{
 
@@ -362,14 +356,14 @@ export default {
 								}else{
 									 this.cm[i].service="是"
 							}
-				     	
+
 			let i_x=this.cm_position[i].x
 			let i_y=this.cm_position[i].y
 
-			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/img/cm.jpg"}
+			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:__static+"/img/cm.jpg"}
 			this.img_info_cmAndzk.push(img_info) //最终需要展示的绑定数据集合
 		}
-       
+
         //---------------------FS----------------------------------------
         //获取正在运行的FS信息
         this.fs= await fivePart.GetfsInfo() //获取所有的fs信息
@@ -381,26 +375,26 @@ export default {
         this.fs_stop_repairing= this.translateFS(this.fs.fs_stop_repairing)
 
 
-        //---------------------Mount----------------------------------------    
+        //---------------------Mount----------------------------------------
         //获取所有的Mount信息
-        this.mount=  await fivePart.GetmountInfo() //获取所有的Mount信息     
+        this.mount=  await fivePart.GetmountInfo() //获取所有的Mount信息
         this.mount_amount= this.mount.length //获取正在运行的mount个数
         // this.mount= this.translateMount(this.mount)
         for (let i=0;i<this.mount_amount;i++) //根据获取的正在运行的mount个数在坐标管理集合中得到最终需要展示的绑定数据集合
-		{   
-			       
+		{
+
 				     		if( this.mount[i].online=="0"){
 									 this.mount[i].online="下线"
 								}else{
 									 this.mount[i].online="上线"
 							}
-				     	
+
 			let i_x=this.mount_position[i].x
 			let i_y=this.mount_position[i].y
 
-			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:"../../src/renderer/img/cm.jpg"}
+			let img_info={width:"50px", height:"50px", x:i_x, y:i_y, xlink:__static+"/img/cm.jpg"}
 			this.img_info_mount.push(img_info) //最终需要展示的绑定数据集合
-		} 
+		}
 
 
         //绘图
@@ -413,8 +407,8 @@ export default {
 		//                        .attr("height",170)
 		//                        .attr("x",0)
 		//                        .attr("y",90)
-		//                        .attr("id","client-wrap")	
-		//                        .attr("class","rect-wrap")	
+		//                        .attr("id","client-wrap")
+		//                        .attr("class","rect-wrap")
 
 		// this._rect_lvs= this._svg
 		//                        .append("rect")
@@ -422,7 +416,7 @@ export default {
 		//                        .attr("height",290)
 		//                        .attr("x",102)
 		//                        .attr("y",40)
-		//                        .attr("id","lvs-wrap")	
+		//                        .attr("id","lvs-wrap")
 		//                        .attr("class","rect-wrap")
 
 		// this._rect_cmAndzk= this._svg
@@ -431,7 +425,7 @@ export default {
 		//                        .attr("height",150)
 		//                        .attr("x",198)
 		//                        .attr("y",0)
-		//                        .attr("id","cm-wrap")	
+		//                        .attr("id","cm-wrap")
 		//                        .attr("class","rect-wrap")
 
 		// this._rect_mount= this._svg
@@ -440,7 +434,7 @@ export default {
 		//                        .attr("height",150)
 		//                        .attr("x",198)
 		//                        .attr("y",270)
-		//                        .attr("id","mount-wrap")	
+		//                        .attr("id","mount-wrap")
 		//                        .attr("class","rect-wrap")
 
 		// this._rect_fs= this._svg
@@ -449,19 +443,19 @@ export default {
 		//                        .attr("height",455)
 		//                        .attr("x",450)
 		//                        .attr("y",0)
-		//                        .attr("id","fs-wrap")	
+		//                        .attr("id","fs-wrap")
 		//                        .attr("class","rect-wrap")
 
-//-----------------------setting-------------------------------------------------	
+//-----------------------setting-------------------------------------------------
 		this._fs_set= this._svg.append("image")
 					            .attr("width",30)
 					            .attr("height",30)
 					            .attr("x",470)
 					            .attr("y",572)
-					            .attr("xlink:href","../../src/renderer/img/set.jpg")
+					            .attr("xlink:href",__static+"/img/set.jpg")
 		                        .on('click',async function(){
 		                       	   // self.$router.push({ path: '/auth/errorfs' })
-		                       	   self.FSpool_info= await fivePart.GetfsPool() //获取fspool信息		                       
+		                       	   self.FSpool_info= await fivePart.GetfsPool() //获取fspool信息
 		                       	   self.FSpoolVisible=true
 		                        })
 
@@ -506,8 +500,8 @@ export default {
 							   .on('click',function(d,i){
 														self.cm_info= self.cm[i-3] //i-3扣除绑定数据集中zk的部分读取某个cm的信息
 														self.cmVisible = true
-						
-												})	                       
+
+												})
 
 		this._mount= this._svg.selectAll(".mount")
 		                       .data(this.img_info_mount)
@@ -517,14 +511,14 @@ export default {
 		                       .attr("x",function(d){return d.x})
 		                       .attr("y",function(d){return d.y})
 		                       .attr("xlink:href",function(d){return d.xlink})
-							   .on('click',function(d,i){	
+							   .on('click',function(d,i){
 														self.mount_info= self.mount[i] //读取某个fs的信息
 														self.mountVisible = true
-						
+
 
  										})
 
-     
+
 		this._fs_running= this._svg.selectAll(".fs_running")
 		                       .data(this.fs_running)
 		                       .enter().append("image")
@@ -532,10 +526,10 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 5})
-		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
-							   .on('click',function(d,i){	
+		                       .attr("xlink:href",__static+"/img/fs.jpg")
+							   .on('click',function(d,i){
 														self.fs_info= self.fs_running[i] //读取某个fs的信息
-														self.fsVisible = true					
+														self.fsVisible = true
 												})
 		this._fs_ready= this._svg.selectAll(".fs_ready")
 		                       .data(this.fs_ready)
@@ -544,12 +538,12 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 100})
-		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
-							   .on('click',function(d,i){	
+		                       .attr("xlink:href",__static+"/img/fs.jpg")
+							   .on('click',function(d,i){
 														self.fs_info= self.fs_ready[i] //读取某个fs的信息
-														self.fsVisible = true		
+														self.fsVisible = true
 
-												})	
+												})
 
 		this._fs_repairing= this._svg.selectAll(".fs_repairing")
 		                       .data(this.fs_repairing)
@@ -558,11 +552,11 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 200})
-		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
-							   .on('click',function(d,i){	
+		                       .attr("xlink:href",__static+"/img/fs.jpg")
+							   .on('click',function(d,i){
 														self.fs_info= self.fs_repairing[i] //读取某个fs的信息
-														self.fsVisible = true					
-												})	
+														self.fsVisible = true
+												})
 
 		this._fs_stop_breakdown= this._svg.selectAll(".fs_stop_breakdown")
 		                       .data(this.fs_stop_breakdown)
@@ -571,12 +565,12 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 300})
-		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
-							   .on('click',function(d,i){	
+		                       .attr("xlink:href",__static+"/img/fs.jpg")
+							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
-														self.fsVisible = true	
-																	
-												})	
+														self.fsVisible = true
+
+												})
 
 		this._fs_stop_running= this._svg.selectAll(".fs_stop_running")
 		                       .data(this.fs_stop_running)
@@ -585,11 +579,11 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 400})
-		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
-							   .on('click',function(d,i){	
+		                       .attr("xlink:href",__static+"/img/fs.jpg")
+							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
-														self.fsVisible = true					
-												})	
+														self.fsVisible = true
+												})
 
 		this._fs_stop_repairing= this._svg.selectAll(".fs_stop_repairing")
 		                       .data(this.fs_stop_repairing)
@@ -598,11 +592,11 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 500})
-		                       .attr("xlink:href","../../src/renderer/img/fs.jpg")
-							   .on('click',function(d,i){	
+		                       .attr("xlink:href",__static+"/img/fs.jpg")
+							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息
-														self.fsVisible = true					
-												})	
+														self.fsVisible = true
+												})
 
 
 
@@ -610,10 +604,10 @@ export default {
 
 	 async fsIDtoInfo(index, rows) {
 	        let fs_id= rows[index].id
-	         // console.log(fs_id)  
-	         // console.log(rows[index].id) 
-	        let fsByID =await fivePart.GetfsById(fs_id)	
-	        console.log(fsByID)       
+	         // console.log(fs_id)
+	         // console.log(rows[index].id)
+	        let fsByID =await fivePart.GetfsById(fs_id)
+	        console.log(fsByID)
 	        this.fs_info=fsByID
 	        this.fsVisible=true
 	     },
@@ -653,9 +647,9 @@ export default {
 				param[i].fsstate="异常过多导致的离线"
 			}
      	}
-     	return param			  	
+     	return param
 	  },
-     
+
      translateCM(param){
 
 
@@ -680,7 +674,7 @@ export default {
 <style>
 .structure{
 	height:600px;
-	width:6000px;	
+	width:6000px;
 	margin-left: 150px;
 	margin-top: 80px;
 }
