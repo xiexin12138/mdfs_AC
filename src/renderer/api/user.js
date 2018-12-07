@@ -1,5 +1,6 @@
 import Socket from './socket'
 import * as type from './type'
+import md5 from 'js-md5';
 /**
  * @author Craig
  * @version 1.0.0
@@ -10,12 +11,12 @@ import * as type from './type'
  */
 export async function CheckUser(username, password) {
 	try {
-		  return true
+		return true
 		let socket = new Socket()
 		let data = {
 			type: type.LOGIN,
 			username: username,
-			password: password
+			password: md5(password)
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
@@ -44,7 +45,7 @@ export async function ChangePass(param){
 			type: type.CHANGE_PASS,
 			email: param.email,
 			captcha: param.captcha,
-			password: param.password
+			password: md5(param.password)
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
