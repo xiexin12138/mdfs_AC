@@ -1,6 +1,6 @@
 import Socket from './socket'
 import * as type from './type'
-import md5 from 'js-md5';
+var md5 = require('md5.js')
 /**
  * @author Craig
  * @version 1.0.0
