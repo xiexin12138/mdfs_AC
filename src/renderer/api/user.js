@@ -11,12 +11,14 @@ var md5 = require('md5.js')
  */
 export async function CheckUser(username, password) {
 	try {
-		return true
+		// return true
 		let socket = new Socket()
+    var md5stream = new md5()
+    md5stream.end(password)
 		let data = {
 			type: type.LOGIN,
 			username: username,
-			password: md5(password)
+			password: md5stream.read().toString('hex'),// 使用MD5加密密码
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
@@ -41,11 +43,12 @@ export async function ChangePass(param){
 		try {
 		// return true
 		let socket = new Socket()
+    var md5stream = new md5()
 		let data = {
 			type: type.CHANGE_PASS,
 			email: param.email,
 			captcha: param.captcha,
-			password: md5(param.password)
+			password: md5stream.read().toString('hex'),
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
