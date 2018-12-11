@@ -175,27 +175,24 @@ export default {
   mounted: async function() {
     this.createGraph()
   },
-  watch: {
-    //添加监听，观察option的变化，发生变化则重新刷新
-    option: {
-      handler(newVal, oldVal) {
-        if (this.myChart) {
-          if (newVal) {
-            this.chart.setOption(newVal);
-          } else {
-            this.chart.setOption(oldVal);
-          }
+watch: {
+  //添加监听，观察option的变化，发生变化则重新刷新
+  option: {
+    handler(newVal, oldVal) {
+      console.log("调用了createGraph");
+      if (this.myChart) {
+        if (newVal) {
+          this.chart.setOption(newVal);
         } else {
-          this.init();
+          this.chart.setOption(oldVal);
         }
-      },
-      deep: true //对象内部属性的监听，关键。
+      } else {
+        this.init();
+      }
     },
-    '$route': function(route) {
-        // 监听不到变化？？
-        console.log('home', route);
-    }
-   }
+    deep: true //对象内部属性的监听，关键。
+  }
+}
 }
 </script>
 <style media="screen">

@@ -85,20 +85,20 @@ export default {
           duration: 4000
         });
       });
-      console.log("this.$store.getters.getInSummary"+this.$store.getters.getInSummary);
+      console.log("‘"+this.isInSummary+"’");
       // 递归调度，自动从后台获取overview对象，用于更新数据
-      if (this.$store.getters.getInSummary) {
-        console.log("getInSummary正在运行");
-        setTimeout(this.updateSummary(), 2000);
-      }else{
-        console.log("getInSummary已停止");
+      if (this.isInSummary) {
+        setTimeout(this.updateSummary, 2000);
       }
     }
   },
   watch:{
-    isInSummary: function(){
-      if (isInSummary == true) {
+    isInSummary:  function(){
+      if (this.isInSummary == true) {
         this.updateSummary()
+        console.log("updateSummary正在运行");
+      }else{
+        console.log("updateSummary已停止");
       }
     }
   }

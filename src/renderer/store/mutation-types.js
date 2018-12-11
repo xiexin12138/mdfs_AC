@@ -32,4 +32,4 @@ export const GET_ERRORFILES = "GET_ERRORFILES"
 //获取系统概况信息
 export const GET_SUMMARY = "GET_SUMMARY"
 //获取用户是否在summary页面的状态信息
-export const GET_USER_IN_SUMMARY = "GET_USER_IN_SUMMARY"
+export const UPDATE_USER_IN_SUMMARY = "UPDATE_USER_IN_SUMMARY"

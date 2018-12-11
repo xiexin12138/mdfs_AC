@@ -94,8 +94,9 @@ const mutations = {
     state.usersfreeze = payload.userInfo.userFreezeNum
     state.logs = payload.logs
 	},
-  [types.GET_USER_IN_SUMMARY](state, payload) {
-    state.inSummary = payload.inSummary
+  [types.UPDATE_USER_IN_SUMMARY](state, payload) {
+    console.log("payload is:"+payload);
+    state.inSummary = payload
   }
 }
 
