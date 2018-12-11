@@ -12,6 +12,7 @@ import * as summary from '../../api/summary'
  * @type {Object}
  */
 const state = {
+  inSummary: true, // 用于判断当前用户是否在概览界面
 	fssum: 0,// fs的总数量
   fsonline: 0,// 在线的fs数量
   fsready: 0, // 后备中的fs数量
@@ -35,6 +36,8 @@ const state = {
 }
 
 const getters = {
+  // 用户操作状态细信息
+  getInSummary: state => state.inSummary, // 用户当前是否在summary界面
   // 文件系统状态信息
 	getSummaryFsSum: state => state.fssum,  // fs的总数量
   getSummaryFsOnline: state => state.fsonline,  // 在线的fs数量
@@ -90,7 +93,11 @@ const mutations = {
     state.usersonline = payload.userInfo.userOnlineNum
     state.usersfreeze = payload.userInfo.userFreezeNum
     state.logs = payload.logs
-	}
+	},
+  [types.UPDATE_USER_IN_SUMMARY](state, payload) {
+    console.log("payload is:"+payload);
+    state.inSummary = payload
+  }
 }
 
 const actions = {
@@ -103,9 +110,9 @@ const actions = {
       mountersum: 0,// mounter的总数量
       mounteronline: 0,// 在线的mounter数量
       mounteroffline: 0,// 离线的mounter数量
-      // spaceSize: 0,// fs所能用的剩余空间
-      // spaceUsed: 0,// fs已用的空间
-      // spaceAvail: 0,// fs剩余可用的空间
+      spaceSize: 10,// fs所能用的剩余空间
+      spaceUsed: 0,// fs已用的空间
+      spaceAvail: 10,// fs剩余可用的空间
       fserrstate: 1,// fs错误状态，1表示真，此时文件系统状态正常
       fsrepairing: 0,// 正在修复的fs数量
       fsrepairinglist: [],// 正在修复的fs列表list

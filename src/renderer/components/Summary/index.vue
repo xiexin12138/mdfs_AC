@@ -67,11 +67,17 @@ export default {
     UsersState,
     Foot
   },
+  computed: {
+    isInSummary() {
+      return this.$store.getters.getInSummary
+    }
+  },
   mounted: async function () {
-    let thisVue = this;// 作用域问题，在getOverViewEveryTwoSec中直接使用的this指向global对象而非VueComponent
-    let timeInterval = 2000;// 时间间隔为2秒
-    let getOverViewEveryTwoSec = async function(){
-      await thisVue.$store.dispatch('getsummary', {}).catch((e) => {
+    this.updateSummary()
+  },
+  methods: {
+    async updateSummary () {
+      await this.$store.dispatch('getsummary', {}).catch((e) => {
         Message({
           showClose: true,
           message: "获取异常：" + e.toString(),
@@ -79,11 +85,23 @@ export default {
           duration: 4000
         });
       });
+      console.log("‘"+this.isInSummary+"’");
       // 递归调度，自动从后台获取overview对象，用于更新数据
-      setTimeout(getOverViewEveryTwoSec, timeInterval);
+      if (this.isInSummary) {
+        setTimeout(this.updateSummary, 2000);
+      }
     }
-    getOverViewEveryTwoSec();
   },
+  watch:{
+    isInSummary:  function(){
+      if (this.isInSummary == true) {
+        this.updateSummary()
+        console.log("updateSummary正在运行");
+      }else{
+        console.log("updateSummary已停止");
+      }
+    }
+  }
 }
 </script>
 <style>

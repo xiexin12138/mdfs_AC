@@ -7,9 +7,22 @@
 <script>
 import Vue from 'vue'
 
-  export default {
-    name: 'mimic'
+export default {
+  name: 'mimic',
+  watch: {
+    '$route': function(route) {
+        console.log("‘"+route.fullPath+"’");
+        if(route.fullPath != '/content/summary'){
+          console.log("summary == false");
+          this.$store.commit('UPDATE_USER_IN_SUMMARY', false)
+        }else{
+          console.log("summary == true");
+          this.$store.commit('UPDATE_USER_IN_SUMMARY', true)
+        }
+    }
   }
+}
+
 </script>
 
 <style>
