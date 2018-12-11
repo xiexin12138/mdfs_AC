@@ -7,9 +7,20 @@
 <script>
 import Vue from 'vue'
 
-  export default {
-    name: 'mimic'
+export default {
+  name: 'mimic',
+  watch: {
+    '$route': function(route) {
+        console.log('home', route.fullPath);
+        if(route.fullPath != '/content/summary'){
+          this.$store.commit('GET_USER_IN_SUMMARY', false)
+        }else{
+          this.$store.commit('GET_USER_IN_SUMMARY', true)
+        }
+    }
   }
+}
+
 </script>
 
 <style>
