@@ -11,13 +11,16 @@ var md5 = require('md5.js')
  */
 export async function CheckUser(username, password) {
 	try {
-		return true
+		// return true
 		let socket = new Socket()
+    var md5stream = new md5()
+    md5stream.end(password)
 		let data = {
 			type: type.LOGIN,
 			username: username,
-			password: md5(password)
+			password: md5stream.read().toString('hex'),// 使用MD5加密密码
 		}
+    console.log(data.password);
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
