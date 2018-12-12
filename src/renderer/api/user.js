@@ -44,11 +44,12 @@ export async function ChangePass(param){
 		try {
 		// return true
 		let socket = new Socket()
+    var md5stream = new md5()
 		let data = {
 			type: type.CHANGE_PASS,
 			email: param.email,
 			captcha: param.captcha,
-			password: md5(param.password)
+			password: md5stream.read().toString('hex'),
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()

@@ -76,7 +76,6 @@ export async function GetSummary() {
     	}
     })*/
     // 没有出错则为0
-
     if (obj.state == 0) {
       return obj
     } else {
