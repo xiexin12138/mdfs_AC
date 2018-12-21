@@ -20,7 +20,6 @@ export async function CheckUser(username, password) {
 			username: username,
 			password: md5stream.read().toString('hex'),// 使用MD5加密密码
 		}
-    console.log(data.password);
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
@@ -45,6 +44,7 @@ export async function ChangePass(param){
 		// return true
 		let socket = new Socket()
     var md5stream = new md5()
+    md5stream.end(param.password)
 		let data = {
 			type: type.CHANGE_PASS,
 			email: param.email,

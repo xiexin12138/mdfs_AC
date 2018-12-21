@@ -96,9 +96,6 @@ export default {
     isInSummary:  function(){
       if (this.isInSummary == true) {
         this.updateSummary()
-        console.log("updateSummary正在运行");
-      }else{
-        console.log("updateSummary已停止");
       }
     }
   }

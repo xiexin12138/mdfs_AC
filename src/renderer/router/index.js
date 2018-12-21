@@ -62,10 +62,6 @@ let router = new Router({
       component: Content,
       children:[
       		{
-      			path:'resetpassword',
-      			component: ResetPasswordPage
-      		},
-      		{
       			path:'summary',
       			component: Summary
       		},
@@ -206,7 +202,11 @@ let router = new Router({
 		{
 			path:'/',
 			component: LoginPage
-		}
+		},
+    {
+      path:'/resetpassword',
+      component: ResetPasswordPage
+    },
 	]
 
 })

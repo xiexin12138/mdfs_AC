@@ -11,7 +11,7 @@
 <el-row type="flex" justify="center">
 <el-col style="width:400px;">
 	<el-form v-show="showPass" status-icon label-width="100px" ref="resetPasswordForm" :model="resetPasswordForm" :rules="resetrule" >
-		
+
 		<el-form-item label="设置新密码" prop="pass">
 		    <el-input style="width:250px;" type="password" placeholder="请输入6~20位新密码" v-model="resetPasswordForm.pass" auto-complete="off"></el-input>
 		  </el-form-item>
@@ -36,10 +36,10 @@
 		<el-form-item style='margin-top:100px;'>
 			<el-button @click="login">返回登录页</el-button>
 			<el-button @click="next" @keyup.enter="next">下一步</el-button>
-			
+
 		</el-form-item>
 	</el-form>
-	
+
 	<el-form v-show="showLast" status-icon label-width="40px" >
 		<el-form-item >
 			<span>设置新密码成功！请点击下一步返回登录界面继续登录</span>
@@ -47,7 +47,7 @@
 
 		<el-form-item style='margin-top:150px;margin-left: 100px;'>
 			<el-button @click="login" @keyup.enter="login">完成</el-button>
-			
+
 		</el-form-item>
 	</el-form>
 </el-col>
@@ -63,8 +63,8 @@
 		position: relative;
 		margin-right: auto;
 		margin-left: auto;
-		width: 75%;	
-		top:40px;	
+		width: 75%;
+		top:40px;
 	}
 </style>
 <script>
@@ -125,7 +125,7 @@ export default {
 				checkPass: [{ validator: validatePass2, trigger: 'blur' },
 				{ min:6, max:20, message:'长度在6到20个字符', trigger:'blur'},
 				{ required: true, message: '请再次输入密码', trigger: 'blur' }],
-				
+
 			},
 			newrule:{
 				captcha: [
@@ -147,37 +147,33 @@ export default {
 					let data = {
 						email: this.newForm.emailAdress
 					}
-					user.GetCaptcha(data)
-						.then(()=>{
+					user.GetCaptcha(data).then(()=>{
 							Message({
 								showClose: true,
 								message: '验证码发送成功！',
 								type: 'success',
 								duration: 2000
 							})
-						}).catch(e => {
-							Message({
+						}).catch(e => {Message({
 								showClose: true,
-								message: e.message,
+								message: '验证码发送失败！' + e.message,
 								type: 'error',
 								duration: 2000
 							})
 						})
 				}
 			})
-			
 		},
 		next(){
 			this.$refs['newForm'].validate(valid => {
 				if (valid) {
-					this.active++ 
+					this.active++
 					this.showNext = false
 					this.showPass = true
 				}else {
 					return false
 				}
 			})
-			
 		},
 		back(){
 			this.active = 0
@@ -188,14 +184,13 @@ export default {
 			this.$refs['resetPasswordForm'].validate(valid => {
 				if (valid) {
 					console.log(this.newForm.emailAdress)
+  				console.log(this.resetPasswordForm.pass)
 					let data = {
 						email: this.newForm.emailAdress,
 						captcha: this.newForm.captcha,
 						password: this.resetPasswordForm.pass
 					}
-					user
-						.ChangePass(data)
-						.then(() => {
+					user.ChangePass(data).then(() => {
 							this.active++
 							this.showPass = false
 							this.showNext = false
