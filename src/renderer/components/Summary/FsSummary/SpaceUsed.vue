@@ -45,13 +45,13 @@ export default {
   },
   computed: {
     spaceSum() {
-      return this.$store.getters.getSummarySpaceSize
+      return parseFloat(this.$store.getters.getSummarySpaceSize).toFixed(2)
     },
     spaceUsed() {
-      return this.$store.getters.getSummarySpaceUsed
+      return parseFloat(this.$store.getters.getSummarySpaceUsed).toFixed(2)
     },
     spaceAvail() {
-      return this.$store.getters.getSummarySpaceAvail
+      return parseFloat(this.$store.getters.getSummarySpaceAvail).toFixed(2)
     },
   },
   methods: {
@@ -179,7 +179,6 @@ watch: {
   //添加监听，观察option的变化，发生变化则重新刷新
   option: {
     handler(newVal, oldVal) {
-      console.log("调用了createGraph");
       if (this.myChart) {
         if (newVal) {
           this.chart.setOption(newVal);

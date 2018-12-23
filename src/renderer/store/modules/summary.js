@@ -95,7 +95,6 @@ const mutations = {
     state.logs = payload.logs
 	},
   [types.UPDATE_USER_IN_SUMMARY](state, payload) {
-    console.log("payload is:"+payload);
     state.inSummary = payload
   }
 }

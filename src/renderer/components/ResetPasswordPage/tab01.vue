@@ -1,8 +1,5 @@
-		
+
 <template id="temp-tab01">
-
-
-
 
 <el-row type="flex" align="middle" style="height:230px">
 <el-col style="height:200px;">
@@ -43,7 +40,6 @@ Vue.use(Col)
 Vue.use(Upload)
 export default {
     data(){
-        
         return {
             form01:{
                 emailAdress:null,
@@ -67,11 +63,7 @@ export default {
 
 
 <style>
-    
+
 
 
 </style>
-
-
-
-
