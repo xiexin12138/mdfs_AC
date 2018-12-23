@@ -115,6 +115,12 @@ export const FSBYID = 53
 //查询所有文件系统的综合状态
 export const GET_SUMMARY = 54
 
+//查询所有的未审核用户信息
+export const GET_USERAUDIT= 56
+
+//返回管理员审核用户结果
+export const AUDITRESULT= 57
+
 
 /*****************************未实现的接口***********************************************/
 
