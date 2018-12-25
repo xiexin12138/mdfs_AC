@@ -1,6 +1,5 @@
 <template>
 <div>
-	<bar></bar>
     <div class="row-bg">
 		<el-row :gutter="20" >
 			<el-col :span="12":offset="6">

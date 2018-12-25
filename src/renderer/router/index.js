@@ -47,6 +47,7 @@ import UserListPage from '@/components/UserManagePage/UserListPage'
 import GroupManagePage from '@/components/UserManagePage/GroupManagePage'
 import ChangePassword from '@/components/UserManagePage/ChangePassword'
 import NewUserPage from '@/components/UserManagePage/NewUserPage'
+import UserAudit from '@/components/UserManagePage/UserAudit'
 
 import Summary from '@/components/Summary'
 
@@ -82,6 +83,10 @@ let router = new Router({
       					path:'changepassword',
       					component:ChangePassword
       				},
+                              {
+                                    path:'useraudit',
+                                    component:UserAudit
+                              },
           		{
           			path:'newuser',
           			component: NewUserPage

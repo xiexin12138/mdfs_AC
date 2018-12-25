@@ -11,10 +11,10 @@ var md5 = require('md5.js')
  */
 export async function CheckUser(username, password) {
 	try {
-		// return true
+		return true
 		let socket = new Socket()
-    var md5stream = new md5()
-    md5stream.end(password)
+        var md5stream = new md5()
+        md5stream.end(password)
 		let data = {
 			type: type.LOGIN,
 			username: username,

@@ -698,6 +698,45 @@ Resp{
 }]
 }
 }
+//管理员前端发来未审核用户信息请求
+req：
+{
+	type:'56', // 对应的请求码是5
+}
+res:
+{
+	type:'56',
+	datatable{
+[
+username:'',
+			email:'',
+			ip:'',
+			mac:'',
+			cpu:'',
+			mainboard:'',
+			os:''
+]
+}
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+}
+
+
+//管理员前端发来审核结果（一个用户发一个）
+req：
+{
+	type:'57', // 对应的请求码是57
+email:'',
+	expire：”,//用户有效期
+	state: '0' ,//审核结果，0-通过，1-不通过
+	reasonmessage:”//审核不通过原因
+}
+res:
+{
+	type:'57',
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+}
 
 
 
