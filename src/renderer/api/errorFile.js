@@ -23,7 +23,7 @@ export async function GetErrorFiles(pagesize,currentPage) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj) {
+		if (obj.state == 0|| obj.type !=64) {
 				
 			// console.log(obj)
 			return obj
@@ -62,7 +62,7 @@ export async function DownloadErrorFile(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)

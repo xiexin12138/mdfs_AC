@@ -149,7 +149,7 @@ methods: {
               let state = '0'
               let reasonmessage =null
               let expire= value
-              let result={email,state,reasonmessage,value}
+              let result={email,state,reasonmessage,expire}
               
               console.log(result)   
               audit.AuditResult(result)
@@ -193,7 +193,7 @@ methods: {
               let state = '1'
               let reasonmessage = value
               let expire= null
-              let result={email,state,reasonmessage,value}
+              let result={email,state,reasonmessage,expire}
               
               console.log(result)   
               audit.AuditResult(result)

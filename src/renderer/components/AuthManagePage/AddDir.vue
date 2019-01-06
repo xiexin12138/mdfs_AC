@@ -168,6 +168,7 @@ export default {
 									duration: 2000
 								})
 							}
+							console.log(555,"jjj")
 						})
 						.catch(e => {
 							Message({
@@ -216,7 +217,7 @@ export default {
 			this.auth=parseInt(this.auth)
 
 
-			console.log(this.auth)
+			// console.log(this.auth)
 			this.checkeduser_r=0
 			this.checkeduser_w=0
 			this.checkeduser_x=0

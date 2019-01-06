@@ -76,7 +76,7 @@ export async function GetSummary() {
     	}
     })*/
     // 没有出错则为0
-    if (obj.state == 0) {
+    if (obj.state == 0|| obj.type !=64) {
       return obj
     } else {
       throw new Error(obj.errormessage)
@@ -163,7 +163,7 @@ export async function GetPieCapacity() {
     	}
     })*/
     // 没有出错则为0
-    if (obj.state == 0) {
+    if (obj.state == 0|| obj.type !=64) {
       return obj.fsCapacity
     } else {
       throw new Error(obj.errormessage)

@@ -30,7 +30,7 @@ export async function GetUserAudit(pagesize,currentPage) {
 				os:'1234'
 			},
 		]
-		return data1
+		// return data1
 		let socket = new Socket()
 		let data = {
 			type: type.GET_USERAUDIT,
@@ -40,10 +40,10 @@ export async function GetUserAudit(pagesize,currentPage) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj) {
+		if (obj.state == 0|| obj.type !=64) {
 				
-			console.log(444,obj)
-			return obj
+			// console.log(444,obj.datatable)
+			return obj.datatable
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -63,7 +63,7 @@ export async function GetUserAudit(pagesize,currentPage) {
 export async function AuditResult(param) {
 	try {
 		// TODO 接口格式
-		 return true
+		 // return true
 		let socket = new Socket()
 		let data = {
 			type: type.AUDITRESULT,
@@ -72,11 +72,11 @@ export async function AuditResult(param) {
 			state:param.state,
 			reasonmessage:param.reasonmessage,
 		}
-		// console.log(data)
+		console.log(555,data)
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)

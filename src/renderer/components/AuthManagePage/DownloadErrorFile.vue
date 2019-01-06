@@ -114,6 +114,7 @@ export default {
 							}
 						})
 						.catch(e => {
+							console.log("sad,fail")
 							Message({
 								showClose: true,
 								message: e.message,
@@ -135,7 +136,7 @@ export default {
 		},
 
 	    back() {
-         this.$router.push({ path: '/auth/errorfilemanage'})
+         this.$router.push({ path: '/content/auth/errorfilemanage'})
 
 		}
 	}

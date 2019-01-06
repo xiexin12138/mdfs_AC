@@ -27,7 +27,7 @@ export async function GetMountNode(para) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -63,7 +63,7 @@ export async function GetUserNode(para) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -119,7 +119,7 @@ export async function GetNodeStatus() {
 		let response = await socket.read()
 		// console.log(response,7)
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			 // console.log(obj)
 			 // console.log(GetNodeStatusHelper(obj.node))
 			 return GetNodeStatusHelper(obj.node)
@@ -190,7 +190,7 @@ export async function ManageMount(para) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -218,7 +218,7 @@ export async function ManageUser(para) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -246,7 +246,7 @@ export async function MonitorFS(){
 		let response = await socket.read()
 		console.log(response,22)
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj.fs
 		}else {
 			throw new Error(obj.errormessage)
@@ -275,7 +275,7 @@ export async function MonitorMetadata(){
 		let response = await socket.read()
 		// console.log(response,28)
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj.data
 		}else {
 			throw new Error(obj.errormessage)
@@ -357,7 +357,7 @@ export async function MonitorPieTable(params){
 		// console.log(response,28)
 		let obj = JSON.parse(response)
 		// console.log(obj.data);
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj
 		}else {
 			throw new Error(obj.errormessage)
