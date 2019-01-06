@@ -53,6 +53,12 @@ import Summary from '@/components/Summary'
 
 import Content from '@/components/Content'
 
+import ConsoleConfig from '@/components/ConsoleConfig'
+import ConsolePermission from '@/components/ConsoleConfig/consolepermission'
+import GroupMnage from '@/components/ConsoleConfig/groupmanage'
+import ConsoleLock from '@/components/ConsoleConfig/consolelock'
+import ChangeCurUserPwd from '@/components/ConsoleConfig/changecuruserpwd'
+
 Vue.use(Router)
 
 let router = new Router({
@@ -83,10 +89,10 @@ let router = new Router({
       					path:'changepassword',
       					component:ChangePassword
       				},
-                              {
-                                    path:'useraudit',
-                                    component:UserAudit
-                              },
+              {
+                    path:'useraudit',
+                    component:UserAudit
+              },
           		{
           			path:'newuser',
           			component: NewUserPage
@@ -202,6 +208,28 @@ let router = new Router({
       				},
       			]
       		},
+      		{
+      			path:'consoleconfig',
+      			component: ConsoleConfig,
+            children:[
+      				{
+      					path:'changecuruserpwd',
+      					component:ChangeCurUserPwd
+      				},
+      				{
+      					path:'consolepermission',
+      					component:ConsolePermission
+      				},
+      				{
+      					path:'groupmanage',
+      					component:GroupMnage
+      				},
+      				{
+      					path:'consolelock',
+      					component:ConsoleLock
+      				},
+            ]
+      		}
       ]
     },
 		{

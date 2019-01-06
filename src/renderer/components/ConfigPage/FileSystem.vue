@@ -12,9 +12,9 @@
 				</el-form-item>
 				<el-form-item label="文件系统类型" prop="fsType" >
 					<el-input size="small" v-model="fsform.fsType"></el-input>
-				</el-form-item>	
+				</el-form-item>
 				<el-form-item label="文件系统挂载路径" prop="mountPoint" >
-					<el-input size="small" v-model="fsform.mountPoint"></el-input>                
+					<el-input size="small" v-model="fsform.mountPoint"></el-input>
 				</el-form-item>
 				<el-form-item label="元数据池名称" prop="matadatePool" >
 					<el-input size="small" v-model="fsform.matadatePool"></el-input>
@@ -84,7 +84,7 @@ Vue.use(Col)
 Vue.use(Upload)
 export default {
 	data(){
-		
+
 		return {
 			fsform:{
 				fsId:null,
@@ -160,7 +160,7 @@ export default {
 						// configFile:'this.fsform.configFile',
 						storage:this.fsform.storage,
 					}
-					
+
 					config.submitFS(data).then(function(result){
 						if (result == true) {
 							Message({
@@ -193,11 +193,11 @@ export default {
 			readerKey.addEventListener('loadend',()=>{
 				if (readerKey.readyState == 2) {
 					// 读取完毕标志位
-					this.privateKeyDone = true 
+					this.privateKeyDone = true
 					this.fsform.privateKey = readerKey.result
 				}
 			})
-			
+
 		},
 		handleChangeConfig(file,fileList){
 			let readerConfig = new FileReader()
@@ -209,7 +209,7 @@ export default {
 					this.fsform.configFile = readerConfig.result
 				}
 			})
-			
+
 		}
 	}
 }
