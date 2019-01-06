@@ -726,7 +726,7 @@ username:'',
 req：
 {
 	type:'57', // 对应的请求码是57
-email:'',
+    email:'',
 	expire：”,//用户有效期
 	state: '0' ,//审核结果，0-通过，1-不通过
 	reasonmessage:”//审核不通过原因

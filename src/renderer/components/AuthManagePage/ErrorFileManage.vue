@@ -150,9 +150,8 @@ export default {
       console.log(download_info)
  
 
-      // console.log(id)
-      // this.$router.push({ path: '/auth/upadatedir/' + id })
-      this.$router.push({ path: '/auth/downloadfile/' + download_info})
+      this.$router.push({ path: '/content/auth/downloadfile/' + download_info})
+      // this.$router.push({ path: '/auth/downloadfile'})
     },
 
 

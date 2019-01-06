@@ -187,12 +187,18 @@ export default {
           })
         })
         .catch(e => {
+         // console.log(555,e.message)       
           Message({
             showClose: true,
             message: e.message,
             type: 'error',
             duration: 2000
           })
+          
+          if(e.message=="Error: Error: 您已在另一地点登录，请重新登录！"){
+           this.$router.push({ path: '/'})
+          }
+
         })
     },
     handleCurrentChange(val) {

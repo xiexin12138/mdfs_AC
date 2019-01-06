@@ -32,7 +32,7 @@ export async function GetcmInfo(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj.cm
 		} else {
 			throw new Error(obj.errormessage)
@@ -91,7 +91,7 @@ export async function GetmountInfo(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			return obj.detail
 		} else {
 			throw new Error(obj.errormessage)
@@ -394,7 +394,7 @@ export async function GetfsInfo(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			console.log(444,obj)
 			return obj
 		} else {
@@ -466,7 +466,7 @@ export async function GetfsPool(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
+		if (obj.state == 0|| obj.type !=64) {
 			console.log(52,obj)
 			return obj
 		} else {
@@ -511,8 +511,8 @@ export async function GetfsById(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0) {
-			console.log(53,obj.fs)
+		if (obj.state == 0|| obj.type !=64) {
+			// console.log(53,obj.fs)
 			// await translate(obj.fs)
 			
 		if(obj.fs.judge=="1"){

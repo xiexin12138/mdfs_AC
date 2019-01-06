@@ -1,9 +1,9 @@
 <template>
 <div>
-    <div class="row-bg">
-		<el-row :gutter="20" >
-			<el-col :span="12":offset="6">
-				<div style="margin:20px 0">
+  <el-row type="flex" class="row-bg" justify="center">
+  <el-col style="width:1700px;">
+    <div>
+
 					<el-card class="box-card">
 						<div slot="header" class="clearfix">
 							<span style="font-size:18px;">用户信息</span>
@@ -37,15 +37,14 @@
 						  <el-col :span="8" ><div>{{user.mainboard}}</div></el-col>
 						</el-row>
 					</el-card>
-				</div>
-			</el-col>
-		</el-row>
 		<el-row :gutter="3">
 		  <el-col :span="3":offset="9" ><el-button  size="small" type="primary" @click="emailFormVisible = true">修改邮箱&nbsp;</el-button></el-col>
 		  <el-col :span="3" :pull="1"><el-button  size="small" type="primary" @click="expireFormVisible = true">修改有效期</el-button></el-col>
 		  <el-col :span="4" :pull="2"><el-button  size="small" type="primary" @click="clientFormVisible = true">修改绑定终端</el-button></el-col>
 		</el-row>
     </div>
+</el-col>
+</el-row>
 
 	<el-dialog title="修改邮箱" :visible.sync="emailFormVisible">
 	  <el-form :model="emailFrom" ref="emailFrom">
@@ -111,9 +110,17 @@
 	.el-time-spinner.has-seconds .el-time-spinner__wrapper:nth-child(2) {
      margin-left: 0; 
 }
+
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
+}
+.box-card{
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin-left: auto;	
+  margin-right: auto;
 }
 </style>
 <script>
@@ -221,6 +228,10 @@ export default {
 								type:'error',
 								duration:2000
 							})
+
+	          if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+	           this.$router.push({ path: '/'})
+	          }
 						})
 
 
@@ -253,6 +264,10 @@ export default {
 								type:'error',
 								duration:2000
 							})
+
+	          if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+	           this.$router.push({ path: '/'})
+	          }
 						})
 
 
@@ -293,6 +308,10 @@ export default {
 								type:'error',
 								duration:2000
 							})
+							
+	          if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+	           this.$router.push({ path: '/'})
+	          }
 						})
 
 
