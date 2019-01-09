@@ -5,7 +5,7 @@
 <el-col style="width:400px;height:200px;">
 	<el-form status-icon label-width="60px" ref="userform" :model="userform" :rules="userrule" >
 		<el-form-item label="用户名" prop="username" >
-			<el-input style="width:250px;" v-model="userform.username""></el-input>
+			<el-input style="width:250px;" v-model="userform.username"></el-input>
 		</el-form-item>
 		<el-form-item label="密码" prop="password" >
 			<el-input style="width:250px;" type="password" @keyup.enter.native="submitForm('userform')" auto-complete="off" v-model="userform.password"></el-input>

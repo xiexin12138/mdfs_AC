@@ -17,15 +17,15 @@
         <span slot="title">概览</span>
       </el-menu-item>
       <el-submenu index="/content/user">
-    <template slot='title'>
-      <i class="el-icon-document"></i>
-      <span>用户管理</span>
-    </template>
-    <el-menu-item index="/content/user/userlist">用户管理</el-menu-item>
-    <el-menu-item index="/content/user/groupmanage">组管理</el-menu-item>
-    <el-menu-item index="/content/user/changepassword">登录管理</el-menu-item>
-    <el-menu-item index="/content/user/useraudit">用户审核</el-menu-item>
-  </el-submenu>
+        <template slot='title'>
+          <i class="el-icon-document"></i>
+          <span>用户管理</span>
+        </template>
+        <el-menu-item index="/content/user/userlist">用户管理</el-menu-item>
+        <el-menu-item index="/content/user/groupmanage">组管理</el-menu-item>
+        <el-menu-item index="/content/user/changepassword">登录管理</el-menu-item>
+        <el-menu-item index="/content/user/useraudit">用户审核</el-menu-item>
+      </el-submenu>
 
   <el-submenu index="/content/config">
     <template slot='title'>
@@ -69,6 +69,16 @@
     <el-menu-item index="/content/auth/errorfs">异常文件系统管理</el-menu-item>
   </el-submenu>
 
+  <el-submenu index="/content/consoleconfig">
+    <template slot='title'>
+      <i class="el-icon-document"></i>
+      <span>控制台设置</span>
+    </template>
+    <el-menu-item index="/content/consoleconfig/changecuruserpwd">密码修改</el-menu-item>
+    <el-menu-item index="/content/consoleconfig/groupmanage">控制台用户管理</el-menu-item>
+    <el-menu-item index="/content/consoleconfig/consolepermission">控制台权限管理</el-menu-item>
+    <el-menu-item index="/content/consoleconfig/consolelock">锁定设置</el-menu-item>
+  </el-submenu>
 	</el-menu>
 </el-aside>
 </template>
@@ -98,6 +108,7 @@ export default {
 			route3:{ path:'/monitor'},
 			route4:{ path:'/auth'},
 			route5:{ path:'/content'},
+			route6:{ path:'/consoleconfig'},
 
 		}
 	}
