@@ -84,7 +84,6 @@ Vue.use(Col)
 Vue.use(Upload)
 export default {
 	data(){
-
 		return {
 			fsform:{
 				fsId:null,
@@ -177,7 +176,7 @@ export default {
 								type:'error',
 								duration:2000
 							})
-						})
+					})
 
 				} else {
 					return false

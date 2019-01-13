@@ -32,7 +32,7 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
   // 如果需要在正式应用，release版本中开启调试，please uncomment the next line
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
   mainWindow.on('closed', () => {
     mainWindow = null
   })

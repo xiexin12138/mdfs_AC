@@ -10,8 +10,8 @@ import Socket from './socket'
  * @description 查询所有的异常文件
  */
 export async function GetErrorFiles(pagesize,currentPage) {
-	try {        
-		
+	try {
+
 		let socket = new Socket()
 		let data = {
 			type: type.GET_ERRORfILES,
@@ -19,13 +19,10 @@ export async function GetErrorFiles(pagesize,currentPage) {
 			currentPage :currentPage ,
 		}
 		socket.write(JSON.stringify(data))
-
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj.state == 0|| obj.type !=64) {
-				
-			// console.log(obj)
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
