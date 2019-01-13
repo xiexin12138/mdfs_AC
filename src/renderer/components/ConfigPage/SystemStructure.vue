@@ -224,6 +224,13 @@ export default {
 	        _rect_mount:null,
 	        _rect_fs:null,
 
+	        _line_computer_to_lvs:null,
+	        _line_user_to_lvs:null,
+	        _line_lvs_to_cm:null,
+	        _line_lvs_to_mount:null,
+	        _line_cm_to_mount:null,
+	        _line_mount_to_fs:null,
+
 			//五大部分
 			_client:null,
 			_lvs:null,
@@ -244,8 +251,8 @@ export default {
        //---------------------CM----------------------------------------
         cm:[],                              //正在运行的CM信息集合
 		cm_amount:null,                     //正在运行的CM个数
-		cm_position:[{ x:"230", y:"80"},    //CM坐标管理集合
-					 {x:"310", y:"80"}
+		cm_position:[{ x:"245", y:"160"},    //CM坐标管理集合
+					 {x:"325", y:"160"}
 					 ],
 
         cmVisible:false,                    //单击cm信息展示内容
@@ -296,10 +303,10 @@ export default {
        mount:[],                           //mount信息集合
        mount_amount:null,                  //所有的mount的数量总和
        mount_position:[                     //mount坐标管理集合
-			{x:"210", y:"280"},
-			{x:"290", y:"280"},
-			{x:"210", y:"350"},
-			{x:"290", y:"350"},
+			{x:"245", y:"360"},
+			{x:"325", y:"360"},
+			{x:"245", y:"420"},
+			{x:"325", y:"420"},
        ],
        mountVisible:false,                  //单击显示mount信息展示内容
        mount_info:{
@@ -311,17 +318,17 @@ export default {
        },
 
 		img_info_client:[
-			{width:"50px", height:"50px", x:"5", y:"100", xlink:__static+'/img/user.jpg'},
-			{width:"50px", height:"50px", x:"5", y:"200", xlink:__static+"/img/client.jpg"},
+			{width:"50px", height:"50px", x:"5", y:"200", xlink:__static+'/img/user.jpg'},
+			{width:"50px", height:"50px", x:"5", y:"320", xlink:__static+"/img/client.jpg"},
 		],
 		img_info_lvs:[
-			{width:"50px", height:"50px", x:"110", y:"50", xlink:__static+"/img/lvs.jpg"},
-			{width:"50px", height:"50px", x:"110", y:"250", xlink:__static+"/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"140", xlink:__static+"/img/lvs.jpg"},
+			{width:"50px", height:"50px", x:"110", y:"400", xlink:__static+"/img/lvs.jpg"},
 		],
 		img_info_cmAndzk:[ //最终需要展示的cmAndzk绑定数据集合
-			{width:"50px", height:"50px", x:"200", y:"5", xlink:__static+"/img/zk.jpg"},
-			{width:"50px", height:"50px", x:"260", y:"5", xlink:__static+"/img/zk.jpg"},
-			{width:"50px", height:"50px", x:"320", y:"5", xlink:__static+"/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"225", y:"95", xlink:__static+"/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"285", y:"95", xlink:__static+"/img/zk.jpg"},
+			{width:"50px", height:"50px", x:"345", y:"95", xlink:__static+"/img/zk.jpg"},
 		],
 		img_info_mount:[],
 		img_info_fs:[],
@@ -410,63 +417,142 @@ export default {
 		//                        .attr("id","client-wrap")
 		//                        .attr("class","rect-wrap")
 
-		// this._rect_lvs= this._svg
-		//                        .append("rect")
-		//                        .attr("width",70)
-		//                        .attr("height",290)
-		//                        .attr("x",102)
-		//                        .attr("y",40)
-		//                        .attr("id","lvs-wrap")
-		//                        .attr("class","rect-wrap")
+		this._rect_lvs= this._svg
+		                       .append("rect")
+		                       .attr("width",87)
+		                       .attr("height",415)
+		                       .attr("x",93)
+		                       .attr("y",85)
+		                       .attr("id","lvs-wrap")
+		                       .attr("class","rect-wrap")
+		                       .attr("rx",10)
+		                       .attr("ry",10)	              
 
-		// this._rect_cmAndzk= this._svg
-		//                        .append("rect")
-		//                        .attr("width",170)
-		//                        .attr("height",150)
-		//                        .attr("x",198)
-		//                        .attr("y",0)
-		//                        .attr("id","cm-wrap")
-		//                        .attr("class","rect-wrap")
+		this._rect_cmAndzk= this._svg
+		                       .append("rect")
+		                       .attr("width",170)
+		                       .attr("height",150)
+		                       .attr("x",225)
+		                       .attr("y",85)
+		                       .attr("id","cm-wrap")
+		                       .attr("class","rect-wrap")
+		                       .attr("rx",10)
+		                       .attr("ry",10)
 
-		// this._rect_mount= this._svg
-		//                        .append("rect")
-		//                        .attr("width",170)
-		//                        .attr("height",150)
-		//                        .attr("x",198)
-		//                        .attr("y",270)
-		//                        .attr("id","mount-wrap")
-		//                        .attr("class","rect-wrap")
+		this._rect_mount= this._svg
+		                       .append("rect")
+		                       .attr("width",170)
+		                       .attr("height",150)
+		                       .attr("x",225)
+		                       .attr("y",350)
+		                       .attr("id","mount-wrap")
+		                       .attr("class","rect-wrap")
+		                       .attr("rx",10)
+		                       .attr("ry",10)
 
-		// this._rect_fs= this._svg
-		//                        .append("rect")
-		//                        .attr("width",70)
-		//                        .attr("height",455)
-		//                        .attr("x",450)
-		//                        .attr("y",0)
-		//                        .attr("id","fs-wrap")
-		//                        .attr("class","rect-wrap")
+		this._rect_fs= this._svg
+		                       .append("rect")
+		                       .attr("width",750)		                       	
+		                       .attr("height",600)
+		                       .attr("x",450)
+		                       .attr("y",0)
+		                       .attr("id","fs-wrap")
+		                       .attr("class","rect-wrap")
+		                       .attr("rx",10)
+		                       .attr("ry",10)
 
+//------------------------------line---------------------------------------------
+		this._line_user_to_lvs= this._svg
+									.append("line")
+									.attr("x1",55)
+									.attr("y1",225)
+									.attr("x2",93)
+									.attr("y2",292.5)
+									.attr("stroke","#BEBEBE")
+
+        this._line_computer_to_lvs=this._svg
+									.append("line")
+									.attr("x1",55)
+									.attr("y1",345)
+									.attr("x2",93)
+									.attr("y2",292.5)
+									.attr("stroke","#BEBEBE")
+		this._line_lvs_to_cm= this._svg
+									.append("line")
+									.attr("x1",180)
+									.attr("y1",165)
+									.attr("x2",225)
+									.attr("y2",165)
+									.attr("stroke","#BEBEBE")	
+		this._line_lvs_to_mount= this._svg
+									.append("line")
+									.attr("x1",180)
+									.attr("y1",425)
+									.attr("x2",225)
+									.attr("y2",425)
+									.attr("stroke","#BEBEBE")	
+		this._line_cm_to_mount= this._svg
+									.append("line")
+									.attr("x1",310)
+									.attr("y1",235)
+									.attr("x2",310)
+									.attr("y2",350)
+									.attr("stroke","#BEBEBE")
+        this._line_mount_to_fs= this._svg
+									.append("line")
+									.attr("x1",395)
+									.attr("y1",425)
+									.attr("x2",450)
+									.attr("y2",425)
+									.attr("stroke","#BEBEBE")     
+//------------------------------text---------------------------------------------
+        var _text_lvs_ca= this._svg
+                           .append("text")
+                           .attr("x",110)
+                           .attr("y",210)
+                           .attr("font-size",15)
+                           .text("LVS-CA")
+
+        var _text_lvs_data= this._svg
+                           .append("text")
+                           .attr("x",100)
+                           .attr("y",470)
+                           .attr("font-size",15)
+                           .text("LVS-DATA")
+
+        var _text_cm= this._svg
+                           .append("text")
+                           .attr("x",280)
+                           .attr("y",225)
+                           .attr("font-size",15)
+                           .text("CM集群")
+
+        var _text_mount= this._svg
+                           .append("text")
+                           .attr("x",265)
+                           .attr("y",490)
+                           .attr("font-size",15)
+                           .text("Mount节点群")
+
+        var _text_fs= this._svg
+                           .append("text")
+                           .attr("x",470)
+                           .attr("y",585)
+                           .attr("font-size",15)
+                           .text("FS POOL")
 //-----------------------setting-------------------------------------------------
-		this._fs_set= this._svg.append("image")
-					            .attr("width",30)
-					            .attr("height",30)
-					            .attr("x",470)
-					            .attr("y",572)
-					            .attr("xlink:href",__static+"/img/set.jpg")
-		                        .on('click',async function(){
-		                       	   // self.$router.push({ path: '/auth/errorfs' })
-		                       	   self.FSpool_info= await fivePart.GetfsPool() //获取fspool信息
-		                       	   self.FSpoolVisible=true
-		                        })
+		// this._fs_set= this._svg.append("image")
+		// 			            .attr("width",30)
+		// 			            .attr("height",30)
+		// 			            .attr("x",470)
+		// 			            .attr("y",572)
+		// 			            .attr("xlink:href",__static+"/img/set.jpg")
+		//                         .on('click',async function(){
+		//                        	   // self.$router.push({ path: '/auth/errorfs' })
+		//                        	   self.FSpool_info= await fivePart.GetfsPool() //获取fspool信息
+		//                        	   self.FSpoolVisible=true
+		//                         })
 
-		     //                           FSpool_info:{
-       // 	    fsnumber:null,
-       //      fs_running:[],
-       //      fs_ready:[],
-       //      fs_repairing:[],
-       //      fs_stopping:[],
-       //      fs_avail_size:null,      //文件系统池可用的存储空间（最小文件系统为准）
-       // },
 
 //---------------------------image-------------------------------------------------
 
@@ -525,7 +611,7 @@ export default {
 		                       .attr("width",50)
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 5})
+		                       .attr("y",function(d,i){return 10})
 		                       .attr("xlink:href",__static+"/img/fs.jpg")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_running[i] //读取某个fs的信息
@@ -537,7 +623,7 @@ export default {
 		                       .attr("width",50)
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 100})
+		                       .attr("y",function(d,i){return 106})
 		                       .attr("xlink:href",__static+"/img/fs.jpg")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_ready[i] //读取某个fs的信息
@@ -551,7 +637,7 @@ export default {
 		                       .attr("width",50)
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 200})
+		                       .attr("y",function(d,i){return 207})
 		                       .attr("xlink:href",__static+"/img/fs.jpg")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_repairing[i] //读取某个fs的信息
@@ -564,7 +650,7 @@ export default {
 		                       .attr("width",50)
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 300})
+		                       .attr("y",function(d,i){return 308})
 		                       .attr("xlink:href",__static+"/img/fs.jpg")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
@@ -578,7 +664,7 @@ export default {
 		                       .attr("width",50)
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 400})
+		                       .attr("y",function(d,i){return 409})
 		                       .attr("xlink:href",__static+"/img/fs.jpg")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
@@ -591,7 +677,7 @@ export default {
 		                       .attr("width",50)
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 500})
+		                       .attr("y",function(d,i){return 505})
 		                       .attr("xlink:href",__static+"/img/fs.jpg")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息

@@ -184,11 +184,12 @@ export default {
       },
 
      //删除组
-  async DeleteGroup(index, rows) {
+    DeleteGroup(index, rows) {
         let select_id= rows[index].id
         let select_group= rows[index].group
-         console.log(select_id)
-        await authGroup.DeleteGroup(select_id,select_group)
+   
+          console.log(select_group)
+        authGroup.DeleteGroup2(select_id,select_group)
         .then(() => {
           rows.splice(index, 1);
           Message({
@@ -205,6 +206,9 @@ export default {
             type: 'error',
             duration: 2000
           })
+                    if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+                     this.$router.push({ path: '/'})
+                    }
         })
       },
 
@@ -218,51 +222,44 @@ export default {
           //设置输入格式
           // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
           // inputErrorMessage: '邮箱格式不正确',
-
-           beforeClose: (action, instance, done) => {
-            if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '执行中...';
-
-              setTimeout(() => {
-                done();
-                //将按钮恢复成原样
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false;
-                }, 300);
-              }, 3000);
-
-            } else {
-              done();
-              instance.confirmButtonLoading = false;
-            }
-          }
-
         }).then(({ value }) => {
 
               //反馈更名信息至后台
               console.log(value)
               authGroup.CreateGroup(value)
+               .then(() => {
+                    Message({
+                      showClose: true,
+                      message: '成功创建新组：'+ value,
+                      type: 'success',
+                      duration: 2000
+                    })
+                        //将新组在表格中显示出来
+                      var list = {
+                          id: "#",
+                          group: value
+                      }
+                        table.unshift(list)
+                  })
+                  .catch(e => {
+                   // console.log(555,e.message)       
+                    Message({
+                      showClose: true,
+                      message: e.message,
+                      type: 'error',
+                      duration: 2000
+                    })
+                    if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+                     this.$router.push({ path: '/'})
+                    }
 
-          //反馈成功信息
-          Message({
-            type: 'success',
-            message: '成功创建新组：'+ value
-          });
-          //将新组在表格中显示出来
-	      var list = {
-	          id: "#",
-	          group: value
-	      }
-	        table.unshift(list)
+                  })
         }).catch(() => {
           Message({
             type: 'info',
             message: '取消输入'
           });
         });
-
-
      },
 
      //重命名组
@@ -274,40 +271,35 @@ export default {
           //设置输入格式
           // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
           // inputErrorMessage: '邮箱格式不正确',
-
-           beforeClose: (action, instance, done) => {
-            if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '执行中...';
-
-
-              setTimeout(() => {
-                done();
-                //将按钮恢复成原样
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false;
-                }, 300);
-              }, 3000);
-            } else {
-              done();
-            }
-          }
-
         }).then(({ value }) => {
-
            //反馈更名信息至后台
            console.log("new name now")
            let selectID = rows[index].id
            let selectGroup = rows[index].group
            authGroup.ChangeGroupName(selectID,value)
+               .then(() => {
+                    Message({
+                      showClose: true,
+                      message: selectGroup +' 组的名字已更新为：'+ value,
+                      type: 'success',
+                      duration: 2000
+                    })
+                    //将表格中替换为新组名
+                    rows[index].group=value
+                  })
+                  .catch(e => {
+                   // console.log(555,e.message)       
+                    Message({
+                      showClose: true,
+                      message: e.message,
+                      type: 'error',
+                      duration: 2000
+                    })
+                    if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+                     this.$router.push({ path: '/'})
+                    }
 
-          //反馈成功信息
-          Message({
-            type: 'success',
-            message: selectGroup +' 组的名字已更新为：'+ value
-          });
-          //将表格中替换为新组名
-          rows[index].group=value
+                  })
         }).catch(() => {
           Message({
             type: 'info',
@@ -331,17 +323,39 @@ export default {
         				row_index=i
         				let select_user= this.tableData2[row_index].userName
         				authGroup.submitGroupManage(select_user,this.select_group,'del')
-        				this.deleteRow(row_index,this.tableData2) //执行对应行相关操作
+                        .then(() => {
+                            this.deleteRow(row_index,this.tableData2) //执行对应行相关操作
+                            //将选择对象添加至用户列表中
+                            if(choosen.indexOf(value)==-1){
+                              choosen.push(value)
+                              let list = {
+                                userName: value.userName
+                               };
+                               this.tableData3.unshift(list)
+                             }
+                            Message({
+                              showClose: true,
+                              message: '操作成功',
+                              type: 'success',
+                              duration: 2000
+                            })
+                          })
+                          .catch(e => {
+                           // console.log(555,e.message)       
+                            Message({
+                              showClose: true,
+                              message: e.message,
+                              type: 'error',
+                              duration: 2000
+                            })
+                            
+                            if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+                             this.$router.push({ path: '/'})
+                            }
+
+                          })
         			}
         		})
-        		//将选择对象添加至用户列表中
-		        if(choosen.indexOf(value)==-1){
-		         	choosen.push(value)
-			        let list = {
-			          userName: value.userName
-			         };
-			         this.tableData3.unshift(list)
-		         }
 
         })
 
@@ -353,21 +367,45 @@ export default {
         let choosen=[];
 
         this.multipleSelection_user.forEach((value,index,array)=>{
-        	//将选择对象添加至组内成员表中
-	        if(choosen.indexOf(value)==-1){
-	         	choosen.push(value)
-		        let list = {
-		          userName: value.userName
-		         };
-		         this.tableData2.unshift(list)
-	         }
             //将选择对象从用户列表中移除
         	this.tableData3.forEach((v,i,a)=>{
         			if(value.userName==v.userName){
         				row_index=i
         				let select_user= this.tableData3[row_index].userName
         				authGroup.submitGroupManage(select_user,this.select_group,'add')
-        				this.deleteRow(row_index,this.tableData3) //执行对应行相关操作
+                        .then(() => {
+                      this.deleteRow(row_index,this.tableData3) //执行对应行相关操作
+                      //将选择对象添加至组内成员表中
+                      if(choosen.indexOf(value)==-1){
+                        choosen.push(value)
+                        let list = {
+                          userName: value.userName
+                         };
+                         this.tableData2.unshift(list)
+                       }
+
+                            Message({
+                              showClose: true,
+                              message: '操作成功',
+                              type: 'success',
+                              duration: 2000
+                            })
+                          })
+                          .catch(e => {
+                           // console.log(555,e.message)       
+                            Message({
+                              showClose: true,
+                              message: e.message,
+                              type: 'error',
+                              duration: 2000
+                            })
+                            
+                            if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+                             this.$router.push({ path: '/'})
+                            }
+
+                          })
+
         			}
         		})
         })
@@ -380,7 +418,7 @@ export default {
      	let selectGroup = val.group
 
      	this.select_group= selectGroup
-     	console.log(this.select_group)
+     	// console.log(this.select_group)
 
 
      	this.tableData2 = await authGroup.GroupUserRela(selectGroup,"groupUsers") //获取对应组内成员数据

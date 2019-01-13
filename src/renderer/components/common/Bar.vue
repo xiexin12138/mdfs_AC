@@ -23,7 +23,6 @@
         </template>
         <el-menu-item index="/content/user/userlist">用户管理</el-menu-item>
         <el-menu-item index="/content/user/groupmanage">组管理</el-menu-item>
-        <el-menu-item index="/content/user/changepassword">登录管理</el-menu-item>
         <el-menu-item index="/content/user/useraudit">用户审核</el-menu-item>
       </el-submenu>
 

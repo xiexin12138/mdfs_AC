@@ -104,6 +104,17 @@ export default {
   },
   mounted:async function() {
     this.FSMount = await mounter.ShowFSMount()
+                                .catch((e)=>{
+                                        Message({
+                                            showClose: true,
+                                            message: e.toString(),
+                                            type: 'error',
+                                            duration: 2000
+                                          })
+                                          if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+                                           this.$router.push({ path: '/'})
+                                          }
+                                      })
     this.handleCurrentPage(this.currentPage,this.pageSize)
   },
   methods:{
