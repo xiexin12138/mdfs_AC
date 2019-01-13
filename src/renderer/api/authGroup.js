@@ -252,7 +252,7 @@ export async function GetGroups(param) {
  * @return  {Boolean}        true为正确提交，报错则不正确
  * @description 删除组群
  */
-export async function DeleteGroup(id,groupname){
+export async function DeleteGroup2(id,groupname){
 	console.log(id)
 	try {
 		let socket = new Socket()
