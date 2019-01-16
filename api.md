@@ -6,7 +6,6 @@ type字段修改为数字，需要配合对应文档查看具体的请求码
 // login管理员或普通用户登录
 req：
 {
-	type:'*login',  // 对应的请求码是17
 	username:'', // 字符串
 	password:''  // 字符串
 }
@@ -136,7 +135,7 @@ res:
 	errormessage:'', // 错误信息
 	id:0,
 	name:'guest', // 用户节点名
-	ip:'192.168.1.1', 
+	ip:'192.168.1.1',
 	mac:'00.as.12.df.3d.4f.23',
 	duration:'35分钟' // 登录时长
 }
@@ -231,7 +230,7 @@ res:
 
 // 全局证书有效期设置，之前的用户有效期不是证书的
 req:
-{ 
+{
 	type:'certExpire',          // 对应的请求码是12
 	certExpire:'2018-04-01',   // 证书有效期
 }
@@ -361,86 +360,86 @@ res:
 // 挂载节点管理界面，mount节点的增删改查
 Req：
 {
-	“type”:”mounterManage”,//对应的请求码是31
-	“operation”;”add”,//表示操作类型，查(query=1)、增（add=2）、删(del=3)、改(update=4)
-	“id”:”21”,//表示mounter的id
-	“mounterType”:”CentOS”,//mounter所在操作系统的类型，查询操作时这个字段也要填，为空字符
-	“address”:”192.168.1.100”,//mounter所在机器的ip，查询操作时这个字段也要填，为空字符
+	"type":"mounterManage",//对应的请求码是31
+	"operation";"add",//表示操作类型，查(query=1)、增（add=2）、删(del=3)、改(update=4)
+	"id":"21",//表示mounter的id
+	"mounterType":"CentOS",//mounter所在操作系统的类型，查询操作时这个字段也要填，为空字符
+	"address":"192.168.1.100",//mounter所在机器的ip，查询操作时这个字段也要填，为空字符
 	}
 Resp：// 查询返回的结果
 {
-	“type”: ”mounterManage”,//对应的请求码是31
-	“id”:”21”,//表示mounter的id
-	“mounterType”:”CentOS”,//mounter所在操作系统的类型
-	“address”:”192.168.1.100”,//mounter所在机器的ip
-	“status”:”init”	//	mounter的状态
-	“online”:”1”//是否在线，0：不在线  1：在线
+	"type": "mounterManage",//对应的请求码是31
+	"id":"21",//表示mounter的id
+	"mounterType":"CentOS",//mounter所在操作系统的类型
+	"address":"192.168.1.100",//mounter所在机器的ip
+	"status":"init"	//	mounter的状态
+	"online":"1"//是否在线，0：不在线  1：在线
 }
 Resp: // 其他操作返回的结果
 {
-	“type”:”mountFs”,//请求码是31
-	“state”:” 0”,  // 错误类型码，0表示成功
-	“errormessage”:”” // 错误信息
+	"type":"mountFs",//请求码是31
+	"state":" 0",  // 错误类型码，0表示成功
+	"errormessage":"" // 错误信息
 }
 
 // 挂载节点管理界面，返回所有的mount节点信息：
 
 Req:
 {
-         “type”:”getMounters”    //请求码是34
+         "type":"getMounters"    //请求码是34
 }
 Resp:
 {
-         “type”:”getMounters”,   //请求码是34
-         “detail”:” [{
-                   “id”:”21”,//mounter的id
-                   “os”:”CentOS”,//操作系统类型
-                   “ip”,”192.168.1.130”,//mounter的ip
-                   “state”:”initing”,//mounter的状态,与单个挂载节点的state不一致
-                   “online”:”1”     //表示mounter是否上线，0：下线，1：上线
-}]”
+         "type":"getMounters",   //请求码是34
+         "detail":" [{
+                   "id":"21",//mounter的id
+                   "os":"CentOS",//操作系统类型
+                   "ip","192.168.1.130",//mounter的ip
+                   "state":"initing",//mounter的状态,与单个挂载节点的state不一致
+                   "online":"1"     //表示mounter是否上线，0：下线，1：上线
+}]"
 }
 
 // 文件系统挂载关系配置页面，文件系统挂载
 Req:
 {
-	“type”:”mountFs”,//请求码是32
-	“mounterId”:”101”,//挂载节点的id，与cmNode的id保持一致
-	“fsId”:”21”,//文件系统id
-	“mountAddr”:”/mnt/fs1”,//文件系统的挂载路径
+	"type":"mountFs",//请求码是32
+	"mounterId":"101",//挂载节点的id，与cmNode的id保持一致
+	"fsId":"21",//文件系统id
+	"mountAddr":"/mnt/fs1",//文件系统的挂载路径
 }
 
 Resp:
 {
-	“type”:”mountFs”,//请求码是32
-	“state”:” 0”,  // 错误类型码，0表示成功
-	“errormessage”:”” // 错误信息
+	"type":"mountFs",//请求码是32
+	"state":" 0",  // 错误类型码，0表示成功
+	"errormessage":"" // 错误信息
 }
 
 // 文件挂载关系展示页面，显示文件系统挂载信息
 Req
 {
-	“type”:”showFsMount”,//请求码是33
+	"type":"showFsMount",//请求码是33
 }
 
 Resp
 {
-	“type”:” showFsMount”,
-	“detail”:”[
+	"type":" showFsMount",
+	"detail":"[
 	{
-		“mounterId”:”21”,
-		“fsId”:”101”,
-		“mountAddr”:”/mnt/fs1”,
-		“judge”:”1”,  //是否具有判决能力，1：具有判决能力  0：否
-		“sync”:”1”  //是否同步，1：已同步   0：未同步
+		"mounterId":"21",
+		"fsId":"101",
+		"mountAddr":"/mnt/fs1",
+		"judge":"1",  //是否具有判决能力，1：具有判决能力  0：否
+		"sync":"1"  //是否同步，1：已同步   0：未同步
 }
-]”
+]"
 }
 
 //管理用户权限目录：
 req{
 	type : manageDir 	//35
-operation:search  //1: query, 2: add, 3：delete 
+operation:search  //1: query, 2: add, 3：delete
 	dirName : temp  //目录名称
 	user : scott      //用户名
 	group : group1   //用户组名
@@ -449,13 +448,13 @@ pagesize :			//一也可以有多少项
 currentPage :		//当前页码
 }
     Add和delete操作的返回信息：
-res:{ 
+res:{
 	type: manageDir,
 	state: 0,  // 错误类型码，0表示成功
 	errormessage:'' // 错误信息
 }
     query操作的返回信息：
-res:{ 
+res:{
 		//query返回信息
 	type: manageDir,
 	state: 0,  // 错误类型码，0表示成功
@@ -512,47 +511,47 @@ errormessage:'' // 错误信息
 
 //显示所有的组信息
 req:{
-	type : “43”,				//请求码是43	
+	type : "43",				//请求码是43
 }
 resp:{
-	type : “43”,				//请求码是43
-	state : “0”,				//错误类型码，0：成功，1：表示失败
-	errormessage : “”,			// 错误信息
+	type : "43",				//请求码是43
+	state : "0",				//错误类型码，0：成功，1：表示失败
+	errormessage : "",			// 错误信息
 	groups : [{				//所有的组信息
-	“id” : “2”,				//组id
-	“group” : “lzl”			//组名
+	"id" : "2",				//组id
+	"group" : "lzl"			//组名
 },
 {
-	“id” : “2”,				//组id
-	“group” : “lzl”			//组名
+	"id" : "2",				//组id
+	"group" : "lzl"			//组名
 }]
 }
 
 
 //显示组内成员信息
 req : {
-	type : “39”,			//请求码是39
-	group: “test”			//用户组名
+	type : "39",			//请求码是39
+	group: "test"			//用户组名
 }
 resp : {
-	type : “39”,				//请求码是39
-	state : “0”,				//错误类型码，0：成功，1：表示失败
-	errormessage : “”,			// 错误信息
+	type : "39",				//请求码是39
+	state : "0",				//错误类型码，0：成功，1：表示失败
+	errormessage : "",			// 错误信息
 	groupUsers : [{			//该组内用户
-	“id” : “2”,						//用户id
-	“userName” : “yuhy”			//用户名
+	"id" : "2",						//用户id
+	"userName" : "yuhy"			//用户名
 },
 {
-	“id” : “6”,						//用户id
-	“userName” : “linzhili”			//用户名
+	"id" : "6",						//用户id
+	"userName" : "linzhili"			//用户名
 }]，
 notGroupUsers: [{			//不在该组中的用户
-	“id” : “3”,						//用户id
-	“userName” : “lixin”			//用户名
+	"id" : "3",						//用户id
+	"userName" : "lixin"			//用户名
 },
 {
-	“id” : “4”,						//用户id
-	“userName” : “yongle”			//用户名
+	"id" : "4",						//用户id
+	"userName" : "yongle"			//用户名
 }]
 }
 
@@ -565,8 +564,8 @@ req:{
 }
 resp : {
 	type : ‘40’,			//请求码40
-	state : “0”,			//错误类型码，0：成功，1：表示失败
-	errormessage : “”,		// 错误信息
+	state : "0",			//错误类型码，0：成功，1：表示失败
+	errormessage : "",		// 错误信息
 }
 
 
@@ -578,8 +577,8 @@ groupName : ‘test’		//群组名称
 }
 resp : {
 	type : ‘40’,			//请求码40
-	state : “0”,			//错误类型码，0：成功，1：表示失败
-	errormessage : “”,		// 错误信息
+	state : "0",			//错误类型码，0：成功，1：表示失败
+	errormessage : "",		// 错误信息
 }
 
 
@@ -590,8 +589,8 @@ req:{
 }
 resp : {
 	type : ‘42’,			//请求码42
-	state : “0”,			//错误类型码，0：成功，1：表示失败
-	errormessage : “”,		// 错误信息
+	state : "0",			//错误类型码，0：成功，1：表示失败
+	errormessage : "",		// 错误信息
 }
 
 
@@ -607,7 +606,7 @@ res{
 	type : queryExFs	//请求码45
 	state : 0			// 错误类型码，0 表示成功
 	errormessage:'	 // 错误信息
-		total : 
+		total :
 pageSize: 10, 				// 每一页包含10行数据
 		currentPage: 1 			// 当前页为第一页
 	fsList : [{
@@ -635,25 +634,25 @@ errormessage:'' // 错误信息
 
 //询问文件系统相关信息
 Req{
-	“type” : “47”		//请求码
+	"type" : "47"		//请求码
 }
 Resp{
-	“type” : “47”,				//请求码
-	“state” : “0”,				//错误类型码，0：成功，1：表示失败
-	“errormessage” : “”,		// 错误信息
-   “fs” : [{					//所有文件系统的信息
-		“id” : “2”,				//文件系统id
-		“name” : “fs1”,			//文件系统名
-		“type” : “ceph”,			//文件系统类型
-		“mountPoint” : “/mnt/fs1”,	//文件系统挂载路径
-		“mountAddr” : “192.168.1.136”,	//文件服务器地址
-		“mountport” : “”,			//端口号
-		“fssize” ：””,			//存储空间
-		“fsused” : “”,			//已用空间
-		“fsavail” : “”,			//剩余空间
-		“fsstate” : “”,			//文件系统状态
-		“judge” : “”,				//是否提供判决服务1:提供判决服务 0：未提供判决服务
-		“sync” : “”,				//是否已同步，1：已同步  0：未同步
+	"type" : "47",				//请求码
+	"state" : "0",				//错误类型码，0：成功，1：表示失败
+	"errormessage" : "",		// 错误信息
+   "fs" : [{					//所有文件系统的信息
+		"id" : "2",				//文件系统id
+		"name" : "fs1",			//文件系统名
+		"type" : "ceph",			//文件系统类型
+		"mountPoint" : "/mnt/fs1",	//文件系统挂载路径
+		"mountAddr" : "192.168.1.136",	//文件服务器地址
+		"mountport" : "",			//端口号
+		"fssize" ："",			//存储空间
+		"fsused" : "",			//已用空间
+		"fsavail" : "",			//剩余空间
+		"fsstate" : "",			//文件系统状态
+		"judge" : "",				//是否提供判决服务1:提供判决服务 0：未提供判决服务
+		"sync" : "",				//是否已同步，1：已同步  0：未同步
 }]
 }
 其中，文件系统状态如下：
@@ -668,37 +667,95 @@ Resp{
 
 //前端向CM发出请求，对可清洗的文件系统进行清洗
 Req{
-	“type” : “48”，		//请求码
-	“fsid” : “”			//文件系统id
+	"type" : "48"，		//请求码
+	"fsid" : ""			//文件系统id
 }
 Resp{
-	“type” : “48”,			//请求码
-	“state” : “0”,				//错误类型码，0：成功，1：表示失败
-	“errormessage” : “”,		// 错误信息
+	"type" : "48",			//请求码
+	"state" : "0",				//错误类型码，0：成功，1：表示失败
+	"errormessage" : "",		// 错误信息
 }
 
 //查询CM信息，CM返回正在运行的CM信息
 Req{
-	“type” : “49”
+	"type" : "49"
 }
 
 Resp{
-	“type” : “49”,
-“state” : “0”,				//错误类型码，0：成功，1：表示失败
-“errormessage” : “”,		// 错误信息
-“cm” : [{					//主备CM的信息
-		“id” : “2”,				// CM的id，唯一标识
-		“ip” : “192.168.1.136”,	//CM的ip
-		“service” ： “1”	//表示是否是主CM，1，表示是主CM，0，表示是备CM
-}，
-{					
-		“id” : “2”,				// CM的id，唯一标识
-		“ip” : “192.168.1.136”,	//CM的ip
-		“service” ： “1”	//表示是否是主CM，1，表示是主CM，0，表示是备CM
-}]
+	"type" : "49",
+  "state" : "0",				//错误类型码，0：成功，1：表示失败
+  "errormessage" : "",		// 错误信息
+  "cm" : [{					//主备CM的信息
+  		"id" : "2",				// CM的id，唯一标识
+  		"ip" : "192.168.1.136",	//CM的ip
+  		"service" ： "1"	//表示是否是主CM，1，表示是主CM，0，表示是备CM
+  }，
+  {					
+  		"id" : "2",				// CM的id，唯一标识
+  		"ip" : "192.168.1.136",	//CM的ip
+  		"service" ： "1"	//表示是否是主CM，1，表示是主CM，0，表示是备CM
+  }]
+  }
 }
+
+// 前端往CM发送请求数据，询问模块的总体情况，具体协议接口如下
+req{
+	"type" : "54"
 }
-//管理员前端发来未审核用户信息请求
+resp{
+	"type" : "54",		
+	"state" : "0",		//0：成功   1：失败
+	"errormassage" : "",	//错误信息
+	"fsState" : {			//文件系统状态
+		"fsSum" : "6",			//fs的总数量
+		"fsOnlineNum" ： "3"	，//fs为running状态的数量
+		"fsReadyNum" : "3"	//fs为ready状态的数量
+  },
+  "mounterState" : {
+  		"mounterSum" : "5",	//mounter的总数量
+  		"mounterOnlineNum" : "2",	//在线的mounter的数量
+  		"mounterOfflineNum" : "3"	//离线的mounter的数量
+  },
+  "fsErrStatus" : {
+  		"fsErrState" : "0",	//是否存在出错的fs的信息，stopping或者repairing状态的fs
+  		"fsRepairingNum" : "3",		//正在修复的fs的数量
+  		"fsRepairingList" : [{
+  			"id" : "1",		//文件系统的id
+  			"fsName" : "fs1"	//文件系统名称
+  }，
+  {
+  ……
+  }]，			//正在修复的fs的具体信息
+  		"fsSyncNum" : "2",		//正在同步的fs数量，backUp节点修复的fs的数量
+  		"fsSynList" : [{
+  			"id" : "1",		//文件系统的id
+  			"fsName" : "fs1"	//文件系统名称
+  },
+  {
+  ……
+  }],		//正在同步的fs的详细信息
+  "fsStopNum" : "2",		//处于下线的fs数量
+  		"fsStopList" : [{
+  			"id" : "1",		//文件系统的id
+  			"fsName" : "fs1"	//文件系统名称
+  },
+  {
+  ……
+  }]		//已经停止运行的fs的数量
+  },
+  "userInfo" : {
+  	"userSum" : "66",			//用户总数量
+  		"userOnlineNum" : "2",		//在线的用户数量
+  		"userFreezeNum" : "3"		//冻结的用户数量
+  },
+  "fsCapacity": {
+  	"fsSize" : "10.0",			// fs表中fssize最小的fs的fssize值
+  	"fsUsed" : "6.0",			//fs表中fsstate为REPAIRING的fs数量
+  	"fsAvail" : "4.0"			//fs表中fsstate为REPAIRING的全部fs信息
+  }
+}
+
+//管理控制台发来未审核用户信息请求
 req：
 {
 	type:'56', // 对应的请求码是5
@@ -722,14 +779,14 @@ username:'',
 }
 
 
-//管理员前端发来审核结果（一个用户发一个）
+//管理控制台发来审核结果（一个用户发一个）
 req：
 {
 	type:'57', // 对应的请求码是57
     email:'',
-	expire：”,//用户有效期
+	expire：",//用户有效期
 	state: '0' ,//审核结果，0-通过，1-不通过
-	reasonmessage:”//审核不通过原因
+	reasonmessage:"//审核不通过原因
 }
 res:
 {
@@ -738,6 +795,20 @@ res:
 	errormessage:'' // 错误信息
 }
 
+// 修改管理控制台当前用户密码
+req：
+{
+	type:'58', // 对应的请求码是58
+	name:'', //用户相关信息
+	newpassword:'',
+	oldpassword:'',
+}
+res:
+{
+	type:'58',
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+}
 
 
 

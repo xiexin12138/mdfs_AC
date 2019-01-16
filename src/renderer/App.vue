@@ -11,12 +11,13 @@ export default {
   name: 'mimic',
   watch: {
     '$route': function(route) {
-      console.log("route.fullPath:"+route.fullPath);
-        if(route.fullPath != '/content/summary'){
-          this.$store.commit('UPDATE_USER_IN_SUMMARY', false)
-        }else{
-          this.$store.commit('UPDATE_USER_IN_SUMMARY', true)
-        }
+      // console.log(this.$store.getters.getUserName);
+      console.log(this.$route.path);
+      if(route.fullPath != '/content/summary'){
+        this.$store.commit('UPDATE_USER_IN_SUMMARY', false)
+      } else {
+        this.$store.commit('UPDATE_USER_IN_SUMMARY', true)
+      }
     }
   }
 }

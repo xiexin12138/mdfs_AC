@@ -1,6 +1,5 @@
 <template>
 <div id="stepsBar" >
-
 	<el-steps :active="active" finish-status="success" align-center style="margin-bottom:20px;">
 		<el-step title="验证邮箱"></el-step>
 		<el-step title="设置密码"></el-step>

@@ -8,7 +8,7 @@
 						<div slot="header" class="clearfix">
 							<span style="font-size:18px;">用户信息</span>
 						</div>
-						<el-row :gutter="15" > 
+						<el-row :gutter="15" >
 						  <el-col :span="6":offset="2"><div style="text-align:right;">邮&ensp;&ensp;箱&nbsp;:</div></el-col>
 						  <el-col :span="8" ><div>{{user.email}}</div></el-col>
 						</el-row>
@@ -53,7 +53,7 @@
       { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
     ]">
 	      <el-input v-model="emailFrom.newEmail" auto-complete="off"></el-input>
-	    </el-form-item>	    
+	    </el-form-item>
 	  </el-form>
 	  <div slot="footer" class="dialog-footer">
 	    <el-button @click="emailFormVisible = false">取 消</el-button>
@@ -64,7 +64,7 @@
 	<el-dialog title="修改有效期" :visible.sync="expireFormVisible">
 	  <el-form :model="expireForm" ref="expireForm">
 	    <el-form-item label="有效期" :label-width="formLabelWidth" prop="expire" :rules="[
-      { required: true, message: '请选择有效期', trigger: 'blur' } 
+      { required: true, message: '请选择有效期', trigger: 'blur' }
     ]">
 	    	<el-date-picker
 				v-model="expireForm.expire"
@@ -103,12 +103,12 @@
 	  </div>
 	</el-dialog>
 	<foot></foot>
-</div>	
+</div>
 </template>
 <style>
 /* 下面的代码是为了搞定时间选择器的显示问题*/
 	.el-time-spinner.has-seconds .el-time-spinner__wrapper:nth-child(2) {
-     margin-left: 0; 
+     margin-left: 0;
 }
 
 .row-bg {
@@ -119,7 +119,7 @@
   position: relative;
   width: 400px;
   height: 300px;
-  margin-left: auto;	
+  margin-left: auto;
   margin-right: auto;
 }
 </style>
@@ -212,7 +212,7 @@ export default {
 						id:this.user.id,
 						email:this.emailFrom.newEmail
 					}
-					
+
 					userTable.UpdateEmail(data).then(()=>{
 							this.user.email = data.email
 							Message({
@@ -308,7 +308,7 @@ export default {
 								type:'error',
 								duration:2000
 							})
-							
+
 	          if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
 	           this.$router.push({ path: '/'})
 	          }

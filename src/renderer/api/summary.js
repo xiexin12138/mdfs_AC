@@ -76,12 +76,13 @@ export async function GetSummary() {
     	}
     })*/
     // 没有出错则为0
-    if (obj.state == 0|| obj.type !=64) {
+    if (obj.state == 0|| obj.type != 64) {
       return obj
     } else {
       throw new Error(obj.errormessage)
     }
   } catch (e) {
+    console.log(e);
     throw new Error(e.toString())
   }
 }

@@ -96,7 +96,7 @@ async function deletedirsHelper(id,username){
 
 /**
  * @author saisai
- * @version 
+ * @version
  * @date    2018-09-14
  * @param   {Object}   data 一个对象，包含下面的字段
  * @return  {Boolean}        true为正确提交，报错则不正确
@@ -108,16 +108,16 @@ export async function submitGroupManage(User,Group,Operation) {
 		let socket = new Socket()
 		let data = {
 			type: type.ManageUserAndGroup ,
-			user: User , 
-			group:Group ,  		
-			operation :Operation ,           
+			user: User ,
+			group:Group ,
+			operation :Operation ,
 		}
 
 		let d = JSON.stringify(data)
 		let f = JSON.parse(d)
 
 		socket.write(JSON.stringify(data))
-		
+
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		if (obj.state == 0|| obj.type !=64) {
@@ -141,7 +141,7 @@ export async function submitGroupManage(User,Group,Operation) {
 export async function GetDirs(param) {
 	try {
 
-        
+
 		let socket = new Socket()
 		let data = {
 			type: type.MANAGE_DIRS,
@@ -161,7 +161,7 @@ export async function GetDirs(param) {
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj) {
-				
+
 			// console.log(obj)
 			return {
 				dirs:obj
@@ -222,7 +222,7 @@ export async function UpdateDir(param) {
 export async function GetGroups(param) {
 	try {
 
-        
+
 		let socket = new Socket()
 		let data = {
 			type: type.GET_GROUP,
@@ -233,9 +233,9 @@ export async function GetGroups(param) {
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj) {
-				
+
 			console.log(obj.groups )
-			return obj.groups 
+			return obj.groups
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -345,7 +345,7 @@ export async function ChangeGroupName(ID,newGroupName) {
 // export async function GetGroupRelas(param) {
 // 	try {
 
-        
+
 // 		let socket = new Socket()
 // 		let data = {
 // 			type: type.USER_GROUP,
@@ -359,7 +359,7 @@ export async function ChangeGroupName(ID,newGroupName) {
 // 		let obj = JSON.parse(response)
 // 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 // 		if (obj) {
-				
+
 // 			console.log(obj)
 // 			return {
 // 				grouprelas:obj
@@ -403,15 +403,15 @@ export async function ChangeGroupName(ID,newGroupName) {
 // 		let data = {
 // 			type: type.ManageUserAndGroup ,
 // 			user : user , //挂载节点的id，与cmNode的id保持一致
-// 			group :group ,  //文件系统id			
-// 			operation :operation ,  //文件系统的挂载路径          
+// 			group :group ,  //文件系统id
+// 			operation :operation ,  //文件系统的挂载路径
 // 		}
 
 // 		let d = JSON.stringify(data)
 // 		let f = JSON.parse(d)
 
 // 		socket.write(JSON.stringify(data))
-		
+
 // 		let response = await socket.read()
 // 		let obj = JSON.parse(response)
 // 		if (obj.state == 0) {
@@ -434,8 +434,8 @@ export async function ChangeGroupName(ID,newGroupName) {
  */
 export async function GroupUserRela(groupname,dataType) {
 	try {
-       
-        
+
+
 		let socket = new Socket()
 		let data = {
 			type: type.GROUP_INFO,
@@ -448,11 +448,11 @@ export async function GroupUserRela(groupname,dataType) {
 		if (obj.state == 0|| obj.type !=64) {
 			if(dataType=="notGroupUsers")
 			{
-				return obj.notGroupUsers 
+				return obj.notGroupUsers
 			}else{
 				return obj.groupUsers
 			}
-			
+
 		} else {
 			throw new Error(obj.errormessage)
 		}
