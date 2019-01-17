@@ -24,7 +24,7 @@
 import Vue from 'vue'
 import Bar from '@/components/common/Bar'
 import Foot from '@/components/common/Foot'
-import * as consoleConfig from '../../api/consoleConfig'
+import * as consoleConfig from '../../../api/consoleConfig'
 import {Message} from 'element-ui'
 export default {
   components: {

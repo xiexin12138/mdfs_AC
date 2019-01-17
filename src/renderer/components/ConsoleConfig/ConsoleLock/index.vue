@@ -12,7 +12,6 @@
         <el-input-number v-model="locktime" controls-position="right" :min="1" :max="99999" size="small" style="width:105px;"></el-input-number>
         分钟无操作自动锁定<br />(锁定后需要重新输入当前用户密码才能进入管理控制台)
       </el-form-item>
-
       <el-form-item>
         <el-button type="primary">保存</el-button>
       </el-form-item>
