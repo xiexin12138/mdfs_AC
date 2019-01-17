@@ -106,7 +106,6 @@ export default {
   watch: {
     isInSummary: function() {
       if (this.$store.getters.getInSummary == true) {
-        console.log("调用了watch");
         this.updateSummary()
       }
     }

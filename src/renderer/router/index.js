@@ -51,10 +51,10 @@ import Summary from '@/components/Summary'
 import Content from '@/components/Content'
 
 import ConsoleConfig from '@/components/ConsoleConfig'
-import ConsolePermission from '@/components/ConsoleConfig/consolepermission'
-import GroupMnage from '@/components/ConsoleConfig/groupmanage'
-import ConsoleLock from '@/components/ConsoleConfig/consolelock'
-import ChangeCurUserPwd from '@/components/ConsoleConfig/changecuruserpwd'
+import ConsolePermission from '@/components/ConsoleConfig/ConsolePermission'
+import GroupManage from '@/components/ConsoleConfig/GroupManage'
+import ConsoleLock from '@/components/ConsoleConfig/ConsoleLock'
+import ChangeCurUserPwd from '@/components/ConsoleConfig/ChangeCurUserPwd'
 
 Vue.use(Router)
 
@@ -267,7 +267,7 @@ let router = new Router({
       				},
       				{ /*控制台权限管理*/
       					path:'groupmanage',
-      					component:GroupMnage,
+      					component:GroupManage,
                 meta:{
                   title: ['控制台设置', '控制台权限管理']}
       				},

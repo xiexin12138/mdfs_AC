@@ -82,7 +82,6 @@ export async function GetSummary() {
       throw new Error(obj.errormessage)
     }
   } catch (e) {
-    console.log(e);
     throw new Error(e.toString())
   }
 }
