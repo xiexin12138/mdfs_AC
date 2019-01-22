@@ -157,6 +157,12 @@ methods: {
 	            duration: 2000
 	          })
           // rows[index].fsstate='repairing'
+          if(operate==1){
+            operate="启用"
+          }else{
+            operate="禁用"
+          }
+          rows[index].status=operate
 	        })
 	        .catch(e => {
 	          Message({
@@ -200,20 +206,23 @@ methods: {
         },
 
      //添加email
-     addEmail(table){
+      addEmail(table){
 
         MessageBox.prompt('请输入Email地址', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
 
-          //设置输入格式
-          // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-          // inputErrorMessage: '邮箱格式不正确',
+         // 设置输入格式
+          inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+          inputErrorMessage: '邮箱格式不正确'
+
         }).then(({ value }) => {
 
               //反馈更名信息至后台
-              console.log(value)
-              errorNotify.AddEmail(value)
+             // console.log(value)
+          
+              let result =  errorNotify.AddEmail(value)
+         
                .then(() => {
                     Message({
                       showClose: true,
@@ -223,7 +232,7 @@ methods: {
                     })
                         //将新组在表格中显示出来
                       var list = {
-                          id: "#",
+                          id:"#",
                           email: value,
                           status:"禁用"
                       }

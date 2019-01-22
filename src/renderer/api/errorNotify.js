@@ -32,7 +32,7 @@ export async function Getemails(param) {
       ]
     }
         console.log(44,tableData5)
-	    return tableData5
+	    // return tableData5
 		let socket = new Socket()
 		let data = {
 			type: type.GET_EMAIL,
@@ -136,12 +136,13 @@ export async function AddEmail(email) {
       type: type.ADD_EMAIL,
       email:email,
     }
-    console.log(data)
+    // console.log(data)
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
     if (obj.state == 0|| obj.type !=64) {
-      return true
+      console.log(444,obj.email)
+      return obj.email.id
     } else {
       throw new Error(obj.errormessage)
     }
