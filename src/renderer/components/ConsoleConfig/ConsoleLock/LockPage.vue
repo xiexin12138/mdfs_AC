@@ -2,23 +2,23 @@
 <el-row type="flex" align="middle" style="height:500px">
   <el-col style="height:200px;">
     <el-row type="flex" justify="center">
-      <el-col style="width:400px;height:200px;">
-        <el-form status-icon label-width="60px" ref="userform" :model="userform" :rules="userrule">
-          <el-form-item label="用户名" prop="username">
-            当前账户已自动锁定，请输入登录密码解锁：
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input clearable style="width:250px;" type="password" @keyup.enter.native="submitForm('userform')" auto-complete="off" v-model="userform.password"></el-input>
-            <!-- <span style="cursor:pointer;" @click="resetPwd()">忘记密码？</span> -->
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span><strong>{{username}}</strong> 已锁定，请输入登录密码解锁</span>
+        </div>
+        <el-col style="width:400px;height:180px;">
+          <el-form status-icon label-width="60px" ref="userform" :model="userform" :rules="userrule">
+            <el-form-item prop="password">
+              <el-input clearable style="width:280px;" type="password" @keyup.enter.native="submitForm('userform')" auto-complete="off" v-model="userform.password"></el-input>
+              <!-- <span style="cursor:pointer;" @click="resetPwd()">忘记密码？</span> -->
+            </el-form-item>
+            <el-form-item>
+              <el-button  style="width:280px" type="primary" @click="submitForm('userform')" @keyup.enter="submitForm('userform')">登录</el-button>
+            </el-form-item>
             <el-button type='text' size='small' @click="resetPwd()">忘记密码？</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('userform')" @keyup.enter="submitForm('userform')">登录</el-button>
-            <el-button @click="resetForm('userform')">重置</el-button>
-          </el-form-item>
-
-        </el-form>
-      </el-col>
+          </el-form>
+        </el-col>
+      </el-card>
     </el-row>
   </el-col>
 </el-row>
@@ -35,6 +35,7 @@ import {
   Row,
   Col
 } from 'element-ui'
+import global_ from '@/utils/Global'
 
 Vue.use(Row)
 Vue.use(Col)
@@ -50,7 +51,7 @@ export default {
   directives: {
     focus: {
       // 指令的定义
-      inserted: function (el) {
+      inserted: function(el) {
         // 聚焦元素
         el.querySelector('input').focus();
       }
@@ -64,16 +65,8 @@ export default {
         callback()
       }
     }
-    let validateUsername = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入用户名'))
-      } else {
-        callback()
-      }
-    }
     return {
       userform: {
-        username: '',
         password: ''
       },
       userrule: {
@@ -90,23 +83,23 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data = {
-            username: this.userform.username,
+            username: this.$store.getters.getUserName,
             password: this.userform.password
           }
-          this.$store.dispatch('checkuser', data).then(() => {
+          this.$store.dispatch('unlockConsole', data).then(() => {
             Message({
               showClose: true,
-              message: '登录成功',
+              message: '解锁成功！',
               type: 'success',
               duration: 2000
             })
             this.$router.push({
-              path: '/content/summary'
+              path: global_.SUMMARY
             })
           }).catch((e) => {
             Message({
               showClose: true,
-              message: e.message,
+              message: "解锁失败，请重试！",
               type: 'error',
               duration: 2000
             })
@@ -121,8 +114,14 @@ export default {
     },
     resetPwd() {
       this.$router.push({
-        path: '/resetpassword'
+        path: global_.RESET_PSW
       })
+    }
+  },
+  computed: {
+    username: function() {
+      // `this` 指向 vm 实例
+      return this.$store.getters.getUserName
     }
   }
 }

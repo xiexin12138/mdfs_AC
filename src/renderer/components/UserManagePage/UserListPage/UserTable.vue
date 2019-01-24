@@ -89,6 +89,7 @@ import {
   Message
 } from 'element-ui'
 import Vue from 'vue'
+import global_ from '@/utils/Global'
 
 Vue.use(Table)
 Vue.use(TableColumn)
@@ -147,7 +148,7 @@ export default {
   },
   methods: {
     goToNewUser() {
-      this.$router.push({ path: '/content/user/newuser' })
+      this.$router.push({ path: global_.FS_USER_MANAGE.newuser })
     },
     goToUpdateUser() {
       if (this.multipleSelection.length !== 1) {
@@ -160,7 +161,7 @@ export default {
         return false
       }
       let id = this.multipleSelection[0].id
-      this.$router.push({ path: '/content/updateuser/' + id })
+      this.$router.push({ path: global_.FS_USER_MANAGE.updateuser + id })
     },
     deleteUsers() {
       if (this.multipleSelection.length === 0) {
@@ -187,16 +188,16 @@ export default {
           })
         })
         .catch(e => {
-         // console.log(555,e.message)       
+         // console.log(555,e.message)
           Message({
             showClose: true,
             message: e.message,
             type: 'error',
             duration: 2000
           })
-          
+
           if(e.message=="Error: Error: 您已在另一地点登录，请重新登录！"){
-           this.$router.push({ path: '/'})
+           this.$router.push({ path: global_.LOGIN_PAGE})
           }
 
         })

@@ -12,6 +12,8 @@ const electron = require('electron')
 /*获取electron窗体的菜单栏*/
 const Menu = electron.Menu
 
+
+
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
@@ -37,6 +39,7 @@ function createWindow () {
     mainWindow = null
   })
 }
+
 
 app.on('ready', createWindow)
 

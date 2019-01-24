@@ -31,5 +31,27 @@ export const GET_ERRORFILES = "GET_ERRORFILES"
 
 //获取系统概况信息
 export const GET_SUMMARY = "GET_SUMMARY"
+
 //获取用户是否在summary页面的状态信息
 export const UPDATE_USER_IN_SUMMARY = "UPDATE_USER_IN_SUMMARY"
+
+// 获取用户的控制台自动锁定状态
+export const GET_LOCK_STATE = "GET_LOCK_STATE"
+
+// 获取锁定时间
+export const GET_LOCK_TIME = "GET_LOCK_TIME"
+
+// 更新自动锁定剩余秒数
+export const UPDATE_REMAIN_TIME = "UPDATE_REMAIN_TIME"
+
+// 更新锁定状态
+export const UPDATE_LOCK_STATE = "UPDATE_LOCK_STATE"
+
+// 更新锁定时间（分钟）
+export const UPDATE_LOCK_TIME = "UPDATE_LOCK_TIME"
+
+// 获取ac用户列表
+export const GET_AC_USER = "GET_AC_USER"
+
+// 删除ac用户
+export const DELETE_AC_USER = "DELETE_AC_USER"

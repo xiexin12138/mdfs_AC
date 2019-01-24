@@ -1,3 +1,6 @@
+// localTest，本地自测试时设为true，联调设为false
+export const LOCAL_TEST = true
+
 // 管理员登录，测试通过
 export const LOGIN = 17
 
@@ -124,11 +127,26 @@ export const AUDITRESULT= 57
 //修改密码相关信息
 export const CHANGE_CUR_PSW= 58
 
+//获取ac用户信息
+export const GET_AC_USER= 59
+
+//添加ac用户信息
+export const ADD_AC_USER= 60
+
+//更新ac用户信息
+export const UPDATE_AC_USER= 61
+
+//删除ac用户信息
+export const DELETE_AC_USER= 62
+
 //注销用户
 export const LOGOUT= 66
 
+//权限管理-修改用户类型
+export const PERMESSION_UPDATE_USER_TYPE= 67
+
 //控制台定时锁定
-export const LOCK_CONSOLE= 68
+export const UNLOCK_CONSOLE= 68
 
 
 /*****************************未实现的接口***********************************************/

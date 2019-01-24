@@ -13,7 +13,10 @@ import * as user from '../../api/user'
  */
 const state = {
 	username: null,
-	password: null
+	password: null,
+  userType: 2,
+  lockstatus: false,
+  locktime: 5
 }
 
 const getters = {
@@ -22,19 +25,43 @@ const getters = {
 	},
 	getPassWord: state => {
 		return state.password
+	},
+	getUserType: state => {
+		return state.userType
+	},
+	getLockstatus: state => {
+		return state.lockstatus
+	},
+	getLocktime: state => {
+		return state.locktime
 	}
 }
 const mutations = {
 	[types.CHECK_USER](state, payload) {
 		state.username = payload.username
 		state.password = payload.password
-	}
+		state.userType = payload.userType
+    state.locktime = payload.locktime
+    if(payload.lockstatus == 0){
+      state.lockstatus = false
+    } else {
+      state.lockstatus = true
+    }
+	},
+  [types.UPDATE_LOCK_STATE](state, payload) {
+    state.lockstatus = payload
+  },
+  [types.UPDATE_LOCK_TIME](state, payload) {
+    state.locktime = payload
+  }
 }
 
 const actions = {
 	async checkuser({ commit }, payload) {
-		if (await user.CheckUser(payload.username, payload.password)) {
-			commit(types.CHECK_USER, payload)
+    let result = await user.CheckUser(payload.username, payload.password)
+    result.username = payload.username
+    if (result.state == 0) {
+			commit(types.CHECK_USER, result)
 		} else {
 			throw new Error('用户或密码不对')
 		}

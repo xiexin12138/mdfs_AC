@@ -67,7 +67,7 @@ export async function GetDataTable(pageSize, currentPage) {
 	// 		pageSize: 10,
 	// 		currentPage: 2
 	// 	}
-		
+
 
 		let socket = new Socket()
 		let data = {
@@ -106,7 +106,7 @@ export async function DeleteDataTable(idArray){
 			await deleteOne(idArray[i])
 		}
 		return true
-		
+
 	} catch (e) {
 		throw new Error(e.toString())
 	}
@@ -123,7 +123,7 @@ async function deleteOne(id){
 	// TODO 交互
 	// throw new Error('test delete')
 	try {
-		
+
 		let socket = new Socket()
 		let data = {
 			type: type.USER_DELETE,
@@ -243,7 +243,7 @@ export async function UpdateClient(param){
  */
 export async function AddUser(param){
 	try {
-		
+
 		let socket = new Socket()
 		let data = {
 			type: type.USER_CREATE,
