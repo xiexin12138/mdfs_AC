@@ -36,8 +36,8 @@ import UpdateMounter from '@/components/MounterPage/UpdateMounter'
 import AuthManagePage from '@/components/AuthManagePage'
 import ErrorFileManage from '@/components/AuthManagePage/ErrorFileManage'
 import DownloadErrorFile from '@/components/AuthManagePage/DownloadErrorFile'
-
 import ErrorFS from '@/components/AuthManagePage/ErrorFS'
+import ErrorNotify from '@/components/AuthManagePage/ErrorNotify'
 
 import UserManagePage from '@/components/UserManagePage'
 import UserListPage from '@/components/UserManagePage/UserListPage'
@@ -247,6 +247,12 @@ let router = new Router({
                 meta:{
                   title: ['异常管理', '异常文件系统管理']}
       				},
+              { /*异常告警管理*/
+                path:'errornotify',
+                component:ErrorNotify,
+                meta:{
+                  title: ['异常管理', '异常告警管理']}
+              },
       			]
       		},
       		{ /*控制台设置*/

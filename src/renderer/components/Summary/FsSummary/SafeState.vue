@@ -7,6 +7,7 @@
         <div class="" style="color: red;">
           异常
         </div>
+        <el-button @click="goToDetail" type="info" size="small" plain icon="el-icon-search" style="margin-left:25px;">查看详情</el-button>
       </div>
       <div class="center safeStateTitle" v-show='!fsIsErr'>
         文件系统　
@@ -99,7 +100,16 @@ export default {
       if(state.fsstoplist == undefined || this.$store.getters.getSummaryFsStop < 1)
         return true
       return false
-    }
+    },
+
+
+  },
+
+  methods:{
+     goToDetail() {
+         this.$router.push({ path: '/content/auth/errorfs'})
+
+    }   
   }
 }
 </script>

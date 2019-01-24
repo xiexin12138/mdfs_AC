@@ -66,6 +66,7 @@
       </template>
       <el-menu-item index="/content/auth/errorfilemanage">异常文件管理</el-menu-item>
       <el-menu-item index="/content/auth/errorfs">异常文件系统管理</el-menu-item>
+      <el-menu-item index="/content/auth/errornotify">异常告警管理</el-menu-item>
     </el-submenu>
 
     <el-submenu index="/content/consoleconfig">
