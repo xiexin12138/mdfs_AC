@@ -148,6 +148,20 @@ export const PERMESSION_UPDATE_USER_TYPE= 67
 //控制台定时锁定
 export const UNLOCK_CONSOLE= 68
 
+//查询邮箱列表
+export const GET_EMAIL= 69
+
+//添加邮箱
+export const ADD_EMAIL= 70
+
+//删除邮箱
+export const DELETE_EMAIL= 71
+
+//某个邮箱禁用或启用
+export const CHANGE_EMAIL_STATUS= 72
+
+//变更产生异常时全局邮件发送状态
+export const CHANGE_EMAILSENDSTATUS= 73
 
 /*****************************未实现的接口***********************************************/
 
