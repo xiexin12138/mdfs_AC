@@ -79,6 +79,8 @@ import {
   Step
 } from 'element-ui'
 import * as user from '../../../api/user'
+import global_ from '@/utils/Global'
+
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Button)
@@ -237,29 +239,29 @@ export default {
             password: this.resetPasswordForm.pass
           }
           user.ChangePass(data).then(() => {
-              this.active++
-              this.showPass = false
-              this.showNext = false
-              this.showLast = true
-              Message({
-                showClose: true,
-                message: '提交成功，即将自动跳转或点击跳转按钮···',
-                type: 'success',
-                duration: 2000
-              })
-              setTimeout(() => {
-                this.$router.push({
-                  path: '/'
-                })
-              }, 2000)
-            }).catch(e => {
-              Message({
-                showClose: true,
-                message: e.message,
-                type: 'error',
-                duration: 2000
-              })
+            this.active++
+            this.showPass = false
+            this.showNext = false
+            this.showLast = true
+            Message({
+              showClose: true,
+              message: '提交成功，即将自动跳转或点击跳转按钮···',
+              type: 'success',
+              duration: 2000
             })
+            setTimeout(() => {
+              this.$router.push({
+                path: global_.LOGIN_PAGE
+              })
+            }, 2000)
+          }).catch(e => {
+            Message({
+              showClose: true,
+              message: e.message,
+              type: 'error',
+              duration: 2000
+            })
+          })
         } else {
           return false
         }
@@ -267,7 +269,7 @@ export default {
     },
     login() {
       this.$router.push({
-        path: '/'
+        path: global_.LOGIN_PAGE
       })
     }
   }

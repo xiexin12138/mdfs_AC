@@ -53,7 +53,10 @@ import Content from '@/components/Content'
 import ConsoleConfig from '@/components/ConsoleConfig'
 import ConsolePermission from '@/components/ConsoleConfig/ConsolePermission'
 import GroupManage from '@/components/ConsoleConfig/GroupManage'
+import AddACUser from '@/components/ConsoleConfig/GroupManage/AddACUser'
+import UpdateACUser from '@/components/ConsoleConfig/GroupManage/UpdateACUser'
 import ConsoleLock from '@/components/ConsoleConfig/ConsoleLock'
+import LockPage from '@/components/ConsoleConfig/ConsoleLock/LockPage'
 import ChangeCurUserPwd from '@/components/ConsoleConfig/ChangeCurUserPwd'
 
 Vue.use(Router)
@@ -269,13 +272,25 @@ let router = new Router({
       					path:'consolepermission',
       					component:ConsolePermission,
                 meta:{
-                  title: ['控制台设置', '控制台用户管理']}
+                  title: ['控制台设置', '控制台权限管理']}
+      				},
+      				{ /*新增控制台用户*/
+      					path:'addacuser',
+      					component:AddACUser,
+                meta:{
+                  title: ['控制台设置', '新增控制台用户']}
+      				},
+      				{ /*更新控制台用户*/
+      					path:'updateacuser/:id',
+      					component:UpdateACUser,
+                meta:{
+                  title: ['控制台设置', '更新控制台用户']}
       				},
       				{ /*控制台权限管理*/
       					path:'groupmanage',
       					component:GroupManage,
                 meta:{
-                  title: ['控制台设置', '控制台权限管理']}
+                  title: ['控制台设置', '控制台用户管理']}
       				},
       				{ /*锁定设置*/
       					path:'consolelock',
@@ -296,6 +311,10 @@ let router = new Router({
       path:'/resetpassword',
       component: ResetPasswordPage
     },
+    { /*锁定页面*/
+      path:'/lockpage',
+      component: LockPage
+    }
 	]
 })
 

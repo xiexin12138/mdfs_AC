@@ -3,21 +3,33 @@
   <el-col style="height:200px;">
     <el-row type="flex" justify="center">
       <el-col style="width:400px;height:200px;">
-        <el-form status-icon label-width="60px" ref="userform" :model="userform" :rules="userrule">
-          <el-form-item label="用户名" prop="username">
-            <el-input clearable v-focus style="width:250px;" v-model="userform.username"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input clearable style="width:250px;" type="password" @keyup.enter.native="submitForm('userform')" auto-complete="off" v-model="userform.password"></el-input>
-            <!-- <span style="cursor:pointer;" @click="resetPwd()">忘记密码？</span> -->
-            <el-button type='text' size='small' @click="resetPwd()">忘记密码？</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('userform')" @keyup.enter="submitForm('userform')">登录</el-button>
-            <el-button @click="resetForm('userform')">重置</el-button>
-          </el-form-item>
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>拟态存储系统管理控制台</span>
+          </div>
+          <el-col style="width:400px;height:300px;">
+            <el-form status-icon label-width="60px" ref="userform" :model="userform" :rules="userrule">
+            <el-form-item>
+            </el-form-item>
+              <el-form-item label="用户名" prop="username">
+                <el-input clearable v-focus style="width:250px;" v-model="userform.username"></el-input>
+              </el-form-item>
+              <el-form-item label="密码" prop="password">
+                <el-input clearable style="width:250px;" type="password" @keyup.enter.native="submitForm('userform')" auto-complete="off" v-model="userform.password"></el-input>
+                <!-- <span style="cursor:pointer;" @click="resetPwd()">忘记密码？</span> -->
+              </el-form-item>
+              <el-form-item>
+                <el-button style="width:250px" type="primary" @click="submitForm('userform')" @keyup.enter="submitForm('userform')">登录</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button style="width:250px" @click="resetForm('userform')">重置</el-button>
+              </el-form-item>
 
-        </el-form>
+              <el-button type='text' size='small' @click="resetPwd()">忘记密码？</el-button>
+            </el-form>
+          </el-col>
+        </el-card>
+
       </el-col>
     </el-row>
   </el-col>

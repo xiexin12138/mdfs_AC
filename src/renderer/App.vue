@@ -6,6 +6,7 @@
 
 <script>
 import Vue from 'vue'
+import global_ from '@/utils/Global'
 
 // 定义全局点击和输入的监听函数
 Vue.prototype.globalOperation = function(callback) {
@@ -17,30 +18,76 @@ Vue.prototype.globalOperation = function(callback) {
   };
 };
 
+let lockctrl
+
 export default {
   name: 'mimic',
+  data() {
+    return {
+      nowTime: '',
+      lockstate: false,
+    }
+  },
   watch: {
     '$route': function(route) {
-      // console.log(this.$store.getters.getUserName);
-      console.log(this.$route.path);
-      if (route.fullPath != '/content/summary') {
+      if (route.fullPath != global_.SUMMARY) {
         this.$store.commit('UPDATE_USER_IN_SUMMARY', false)
       } else {
         this.$store.commit('UPDATE_USER_IN_SUMMARY', true)
       }
+      if (route.fullPath == global_.LOGIN_PAGE || this.$route.fullPath == global_.LOCK_PAGE) {
+        clearInterval(lockctrl)
+        lockctrl = undefined
+      } else if(lockctrl == undefined && this.$store.getters.getIsLock){
+        this.nowTimes();
+      }
+    },
+    getIsLock: function() {
+      if (!this.getIsLock) {
+        clearInterval(lockctrl)
+        lockctrl = undefined
+      } else {
+        this.nowTimes();
+      }
     }
   },
   mounted: function() {
-    // 挂载时使用全局点击、输入的监听函数，用于实现客户端的自动锁定
     this.globalOperation(this.operaConsole);
-    /*this.globalInput(this.inputConsole);*/
+    this.nowTimes();
+    this.lockstate = this.getlocktime
   },
   methods: {
     // 当出现点击和输入操作时的处理函数
     operaConsole() {
-      console.log("operaConsole");
+      let sec = this.$store.getters.getLocktime * 60
+      this.$store.dispatch('updateRemainTime', sec)
+    },
+    // 倒计时减秒数
+    watchTime() {
+      let sec = this.$store.getters.getRemainTime
+      if (sec > 0) {
+        if (this.$route.fullPath != global_.LOGIN_PAGE || this.$route.fullPath != global_.LOCK_PAGE) {
+          sec = sec - 1
+        }
+        this.$store.dispatch('updateRemainTime', sec)
+      } else {
+        this.$router.push({
+          path: global_.LOCK_PAGE
+        })
+      }
+    },
+    // 定时器函数
+    nowTimes() {
+      if (this.$route.fullPath != global_.LOGIN_PAGE) {
+        lockctrl = setInterval(this.watchTime, 1 * 1000);
+      }
+    },
+  },
+  computed: {
+    getIsLock() {
+      return this.$store.getters.getLockstatus
     }
-  }
+  },
 }
 </script>
 

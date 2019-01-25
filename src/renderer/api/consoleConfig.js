@@ -20,11 +20,12 @@ export async function ChangeCurUserPwd(param) {
     let data = {
       type: type.CHANGE_CUR_PSW,
       name: param.username,
-      oldpassword: md5oldpsw.read().toString('hex'),
       newpassword: md5newpsw.read().toString('hex'),
+      oldpassword: md5oldpsw.read().toString('hex'),
     }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
+    console.log(response);
     let obj = JSON.parse(response)
     if (obj.state == 0) {
       return true
@@ -73,6 +74,43 @@ export async function Logout(username) {
  * @return {boolean} 解锁前端锁定状态
  */
 export async function UnlockConsole(param) {
+  /*return true*/
+  if (type.LOCAL_TEST) {
+    return true
+  }
+  var md5psw = new md5()
+  md5psw.end(param.password)
+  try {
+    let socket = new Socket()
+    let data = {
+      type: type.UNLOCK_CONSOLE,
+      name: param.username,
+      password: md5psw.read().toString('hex'),
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    console.log("【response】" + response);
+    let obj = JSON.parse(response)
+    if (obj.state == 0) {
+      return true
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-1-13
+ * @param  {string}   name 用户名
+ * @param  {string}   password 密码
+ * @return {boolean} 解锁前端锁定状态
+ */
+export async function GetACGroup(param) {
   var md5psw = new md5()
   md5psw.end(param.password)
   try {
@@ -85,6 +123,104 @@ export async function UnlockConsole(param) {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
+    if (obj.state == 0) {
+      return true
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-1-13
+ * @param  {string}   name 用户名
+ * @param  {string}   password 密码
+ * @return {boolean} 解锁前端锁定状态
+ */
+export async function ChangerGroupPermission(param) {
+  var md5psw = new md5()
+  md5psw.end(param.password)
+  try {
+    let socket = new Socket()
+    let data = {
+      type: type.UNLOCK_CONSOLE,
+      name: param.username,
+      password: md5psw.read().toString('hex'),
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    if (obj.state == 0) {
+      return true
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-1-13
+ * @param  {string}   name 用户名
+ * @param  {string}   password 密码
+ * @return {boolean} 获取锁定状态的设置是否启用
+ */
+export async function GetLockState(param) {
+  try {
+    let Mock = require('mockjs')
+    let obj = Mock.mock({
+      isLock: true
+    })
+    return obj
+    let socket = new Socket()
+    let data = {
+      type: type.GET_LOCK_STATE,
+      name: param.username,
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    /*let obj = JSON.parse(response)*/
+    if (obj.state == 0) {
+      return true
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-1-13
+ * @param  {string}   name 用户名
+ * @param  {string}   password 密码
+ * @return {boolean} 取锁定状态的时长
+ */
+export async function GetLockTime(param) {
+  try {
+    let Mock = require('mockjs')
+    let obj = Mock.mock({
+      locktime: 15
+    })
+    return obj
+    let socket = new Socket()
+    let data = {
+      type: type.GET_LOCK_TIME,
+      name: param.username,
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    /*let obj = JSON.parse(response)*/
     if (obj.state == 0) {
       return true
     } else {

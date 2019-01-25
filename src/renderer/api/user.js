@@ -10,27 +10,43 @@ var md5 = require('md5.js')
  * @return {boolean} 校验用户名和密码后的返回值
  */
 export async function CheckUser(username, password) {
-	try {
-		// return true
-		let socket = new Socket()
-        var md5stream = new md5()
-        md5stream.end(password)
-		let data = {
-			type: type.LOGIN,
-			username: username,
-			password: md5stream.read().toString('hex'),// 使用MD5加密密码
-		}
-		socket.write(JSON.stringify(data))
-		let response = await socket.read()
-		let obj = JSON.parse(response)
-		if (obj.state == 0) {
-			return true
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
+  try {
+    if (type.LOCAL_TEST) {
+      let obj = {
+        type: 17,
+        state: 0,
+        errormessage: '',
+        userType: 1,
+        lockstatus: 0,
+        locktime: 4
+      }
+      console.log("obj.type:"+obj.type);
+      console.log("obj.state:"+obj.state);
+      console.log("obj.errormessage:"+obj.errormessage);
+      console.log("obj.userType:"+obj.userType);
+      console.log("obj.lockstatus:"+obj.lockstatus);
+      console.log("obj.locktime:"+obj.locktime);
+      return obj
+    }
+    let socket = new Socket()
+    var md5stream = new md5()
+    md5stream.end(password)
+    let data = {
+      type: type.LOGIN,
+      username: username,
+      password: md5stream.read().toString('hex'), // 使用MD5加密密码
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    if (obj.state == 0) {
+      return obj
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
 }
 /**
  * @author Craig
@@ -39,29 +55,32 @@ export async function CheckUser(username, password) {
  * @param   {Object}   param 参数如下param
  * @description 修改密码
  */
-export async function ChangePass(param){
-		try {
-		// return true
-		let socket = new Socket()
+export async function ChangePass(param) {
+  try {
+    if (type.LOCAL_TEST) {
+      return true
+    }
+    let socket = new Socket()
     var md5stream = new md5()
     md5stream.end(param.password)
-		let data = {
-			type: type.CHANGE_PASS,
-			email: param.email,
-			captcha: param.captcha,
-			password: md5stream.read().toString('hex'),
-		}
-		socket.write(JSON.stringify(data))
-		let response = await socket.read()
-		let obj = JSON.parse(response)
-		if (obj.state == 0) {
-			return true
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
+    let data = {
+      type: type.CHANGE_PASS,
+      email: param.email,
+      captcha: param.captcha,
+      password: md5stream.read().toString('hex'),
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    console.log(obj);
+    if (obj.state == 0) {
+      return true
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
 }
 /**
  * @author Craig
@@ -70,23 +89,23 @@ export async function ChangePass(param){
  * @param   {Object}   param 参数对象，包含一个email值
  * @description 获取发送到邮箱的验证码
  */
-export async function GetCaptcha(param){
-		try {
-		// return true
-		let socket = new Socket()
-		let data = {
-			type: type.GET_CAPTCHA,
-			email: param.email
-		}
-		socket.write(JSON.stringify(data))
-		let response = await socket.read()
-		let obj = JSON.parse(response)
-		if (obj.state == 0) {
-			return true
-		} else {
-			throw new Error(obj.errormessage)
-		}
-	} catch (e) {
-		throw new Error(e.toString())
-	}
+export async function GetCaptcha(param) {
+  try {
+    // return true
+    let socket = new Socket()
+    let data = {
+      type: type.GET_CAPTCHA,
+      email: param.email
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    if (obj.state == 0) {
+      return true
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
 }

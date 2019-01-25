@@ -43,6 +43,7 @@ export default {
   computed: {
     username: function() {
       // `this` 指向 vm 实例
+      console.log("this.$store.getters.getUserName:"+this.$store.getters.getUserName);
       return this.$store.getters.getUserName
     }
   },
