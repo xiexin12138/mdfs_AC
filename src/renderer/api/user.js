@@ -26,7 +26,7 @@ export async function CheckUser(username, password) {
       console.log("obj.userType:"+obj.userType);
       console.log("obj.lockstatus:"+obj.lockstatus);
       console.log("obj.locktime:"+obj.locktime);
-      return obj
+        return obj
     }
     let socket = new Socket()
     var md5stream = new md5()

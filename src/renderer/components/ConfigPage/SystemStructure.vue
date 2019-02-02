@@ -624,7 +624,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 106})
-		                       .attr("xlink:href",__static+"/img/fs.jpg")
+		                       .attr("xlink:href",__static+"/img/fs_sync.png")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_ready[i] //读取某个fs的信息
 														self.fsVisible = true
@@ -638,7 +638,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 207})
-		                       .attr("xlink:href",__static+"/img/fs.jpg")
+		                       .attr("xlink:href",__static+"/img/fs_repair.png")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_repairing[i] //读取某个fs的信息
 														self.fsVisible = true
@@ -651,7 +651,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 308})
-		                       .attr("xlink:href",__static+"/img/fs.jpg")
+		                       .attr("xlink:href",__static+"/img/fs_stop.png")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
 														self.fsVisible = true
@@ -665,7 +665,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 409})
-		                       .attr("xlink:href",__static+"/img/fs.jpg")
+		                       .attr("xlink:href",__static+"/img/fs_stop.png")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
 														self.fsVisible = true
@@ -678,7 +678,7 @@ export default {
 		                       .attr("height",50)
 		                       .attr("x",function(d,i){return 460+i*55})
 		                       .attr("y",function(d,i){return 505})
-		                       .attr("xlink:href",__static+"/img/fs.jpg")
+		                       .attr("xlink:href",__static+"/img/fs_stop.png")
 							   .on('click',function(d,i){
 														self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息
 														self.fsVisible = true
