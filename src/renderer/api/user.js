@@ -21,6 +21,7 @@ export async function CheckUser(username, password) {
         lockstatus: 0,
         locktime: 4
       }
+<<<<<<< HEAD
       console.log("obj.type:" + obj.type);
       console.log("obj.state:" + obj.state);
       console.log("obj.errormessage:" + obj.errormessage);
@@ -28,6 +29,15 @@ export async function CheckUser(username, password) {
       console.log("obj.lockstatus:" + obj.lockstatus);
       console.log("obj.locktime:" + obj.locktime);
       return obj
+=======
+      console.log("obj.type:"+obj.type);
+      console.log("obj.state:"+obj.state);
+      console.log("obj.errormessage:"+obj.errormessage);
+      console.log("obj.userType:"+obj.userType);
+      console.log("obj.lockstatus:"+obj.lockstatus);
+      console.log("obj.locktime:"+obj.locktime);
+        return obj
+>>>>>>> origin/master
     }
     let socket = new Socket()
     var md5stream = new md5()

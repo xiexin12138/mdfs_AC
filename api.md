@@ -810,6 +810,7 @@ res:
 	errormessage:'' // 错误信息
 }
 
+<<<<<<< HEAD
 //60  AC用户注册写入默认值
 ///权限管理-返回用户类型已通过本地测试
 req：
@@ -850,6 +851,71 @@ res:
   Report:”1”//0-false;1-true;
 }
 
+=======
+//查询邮箱列表：
+req{
+	type：69
+}
+resp{
+	type:69
+	state : 
+	errormessage : 
+	sendEmail : 			//是否发送邮件，1：发送，0：不发送
+	email:{
+		id:				//邮箱id
+		email:			//邮箱
+		status；		//邮箱的禁用启用，0：禁用    1：启用
+}
+}
 
+//添加邮箱
+req{
+	type:70
+	email:			//邮箱，邮箱添加，默认是禁用状态
+}
+resp{
+	type:70
+	state : 
+	errormessage : 
+	email:{
+		id:				//邮箱id
+		email:			//邮箱
+		status；		//邮箱的禁用启用，0：禁用    1：启用
+}}
+
+//删除
+req{
+	type:71
+	id:				//邮箱id
+}
+resp{
+	type:71
+	state : 
+	errormessage : 
+}
+>>>>>>> origin/master
+
+//邮箱禁用或启用
+req{
+	type:72
+	id:				//邮箱id
+	operate:		//对邮箱的操作   0：禁用，1：启用
+}
+resp{
+	type:72
+	state : 
+	errormessage : 
+}
+
+//变更邮件发送状态
+req{
+	type : 73
+	emailSendStatus : 	//1 ：发送，0：不发送
+}
+resp{
+	type:73
+	state : 
+	errormessage : 
+}
 
 ```

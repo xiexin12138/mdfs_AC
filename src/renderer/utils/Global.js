@@ -76,6 +76,8 @@ export const AUTH = {
   errorfilemanage: "/content/auth/errorfilemanage",
   // 异常管理--异常文件系统管理
   errorfs: "/content/auth/errorfs",
+  // 异常管理--异常告警管理
+  errornotify: "/content/auth/errornotify",
 }
 
 // 控制台设置

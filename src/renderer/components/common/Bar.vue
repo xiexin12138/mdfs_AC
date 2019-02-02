@@ -55,8 +55,14 @@
         <i class="el-icon-bell"></i>
         <span>异常管理</span>
       </template>
+<<<<<<< HEAD
       <el-menu-item :index="errorfilemanage" v-if="getPermissionTree.exception_file_manage">异常文件管理</el-menu-item>
       <el-menu-item :index="errorfs" v-if="getPermissionTree.exception_fs_manage">异常文件系统管理</el-menu-item>
+=======
+      <el-menu-item :index="errorfilemanage">异常文件管理</el-menu-item>
+      <el-menu-item :index="errorfs">异常文件系统管理</el-menu-item>
+      <el-menu-item :index="errornotify">异常告警管理</el-menu-item>
+>>>>>>> origin/master
     </el-submenu>
 
     <el-submenu :index="reportform" v-if="getReportFormPerminssion">
@@ -129,6 +135,7 @@ export default {
       auth: global_.AUTH.indexpage,
       errorfilemanage: global_.AUTH.errorfilemanage,
       errorfs: global_.AUTH.errorfs,
+      errornotify: global_.AUTH.errornotify,
       consoleConfig: global_.CONSOLE_CONFIG.indexpage,
       changecuruserpwd: global_.CONSOLE_CONFIG.changecuruserpwd,
       acgroupmanage: global_.CONSOLE_CONFIG.groupmanage,
