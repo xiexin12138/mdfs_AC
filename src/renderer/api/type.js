@@ -140,7 +140,10 @@ export const UPDATE_AC_USER= 61
 export const DELETE_AC_USER= 62
 
 //注销用户
-export const LOGOUT= 66
+export const LOGOUT= 65
+
+// 获取权限列表
+export const GET_PERMISSION_TREE = 66
 
 //权限管理-修改用户类型
 export const PERMESSION_UPDATE_USER_TYPE= 67
@@ -162,6 +165,14 @@ export const CHANGE_EMAIL_STATUS= 72
 
 //变更产生异常时全局邮件发送状态
 export const CHANGE_EMAILSENDSTATUS= 73
+
+// 更新锁定状态和时间
+export const UPDATE_LOCK_STATE = 74
+
+// 获取权报表
+export const GET_AC_REPORT = 75
+
+
 
 /*****************************未实现的接口***********************************************/
 

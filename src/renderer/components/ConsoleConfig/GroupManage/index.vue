@@ -130,7 +130,7 @@ export default {
         path: global_.CONSOLE_CONFIG.updateacuser + id
       })
     },
-    deleteACUsers() {
+    async deleteACUsers() {
       if (this.multipleSelection.length === 0) {
         Message({
           showClose: true,
@@ -145,8 +145,7 @@ export default {
       }) => id)
       // TODO 返回结果的处理
       let curUserName = this.$store.getters.getUserName
-      this.$store
-        .dispatch('deleteacdatatable', {
+      await this.$store.dispatch('deleteacdatatable', {
           curid,
           curUserName
         })
@@ -156,6 +155,17 @@ export default {
             message: '操作成功',
             type: 'success',
             duration: 2000
+          })
+           this.$store.dispatch('getacdatatable', {
+            acPageSize: 5,
+            acCurrentPage: 0
+          }).catch((e) => {
+            Message({
+              showClose: true,
+              message: e.toString(),
+              type: 'error',
+              duration: 2000
+            })
           })
         }).catch(e => {
           Message({

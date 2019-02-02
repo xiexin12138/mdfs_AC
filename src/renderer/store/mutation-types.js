@@ -55,3 +55,12 @@ export const GET_AC_USER = "GET_AC_USER"
 
 // 删除ac用户
 export const DELETE_AC_USER = "DELETE_AC_USER"
+
+// 获取用户的权限列表
+export const GET_PERMISSION_TREE = "GET_PERMISSION_TREE"
+
+// 获取系统安全报表格式
+export const GET_FS_SAFE_REPORT_FORMAT = "GET_FS_SAFE_REPORT_FORMAT"
+
+// 获取系统安全报表数据
+export const GET_FS_SAFR_REPORT_INFO = "GET_FS_SAFR_REPORT_INFO"

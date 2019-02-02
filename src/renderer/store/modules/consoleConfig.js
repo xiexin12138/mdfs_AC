@@ -14,7 +14,7 @@ import * as consoleConfig from '../../api/consoleConfig'
 const state = {
   /*isLock: true,*/
   /*locktime: 2,*/
-  remainTime: 120
+  remainTime: 900
 }
 
 const getters = {
@@ -26,7 +26,6 @@ const getters = {
     return state.locktime
   },*/
   getRemainTime: state => {
-    console.log("getRemainTime:"+state.remainTime);
     return state.remainTime
   },
 }
@@ -46,10 +45,10 @@ const actions = {
   async getlockstate({
     commit
   }, payload) {
-    let result = await consoleConfig.GetLockState(payload.id, payload.username)
+    let result = await consoleConfig.GetLockState(payload)
     // console.log(payload);
     let datanew = data || {
-      isLock: true
+      isLock: false
     }
     commit(types.GET_LOCK_STATE, payload)
   },
@@ -73,6 +72,26 @@ const actions = {
       newRemianTime: 900
     }
     commit("UPDATE_REMAIN_TIME", newRemianTime)
+  },
+  async updateLockStateAndTime({
+    commit
+  }, payload) {
+    let result = await consoleConfig.UpdateLockState(payload)
+    if (!result) {
+      throw new Error('服务器出错！')
+    }
+    let newresult = result || {
+      lockstatus: false,
+      locktime: 15
+    }
+    if (payload.lockstatus == 1) {
+      payload.lockstatus = true
+    } else {
+      payload.lockstatus = false
+    }
+    commit("UPDATE_REMAIN_TIME", payload.locktime * 60)
+    commit("UPDATE_LOCK_STATE", payload.lockstatus)
+    commit("UPDATE_LOCK_TIME", payload.locktime)
   },
   async unlockConsole({
     commit

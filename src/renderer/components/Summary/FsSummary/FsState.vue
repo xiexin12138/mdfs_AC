@@ -15,15 +15,15 @@
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
       <div class="center runningTitle">使用中</div>
-      <div class="running" >{{fsonline}}</div>
+      <div class="running">{{fsonline}}</div>
     </el-col>
     <el-col class="center" :span="8" style="height:100%">
       <div class="center readyingTitle">后备中</div>
       <div class="readying">{{fsready}}</div>
     </el-col>
   </el-row>
-  </div>
-  <!--<el-row class="center">
+</div>
+<!--<el-row class="center">
     <el-col class="center fsSum" :span="8">
       <div class="grid-content bg-purple-dark">9</div>
     </el-col>
@@ -38,19 +38,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {
+  mapState
+} from 'vuex'
 export default {
   name: 'fsstate',
   computed: {
-   fssum () {
-     return this.$store.getters.getSummaryFsSum
-   },
-   fsonline () {
-     return this.$store.getters.getSummaryFsOnline
-   },
-   fsready () {
-     return this.$store.getters.getSummaryFsReady
-   }
+    fssum() {
+      return this.$store.getters.getSummaryFsSum
+    },
+    fsonline() {
+      return this.$store.getters.getSummaryFsOnline
+    },
+    fsready() {
+      return this.$store.getters.getSummaryFsReady
+    }
   }
 }
 </script>

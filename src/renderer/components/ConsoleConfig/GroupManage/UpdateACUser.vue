@@ -27,28 +27,29 @@
             <el-col :span="6" :offset="2">
               <div style="text-align:right;">用户组&nbsp;:</div>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="3">
               <div>{{user.loginUserType}}</div>
+            </el-col>
+            <el-col :span="8">
+              <div>
+                <el-button size="small" type="primary" @click="groupFormVisible = true">修改用户组</el-button>
+              </div>
             </el-col>
           </el-row>
           <el-row :gutter="15">
             <el-col :span="6" :offset="2">
               <div style="text-align:right;">密&ensp;&ensp;码&nbsp;:</div>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="3">
               <div>***********</div>
             </el-col>
-          </el-row>
-          <el-row :gutter="3">
-            <el-col :span="3" :offset="9">
-              <el-button size="small" type="primary" @click="pswFormVisible = true">修改密码&nbsp;</el-button>
-            </el-col>
-            <el-col :span="3" :pull="1">
-              <el-button size="small" type="primary" @click="groupFormVisible = true">修改用户组</el-button>
+            <el-col :span="8">
+              <div>
+                <el-button size="small" type="primary" @click="pswFormVisible = true">修改密码&nbsp;</el-button>
+              </div>
             </el-col>
           </el-row>
         </el-card>
-
       </div>
     </el-col>
   </el-row>
@@ -209,23 +210,26 @@ export default {
         let userData = this.$store.getters.getAcDataTable.find(value => {
           return value.id == targetID
         })
-        if(this.pswFrom.newpsw != '' || this.pswFrom.newpsw != undefined){
+        if (this.pswFrom.newpsw != '' || this.pswFrom.newpsw != undefined) {
           curpasswd = this.pswFrom.newpsw
         }
-        if(userData.loginUserType == '管理员组'){
+        if (userData.loginUserType == '管理员组') {
           curUserType = 1
-        } else if (userData.loginUserType == '监控用户组'){
+        } else if (userData.loginUserType == '监控用户组') {
           curUserType = 2
         } else {
           curUserType = this.userData.loginUserType
         }
+        const ip = require('ip');
+        const IPAddress = ip.address();
         if (valid) {
           let data = {
-            userName : this.$store.getters.getUserName,
-          	id:  this.user.id,
-          	name:	userData.name,
-          	passwd : curpasswd,
-          	loginUserType :	curUserType
+            userName: this.$store.getters.getUserName,
+            id: this.user.id,
+            name: userData.name,
+            passwd: curpasswd,
+            addr: IPAddress,
+            loginUserType: curUserType
           }
 
           acUserTable.UpdateAcUser(data).then(() => {
@@ -258,31 +262,23 @@ export default {
         this.emailFormVisible = false
       })
     },
-    submitGroup() {
-      this.$refs["groupForm"].validate((valid) => {
+    async submitGroup() {
+      await this.$refs["groupForm"].validate((valid) => {
         let curpasswd = ''
-        let curUserType =''
         let targetID = this.$route.params.id
         let userData = this.$store.getters.getAcDataTable.find(value => {
           return value.id == targetID
         })
-        if(this.pswFrom.newpsw != '' || this.pswFrom.newpsw != undefined){
-          curpasswd = this.pswFrom.newpsw
-        }
-        if(userData.loginUserType == '管理员组'){
-          curUserType = 1
-        } else if (userData.loginUserType == '监控用户组'){
-          curUserType = 2
-        } else {
-          curUserType = this.userData.loginUserType
-        }
+        const ip = require('ip');
+        const IPAddress = ip.address();
         if (valid) {
           let data = {
-            userName : this.$store.getters.getUserName,
-          	id:  this.user.id,
-          	name:	userData.name,
-          	passwd : this.groupForm.usertypes,
-          	loginUserType :	curUserType
+            userName: this.$store.getters.getUserName,
+            id: this.user.id,
+            name: userData.name,
+            passwd: '',
+            addr: IPAddress,
+            loginUserType: this.groupForm.usertypes
           }
           acUserTable.UpdateAcUser(data).then(() => {
             this.user.loginUserType = this.groupForm.usertypes
@@ -294,6 +290,17 @@ export default {
             })
             this.$router.push({
               path: global_.CONSOLE_CONFIG.groupmanage
+            })
+            this.$store.dispatch('getacdatatable', {
+              acPageSize: 5,
+              acCurrentPage: 0
+            }).catch((e) => {
+              Message({
+                showClose: true,
+                message: e.toString(),
+                type: 'error',
+                duration: 2000
+              })
             })
           }).catch((e) => {
             Message({
@@ -317,3 +324,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.el-row {
+  padding: 5px;
+}
+</style>

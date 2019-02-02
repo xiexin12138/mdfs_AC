@@ -19,7 +19,14 @@
               <!--<el-transfer :titles="['未拥有权限', '已拥有权限']" v-model="form.value1" filterable :data="form.permission"></el-transfer>-->
             </el-form-item>
             <el-form-item style="float:right">
-              <el-button type="primary" @click="onSubmit">保存</el-button>
+                <el-popover
+                placement="top-start"
+                title="提示"
+                width="200"
+                trigger="hover"
+                content="当前版本修改权限功能未开放，仅供查看当前用户权限">
+                  <el-button type="primary" @click="onSubmit" slot="reference" >保存</el-button>
+                </el-popover>
             </el-form-item>
           </el-card>
         </el-form>

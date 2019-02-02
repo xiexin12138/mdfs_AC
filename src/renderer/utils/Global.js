@@ -1,7 +1,7 @@
 /*这是一个用于管理全局路由的组件，新增或修改组件路由，除了在router中修改之外，
 在这边修改后，在需要用到的地方引用该组件，后续如果路由有修改，
 只需要修改该全局路由组件和router即可，无需在每个引用路由的页面进行修改*/
-export const inSummary = true
+export const inSummary = false
 
 export const LOGIN_PAGE = "/"
 
@@ -95,6 +95,12 @@ export const CONSOLE_CONFIG = {
   consolelock: "/content/consoleconfig/consolelock",
 }
 
+export const REPORT_FORM = {
+  indexpage: "/content/reportform",
+  // 系统报表-系统安全报表
+  fssafe: "/content/reportform/fssafe"
+}
+
 export default {
   inSummary,
   LOGIN_PAGE,
@@ -107,4 +113,5 @@ export default {
   MOUNTER,
   AUTH,
   CONSOLE_CONFIG,
+  REPORT_FORM,
 }

@@ -810,6 +810,46 @@ res:
 	errormessage:'' // 错误信息
 }
 
+//60  AC用户注册写入默认值
+///权限管理-返回用户类型已通过本地测试
+req：
+{
+	type:'66', // 对应的请求码是66
+	name:”,
+	password:''
+}
+res:
+{
+	type:'66',
+	state: 0,  // 错误类型码，0表示成功
+	errormessage:'' // 错误信息
+	usertype:’’1”//1-是管理员。2是监控组
+  summary:”1”//0-false;1-true;
+  user_manage:”1”//0-false;1-true;
+  group_manage:”1”//0-false;1-true;
+  user_pwd_init:”1”//0-false;1-true;
+  user_check:”1”//0-false;1-true;
+  fs_manage:”1”//0-false;1-true;
+  global_cert_manage:”1”//0-false;1-true;
+  global_param_manage:”1”//0-false;1-true;
+  system_func_structure:”1”//0-false;1-true;
+  director_manage:”1”//0-false;1-true;
+  fs_monitor:”1”//0-false;1-true;
+  node_status_monitor:”1”//0-false;1-true;
+  meta_data_monitor:”1”//0-false;1-true;
+  fs_mnt_manage:”1”//0-false;1-true;
+  fs_mnt_view:”1”//0-false;1-true;
+  mnt_node_manage:”1”//0-false;1-true;
+  exception_file_manage:”1”//0-false;1-true;
+  exception_fs_manage:”1”//0-false;1-true;
+  password_change:”1”//0-false;1-true;
+  ac_user_manage:”1”//0-false;1-true;
+  ac_authority_manage:”1”//0-false;1-true;
+  lock_manage:”1”//0-false;1-true;
+  report:”1”//0-false;1-true;
+  Report:”1”//0-false;1-true;
+}
+
 
 
 ```
