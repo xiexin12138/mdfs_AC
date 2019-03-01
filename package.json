@@ -56,10 +56,13 @@
   "dependencies": {
     "d3": "3",
     "element-ui": "^2.2.1",
+    "file-saver": "^2.0.1",
+    "script-loader": "^0.7.2",
     "underscore": "^1.8.3",
     "vue": "^2.3.3",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "xlsx": "^0.14.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

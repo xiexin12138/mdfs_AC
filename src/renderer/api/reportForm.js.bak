@@ -8,16 +8,15 @@ import * as type from './type'
  * @param   {Object}   param 参数对象，包含一个email值
  * @description 获取发送到邮箱的验证码
  */
-export async function GetFSSafeReport(payload) {
+export async function GetFSSafeReport() {
   try {
-    let obj
-    // let a = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     if (type.LOCAL_TEST) {
-      obj = {
+      let obj = {
         type: 75,
         state: 0,
         errormassage: "",
-        info: [{
+        info: [
+          {
             id: "10",
             time: "2018-08-16 11:20:07"
           },
@@ -147,8 +146,7 @@ export async function GetFSSafeReport(payload) {
           }
         ]
       }
-      /*console.log("payload.data:"+JSON.stringify(payload.data));*/
-      /*for (var i = 0; i < obj.info.length; i++) {
+      for (var i = 0; i < obj.info.length; i++) {
         console.log("i:"+i);
         obj.info[i].time = ChangeStrToDate(obj.info[i].time)
         console.log("年份:"+JSON.stringify(obj.info[i].time.getFullYear()));
@@ -157,16 +155,16 @@ export async function GetFSSafeReport(payload) {
         console.log("小时:"+JSON.stringify(obj.info[i].time.getHours()));
         console.log("分钟:"+JSON.stringify(obj.info[i].time.getMinutes()));
         console.log("秒数:"+JSON.stringify(obj.info[i].time.getSeconds()));
-      }*/
-    } else {
-      let socket = new Socket()
-      let data = {
-        type: type.GET_AC_REPORT
       }
-      socket.write(JSON.stringify(data))
-      let response = await socket.read()
-      obj = JSON.parse(response)
+      return obj
     }
+    let socket = new Socket()
+    let data = {
+      type: type.GET_AC_REPORT
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
     if (obj.state == 0) {
       return obj
     } else {
@@ -175,4 +173,18 @@ export async function GetFSSafeReport(payload) {
   } catch (e) {
     throw new Error(e.toString())
   }
+}
+
+
+function ChangeStrToDate(date_string){
+  /*用于校验日期格式的正则表达式，用于确认输入的date_string格式为"2018-02-01 00:01:59"，正则表达式的可视图见地址：
+  https://jex.im/regulex/#!embed=true&flags=&re=%5E(%5Cd%7B4%7D)(-(%5Cd%7B2%7D))%7B2%7D%5Cs(%5B0-1%5D%5B0-9%5D%7C2%5B0-3%5D)(%3A%5B0-5%5D%5B0-9%5D)%7B2%7D%24*/
+  console.log("date_string:"+JSON.stringify(date_string));
+  console.log("date_string:"+date_string);
+  let reg = date_string.match(/^(\d{4})(-(\d{2})){2}\s([0-1][0-9]|2[0-3])(:[0-5][0-9]){2}$/)
+  if(reg == null){
+    return undefined
+  }
+  let str = (date_string).replace(/-/g,"/")
+  return new Date(str)
 }

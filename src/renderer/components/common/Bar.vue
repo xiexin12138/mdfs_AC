@@ -55,14 +55,9 @@
         <i class="el-icon-bell"></i>
         <span>异常管理</span>
       </template>
-<<<<<<< HEAD
-      <el-menu-item :index="errorfilemanage" v-if="getPermissionTree.exception_file_manage">异常文件管理</el-menu-item>
-      <el-menu-item :index="errorfs" v-if="getPermissionTree.exception_fs_manage">异常文件系统管理</el-menu-item>
-=======
       <el-menu-item :index="errorfilemanage">异常文件管理</el-menu-item>
       <el-menu-item :index="errorfs">异常文件系统管理</el-menu-item>
       <el-menu-item :index="errornotify">异常告警管理</el-menu-item>
->>>>>>> origin/master
     </el-submenu>
 
     <el-submenu :index="reportform" v-if="getReportFormPerminssion">

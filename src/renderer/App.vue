@@ -30,7 +30,6 @@ export default {
   },
   watch: {
     '$route': function(route) {
-      console.log(route.fullPath);
       if (route.fullPath != global_.SUMMARY) {
         this.$store.commit('UPDATE_USER_IN_SUMMARY', false)
       } else {
@@ -90,7 +89,7 @@ export default {
   },
   computed: {
     getIsLock() {
-      return this.$store.getters.getLockstatus
+      return this.$store.getters.getInfo
     }
   },
 }
