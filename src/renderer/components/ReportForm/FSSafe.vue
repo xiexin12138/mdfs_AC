@@ -18,7 +18,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="选择时间" prop="time" :rules="[{ type: 'date', required: true, message: '请选择时间' , trigger: 'change' }]">
-        <el-date-picker v-model="form.time" :type="getchartspan" placeholder="选择时间段" validate-event>
+        <el-date-picker v-model="form.time" :type="getformspan" placeholder="选择时间段" validate-event>
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -74,21 +74,21 @@ export default {
     }
   },
   computed: {
-    getchartspan() {
+    getformspan() {
       return this.form.chartspan
     },
-    getCharttype() {
+    getformtype() {
       return this.form.charttype
     },
     getOption() {
       let opt = {
         series: [{
           data: [],
-          type: this.getCharttype
+          type: this.getformtype
         }]
       }
       // 如果是柱状图和折线图，则使用默认option即可，若为饼图，则需要进一步添加option的参数
-      if (this.getCharttype == 'pie') {
+      if (this.getformtype == 'pie') {
         opt.tooltip = {
           trigger: 'item',
           formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -214,16 +214,17 @@ export default {
       return a
     },
     exportExcel(formName) {
-      let savefilepath = ''
+      // 保存文件的路径
+      // let savefilepath = ''
       let thisVue = this
+      /*这两个用不上了，因为已经放弃自己获取地址来保存文件的方式，找到了第三方包，可以更方便的直接生成，无需做这些底层操作。
+      但是对后续还有参考意义，所以暂时保留
       const {
         dialog
       } = require('electron').remote;
       const {
         BrowserWindow
-      } = require('electron').remote
-      console.log("this.form.time:"+this.form.time);
-      console.log("this.getChartData:"+this.getChartTime);
+      } = require('electron').remote*/
       if (this.form.time == '') {
         Message({
           showClose: true,
@@ -231,7 +232,7 @@ export default {
           type: 'error',
           duration: 2000
         })
-      } else if (this.getChartData == "" || this.getChartTime != this.form.time || this.getChartspan != this.form.chartspan) {
+      } else if (this.getChartData == "" || this.getChartTime != this.form.time || this.getChartspan != this.getformspan) {
         // 通过判断vuex中的图表信息是否为空，vuex中的图表时间和提交时的表单时间是否一致，以及vuex中时间间隔和表单中的时间间隔是否一致
         // 来判断用户是否有重新生成预览的表单，若没有重新生成，则不给导出数据
         Message({
