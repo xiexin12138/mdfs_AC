@@ -22,7 +22,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('form')">生成</el-button>
+        <el-button type="primary" @click="onSubmit('form')">预览</el-button>
         <el-button type="primary" @click="exportExcel('form')">导出Excel</el-button>
       </el-form-item>
     </el-form>
@@ -115,12 +115,19 @@ export default {
       // 获取报表的数据
       return this.$store.getters.getInfo
     },
+    getChartTime() {
+      // 获取报表的数据
+      return this.$store.getters.getTime
+    },
     getChartOpt() {
       // 获取图表的设置
       return this.$store.getters.getChartOpt
     },
     getExportData() {
       return this.$store.getters.getExportData
+    },
+    getChartspan() {
+      return this.$store.getters.getChartspan
     }
   },
   watch: {
@@ -192,7 +199,7 @@ export default {
           zlevel: 0,
           maskColor: 'rgba(255, 255, 255, 0)',
         });
-        var app = {};
+        let app = {};
         let option = opt;
         if (option && typeof option === "object") {
           thisVue.myChart.hideLoading()
@@ -206,7 +213,7 @@ export default {
       let a = jsonData.map(v => filterVal.map(j => v[j]))
       return a
     },
-    exportExcel() {
+    exportExcel(formName) {
       let savefilepath = ''
       let thisVue = this
       const {
@@ -215,6 +222,8 @@ export default {
       const {
         BrowserWindow
       } = require('electron').remote
+      console.log("this.form.time:"+this.form.time);
+      console.log("this.getChartData:"+this.getChartTime);
       if (this.form.time == '') {
         Message({
           showClose: true,
@@ -222,7 +231,9 @@ export default {
           type: 'error',
           duration: 2000
         })
-      } else if (this.getChartData == "") {
+      } else if (this.getChartData == "" || this.getChartTime != this.form.time || this.getChartspan != this.form.chartspan) {
+        // 通过判断vuex中的图表信息是否为空，vuex中的图表时间和提交时的表单时间是否一致，以及vuex中时间间隔和表单中的时间间隔是否一致
+        // 来判断用户是否有重新生成预览的表单，若没有重新生成，则不给导出数据
         Message({
           showClose: true,
           message: "请先生成图表，再导出数据",
@@ -231,7 +242,7 @@ export default {
         })
       } else {
         let savefilename = this.form.time.getFullYear()
-        /*const Export2Excel = require('vendor/Export2Excel.js')*/
+        // 设置要导出的文件标题
         if (this.form.chartspan == "year") {
           savefilename = savefilename + "年全年异常情况"
         } else if (this.form.chartspan == "month") {
@@ -239,17 +250,20 @@ export default {
         } else {
           savefilename = savefilename + '年' + (this.form.time.getMonth() + 1) + '月' + this.form.time.getDate() + "日全天整体异常情况"
         }
-        /*savefilepath = dialog.showSaveDialog(
+        /*这个是通过electron调用原生的文件保存窗口，通过这个可以让用户选择自己想要保存的位置，然后会把位置以字符串的形式返回
+          但是这个后来发现导出Excel的工具中会自动弹出这个窗口，所以这个方法用不上了
+          但是仍有保存的意义，后续可以作为其他类似开发的参考
+          savefilepath = dialog.showSaveDialog(
           BrowserWindow.getFocusedWindow(), // 返回此应用程序中当前获得焦点的窗口，即主窗体，防止多开文件保存窗口
           {
-            defaultPath: savefilename,
+            defaultPath: savefilename, // 设置默认文件名
             title: "数据保存的位置",
             filters: [{
               name: 'Ecxel',
               extensions: ['xlsx']
             }]
           },
-          function(filename) {
+          function(filename) { // 弹出对话框，操作之后的回调函数
           }
         )*/
         require.ensure([], () => {
@@ -261,15 +275,16 @@ export default {
           // let list = this.serachData;
           //模拟数据
           let list = []
+          // 获取要导出的数据
           let map = this.getExportData
-          for (var key in map) {
+          // 把vuex中保存的map 转为list
+          for (let key in map) {
             list.push(map[key]);
           }
-          console.log("this.getChartOpt:"+JSON.stringify(this.getChartOpt));
-          console.log("list:"+JSON.stringify(list));
-          let data = this.formatJson(filterVal, list); //数据格式化
-          console.log("data:"+JSON.stringify(data));
-          export_json_to_excel(tHeader, data, savefilename); //导出文件
+          //数据格式化，把数组转为索引数组
+          let data = this.formatJson(filterVal, list);
+           //导出文件
+          export_json_to_excel(tHeader, data, savefilename);
         })
       }
     }

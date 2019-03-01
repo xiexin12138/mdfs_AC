@@ -100,7 +100,7 @@ const actions = {
     if (chartspan == "year") {
       dataspan = 12
       datanew.exportdata = datanew.info
-      for (var i = 0; i < datanew.info.length; i++) {
+      for (let i = 0; i < datanew.info.length; i++) {
         let opera_date = ChangeStrToDate(datanew.info[i].time)
         // 查看目标年份各月份的故障数量
         if (opera_date.getFullYear() == targetYear) {
@@ -115,9 +115,9 @@ const actions = {
       datanew.chartopt.title.text = targetYear + "年各月份异常情况"
     } else if (chartspan == "month") {
       // 获取当月天数
-      var d = new Date(targetYear, targetMonth, 0);
+      let d = new Date(targetYear, targetMonth, 0);
       dataspan = d.getDate()
-      for (var i = 0; i < datanew.info.length; i++) {
+      for (let i = 0; i < datanew.info.length; i++) {
         let opera_date = ChangeStrToDate(datanew.info[i].time)
         // 查看目标月份每天的故障数量
         if (opera_date.getFullYear() == targetYear &&
@@ -134,7 +134,7 @@ const actions = {
     } else {
       // 用户选择了日，跳转到这里，此时的x轴为24小时
       dataspan = 24
-      for (var i = 0; i < datanew.info.length; i++) {
+      for (let i = 0; i < datanew.info.length; i++) {
         let opera_date = ChangeStrToDate(datanew.info[i].time)
         // 查看目标日每小时的故障情况
         if (opera_date.getFullYear() == targetYear &&
@@ -167,7 +167,7 @@ const actions = {
       }
       let chartdata = []
       let legendData = []
-      for (var i = 0; i < dataspan; i++) {
+      for (let i = 0; i < dataspan; i++) {
         let a = i
         if (chartspan == "month") {
           a = i + 1
@@ -230,7 +230,7 @@ const actions = {
       }
       let x = []
       let y = []
-      for (var i = 0; i < dataspan; i++) {
+      for (let i = 0; i < dataspan; i++) {
         if (chartspan == "date") {
           x.push(i)
           y.push({
