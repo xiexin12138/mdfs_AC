@@ -9,6 +9,7 @@ var md5 = require('md5.js')
  * @param   {string}   oldpassword 旧密码
  * @param   {string}   newpassword 新密码
  * @return {boolean} 校验用户名和密码后的返回值
+ * @description 修改当前用户密码
  */
 export async function ChangeCurUserPwd(param) {
   try {
@@ -40,7 +41,7 @@ export async function ChangeCurUserPwd(param) {
  * @author Sam
  * @version 1.0.0
  * @date    2019-01-13
- * @name   {string}  用户名
+ * @name   {string}  name 用户名
  * @return {boolean} 校验用户名和密码后的返回值
  */
 export async function Logout(username) {
@@ -197,6 +198,9 @@ export async function GetLockState(param) {
  * @author Sam
  * @version 1.0.0
  * @date    2019-1-13
+ * @param  {string}   username 用户名
+ * @param  {string}   lockstatus 锁定状态
+ * @param  {string}   locktime 锁定时间
  * @return {boolean} 更新锁定的状态和时间
  */
 export async function UpdateLockState(param) {
@@ -218,7 +222,6 @@ export async function UpdateLockState(param) {
     }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
-    console.log("response:"+response);
     let obj = JSON.parse(response)
     if (obj.state == 0) {
       return obj
@@ -236,7 +239,6 @@ export async function UpdateLockState(param) {
  * @version 1.0.0
  * @date    2019-1-13
  * @param  {string}   name 用户名
- * @param  {string}   password 密码
  * @return {boolean} 取锁定状态的时长
  */
 export async function GetLockTime(param) {

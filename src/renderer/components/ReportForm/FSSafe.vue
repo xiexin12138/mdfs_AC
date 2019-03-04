@@ -203,6 +203,7 @@ export default {
         let option = opt;
         if (option && typeof option === "object") {
           thisVue.myChart.hideLoading()
+          console.log("thisVue.myChart.setOption(option, true):"+JSON.stringify(option));
           thisVue.myChart.setOption(option, true);
         }
         window.onresize = thisVue.myChart.resize;
@@ -210,8 +211,7 @@ export default {
       firstRefreshPie();
     },
     formatJson(filterVal, jsonData) {
-      let a = jsonData.map(v => filterVal.map(j => v[j]))
-      return a
+      return jsonData.map(v => filterVal.map(j => v[j]))
     },
     exportExcel(formName) {
       // 保存文件的路径
@@ -276,7 +276,7 @@ export default {
           // let list = this.serachData;
           //模拟数据
           let list = []
-          // 获取要导出的数据
+          // 获取要导出的数据，后端传来的数据处理后为map类型的
           let map = this.getExportData
           // 把vuex中保存的map 转为list
           for (let key in map) {

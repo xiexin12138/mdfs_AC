@@ -125,9 +125,9 @@ async function deleteOne(userId, userName) {
 }
 
 /**
- * @author Craig
+ * @author Sam
  * @version 1.0.0
- * @date    2018-03-15
+ * @date    2019-01-15
  * @param   {Object}   param 包含采集数据的对象
  * @return {Boolean} true表示正确更新，false表示出错
  * @description 更新用户

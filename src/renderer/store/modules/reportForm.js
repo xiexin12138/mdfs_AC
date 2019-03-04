@@ -19,7 +19,7 @@ const state = {
   chartopt: {
     series: [{
       data: [],
-      type: ''
+      type: 'bar'
     }]
   },
   exportdata: [] // 用于保存导出报表的数据
@@ -67,6 +67,7 @@ const actions = {
     payload = payload.data
     // 从后台获取报表的信息，保存到data的info中
     let data = await reportForm.GetFSSafeReport(payload)
+    console.log("payload.charttype:"+payload.charttype);
     let datanew = data || {
       info: []
     }

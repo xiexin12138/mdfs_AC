@@ -63,6 +63,7 @@ export default {
     },
     logout() {
       this.dialogVisible = false
+      window.location.reload()
       this.$router.push({
         path: '/'
       })

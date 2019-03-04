@@ -43,6 +43,7 @@ export default {
       }
     },
     getIsLock: function() {
+      console.log("getIsLock change");
       if (!this.getIsLock) {
         clearInterval(lockctrl)
         lockctrl = undefined
@@ -79,17 +80,21 @@ export default {
     },
     // 定时器函数
     nowTimes() {
+      console.log("asdfasdf:"+(this.$route.fullPath != global_.LOGIN_PAGE
+        && lockctrl == undefined
+        && this.getIsLock == true));
       if (this.$route.fullPath != global_.LOGIN_PAGE
         && lockctrl == undefined
         && this.getIsLock == true) {
         lockctrl = setInterval(this.watchTime, 1 * 1000);
+        console.log("lockctrl:"+lockctrl);
         console.log("lockctrl:"+lockctrl);
       }
     },
   },
   computed: {
     getIsLock() {
-      return this.$store.getters.getInfo
+      return this.$store.getters.getLockstatus
     }
   },
 }

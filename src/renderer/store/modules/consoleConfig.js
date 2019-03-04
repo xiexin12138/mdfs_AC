@@ -12,6 +12,7 @@ import * as consoleConfig from '../../api/consoleConfig'
  * @type {Object}
  */
 const state = {
+  /*系统的自动界面锁定状态的控制已转移到user下，作为每个用户的个性化配置，所以不再单独在系统控制处作数据保存*/
   /*isLock: true,*/
   /*locktime: 2,*/
   remainTime: 900
@@ -31,6 +32,7 @@ const getters = {
 }
 const mutations = {
   [types.GET_LOCK_STATE](state, payload) {
+    console.log("payload:"+payload);
     state.isLock = payload
   },
   /*[types.GET_LOCK_TIME](state, payload) {
