@@ -12,9 +12,10 @@ import * as consoleConfig from '../../api/consoleConfig'
  * @type {Object}
  */
 const state = {
+  /*系统的自动界面锁定状态的控制已转移到user下，作为每个用户的个性化配置，所以不再单独在系统控制处作数据保存*/
   /*isLock: true,*/
   /*locktime: 2,*/
-  remainTime: 120
+  remainTime: 900
 }
 
 const getters = {
@@ -26,12 +27,12 @@ const getters = {
     return state.locktime
   },*/
   getRemainTime: state => {
-    console.log("getRemainTime:"+state.remainTime);
     return state.remainTime
   },
 }
 const mutations = {
   [types.GET_LOCK_STATE](state, payload) {
+    console.log("payload:"+payload);
     state.isLock = payload
   },
   /*[types.GET_LOCK_TIME](state, payload) {
@@ -46,10 +47,10 @@ const actions = {
   async getlockstate({
     commit
   }, payload) {
-    let result = await consoleConfig.GetLockState(payload.id, payload.username)
+    let result = await consoleConfig.GetLockState(payload)
     // console.log(payload);
     let datanew = data || {
-      isLock: true
+      isLock: false
     }
     commit(types.GET_LOCK_STATE, payload)
   },
@@ -73,6 +74,26 @@ const actions = {
       newRemianTime: 900
     }
     commit("UPDATE_REMAIN_TIME", newRemianTime)
+  },
+  async updateLockStateAndTime({
+    commit
+  }, payload) {
+    let result = await consoleConfig.UpdateLockState(payload)
+    if (!result) {
+      throw new Error('服务器出错！')
+    }
+    let newresult = result || {
+      lockstatus: false,
+      locktime: 15
+    }
+    if (payload.lockstatus == 1) {
+      payload.lockstatus = true
+    } else {
+      payload.lockstatus = false
+    }
+    commit("UPDATE_REMAIN_TIME", payload.locktime * 60)
+    commit("UPDATE_LOCK_STATE", payload.lockstatus)
+    commit("UPDATE_LOCK_TIME", payload.locktime)
   },
   async unlockConsole({
     commit

@@ -3,7 +3,7 @@
 <el-header class="head-bar" height='40px'>
   <el-dropdown :hide-on-click="false" class='user-setting'>
     <span class="el-dropdown-link">
-      {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+      {{ username }} [{{ usergroup }}]<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
     <el-dropdown-menu slot="dropdown">
       <!--<el-dropdown-item @click.native="logout">注销登录</el-dropdown-item>-->
@@ -43,8 +43,14 @@ export default {
   computed: {
     username: function() {
       // `this` 指向 vm 实例
-      console.log("this.$store.getters.getUserName:"+this.$store.getters.getUserName);
       return this.$store.getters.getUserName
+    },
+    usergroup: function(){
+      if (this.$store.getters.getUserType == 1) {
+        return "管理员组"
+      } else{
+        return "监控组"
+      }
     }
   },
   methods: {
@@ -57,6 +63,7 @@ export default {
     },
     logout() {
       this.dialogVisible = false
+      window.location.reload()
       this.$router.push({
         path: '/'
       })

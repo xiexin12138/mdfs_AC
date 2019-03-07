@@ -95,7 +95,8 @@ export const permissionTree = [
       label: '控制台用户管理'
     }, {
       id: 704,
-      label: '控制台权限管理'
+      label: '控制台权限管理',
+      disabled: true
     }, {
       id: 705,
       label: '锁定设置'

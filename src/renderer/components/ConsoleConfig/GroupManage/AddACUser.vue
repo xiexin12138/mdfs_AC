@@ -109,7 +109,9 @@ export default {
           validator: validatePass2
         }],
         usertypes: [{
-          required: true, message: '请选择用户组', trigger: 'blur'
+          required: true,
+          message: '请选择用户组',
+          trigger: 'blur'
         }]
       },
       usergroup: [{
@@ -123,13 +125,16 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      const ip = require('ip');
+      const IPAddress = ip.address();
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data = {
-            username: this.newacuserform.username,
+            username: this.$store.getters.getUserName,
+            name: this.newacuserform.username,
             password: this.newacuserform.password,
-            repeatpassword: this.newacuserform.repeatpassword,
-            usertypes: this.newacuserform.usertypes
+            usertypes: this.newacuserform.usertypes,
+            addr: IPAddress
           }
           // TODO 逻辑处理，根据返回结果做出相应提示再跳转
           acUserTable.AddUser(data).then(() => {
@@ -140,7 +145,7 @@ export default {
               duration: 2000
             })
             this.$router.push({
-              path: global_.CONSOLE_CONFIG.consolepermission
+              path: global_.CONSOLE_CONFIG.groupmanage
             })
           }).catch((e) => {
             Message({

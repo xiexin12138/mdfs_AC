@@ -9,6 +9,7 @@ var md5 = require('md5.js')
  * @param   {string}   oldpassword 旧密码
  * @param   {string}   newpassword 新密码
  * @return {boolean} 校验用户名和密码后的返回值
+ * @description 修改当前用户密码
  */
 export async function ChangeCurUserPwd(param) {
   try {
@@ -25,7 +26,6 @@ export async function ChangeCurUserPwd(param) {
     }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
-    console.log(response);
     let obj = JSON.parse(response)
     if (obj.state == 0) {
       return true
@@ -41,7 +41,7 @@ export async function ChangeCurUserPwd(param) {
  * @author Sam
  * @version 1.0.0
  * @date    2019-01-13
- * @name   {string}  用户名
+ * @name   {string}  name 用户名
  * @return {boolean} 校验用户名和密码后的返回值
  */
 export async function Logout(username) {
@@ -175,11 +175,6 @@ export async function ChangerGroupPermission(param) {
  */
 export async function GetLockState(param) {
   try {
-    let Mock = require('mockjs')
-    let obj = Mock.mock({
-      isLock: true
-    })
-    return obj
     let socket = new Socket()
     let data = {
       type: type.GET_LOCK_STATE,
@@ -198,21 +193,56 @@ export async function GetLockState(param) {
   }
 }
 
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-1-13
+ * @param  {string}   username 用户名
+ * @param  {string}   lockstatus 锁定状态
+ * @param  {string}   locktime 锁定时间
+ * @return {boolean} 更新锁定的状态和时间
+ */
+export async function UpdateLockState(param) {
+  try {
+    let socket = new Socket()
+    if (param.lockstatus == true) {
+      param.lockstatus = '1'
+    } else {
+      param.lockstatus = '0'
+    }
+    let data = {
+      type: type.UPDATE_LOCK_STATE,
+      username: param.username,
+      lockstatus: param.lockstatus,
+      locktime: param.locktime.toString()
+    }
+    if (type.LOCAL_TEST) {
+      return data
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    if (obj.state == 0) {
+      return obj
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+
 /**
  * @author Sam
  * @version 1.0.0
  * @date    2019-1-13
  * @param  {string}   name 用户名
- * @param  {string}   password 密码
  * @return {boolean} 取锁定状态的时长
  */
 export async function GetLockTime(param) {
   try {
-    let Mock = require('mockjs')
-    let obj = Mock.mock({
-      locktime: 15
-    })
-    return obj
     let socket = new Socket()
     let data = {
       type: type.GET_LOCK_TIME,
@@ -220,7 +250,8 @@ export async function GetLockTime(param) {
     }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
-    /*let obj = JSON.parse(response)*/
+    console.log("response:"+response);
+    let obj = JSON.parse(response)
     if (obj.state == 0) {
       return true
     } else {

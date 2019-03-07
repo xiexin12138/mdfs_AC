@@ -7,6 +7,7 @@ import mounter from './modules/mounter'
 import dir from './modules/dir'
 import summary from './modules/summary'
 import consoleConfig from './modules/consoleConfig'
+import reportForm from './modules/reportForm'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
 		dir,
     summary,
     consoleConfig,
+    reportForm,
 	}
 
 })

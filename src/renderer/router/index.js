@@ -59,6 +59,9 @@ import ConsoleLock from '@/components/ConsoleConfig/ConsoleLock'
 import LockPage from '@/components/ConsoleConfig/ConsoleLock/LockPage'
 import ChangeCurUserPwd from '@/components/ConsoleConfig/ChangeCurUserPwd'
 
+import ReportForm from '@/components/ReportForm'
+import FSSafe from '@/components/ReportForm/FSSafe'
+
 Vue.use(Router)
 
 let router = new Router({
@@ -300,7 +303,19 @@ let router = new Router({
                 }
       				}
             ]
-      		}
+      		},
+          {
+            path:'reportform',
+            component: ReportForm,
+            children:[
+        				{ /*密码修改*/
+        					path:'fssafe',
+        					component:FSSafe,
+                  meta:{
+                    title: ['系统报表', '系统安全报表']}
+        				}
+            ]
+          }
       ]
     },
 		{ /*登录页面*/

@@ -6,20 +6,22 @@
         <el-form ref="form" :model="form" label-width="80px">
           <el-card shadow="never">
             <el-form-item label="用户组">
-              <el-select v-model="usergroup" placeholder="请选择用户组">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+              <el-select v-model="form.usergroup" placeholder="请选择用户组">
+                <el-option v-for="item in form.options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
               <!--<el-button>新增</el-button>-->
             </el-form-item>
             <el-form-item label="权限" v-if="showTree">
               <!--<el-transfer :titles="['未拥有权限', '已拥有权限']" v-model="permessionValue" :data="data"></el-transfer>-->
-              <el-tree :data="permissionTree" show-checkbox node-key="data2.id" :props="defaultProps">
+              <el-tree ref="tree" :data="form.permissionTree" show-checkbox node-key="id" :default-checked-keys="getCheckPermission" :props="defaultProps">
               </el-tree>
               <!--<el-transfer :titles="['未拥有权限', '已拥有权限']" v-model="form.value1" filterable :data="form.permission"></el-transfer>-->
             </el-form-item>
             <el-form-item style="float:right">
-              <el-button type="primary" @click="onSubmit">保存</el-button>
+              <el-popover placement="top-start" title="提示" width="200" trigger="hover" content="当前版本修改权限功能未开放，仅供查看当前用户权限">
+                <el-button type="primary" @click="onSubmit" slot="reference">保存</el-button>
+              </el-popover>
             </el-form-item>
           </el-card>
         </el-form>
@@ -78,17 +80,19 @@ export default {
       return permission;*/
     };
     return {
-      options: [{
-        value: '1',
-        label: '管理员组'
-      }, {
-        value: '2',
-        label: '监控组'
-      }],
-      usergroup: '',
-      data: generateData(),
-      permissionTree: permission_.permissionTree,
-      permessionValue: [],
+      form: {
+        options: [{
+          value: '1',
+          label: '管理员组'
+        }, {
+          value: '2',
+          label: '监控组'
+        }],
+        usergroup: '',
+        /*data: generateData(),*/
+        permissionTree: permission_.permissionTree
+        /*permessionValue: [],*/
+      },
       showTree: false,
       defaultProps: {
         children: 'children',
@@ -105,25 +109,68 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
-    }
+    onSubmit() {}
   },
   mounted: function() {
-    console.log("usergroup:["+this.usergroup+"]");
-    if (this.usergroup != '') {
+    if (this.form.usergroup != '') {
       this.showTree = true
     } else {
       this.showTree = false
     }
+    let list = []
+    for (let a of this.form.permissionTree) {
+      list.push(a.id)
+    }
   },
   watch: {
-    usergroup: function(){
-      if (this.usergroup != '') {
-        this.showTree = true
-      } else {
-        this.showTree = false
+    form: {
+      // 深度watcher，要在底部设置deep为true
+      handler: function(val, oldVal) {
+        if (this.form.usergroup != '') {
+          this.showTree = true
+        } else {
+          this.showTree = false
+        }
+        // 在重置选中的节点之前执行$nextTick回调函数，确保el-tree已经渲染
+        this.$nextTick(() => {
+          this.$refs.tree.setCheckedKeys(this.getCheckPermission);
+        });
+      },
+      deep: true
+
+    }
+  },
+  computed: {
+    getCheckPermission: function() {
+      let list = []
+      // 遍历权限列表中的顶层节点
+      for (let topNode of this.form.permissionTree) {
+        // 如果顶层节点只有一个，则跳过，否则遍历顶层节点的子节点
+        if (topNode.children != '' && topNode.children != undefined) {
+          for (let childNode of topNode.children) {
+            list.push(childNode.id)
+          }
+        } else {
+          list.push(topNode.id)
+        }
+
       }
+
+      function removeByValue(arr, val) {
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] == val) {
+            arr.splice(i, 1);
+            break;
+          }
+        }
+      }
+      // 当用户为监控组时，去掉2个权限，一个为控制台用户管理，另一个为控制台权限管理
+      if (this.form.usergroup == '2') {
+        removeByValue(list, '701')
+        removeByValue(list, '703')
+        removeByValue(list, '704')
+      }
+      return list
     }
   }
 }

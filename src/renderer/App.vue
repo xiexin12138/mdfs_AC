@@ -38,11 +38,12 @@ export default {
       if (route.fullPath == global_.LOGIN_PAGE || this.$route.fullPath == global_.LOCK_PAGE) {
         clearInterval(lockctrl)
         lockctrl = undefined
-      } else if(lockctrl == undefined && this.$store.getters.getIsLock){
+      } else if(lockctrl == undefined && this.$store.getters.getLockstatus){
         this.nowTimes();
       }
     },
     getIsLock: function() {
+      console.log("getIsLock change");
       if (!this.getIsLock) {
         clearInterval(lockctrl)
         lockctrl = undefined
@@ -65,6 +66,7 @@ export default {
     // 倒计时减秒数
     watchTime() {
       let sec = this.$store.getters.getRemainTime
+      console.log("get sec:"+sec);
       if (sec > 0) {
         if (this.$route.fullPath != global_.LOGIN_PAGE || this.$route.fullPath != global_.LOCK_PAGE) {
           sec = sec - 1
@@ -78,8 +80,15 @@ export default {
     },
     // 定时器函数
     nowTimes() {
-      if (this.$route.fullPath != global_.LOGIN_PAGE) {
+      console.log("asdfasdf:"+(this.$route.fullPath != global_.LOGIN_PAGE
+        && lockctrl == undefined
+        && this.getIsLock == true));
+      if (this.$route.fullPath != global_.LOGIN_PAGE
+        && lockctrl == undefined
+        && this.getIsLock == true) {
         lockctrl = setInterval(this.watchTime, 1 * 1000);
+        console.log("lockctrl:"+lockctrl);
+        console.log("lockctrl:"+lockctrl);
       }
     },
   },
