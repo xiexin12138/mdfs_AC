@@ -29,9 +29,9 @@ yarn test
 	"hostBackup":"192.168.1.14"
 }
 ```
-在开发过程中为了方便本地自测，在src/render/api/type.js下设置了一个LOCAL_TEST变量。当设为true时，为本地自测模式，某些api的js会因为设置了这个之后进入测试模式，比如user.js里面的登录方法会因为这个为true而登录时不会验证用户密码的正确性，可以直接登录等，所有和这个变量相关的方法都在type.js的该变量前注释了。如果要进入联调或者打包使用，请去修改这个变量为false关闭自测或把该变量以及相关方法中的自测部分删除。
-
 这个文件被放置在Windows中%APPDATA%目录下的mimic文件夹中，一般是C:\Users\xxx\AppData\Roaming\mimic
+
+在开发过程中为了方便本地自测，在src/render/api/type.js下设置了一个LOCAL_TEST变量。当设为true时，为本地自测模式，某些api的js会因为设置了这个之后进入测试模式，比如user.js里面的登录方法会因为这个为true而登录时不会验证用户密码的正确性，可以直接登录等，所有和这个变量相关的方法都在type.js的该变量前注释了。如果要进入联调或者打包使用，请去修改这个变量为false关闭自测或把该变量以及相关方法中的自测部分删除。
 
 ****注意！还需自行安装freeSSHd.exe********
 
