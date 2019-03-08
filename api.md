@@ -858,8 +858,8 @@ req{
 }
 resp{
 	type:69
-	state : 
-	errormessage : 
+	state :
+	errormessage :
 	sendEmail : 			//是否发送邮件，1：发送，0：不发送
 	email:{
 		id:				//邮箱id
@@ -875,8 +875,8 @@ req{
 }
 resp{
 	type:70
-	state : 
-	errormessage : 
+	state :
+	errormessage :
 	email:{
 		id:				//邮箱id
 		email:			//邮箱
@@ -890,8 +890,8 @@ req{
 }
 resp{
 	type:71
-	state : 
-	errormessage : 
+	state :
+	errormessage :
 }
 >>>>>>> origin/master
 
@@ -903,8 +903,8 @@ req{
 }
 resp{
 	type:72
-	state : 
-	errormessage : 
+	state :
+	errormessage :
 }
 
 //变更邮件发送状态
@@ -914,8 +914,8 @@ req{
 }
 resp{
 	type:73
-	state : 
-	errormessage : 
+	state :
+	errormessage :
 }
 
 ```

@@ -9,6 +9,7 @@
           <el-radio-button label="pie">饼图</el-radio-button>
         </el-radio-group>
       </el-form-item>
+
       <el-form-item label="报表周期">
         <el-radio-group v-model="form.chartspan">
           <el-radio-button label="date">日</el-radio-button>

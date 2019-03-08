@@ -12,7 +12,8 @@ var md5 = require('md5.js')
  */
 export async function GetDataTable() {
   try {
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       let obj = {
         type: 59,
         state: 0,
@@ -96,7 +97,7 @@ async function deleteOne(userId, userName) {
   // TODO 交互
   // throw new Error('test delete')
   try {
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
       let obj = {
         type: 61,
         state: 0,
@@ -135,7 +136,8 @@ async function deleteOne(userId, userName) {
 export async function UpdateAcUser(param) {
   var md5stream = new md5()
   try {
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       return true
     }
     let socket = new Socket()
