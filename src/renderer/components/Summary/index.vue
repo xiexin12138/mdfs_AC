@@ -7,47 +7,110 @@
   </el-header>
   <el-main id="main">
     <el-row class="monitor_row">
-      <el-card class="box-card mdfs_state_monitor">
+      <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span>MDFS状态监控</span>
+          <span><strong>MDFS状态监控</strong></span>
         </div>
         <el-row class="mdfs_monitor_row">
-          <el-col :span="18" class="mdfs_state_col">
-            <div class="text item">
-              <el-row>
-                <el-col :span="8">
-                  <el-card shadow="hover">
-                    鼠标悬浮时显示
-                  </el-card>
-                </el-col>
-                <el-col :span="8">
-                  <el-card shadow="never">
-                    鼠标悬浮时显示
-                  </el-card>
-                </el-col>
-                <el-col :span="8">
-                  <el-card :shadow="hover">
-                    鼠标悬浮时显示
-                  </el-card>
-                </el-col>
-              </el-row>
-            </div>
+          <el-col :span="6" class="mdfs_left_col">
+            <el-row class="mycard text item card_beauty">
+              <el-col :span="12">
+                MDFS运行状态
+              </el-col>
+              <el-col :span="12">
+                <div v-if='mdfsState' style="color:green;
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+                  <i class="el-icon-check"></i>
+                  <strong>正常</strong>
+                </div>
+                <div v-else style="color:red;
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+                  <i class="el-icon-close"></i>
+                  异常
+                </div>
+              </el-col>
+            </el-row>
+            <el-row class="mdfs_state_panl card_beauty">
+              MDFS总容量
+              <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;">192000G</el-row>
+            </el-row>
+            <el-row class="card_beauty mdfs_state_panl">
+              MDFS可用容量
+              <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;">192000G</el-row>
+            </el-row>
+            <!-- <div class="text item">
+            <el-row>
+              <div class="up_rate">
+                上行速率: 768k/s
+                <div id="up_rate_chart"></div>
+              </div>
+            </el-row>
+            <el-row>
+              <div class="down_rate">
+                下行速率：2.1M/s
+                <div id="down_rate_chart"></div>
+              </div>
+            </el-row>
+          </div> -->
           </el-col>
-          <el-col :span="6" class="mdfs_speed_col">
-            <div class="text item">
-              <el-row>
-                <div class="up_rate">
-                  上行速率
-                  <div id="up_rate_chart"></div>
-                </div>
-              </el-row>
-              <el-row>
-                <div class="down_rate">
-                  下行速率
-                  <div id="down_rate_chart"></div>
-                </div>
-              </el-row>
-            </div>
+          <el-col :span="18" class="mdfs_rigth_col text">
+            <el-row class="mycard card_beauty">当前MDFS挂载路径：<strong>/media/mdfs</strong></el-row>
+            <el-row>
+              <div class="text item">
+                <!-- <el-row>
+                  <el-col :span="8" style="padding:0 5px 10px 0">
+                    <el-row class="">
+                      MDFS运行状态
+                      <el-row v-if='mdfsState' style="height:125px;color:green;font-size:50px;font-family:'幼圆';padding-top:20px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;">
+                        <i class="el-icon-check"></i>正常
+                      </el-row>
+                      <el-row v-else style="height:125px;color:red;font-size:50px;font-family:'幼圆';padding-top:20px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;">
+                        <i class="el-icon-close"></i>
+                        异常
+                      </el-row>
+                    </el-row>
+                  </el-col>
+                  <el-col :span="8" style="padding:0 5px 10px 5px">
+                    <el-row class="50px; mdfs_state_panl">
+                      MDFS总容量
+                      <el-row style="height:125px;font-size:45px;font-family:'微软雅黑';padding-top:20px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;">192000G</el-row>
+                    </el-row>
+                  </el-col>
+                  <el-col :span="8" style="padding:0 0 10px 5px">
+                    <el-row class="50px; mdfs_state_panl">
+                      MDFS可用容量
+                      <el-row style="height:125px;font-size:45px;font-family:'微软雅黑';padding-top:20px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;">192000G</el-row>
+                    </el-row>
+                  </el-col>
+                </el-row> -->
+                <el-row>
+                  <el-col :span="12">123</el-col>
+                  <el-col :span="12">123</el-col>
+                </el-row>
+              </div>
+            </el-row>
           </el-col>
         </el-row>
       </el-card>
@@ -55,7 +118,7 @@
     <el-row class="monitor_row">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span>底层文件系统状态监控</span>
+          <span><strong>底层文件系统状态监控</strong></span>
         </div>
         <div class="text item">
           底层文件系统状态监控底层文件系统状态监控底层文件系统状态监控底层文件系统状态监控底层文件系统状态监控<br />
@@ -95,7 +158,8 @@ export default {
   },*/
   data() {
     return {
-      hover: 'hover'
+      hover: 'hover',
+      mdfsState: true,
     }
   },
   mounted: async function() {
@@ -145,7 +209,7 @@ export default {
 }
 
 .monitor_row {
-  height: 370px;
+  height: 350px;
   margin: 0 10px 10px 10px;
 }
 
@@ -157,28 +221,53 @@ export default {
 .mdfs_state_monitor {}
 
 .mdfs_monitor_row {
-  height: 270px
+  height: 254px
 }
 
-.mdfs_speed_col {
-  height: 270px
+.mdfs_left_col {
+  height: 254px
 }
 
-.mdfs_state_col {
-  height: 270px
+.mdfs_rigth_col {
+  height: 254px
 }
 
 .up_rate {
   border: 1px dashed #000;
-  margin: 10px 10px 5px 10px;
+  margin: 0px 10px 5px 10px;
   height: 120px;
   min-width: 160px;
 }
 
 .down_rate {
   border: 1px dashed #000;
-  margin: 5px 10px 10px 10px;
+  margin: 5px 10px 0px 10px;
   height: 120px;
   min-width: 160px;
+}
+
+.mycard {
+  height: 60px;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 20px;
+}
+
+.mdfs_state_panl {
+  margin: 5px;
+  padding: 20px;
+  height: 90;
+}
+
+.card_beauty {
+  border: 1px solid #DDDDDD;
+  border-radius: 5px;
+  transition: background-color 0.4s, border 0.4s;
+}
+
+.card_beauty:hover {
+  border: 1px solid #00C1DE;
+  border-radius: 5px;
+  background-color: #f9fafc;
 }
 </style>
