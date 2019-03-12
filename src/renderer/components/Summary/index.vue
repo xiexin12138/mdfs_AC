@@ -48,65 +48,17 @@
               align-items: center;
               justify-content: center;">192000G</el-row>
             </el-row>
-            <!-- <div class="text item">
-            <el-row>
-              <div class="up_rate">
-                上行速率: 768k/s
-                <div id="up_rate_chart"></div>
-              </div>
-            </el-row>
-            <el-row>
-              <div class="down_rate">
-                下行速率：2.1M/s
-                <div id="down_rate_chart"></div>
-              </div>
-            </el-row>
-          </div> -->
           </el-col>
           <el-col :span="18" class="mdfs_rigth_col text">
             <el-row class="mycard card_beauty">当前MDFS挂载路径：<strong>/media/mdfs</strong></el-row>
             <el-row>
               <div class="text item">
-                <!-- <el-row>
-                  <el-col :span="8" style="padding:0 5px 10px 0">
-                    <el-row class="">
-                      MDFS运行状态
-                      <el-row v-if='mdfsState' style="height:125px;color:green;font-size:50px;font-family:'幼圆';padding-top:20px;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;">
-                        <i class="el-icon-check"></i>正常
-                      </el-row>
-                      <el-row v-else style="height:125px;color:red;font-size:50px;font-family:'幼圆';padding-top:20px;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;">
-                        <i class="el-icon-close"></i>
-                        异常
-                      </el-row>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="8" style="padding:0 5px 10px 5px">
-                    <el-row class="50px; mdfs_state_panl">
-                      MDFS总容量
-                      <el-row style="height:125px;font-size:45px;font-family:'微软雅黑';padding-top:20px;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;">192000G</el-row>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="8" style="padding:0 0 10px 5px">
-                    <el-row class="50px; mdfs_state_panl">
-                      MDFS可用容量
-                      <el-row style="height:125px;font-size:45px;font-family:'微软雅黑';padding-top:20px;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;">192000G</el-row>
-                    </el-row>
-                  </el-col>
-                </el-row> -->
                 <el-row>
-                  <el-col :span="12">123</el-col>
+                  <el-col :span="12">
+                    <div id="upRateChart" style="height:200px">
+                      1
+                    </div>
+                  </el-col>
                   <el-col :span="12">123</el-col>
                 </el-row>
               </div>
@@ -145,6 +97,7 @@ import {
 import {
   mapState
 } from 'vuex'
+import echarts from 'echarts'
 import Foot from '@/components/common/Foot'
 
 export default {
@@ -162,37 +115,58 @@ export default {
       mdfsState: true,
     }
   },
-  mounted: async function() {
-      this.updateSummary()
-    },
-    methods: {
-      async updateSummary() {
-        await this.$store.dispatch('getsummary', {}).catch((e) => {
-          if (this.$store.getters.getInSummary) {
-            Message({
-              showClose: true,
-              /*message: "获取异常：" + e.toString(),*/
-              message: "系统信息获取异常",
-              type: 'error',
-              duration: 2000
-            });
-          }
-        });
-        /*console.log("【this.$store.getters.getInSummary】" + this.$store.getters.getInSummary);*/
-        /*console.log("【this.isInSummary】" + this.isInSummary);*/
-        // 递归调度，自动从后台获取overview对象，用于更新数据
+  mounted() {
+    // this.updateSummary()
+    this.drawLine()
+  },
+  methods: {
+    async updateSummary() {
+      await this.$store.dispatch('getsummary', {}).catch((e) => {
         if (this.$store.getters.getInSummary) {
-          setTimeout(this.updateSummary, 2000);
+          Message({
+            showClose: true,
+            /*message: "获取异常：" + e.toString(),*/
+            message: "系统信息获取异常",
+            type: 'error',
+            duration: 2000
+          });
         }
+      });
+      /*console.log("【this.$store.getters.getInSummary】" + this.$store.getters.getInSummary);*/
+      /*console.log("【this.isInSummary】" + this.isInSummary);*/
+      // 递归调度，自动从后台获取overview对象，用于更新数据
+      if (this.$store.getters.getInSummary) {
+        setTimeout(this.updateSummary, 2000);
       }
     },
-    watch: {
-      isInSummary: function() {
-        if (this.$store.getters.getInSummary == true) {
-          this.updateSummary()
-        }
+    drawLine() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(document.getElementById('upRateChart'))
+      console.log("myChart:" + myChart);
+      // 绘制图表
+      myChart.setOption({
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [{
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: 'line'
+        }]
+      });
+      myChart.resize
+    }
+  },
+  watch: {
+    isInSummary: function() {
+      if (this.$store.getters.getInSummary == true) {
+        this.updateSummary()
       }
     }
+  }
 }
 </script>
 <style>
@@ -209,13 +183,13 @@ export default {
 }
 
 .monitor_row {
-  height: 350px;
-  margin: 0 10px 10px 10px;
+  min-height: 360px;
+  margin: 10px;
 }
 
 .box-card {
   height: 100%;
-  min-height: 350px
+  min-height: 360px
 }
 
 .mdfs_state_monitor {}
@@ -230,20 +204,6 @@ export default {
 
 .mdfs_rigth_col {
   height: 254px
-}
-
-.up_rate {
-  border: 1px dashed #000;
-  margin: 0px 10px 5px 10px;
-  height: 120px;
-  min-width: 160px;
-}
-
-.down_rate {
-  border: 1px dashed #000;
-  margin: 5px 10px 0px 10px;
-  height: 120px;
-  min-width: 160px;
 }
 
 .mycard {
