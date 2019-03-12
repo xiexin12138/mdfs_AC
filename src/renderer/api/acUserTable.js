@@ -12,6 +12,7 @@ var md5 = require('md5.js')
  */
 export async function GetDataTable() {
   try {
+    // 本地自测模块
     if (type.LOCAL_TEST) {
       let obj = {
         type: 59,
@@ -96,6 +97,7 @@ async function deleteOne(userId, userName) {
   // TODO 交互
   // throw new Error('test delete')
   try {
+    // 本地自测模块
     if (type.LOCAL_TEST) {
       let obj = {
         type: 61,
@@ -112,7 +114,7 @@ async function deleteOne(userId, userName) {
     }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
-    console.log("response:"+response)
+    console.log("response:" + response)
     let obj = JSON.parse(response)
     if (obj.state == 0 || obj.type != 64) {
       return obj
@@ -135,6 +137,7 @@ async function deleteOne(userId, userName) {
 export async function UpdateAcUser(param) {
   var md5stream = new md5()
   try {
+    // 本地自测模块
     if (type.LOCAL_TEST) {
       return true
     }

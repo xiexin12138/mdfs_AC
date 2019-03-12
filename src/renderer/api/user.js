@@ -12,7 +12,8 @@ var md5 = require('md5.js')
  */
 export async function CheckUser(username, password) {
   try {
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       let obj = {
         type: 17,
         state: 0,
@@ -61,7 +62,8 @@ export async function CheckUser(username, password) {
  */
 export async function GetPermissionTree(param) {
   try {
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       let obj = {
         type: 76,
         state: 0,
@@ -128,7 +130,8 @@ export async function GetPermissionTree(param) {
  */
 export async function ChangePass(param) {
   try {
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       return true
     }
     let socket = new Socket()

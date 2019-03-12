@@ -12,7 +12,8 @@ export async function GetFSSafeReport(payload) {
   try {
     let obj
     // let a = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       obj = {
         type: 75,
         state: 0,

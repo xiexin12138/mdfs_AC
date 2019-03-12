@@ -5,23 +5,25 @@
 
 #### Build Setup
 
-``` bash
+```bash
 # install dependencies
+# 项目所在的位置不应该有中文，应该在纯英文路径上，否则项目在打包时可能会出现异常
 yarn install
 
 # serve with hot reload at localhost:9080
+# 若报错显示无法解析某一模块，一般都是因为该模块没有安装，使用yarn install ****或npm install*****来安装它，安装完成后再次执行yarn install，才来执行yarn run dev
 yarn run dev
 
 # build electron application for production
+# 若报错显示无法解析某一模块，一般都是因为该模块没有安装，使用yarn install ****或npm install*****来安装它，安装完成后再次执行yarn install，才来执行yarn run dev
 yarn run build
 
 # run unit & end-to-end tests
 yarn test
-
 ```
 
 这个应用设置了一个serverConfig.json，用来保存服务器地址，格式就是标准的json格式，如下
-```
+```js
 {
 	"host":"219.223.199.154",
 	"hostBackup":"192.168.1.14"
@@ -29,10 +31,12 @@ yarn test
 ```
 这个文件被放置在Windows中%APPDATA%目录下的mimic文件夹中，一般是C:\Users\xxx\AppData\Roaming\mimic
 
+在开发过程中为了方便本地自测，在src/render/api/type.js下设置了一个LOCAL_TEST变量。当设为true时，为本地自测模式，某些api的js会因为设置了这个之后进入测试模式，比如user.js里面的登录方法会因为这个为true而登录时不会验证用户密码的正确性，可以直接登录等，所有和这个变量相关的方法都在type.js的该变量前注释了。如果要进入联调或者打包使用，请去修改这个变量为false关闭自测或把该变量以及相关方法中的自测部分删除。
+
 ****注意！还需自行安装freeSSHd.exe********
 
 ### 统计代码的行数
-```
+```bash
  find -name "*[.vue|.js]" -type f | xargs cat | wc -l
 ```
 
@@ -71,6 +75,7 @@ force.links([links]) 设置布局的相关链接为指定的links 数组
 { type:'clientNode',radius:5,}
 `
 2. 加上path
+```
 ### 用户是否在线与redirect的结合
 
 ### d3版本更迭
