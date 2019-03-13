@@ -58,6 +58,8 @@
       <el-menu-item :index="errorfilemanage">异常文件管理</el-menu-item>
       <el-menu-item :index="errorfs">异常文件系统管理</el-menu-item>
       <el-menu-item :index="errornotify">异常告警管理</el-menu-item>
+      <el-menu-item :index="errormessage">异常信息总览</el-menu-item>
+
     </el-submenu>
 
     <el-submenu :index="reportform" v-if="getReportFormPerminssion">
@@ -66,6 +68,7 @@
         <span>系统报表</span>
       </template>
       <el-menu-item :index="fssafe" v-if="getPermissionTree.fssafe">系统安全报表</el-menu-item>
+      <el-menu-item :index="systemlog">系统日志</el-menu-item>
     </el-submenu>
 
     <el-submenu :index="consoleConfig" v-if="getConsoleConfigPerminssion">
@@ -131,6 +134,7 @@ export default {
       errorfilemanage: global_.AUTH.errorfilemanage,
       errorfs: global_.AUTH.errorfs,
       errornotify: global_.AUTH.errornotify,
+      errormessage: global_.AUTH.errormessage,
       consoleConfig: global_.CONSOLE_CONFIG.indexpage,
       changecuruserpwd: global_.CONSOLE_CONFIG.changecuruserpwd,
       acgroupmanage: global_.CONSOLE_CONFIG.groupmanage,
@@ -138,6 +142,7 @@ export default {
       consolelock: global_.CONSOLE_CONFIG.consolelock,
       reportform: global_.REPORT_FORM.indexpage,
       fssafe: global_.REPORT_FORM.fssafe,
+      systemlog: global_.REPORT_FORM.systemlog,
     }
   },
   mounted: function() {
