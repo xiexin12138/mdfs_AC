@@ -1,5 +1,19 @@
-// localTest，本地自测试时设为true，联调设为false
+// localTest，本地自测试时设为true，联调设为false，使用了该变量的方法请见变量下一行的注释
 export const LOCAL_TEST = true
+// api
+//  ├─acUserTable.js
+//  │   ├─GetDataTable()
+//  │   └─UpdateAcUser(param)
+//  ├─consoleConfig.js
+//  │   ├─UnlockConsole(param)
+//  │   └─UpdateLockState(param)
+//  ├─reportForm.js
+//  │   └─GetFSSafeReport(payload)
+//  ├─socket.js
+//  └─user.js
+//    ├─CheckUser(username, password)
+//    ├─ GetPermissionTree(param)
+//    └─ChangePass(param)
 
 // 新建用户，测试通过
 export const USER_CREATE = 8

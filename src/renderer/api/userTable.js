@@ -243,7 +243,6 @@ export async function UpdateClient(param){
  */
 export async function AddUser(param){
 	try {
-
 		let socket = new Socket()
 		let data = {
 			type: type.USER_CREATE,

@@ -75,6 +75,7 @@ export async function Logout(username) {
  */
 export async function UnlockConsole(param) {
   /*return true*/
+  // 本地自测模块
   if (type.LOCAL_TEST) {
     return true
   }
@@ -217,7 +218,8 @@ export async function UpdateLockState(param) {
       lockstatus: param.lockstatus,
       locktime: param.locktime.toString()
     }
-    if (type.LOCAL_TEST) {
+    // 本地自测模块
+  if (type.LOCAL_TEST) {
       return data
     }
     socket.write(JSON.stringify(data))
