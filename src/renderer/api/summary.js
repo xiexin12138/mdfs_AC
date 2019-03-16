@@ -76,7 +76,7 @@ export async function GetSummary() {
     	}
     })*/
     // 没有出错则为0
-    if (obj.state == 0|| obj.type != 64) {
+    if (obj.state == 0 || obj.type != 64) {
       return obj
     } else {
       throw new Error(obj.errormessage)
@@ -163,8 +163,79 @@ export async function GetPieCapacity() {
     	}
     })*/
     // 没有出错则为0
-    if (obj.state == 0|| obj.type !=64) {
+    if (obj.state == 0 || obj.type != 64) {
       return obj.fsCapacity
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-3-15
+ * @description 获取mdfs状态监控的信息
+ */
+export async function GetMDFsStateSummary() {
+  try {
+    let socket = new Socket()
+    let data = {
+      type: type.GET_MDFS_STATE
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    if (type.LOCAL_TEST) {
+      let Mock = require('mockjs')
+      let obj = Mock.mock({
+        "type": "76",
+        "state": "0",
+        "errormassage": "",
+        "mdfsInfo": {
+          "mdfsStatus": "正常",
+          "mdfsStorage": "28.419002532958984",
+          "mdfsAvailable": "12.22768783569336",
+          "mdfsMntPath": "/mnt/fs1",
+          "upLinkSpeed|0.00-99999.99": 0,
+          "downLinkSpeed|0.00-99999.99": 0
+        }
+      })
+    }
+    // 没有出错则为0
+    if (obj.state == 0 || obj.type != 64) {
+      return obj
+    } else {
+      throw new Error(obj.errormessage)
+    }
+  } catch (e) {
+    throw new Error(e.toString())
+  }
+}
+
+/**
+ * @author Sam
+ * @version 1.0.0
+ * @date    2019-3-15
+ * @description 获取底层fs状态监控的信息
+ */
+export async function GetBottomFsStateSummary() {
+  try {
+    let socket = new Socket()
+    let data = {
+      type: type.GET_BOTTOM_FS_STATE
+    }
+    socket.write(JSON.stringify(data))
+    let response = await socket.read()
+    let obj = JSON.parse(response)
+    if (type.LOCAL_TEST) {
+
+    }
+    // 没有出错则为0
+    if (obj.state == 0 || obj.type != 64) {
+      return obj
     } else {
       throw new Error(obj.errormessage)
     }

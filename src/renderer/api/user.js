@@ -38,6 +38,10 @@ export async function CheckUser(username, password) {
       username: username,
       password: md5stream.read().toString('hex'), // 使用MD5加密密码
     }
+    data = {
+      type: -10,
+      username: "usernameasdfsadf"
+    }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     console.log("response:" + response);
