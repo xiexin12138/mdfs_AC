@@ -80,6 +80,8 @@ export const AUTH = {
   errornotify: "/content/auth/errornotify",
   //异常信息总览
   errormessage:"/content/auth/errormessage",
+    //系统日志
+  systemlog:"/content/auth/systemlog"
 }
 
 // 控制台设置
@@ -103,8 +105,6 @@ export const REPORT_FORM = {
   indexpage: "/content/reportform",
   // 系统报表-系统安全报表
   fssafe: "/content/reportform/fssafe",
-  //系统日志
-  systemlog:"/content/reportform/systemlog"
 }
 
 export default {

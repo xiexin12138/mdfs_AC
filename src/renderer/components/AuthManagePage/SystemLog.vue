@@ -11,8 +11,8 @@
     </el-row>
 
    <div style="margin-top: 15px; margin-bottom:10px;">
-      <el-input placeholder="请输入日期查询该日异常情况，格式举例：2019-03-14" v-model="time_error">
-         <el-button slot="append" icon="el-icon-search" @click="geterrorInfo(tableData1)"></el-button>
+      <el-input placeholder="请输入日期查询当天系统日志，格式举例：2019-03-14" v-model="time_log">
+         <el-button slot="append" icon="el-icon-search" @click="getlogInfo(tableData1)"></el-button>
       </el-input>
    </div>
 
@@ -26,49 +26,35 @@
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
 
-          <el-form-item label="错误详细信息">
-            <span>{{ props.row.exDetail }}</span>
+          <el-form-item label="详细日志信息">
+            <span>{{ props.row.logInfo }}</span>
           </el-form-item>
         </el-form>
       </template>
     </el-table-column>
 
     <el-table-column
-      label="发生时间"
-      prop="exDate">
+      label="日志时间"
+      prop="logDate">
     </el-table-column>
 
     <el-table-column
-      label="文件系统id"
-      prop="exFsId">
+      label="logThreadId"
+      prop="logThreadId">
     </el-table-column>
 
     <el-table-column
-      label="文件系统出错的路径"
-      prop="exFsPath"
+      label="日志等级"
+      prop="logLevel"
       width="160">
     </el-table-column> 
 
-    <el-table-column
-      label="异常文件路径"
-      prop="exFilePath">
-    </el-table-column> 
 
     <el-table-column
-      label="转储路径"
-      prop="transferPath">
+      label="日志出现的位置"
+      prop="logLocation">
     </el-table-column> 
-
-    <el-table-column
-      label="修复类型"
-      prop="repairType">
-    </el-table-column> 
-
-  </el-table>
-  <el-row style="margin-top:20px;">
-    <el-col :span="15">单位时间内底层文件系统异常次数 :{{ exStatics }}</el-col>
-  </el-row>
-
+</el-table>
       </div>
   </el-col>
   </el-row>
@@ -88,7 +74,7 @@ import {
 
 } from 'element-ui'
 import Vue from 'vue'
-import * as errormessage from '../../api/errormessage'
+import * as errormessage from '@/api/errormessage'
 
 Vue.use(Table)
 Vue.use(TableColumn)
@@ -105,8 +91,8 @@ export default {
       	      	//表内数据
         tableData1: [], //
 
-        time_error:'',
-        exStatics:'',
+        time_log:'',
+        
       }
     },
   mounted: async function() {
@@ -125,17 +111,12 @@ export default {
 methods: {
      // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
- 		let tableData = await errormessage.GetRecentError()
-    console.log('hhhhhh',tableData)
-        this.tableData1 = tableData.exInfo
-        this.exStatics= tableData.exStatics
+ 		this.tableData1 = await errormessage.GetRecentLog()
 
     },
 
-    async geterrorInfo(){
-      let tableData= await errormessage.GetErrorByTime(this.time_error)
-      this.tableData1 = tableData.exInfo
-      this.exStatics= tableData.exStatics
+    async getlogInfo(){
+      this.tableData1= await errormessage.GetLogByTime(this.time_log)
     }
 
 
