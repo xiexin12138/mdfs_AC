@@ -84,3 +84,5 @@ Error in mounted hook: "TypeError: Cannot read property 'force' of undefined"，
 v4没有这个函数了，相应的功能已经变成了forceSimulation
 
 d3 v3的API 有函数不会用可以直接搜 https://github.com/d3/d3-3.x-api-reference/blob/master/API-Reference.md
+
+### 代码的权限控制

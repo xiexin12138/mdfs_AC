@@ -18,7 +18,7 @@
                 MDFS状态
               </el-col>
               <el-col :span="12">
-                <div v-if='mdfsState' style="color:green;
+                <div v-if='getMdfsState.state == "0"' style="color:green;
               display: flex;
               align-items: center;
               justify-content: center;">
@@ -39,14 +39,14 @@
               <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
               display: flex;
               align-items: center;
-              justify-content: center;">192000G</el-row>
+              justify-content: center;">{{getMdfsState.mdfsInfo.mdfsStorage || 0}}G</el-row>
             </el-row>
             <el-row class="card_beauty mdfs_state_panl">
               MDFS可用容量
               <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
               display: flex;
               align-items: center;
-              justify-content: center;">192000G</el-row>
+              justify-content: center;">{{getMdfsState.mdfsInfo.mdfsAvailable || 0}}G</el-row>
             </el-row>
           </el-col>
           <el-col :span="18" class="mdfs_rigth_col text">
@@ -73,18 +73,18 @@
           <span><strong>底层文件系统状态监控</strong></span>
         </div>
         <el-row id="fstable_row">
-          <el-table :data="bottomfsDataTable" height="250" border style="width: 100%">
-            <el-table-column prop="bottomfsid" label="文件系统id" width="100">
+          <el-table :data="bottomfsStateList" height="250" border style="width: 100%">
+            <el-table-column prop="bottomFsId" label="文件系统id" width="110">
             </el-table-column>
-            <el-table-column prop="bottomfsStorage" label="存储容量">
+            <el-table-column prop="fsStorage" label="存储容量" width="150">
             </el-table-column>
-            <el-table-column prop="bottomfsAvailable" label="可用容量">
+            <el-table-column prop="fsAvailable" label="可用容量" width="150">
             </el-table-column>
-            <el-table-column prop="bottomfsType" label="文件系统类型">
+            <el-table-column prop="fsType" label="文件系统类型" width="150">
             </el-table-column>
-            <el-table-column prop="bottomfsMntPath" label="挂载路径">
+            <el-table-column prop="fsMntPath" label="挂载路径">
             </el-table-column>
-            <el-table-column prop="bottomfsStatus" label="运行状态">
+            <el-table-column prop="fsStatus" label="运行状态" width="80">
             </el-table-column>
           </el-table>
         </el-row>
@@ -93,8 +93,8 @@
             <el-button plain v-if="!openTable" size="mini" @click="changeTabelHeigth()"><i class="el-icon-caret-bottom"></i>展开表格</el-button>
             <el-button plain v-else size="mini" @click="changeTabelHeigth()"><i class="el-icon-caret-top"></i>收回表格</el-button>
           </div>
-          <el-pagination background layout="prev, pager, next" :total="1000">
-          </el-pagination>
+          <!-- <el-pagination background layout="prev, pager, next" :total="1000">
+          </el-pagination> -->
         </el-row>
       </el-card>
     </el-row>
@@ -123,106 +123,114 @@ export default {
     isInSummary() {
       return this.$store.getters.getInSummary
     },
-    getMDFSData() {
-      return this.$store.getters.getMDFSData
+    getMdfsState() {
+      return this.$store.getters.getMdfsState
+    },
+    getBottomfsState() {
+      return this.$store.getters.getBottomfsState
     }
   },
   data() {
     return {
-      hover: 'hover',
       mdfsState: true,
       bottomfsDataTable: [{
           bottomfsid: 1,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext4",
           bottomfsMntPath: "/mnt/fs1",
           bottomfsStatus: "true"
         },
         {
           bottomfsid: 2,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext4",
           bottomfsMntPath: "/mnt/fs2",
           bottomfsStatus: "false"
         },
         {
           bottomfsid: 3,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext3",
           bottomfsMntPath: "/mnt/fs3",
           bottomfsStatus: "true"
         },
         {
           bottomfsid: 4,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext3",
           bottomfsMntPath: "/mnt/fs4",
           bottomfsStatus: "false"
         },
         {
           bottomfsid: 5,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext4",
           bottomfsMntPath: "/mnt/fs5",
           bottomfsStatus: "true"
         },
         {
           bottomfsid: 6,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext4",
           bottomfsMntPath: "/mnt/fs6",
           bottomfsStatus: "false"
         },
         {
           bottomfsid: 7,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext3",
           bottomfsMntPath: "/mnt/fs7",
           bottomfsStatus: "true"
         },
         {
           bottomfsid: 8,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext3",
           bottomfsMntPath: "/mnt/fs8",
           bottomfsStatus: "false"
         },
         {
           bottomfsid: 9,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
+          bottomfsStorage: "28.42GB",
+          bottomfsAvailable: "12.23GB",
           bottomfsType: "ext3",
           bottomfsMntPath: "/mnt/fs9",
           bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 10,
-          bottomfsStorage: 28.419002532958984,
-          bottomfsAvailable: 12.22768783569336,
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs10",
-          bottomfsStatus: "false"
         }
       ],
       openTable: false,
+      bottomfsStateList: []
     }
   },
   mounted() {
-    // this.updateSummary()
-    this.drawLine()
+    setTimeout(
+      this.updateSummary, 0);
+    setTimeout(
+      this.drawLine, 0);
   },
   methods: {
     async updateSummary() {
-      await this.$store.dispatch('getsummary', {}).catch((e) => {
+      await this.$store.dispatch('getmdfsstate', {}).catch((e) => {
         if (this.$store.getters.getInSummary) {
+          Message({
+            showClose: true,
+            /*message: "获取异常：" + e.toString(),*/
+            message: "系统信息获取异常",
+            type: 'error',
+            duration: 2000
+          });
+        }
+      });
+      await this.$store.dispatch('getbottomfsstate', {}).catch((e) => {
+        if (this.$store.getters.getBottomFsState) {
           Message({
             showClose: true,
             /*message: "获取异常：" + e.toString(),*/
@@ -236,15 +244,16 @@ export default {
       /*console.log("【this.isInSummary】" + this.isInSummary);*/
       // 递归调度，自动从后台获取overview对象，用于更新数据
       if (this.$store.getters.getInSummary) {
-        setTimeout(this.updateSummary, 2000);
+        setTimeout(this.updateSummary, 1000);
       }
     },
-    drawLine() {
+    async drawLine() {
       // 基于准备好的dom，初始化echarts实例
       let upRateChart = echarts.init(document.getElementById('upRateChart'))
       let downRateChart = echarts.init(document.getElementById('downRateChart'))
       // 绘制图表
       upRateChart.setOption({
+        animation: false,
         title: {
           text: '当前上行速率：1.75M/s',
           textStyle: {
@@ -257,10 +266,10 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
             label: {
               backgroundColor: '#6a7985'
-            }
+            },
+            animation: false
           },
           formatter: function(params, ticket, callback) {
             let a = params[0].value
@@ -286,7 +295,7 @@ export default {
           axisTick: {
             show: false
           },
-          data: ['', '', '', '', '', '', '', '', '', '']
+          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
         },
         yAxis: {
           type: 'value',
@@ -302,11 +311,13 @@ export default {
         },
         series: [{
           type: 'line',
-          data: [820, 934, 2750, 1330, 932, 901, 934, 1290, 1330, 1320],
+          hoverAnimation: false,
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           areaStyle: {}
         }]
       });
       downRateChart.setOption({
+        animation: false,
         title: {
           text: '当前下行速率：10.2M/s',
           textStyle: {
@@ -319,7 +330,6 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
             label: {
               backgroundColor: '#6a7985'
             }
@@ -348,7 +358,7 @@ export default {
           axisTick: {
             show: false
           },
-          data: ['', '', '', '', '', '', '', '', '', '']
+          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
         },
         yAxis: {
           type: 'value',
@@ -364,7 +374,8 @@ export default {
         },
         series: [{
           type: 'line',
-          data: [934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330],
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          hoverAnimation: false,
           areaStyle: {
             color: '#AED4C2'
           },
@@ -376,20 +387,25 @@ export default {
           }
         }]
       });
-      upRateChart.resize
-      downRateChart.resize
+      // 随屏幕大小改变大小
+      window.onresize = function() {
+        upRateChart.resize()
+        downRateChart.resize()
+      };
     },
     changeTabelHeigth() {
       this.openTable = !this.openTable
       let panl = document.getElementById("fstable_row")
       let table = (document.getElementsByClassName('el-table'))[0]
+      let table_head = document.getElementsByClassName('has-gutter')[0]
       if (this.openTable) {
-        panl.style.height = "515px"
-        table.style.height = "515px"
+        panl.style.height = "530px"
+        table.style.height = "530px"
       } else {
         panl.style.height = "250px"
         table.style.height = "250px"
       }
+      table_head.style.width = '100%'
     },
   },
   watch: {
@@ -398,6 +414,42 @@ export default {
         this.updateSummary()
       }
     },
+    getMdfsState: function() {
+      let upRateChart = echarts.init(document.getElementById('upRateChart'))
+      let upRateChartOption = upRateChart.getOption()
+      let currentUpRate = this.getMdfsState.mdfsInfo.upLinkSpeed
+      let arr_upRate = upRateChartOption.series[0].data
+      arr_upRate.push(currentUpRate)
+      arr_upRate.shift()
+      upRateChartOption.series[0].data = arr_upRate
+      if (currentUpRate > 1024) {
+        currentUpRate = (currentUpRate / 1024).toFixed(2)
+        currentUpRate = currentUpRate + ' M/s'
+      } else {
+        currentUpRate = currentUpRate + ' k/s'
+      }
+      upRateChartOption.title[0].text = '当前上行速率：' + currentUpRate
+      upRateChart.setOption(upRateChartOption)
+
+      let downRateChart = echarts.init(document.getElementById('downRateChart'))
+      let downRateChartOption = downRateChart.getOption()
+      let currentDownRate = this.getMdfsState.mdfsInfo.downLinkSpeed
+      let arr_downRate = downRateChartOption.series[0].data
+      arr_downRate.push(currentDownRate)
+      arr_downRate.shift()
+      downRateChartOption.series[0].data = arr_downRate
+      if (currentDownRate > 1024) {
+        currentDownRate = (currentDownRate / 1024).toFixed(2)
+        currentDownRate = currentDownRate + ' M/s'
+      } else {
+        currentDownRate = currentDownRate + ' k/s'
+      }
+      downRateChartOption.title[0].text = '当前下行速率：' + currentDownRate
+      downRateChart.setOption(downRateChartOption)
+    },
+    getBottomfsState: function(){
+      this.bottomfsStateList = this.getBottomfsState.fsInfo
+    }
   }
 }
 </script>
