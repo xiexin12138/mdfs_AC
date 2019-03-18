@@ -195,9 +195,20 @@ export const GET_MDFS_STATE = 76
 // 底层文件系统监控
 export const GET_BOTTOM_FS_STATE = 77
 
-/*****************************未实现的接口***********************************************/
+
 
 /*****************************取消实现的接口***********************************************/
 
 // MOUNT_ADD 新增挂载节点，这个已经取消
 export const MOUNT_ADD = 111
+
+
+/*****************************MDFS接口***********************************************/
+//查询最新的20条异常信息
+export const RECENT_ERROR_MESSAGE=22
+//按时间查询异常信息
+export const ERROR_MESSAGE_BY_TIME=23
+//查询最新的20条日志信息
+export const RECENT_LOG=24
+//按时间查询日志信息
+export const GRT_LOG_BY_TIME=25

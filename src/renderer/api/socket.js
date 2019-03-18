@@ -139,7 +139,7 @@ class Socket {
         reject(error)
       })
       that._socket.on('end', () => {
-        // console.log(str,1)
+        console.log(1111,str)
         resolve(str)
       })
       // that._socket.on('timeout', () => {
