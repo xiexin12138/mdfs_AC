@@ -109,7 +109,6 @@ class Socket {
     let num = buf.length
     // 构建要生成buffer的数组，会往里面加4个数组。
     let arr = []
-    
     arr.push(num / 16581375)
     num = num % 16581375
     arr.push(num / 65025)

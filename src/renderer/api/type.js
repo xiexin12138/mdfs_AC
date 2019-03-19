@@ -10,6 +10,9 @@ export const LOCAL_TEST = true
 //  ├─reportForm.js
 //  │   └─GetFSSafeReport(payload)
 //  ├─socket.js
+//  ├─summary.js
+//  │   ├─GetMDFsStateSummary()
+//  │   └─GetBottomFsStateSummary()
 //  └─user.js
 //    ├─CheckUser(username, password)
 //    ├─ GetPermissionTree(param)
@@ -186,7 +189,11 @@ export const UPDATE_LOCK_STATE = 74
 // 获取报表
 export const GET_AC_REPORT = 75
 
+// MDFS状态监控
+export const GET_MDFS_STATE = 76
 
+// 底层文件系统监控
+export const GET_BOTTOM_FS_STATE = 77
 
 
 
