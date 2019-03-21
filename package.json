@@ -1,5 +1,5 @@
 {
-  "name": "mimic",
+  "name": "mdfs_AC",
   "version": "1.1.0",
   "author": "craig00 <dandeliontomimosa@163.com>",
   "description": "An electron-vue project",
@@ -20,7 +20,7 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "mimic",
+    "productName": "mdfs_AC",
     "appId": "org.simulatedgreg.electron-vue",
     "directories": {
       "output": "build"
