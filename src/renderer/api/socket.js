@@ -133,14 +133,15 @@ class Socket {
     return new Promise((resolve, reject) => {
       that._socket.on('data', data => {
         str += data
+        //str=str.slice(4,-2)
       })
       that._socket.on('error', error => {
         that._socket.end()
         reject(error)
       })
       that._socket.on('end', () => {
-        console.log(1111,str)
-        resolve(str)
+        //console.log(str)
+        resolve(str.slice(4))
       })
       // that._socket.on('timeout', () => {
       // 	console.log('socket timeout')

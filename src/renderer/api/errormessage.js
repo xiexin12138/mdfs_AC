@@ -21,6 +21,7 @@ export async function GetRecentError(param) {
 		let response = await socket.read()
 		console.log('MDFS22',response)
 		let obj = JSON.parse(response)
+		//console.log('afterJSON',JSON.stringify(obj))
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj.state == 0|| obj.type !=64) {
 

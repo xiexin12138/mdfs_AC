@@ -1,12 +1,12 @@
 <template>
 	<div>
   <el-row type="flex" class="row-bg" justify="center">
-  <el-col style="width:750px;">
+  <el-col style="width:1100px;">
   <div class="grid-content">
   <el-row type="flex" justify="end">
       <el-col style="width:75px;">
-        <div style="margin-bottom:10px;">
-        </div>
+       <!--  <div style="margin-bottom:10px;">
+        </div> -->
       </el-col>
     </el-row>
 
@@ -26,7 +26,7 @@
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
 
-          <el-form-item label="详细日志信息">
+          <el-form-item label="详细信息">
             <span>{{ props.row.logInfo }}</span>
           </el-form-item>
         </el-form>
@@ -35,23 +35,34 @@
 
     <el-table-column
       label="日志时间"
+      align="center"
       prop="logDate">
     </el-table-column>
 
     <el-table-column
-      label="logThreadId"
+      label="日志线程Id"
+      align="center"
       prop="logThreadId">
     </el-table-column>
 
     <el-table-column
-      label="日志等级"
+      label="日志类型"
+      align="center"
       prop="logLevel"
+      width="160">
+    </el-table-column> 
+
+    <el-table-column
+      label="对应级别"
+      align="center"
+      prop="logLevelInt"
       width="160">
     </el-table-column> 
 
 
     <el-table-column
       label="日志出现的位置"
+      align="center"
       prop="logLocation">
     </el-table-column> 
 </el-table>
@@ -100,8 +111,10 @@ export default {
     console.log()
 
     this.timer = setInterval(async () => {
-      await this.updatePage()
-    }, 5000)
+      if(this.tableData1==""){
+         await this.updatePage()
+      }
+    }, 4000)
 
   },
   destroyed: function(){
