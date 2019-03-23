@@ -107,7 +107,7 @@ class Socket {
     const buf = Buffer.from(data)
     // 获取要传输的字符串长度
     let num = buf.length
-    // 构建要生成buffer的数组，会往里面加4个数组。
+    // 构建要生成buffer的数组，会往数组头部加4位数字
     let arr = []
     arr.push(num / 16581375)
     num = num % 16581375
@@ -118,6 +118,7 @@ class Socket {
     arr.push(num)
     let buf2 = Buffer.from(arr)
     let buf3 = Buffer.concat([buf2, buf])
+    console.log("buf3",buf3);
     this._socket.write(buf3)
   }
   /**
@@ -136,11 +137,11 @@ class Socket {
       })
       that._socket.on('error', error => {
         that._socket.end()
+        console.log("error:", error);
         reject(error)
       })
       that._socket.on('end', () => {
-        console.log(1111,str)
-        resolve(str)
+        resolve(str.slice(4))
       })
       // that._socket.on('timeout', () => {
       // 	console.log('socket timeout')
