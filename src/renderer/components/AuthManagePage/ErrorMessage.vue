@@ -4,16 +4,24 @@
   <el-col style="width:1100px;">
   <div class="grid-content">
 
-
-
-   <div style="margin-top: 15px; margin-bottom:10px;">
-      <el-input placeholder="请输入日期查询该日异常情况，格式举例：2019-03-14" v-model="time_error">
-         <el-button slot="append" icon="el-icon-search" @click="geterrorInfo(tableData1)"></el-button>
-      </el-input>
-   </div>
-  <el-row type="flex" style="margin-top:20px;margin-bottom:12px;margin-left:5px;"  inline class="stat">
-    <el-col :span="24" inline>文件系统异常次数统计（单位：次）</el-col>
-    <el-col :span="5" inline>一小时内:{{ exStaticsHour }} </el-col> <el-col :span="5" inline>一天内 :{{ exStaticsDay }} </el-col>
+  <el-row type="flex" style="margin-top:20px;"  inline class="stat">
+    <el-col :span="15" inline>
+              <el-date-picker
+                  v-model="timevalue"
+                  value-format="yyyy-MM-dd"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="pickerOptions2"
+                  style="margin-bottom:15px;">
+                </el-date-picker>
+    </el-col>
+    <el-button icon="el-icon-search" @click="geterrorInfo(tableData1)" style="position:absolute;left:355px;"></el-button> 
+    <el-col :span="8" inline>文件系统异常次数统计（单位：次）</el-col>
+    <el-col :span="4" inline>一小时内 : {{ exStaticsHour }} </el-col> <el-col :span="3" inline justify="end">一天内 : {{ exStaticsDay }} </el-col>
   </el-row>
 
   <el-table
@@ -115,6 +123,36 @@ export default {
         time_error:'',
         exStaticsHour:'',
         exStaticsDay:'',
+
+        pickerOptions2: {
+                  shortcuts: [{
+                    text: '最近一周',
+                    onClick(picker) {
+                      const end = new Date();
+                      const start = new Date();
+                      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                      picker.$emit('pick', [start, end]);
+                    }
+                  }, {
+                    text: '最近一个月',
+                    onClick(picker) {
+                      const end = new Date();
+                      const start = new Date();
+                      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                      picker.$emit('pick', [start, end]);
+                    }
+                  }, {
+                    text: '最近三个月',
+                    onClick(picker) {
+                      const end = new Date();
+                      const start = new Date();
+                      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                      picker.$emit('pick', [start, end]);
+                    }
+                  }]
+                },
+        timevalue: '',
+
       }
     },
   mounted: async function() {
@@ -139,12 +177,17 @@ methods: {
  		let tableData = await errormessage.GetRecentError()
     //console.log('hhhhhh',tableData)
         this.tableData1 = tableData.exInfo
-        this.exStatics= tableData.exStatics
+        //this.exStatics= tableData.exStatics
+        this.exStaticsHour = tableData.exStaticsHour
+       this.exStaticsDay= tableData.exStaticsDay
 
     },
 
     async geterrorInfo(){
-      let tableData= await errormessage.GetErrorByTime(this.time_error)
+      console.log(this.timevalue[0])
+      let startTime = this.timevalue[0] + ' 00:00:00'
+      let endTime = this.timevalue[1] +' 23:59:59'
+      let tableData= await errormessage.GetErrorByTime(startTime,endTime)
       this.tableData1 = tableData.exInfo
       this.exStaticsHour = tableData.exStaticsHour
       this.exStaticsDay= tableData.exStaticsDay
@@ -193,4 +236,5 @@ methods: {
   top: -45px;
   left: 666px;*/
 }
+
 </style>

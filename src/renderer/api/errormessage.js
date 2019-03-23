@@ -43,16 +43,17 @@ export async function GetRecentError(param) {
  * @return  {Boolean}        true为正确提交，报错则不正确
  * @description 按照时间查询异常信息
  */
-export async function GetErrorByTime(param) {
+export async function GetErrorByTime(startTime,endTime) {
 	try {        
 
 		let socket = new Socket()
 		let data = {
 			type: type.ERROR_MESSAGE_BY_TIME,
-			time: param
+			startTime: startTime,
+			endTime:endTime,
 		}
 		socket.write(JSON.stringify(data))
-
+        console.log('23data',data)
 		let response = await socket.read()
 		console.log('MDFS23',response)
 		let obj = JSON.parse(response)
@@ -87,7 +88,7 @@ export async function GetRecentLog(param) {
 		socket.write(JSON.stringify(data))
 
 		let response = await socket.read()
-		console.log('MDFS24',response)
+		//console.log('MDFS24',response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj.state == 0|| obj.type !=64) {
@@ -110,16 +111,17 @@ export async function GetRecentLog(param) {
  * @return  {Boolean}        true为正确提交，报错则不正确
  * @description 按照时间查询日志信息
  */
-export async function GetLogByTime(param) {
+export async function GetLogByTime(startTime,endTime) {
 	try {        
 
 		let socket = new Socket()
 		let data = {
 			type: type.GRT_LOG_BY_TIME,
-			time: param
+			startTime: startTime,
+			endTime:endTime,
 		}
 		socket.write(JSON.stringify(data))
-
+        console.log('MDFS25data',data)
 		let response = await socket.read()
 		console.log('MDFS25',response)
 		let obj = JSON.parse(response)
