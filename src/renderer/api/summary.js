@@ -15,66 +15,6 @@ export async function GetSummary() {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
-    /*let Mock = require('mockjs')
-    let obj = Mock.mock({
-    	"type": "54",
-    	"state": "0",
-    	"errormassage": "",
-    	"fsState": {
-    		"fsSum": "6",
-    		"fsOnlineNum": "3",
-    		"fsReadyNum": "3"
-    	},
-    	"mounterState": {
-    		"mounterSum": "5",
-    		"mounterOnlineNum": "2",
-    		"mounterOfflineNum": "3"
-    	},
-    	"fsErrStatus": {
-    		"fsErrState": "0",
-    		"fsRepairingNum": "3",
-    		"fsRepairingList": [{
-    			"id": "1",
-    			"fsName": "fs1"
-    		}, {
-    			"id": "2",
-    			"fsName": "fs2"
-    		}, {
-    			"id": "3",
-    			"fsName": "fs3"
-    		}],
-    		"fsSyncNum": "2",
-    		"fsSynList": [{
-    				"id": "1",
-    				"fsName": "fs1"
-    			},
-    			{
-    				"id": "2",
-    				"fsName": "fs2"
-    			}
-    		],
-    		"fsStopNum": "2",
-    		"fsStopList": [{
-    				"id": "1",
-    				"fsName": "fs1"
-    			},
-    			{
-    				"id": "2",
-    				"fsName": "fs2"
-    			}
-    		]
-    	},
-    	"userInfo": {
-    		"userSum": "66",
-    		"userOnlineNum": "2",
-    		"userFreezeNum": "3"
-    	},
-    	"fsCapacity": {
-    		"fsSize|1-50000.1": 100.0,
-    		"fsUsed|1-50000.1": 60.0,
-    		"fsAvail|1-50000.1": 40.0
-    	}
-    })*/
     // 没有出错则为0
     if (obj.state == 0 || obj.type != 64) {
       return obj
@@ -112,7 +52,7 @@ export async function getMdfsStateData() {
     } else {
       let socket = new Socket()
       let data = {
-        type: type.GET_SUMMARY
+        type: type.GET_MDFS_STATE
       }
       socket.write(JSON.stringify(data))
       let response = await socket.read()
@@ -169,11 +109,12 @@ export async function getBottomFsStateData() {
     } else {
       let socket = new Socket()
       let data = {
-        type: type.GET_SUMMARY
+        type: type.GET_BOTTOM_FS_STATE
       }
       socket.write(JSON.stringify(data))
       let response = await socket.read()
       obj = JSON.parse(response)
+      console.log("GET_BOTTOM_FS_STATE : obj",obj);
     }
     // 没有出错则为0
     let infoList = obj.fsInfo
@@ -210,66 +151,6 @@ export async function GetPieCapacity() {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
-    /*let Mock = require('mockjs')
-    let obj = Mock.mock({
-    	"type": "54",
-    	"state": "0",
-    	"errormassage": "",
-    	"fsState": {
-    		"fsSum": "6",
-    		"fsOnlineNum": "3",
-    		"fsReadyNum": "3"
-    	},
-    	"mounterState": {
-    		"mounterSum": "5",
-    		"mounterOnlineNum": "2",
-    		"mounterOfflineNum": "3"
-    	},
-    	"fsErrStatus": {
-    		"fsErrState": "0",
-    		"fsRepairingNum": "3",
-    		"fsRepairingList": [{
-    			"id": "1",
-    			"fsName": "fs1"
-    		}, {
-    			"id": "2",
-    			"fsName": "fs2"
-    		}, {
-    			"id": "3",
-    			"fsName": "fs3"
-    		}],
-    		"fsSyncNum": "2",
-    		"fsSynList": [{
-    				"id": "1",
-    				"fsName": "fs1"
-    			},
-    			{
-    				"id": "2",
-    				"fsName": "fs2"
-    			}
-    		],
-    		"fsStopNum": "2",
-    		"fsStopList": [{
-    				"id": "1",
-    				"fsName": "fs1"
-    			},
-    			{
-    				"id": "2",
-    				"fsName": "fs2"
-    			}
-    		]
-    	},
-    	"userInfo": {
-    		"userSum": "66",
-    		"userOnlineNum": "2",
-    		"userFreezeNum": "3"
-    	},
-    	"fsCapacity": {
-    		"fsSize|1-99999.1": 10.0,
-    		"fsUsed|1-50000.1": 6.0,
-    		"fsAvail|1-50000.1": 4.0
-    	}
-    })*/
     // 没有出错则为0
     if (obj.state == 0 || obj.type != 64) {
       return obj.fsCapacity

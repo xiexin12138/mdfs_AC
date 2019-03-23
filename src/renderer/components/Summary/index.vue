@@ -39,26 +39,26 @@
               <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
               display: flex;
               align-items: center;
-              justify-content: center;">{{getMdfsState.mdfsInfo.mdfsStorage || 0}}G</el-row>
+              justify-content: center;">{{ formateMdfsStorage || 0}}G</el-row>
             </el-row>
             <el-row class="card_beauty mdfs_state_panl">
               MDFS可用容量
               <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
               display: flex;
               align-items: center;
-              justify-content: center;">{{getMdfsState.mdfsInfo.mdfsAvailable || 0}}G</el-row>
+              justify-content: center;">{{ formateMdfsAvailable || 0}}G</el-row>
             </el-row>
           </el-col>
           <el-col :span="18" class="mdfs_rigth_col text">
-            <el-row class="mycard card_beauty">当前MDFS挂载路径：<strong>/media/mdfs</strong></el-row>
+            <el-row class="mycard card_beauty">当前MDFS挂载路径：<strong>{{getMdfsState.mdfsInfo.mdfsMntPath}}</strong></el-row>
             <el-row class="text item">
               <el-col :span="12">
-                <div id="upRateChart" class="rate_panl card_beauty">
+                <div id="upRateChart" ref="upRateChart" class="rate_panl card_beauty">
                   upRateChart
                 </div>
               </el-col>
               <el-col :span="12">
-                <div id="downRateChart" class="rate_panl card_beauty">
+                <div id="downRateChart" ref="downRateChart" class="rate_panl card_beauty">
                   downRateChart
                 </div>
               </el-col>
@@ -128,96 +128,104 @@ export default {
     },
     getBottomfsState() {
       return this.$store.getters.getBottomfsState
+    },
+    formateMdfsStorage() {
+      return (this.getMdfsState.mdfsInfo.mdfsStorage).toFixed(2)
+    },
+    formateMdfsAvailable() {
+      return (this.getMdfsState.mdfsInfo.mdfsAvailable).toFixed(2)
     }
   },
   data() {
     return {
       mdfsState: true,
-      bottomfsDataTable: [{
-          bottomfsid: 1,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs1",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 2,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs2",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 3,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs3",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 4,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs4",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 5,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs5",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 6,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs6",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 7,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs7",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 8,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs8",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 9,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs9",
-          bottomfsStatus: "true"
-        }
+      bottomfsDataTable: [
+        // {
+        //   bottomfsid: 1,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext4",
+        //   bottomfsMntPath: "/mnt/fs1",
+        //   bottomfsStatus: "true"
+        // },
+        // {
+        //   bottomfsid: 2,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext4",
+        //   bottomfsMntPath: "/mnt/fs2",
+        //   bottomfsStatus: "false"
+        // },
+        // {
+        //   bottomfsid: 3,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext3",
+        //   bottomfsMntPath: "/mnt/fs3",
+        //   bottomfsStatus: "true"
+        // },
+        // {
+        //   bottomfsid: 4,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext3",
+        //   bottomfsMntPath: "/mnt/fs4",
+        //   bottomfsStatus: "false"
+        // },
+        // {
+        //   bottomfsid: 5,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext4",
+        //   bottomfsMntPath: "/mnt/fs5",
+        //   bottomfsStatus: "true"
+        // },
+        // {
+        //   bottomfsid: 6,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext4",
+        //   bottomfsMntPath: "/mnt/fs6",
+        //   bottomfsStatus: "false"
+        // },
+        // {
+        //   bottomfsid: 7,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext3",
+        //   bottomfsMntPath: "/mnt/fs7",
+        //   bottomfsStatus: "true"
+        // },
+        // {
+        //   bottomfsid: 8,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext3",
+        //   bottomfsMntPath: "/mnt/fs8",
+        //   bottomfsStatus: "false"
+        // },
+        // {
+        //   bottomfsid: 9,
+        //   bottomfsStorage: "28.42GB",
+        //   bottomfsAvailable: "12.23GB",
+        //   bottomfsType: "ext3",
+        //   bottomfsMntPath: "/mnt/fs9",
+        //   bottomfsStatus: "true"
+        // }
       ],
       openTable: false,
       bottomfsStateList: []
     }
   },
   mounted() {
-    setTimeout(
-      this.updateSummary, 0);
-    setTimeout(
-      this.drawLine, 0);
+  setTimeout(
+    this.updateSummary, 1000);
+      setTimeout(
+        this.drawLine, 1000);
   },
   methods: {
     async updateSummary() {
+      console.log("updateSummary");
       await this.$store.dispatch('getmdfsstate', {}).catch((e) => {
         if (this.$store.getters.getInSummary) {
           Message({
@@ -244,13 +252,16 @@ export default {
       /*console.log("【this.isInSummary】" + this.isInSummary);*/
       // 递归调度，自动从后台获取overview对象，用于更新数据
       if (this.$store.getters.getInSummary) {
-        setTimeout(this.updateSummary, 1000);
+        setTimeout(this.updateSummary, 4000);
       }
     },
-    async drawLine() {
+    drawLine() {
+      console.log("drawLine");
       // 基于准备好的dom，初始化echarts实例
-      let upRateChart = echarts.init(document.getElementById('upRateChart'))
-      let downRateChart = echarts.init(document.getElementById('downRateChart'))
+      let upRateChart = echarts.init(this.$refs.upRateChart)
+      let downRateChart = echarts.init(this.$refs.downRateChart)
+      console.log("upRateChart", upRateChart);
+      console.log("downRateChart", downRateChart);
       // 绘制图表
       upRateChart.setOption({
         animation: false,
@@ -387,6 +398,7 @@ export default {
           }
         }]
       });
+      console.log("upRateChart.getOption()", upRateChart.getOption());
       // 随屏幕大小改变大小
       window.onresize = function() {
         upRateChart.resize()
@@ -447,8 +459,13 @@ export default {
       downRateChartOption.title[0].text = '当前下行速率：' + currentDownRate
       downRateChart.setOption(downRateChartOption)
     },
-    getBottomfsState: function(){
-      this.bottomfsStateList = this.getBottomfsState.fsInfo
+    getBottomfsState: function() {
+      this.bottomfsStateList = []
+      for (let tempState of this.getBottomfsState.fsInfo) {
+        tempState.fsAvailable = (tempState.fsAvailable).toFixed(2) + " G"
+        tempState.fsStorage = (tempState.fsStorage).toFixed(2) + " G"
+        this.bottomfsStateList.push(tempState)
+      }
     }
   }
 }
