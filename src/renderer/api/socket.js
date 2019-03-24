@@ -107,6 +107,7 @@ class Socket {
     const buf = Buffer.from(data)
     // 获取要传输的字符串长度
     let num = buf.length
+    // 构建要生成buffer的数组，会往数组头部加4位数字
     let arr = []
     arr.push(num / 16581375)
     num = num % 16581375
