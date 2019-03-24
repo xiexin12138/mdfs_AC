@@ -407,6 +407,7 @@ export default {
 <style>
 #main {
   background-color: #f9fafc;
+  width: 100%
 }
 
 .text {
@@ -418,13 +419,15 @@ export default {
 }
 
 .monitor_row {
+  width: 100%;
   min-height: 360px;
   margin: 10px;
 }
 
 .box-card {
   height: 100%;
-  min-height: 360px
+  min-height: 360px;
+  width: 100%
 }
 
 .mdfs_state_monitor {}
