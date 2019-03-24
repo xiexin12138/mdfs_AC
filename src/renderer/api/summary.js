@@ -57,6 +57,7 @@ export async function getMdfsStateData() {
       socket.write(JSON.stringify(data))
       let response = await socket.read()
       obj = JSON.parse(response)
+      console.log("getMdfsStateData", obj);
       // 没有出错则为0
     }
     if (obj.state == 0 || obj.type != 64) {
@@ -114,7 +115,6 @@ export async function getBottomFsStateData() {
       socket.write(JSON.stringify(data))
       let response = await socket.read()
       obj = JSON.parse(response)
-      console.log("GET_BOTTOM_FS_STATE : obj",obj);
     }
     // 没有出错则为0
     let infoList = obj.fsInfo
