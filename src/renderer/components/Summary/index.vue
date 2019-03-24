@@ -1,5 +1,5 @@
 <template>
-<el-container class='fullScreen'>
+<el-container class='fullScreen' v-loading="loading">
   <el-header style="background-color:#f9fafc;">
     <h1 id="head">
       <el-breadcrumb separator="/">概览</el-breadcrumb>
@@ -54,12 +54,12 @@
             <el-row class="text item">
               <el-col :span="12">
                 <div id="upRateChart" ref="upRateChart" class="rate_panl card_beauty">
-                  upRateChart
+                  加载中...
                 </div>
               </el-col>
               <el-col :span="12">
                 <div id="downRateChart" ref="downRateChart" class="rate_panl card_beauty">
-                  downRateChart
+                  加载中...
                 </div>
               </el-col>
             </el-row>
@@ -139,93 +139,18 @@ export default {
   data() {
     return {
       mdfsState: true,
-      bottomfsDataTable: [
-        // {
-        //   bottomfsid: 1,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext4",
-        //   bottomfsMntPath: "/mnt/fs1",
-        //   bottomfsStatus: "true"
-        // },
-        // {
-        //   bottomfsid: 2,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext4",
-        //   bottomfsMntPath: "/mnt/fs2",
-        //   bottomfsStatus: "false"
-        // },
-        // {
-        //   bottomfsid: 3,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext3",
-        //   bottomfsMntPath: "/mnt/fs3",
-        //   bottomfsStatus: "true"
-        // },
-        // {
-        //   bottomfsid: 4,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext3",
-        //   bottomfsMntPath: "/mnt/fs4",
-        //   bottomfsStatus: "false"
-        // },
-        // {
-        //   bottomfsid: 5,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext4",
-        //   bottomfsMntPath: "/mnt/fs5",
-        //   bottomfsStatus: "true"
-        // },
-        // {
-        //   bottomfsid: 6,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext4",
-        //   bottomfsMntPath: "/mnt/fs6",
-        //   bottomfsStatus: "false"
-        // },
-        // {
-        //   bottomfsid: 7,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext3",
-        //   bottomfsMntPath: "/mnt/fs7",
-        //   bottomfsStatus: "true"
-        // },
-        // {
-        //   bottomfsid: 8,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext3",
-        //   bottomfsMntPath: "/mnt/fs8",
-        //   bottomfsStatus: "false"
-        // },
-        // {
-        //   bottomfsid: 9,
-        //   bottomfsStorage: "28.42GB",
-        //   bottomfsAvailable: "12.23GB",
-        //   bottomfsType: "ext3",
-        //   bottomfsMntPath: "/mnt/fs9",
-        //   bottomfsStatus: "true"
-        // }
-      ],
+      bottomfsDataTable: [],
       openTable: false,
+      loading: true,
       bottomfsStateList: []
     }
   },
   mounted() {
-  setTimeout(
-    this.updateSummary, 1000);
-      setTimeout(
-        this.drawLine, 1000);
+    setTimeout(this.updateSummary, 1000);
+    setTimeout(this.drawLine, 1000);
   },
   methods: {
     async updateSummary() {
-      console.log("updateSummary");
       await this.$store.dispatch('getmdfsstate', {}).catch((e) => {
         if (this.$store.getters.getInSummary) {
           Message({
@@ -254,156 +179,165 @@ export default {
       if (this.$store.getters.getInSummary) {
         setTimeout(this.updateSummary, 4000);
       }
+      this.loading = false
     },
     drawLine() {
-      console.log("drawLine");
-      // 基于准备好的dom，初始化echarts实例
-      let upRateChart = echarts.init(this.$refs.upRateChart)
-      let downRateChart = echarts.init(this.$refs.downRateChart)
-      console.log("upRateChart", upRateChart);
-      console.log("downRateChart", downRateChart);
-      // 绘制图表
-      upRateChart.setOption({
-        animation: false,
-        title: {
-          text: '当前上行速率：1.75M/s',
-          textStyle: {
-            fontSize: 17,
-            fontWeight: "normal",
-            fontFamily: "Microsoft YaHei"
-          },
-          left: 'left'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            label: {
-              backgroundColor: '#6a7985'
+      try {
+        // 基于准备好的dom，初始化echarts实例
+        let upRateChart = echarts.init(this.$refs.upRateChart)
+        let downRateChart = echarts.init(this.$refs.downRateChart)
+        upRateChart.showLoading();
+        downRateChart.showLoading();
+        console.log("upRateChart", upRateChart);
+        console.log("downRateChart", downRateChart);
+        // 绘制图表
+        upRateChart.setOption({
+          animation: false,
+          title: {
+            text: '当前上行速率：0 k/s',
+            textStyle: {
+              fontSize: 17,
+              fontWeight: "normal",
+              fontFamily: "Microsoft YaHei"
             },
-            animation: false
+            left: 'left'
           },
-          formatter: function(params, ticket, callback) {
-            let a = params[0].value
-            if (a > 1024) {
-              a = (a / 1024).toFixed(2)
-              a = a + ' M/s'
-            } else {
-              a = a + ' k/s'
-            }
-            return a;
-          }
-        },
-        grid: {
-          x: "5%",
-          y: "20%",
-          x2: "5%",
-          y2: "10%",
-          borderWidth: 1
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisTick: {
-            show: false
-          },
-          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          hoverAnimation: false,
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          areaStyle: {}
-        }]
-      });
-      downRateChart.setOption({
-        animation: false,
-        title: {
-          text: '当前下行速率：10.2M/s',
-          textStyle: {
-            fontSize: 17,
-            fontWeight: "normal",
-            fontFamily: "Microsoft YaHei"
-          },
-          left: 'left'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            label: {
-              backgroundColor: '#6a7985'
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              label: {
+                backgroundColor: '#6a7985'
+              },
+              animation: false
+            },
+            formatter: function(params, ticket, callback) {
+              let a = params[0].value
+              if (a > 1024) {
+                a = (a / 1024).toFixed(2)
+                a = a + ' M/s'
+              } else {
+                a = a + ' k/s'
+              }
+              return a;
             }
           },
-          formatter: function(params, ticket, callback) {
-            let a = params[0].value
-            if (a > 1024) {
-              a = (a / 1024).toFixed(2)
-              a = a + ' M/s'
-            } else {
-              a = a + ' k/s'
+          grid: {
+            x: "5%",
+            y: "20%",
+            x2: "5%",
+            y2: "10%",
+            borderWidth: 1
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+          },
+          yAxis: {
+            type: 'value',
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            },
+            splitLine: {
+              show: false
             }
-            return a;
-          }
-        },
-        grid: {
-          x: "5%",
-          y: "20%",
-          x2: "5%",
-          y2: "10%",
-          borderWidth: 1
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisTick: {
-            show: false
           },
-          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            show: false
+          series: [{
+            type: 'line',
+            hoverAnimation: false,
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            areaStyle: {}
+          }]
+        });
+        downRateChart.setOption({
+          animation: false,
+          title: {
+            text: '当前下行速率：0 k/s',
+            textStyle: {
+              fontSize: 17,
+              fontWeight: "normal",
+              fontFamily: "Microsoft YaHei"
+            },
+            left: 'left'
           },
-          axisLabel: {
-            show: false
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              label: {
+                backgroundColor: '#6a7985'
+              }
+            },
+            formatter: function(params, ticket, callback) {
+              let a = params[0].value
+              if (a > 1024) {
+                a = (a / 1024).toFixed(2)
+                a = a + ' M/s'
+              } else {
+                a = a + ' k/s'
+              }
+              return a;
+            }
           },
-          splitLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          hoverAnimation: false,
-          areaStyle: {
-            color: '#AED4C2'
+          grid: {
+            x: "5%",
+            y: "20%",
+            x2: "5%",
+            y2: "10%",
+            borderWidth: 1
           },
-          lineStyle: {
-            color: '#91C7AE'
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
           },
-          itemStyle: {
-            color: '#91C7AE'
-          }
-        }]
-      });
-      console.log("upRateChart.getOption()", upRateChart.getOption());
-      // 随屏幕大小改变大小
-      window.onresize = function() {
-        upRateChart.resize()
-        downRateChart.resize()
-      };
+          yAxis: {
+            type: 'value',
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            }
+          },
+          series: [{
+            type: 'line',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            hoverAnimation: false,
+            areaStyle: {
+              color: '#AED4C2'
+            },
+            lineStyle: {
+              color: '#91C7AE'
+            },
+            itemStyle: {
+              color: '#91C7AE'
+            }
+          }]
+        });
+        upRateChart.hideLoading();
+        downRateChart.hideLoading();
+        console.log("upRateChart.getOption()", upRateChart.getOption());
+        // 随屏幕大小改变大小
+        window.onresize = function() {
+          upRateChart.resize()
+          downRateChart.resize()
+        };
+      } catch (e) {
+        setTimeout(
+          this.drawLine, 1000);
+      }
     },
     changeTabelHeigth() {
       this.openTable = !this.openTable
