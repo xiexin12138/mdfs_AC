@@ -134,6 +134,7 @@ class Socket {
     return new Promise((resolve, reject) => {
       that._socket.on('data', data => {
         str += data
+        //str=str.slice(4,-2)
       })
       that._socket.on('error', error => {
         that._socket.end()
