@@ -1,5 +1,5 @@
 <template>
-<el-container class='fullScreen'>
+<el-container class='fullScreen' v-loading="loading">
   <el-header style="background-color:#f9fafc;">
     <h1 id="head">
       <el-breadcrumb separator="/">概览</el-breadcrumb>
@@ -39,27 +39,27 @@
               <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
               display: flex;
               align-items: center;
-              justify-content: center;">{{getMdfsState.mdfsInfo.mdfsStorage || 0}}G</el-row>
+              justify-content: center;">{{ formateMdfsStorage || 0}}G</el-row>
             </el-row>
             <el-row class="card_beauty mdfs_state_panl">
               MDFS可用容量
               <el-row style="height:25px;font-size:30px;font-family:'微软雅黑';margin-top:10px;
               display: flex;
               align-items: center;
-              justify-content: center;">{{getMdfsState.mdfsInfo.mdfsAvailable || 0}}G</el-row>
+              justify-content: center;">{{ formateMdfsAvailable || 0}}G</el-row>
             </el-row>
           </el-col>
           <el-col :span="18" class="mdfs_rigth_col text">
-            <el-row class="mycard card_beauty">当前MDFS挂载路径：<strong>/media/mdfs</strong></el-row>
+            <el-row class="mycard card_beauty">当前MDFS挂载路径：<strong>{{getMdfsState.mdfsInfo.mdfsMntPath}}</strong></el-row>
             <el-row class="text item">
               <el-col :span="12">
-                <div id="upRateChart" class="rate_panl card_beauty">
-                  upRateChart
+                <div id="upRateChart" ref="upRateChart" class="rate_panl card_beauty">
+                  加载中...
                 </div>
               </el-col>
               <el-col :span="12">
-                <div id="downRateChart" class="rate_panl card_beauty">
-                  downRateChart
+                <div id="downRateChart" ref="downRateChart" class="rate_panl card_beauty">
+                  加载中...
                 </div>
               </el-col>
             </el-row>
@@ -128,93 +128,26 @@ export default {
     },
     getBottomfsState() {
       return this.$store.getters.getBottomfsState
+    },
+    formateMdfsStorage() {
+      return (this.getMdfsState.mdfsInfo.mdfsStorage).toFixed(2)
+    },
+    formateMdfsAvailable() {
+      return (this.getMdfsState.mdfsInfo.mdfsAvailable).toFixed(2)
     }
   },
   data() {
     return {
       mdfsState: true,
-      bottomfsDataTable: [{
-          bottomfsid: 1,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs1",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 2,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs2",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 3,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs3",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 4,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs4",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 5,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs5",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 6,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext4",
-          bottomfsMntPath: "/mnt/fs6",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 7,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs7",
-          bottomfsStatus: "true"
-        },
-        {
-          bottomfsid: 8,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs8",
-          bottomfsStatus: "false"
-        },
-        {
-          bottomfsid: 9,
-          bottomfsStorage: "28.42GB",
-          bottomfsAvailable: "12.23GB",
-          bottomfsType: "ext3",
-          bottomfsMntPath: "/mnt/fs9",
-          bottomfsStatus: "true"
-        }
-      ],
+      bottomfsDataTable: [],
       openTable: false,
+      loading: true,
       bottomfsStateList: []
     }
   },
   mounted() {
-    setTimeout(
-      this.updateSummary, 0);
-    setTimeout(
-      this.drawLine, 0);
+    setTimeout(this.updateSummary, 1000);
+    setTimeout(this.drawLine, 1000);
   },
   methods: {
     async updateSummary() {
@@ -244,154 +177,167 @@ export default {
       /*console.log("【this.isInSummary】" + this.isInSummary);*/
       // 递归调度，自动从后台获取overview对象，用于更新数据
       if (this.$store.getters.getInSummary) {
-        setTimeout(this.updateSummary, 1000);
+        setTimeout(this.updateSummary, 4000);
       }
+      this.loading = false
     },
-    async drawLine() {
-      // 基于准备好的dom，初始化echarts实例
-      let upRateChart = echarts.init(document.getElementById('upRateChart'))
-      let downRateChart = echarts.init(document.getElementById('downRateChart'))
-      // 绘制图表
-      upRateChart.setOption({
-        animation: false,
-        title: {
-          text: '当前上行速率：1.75M/s',
-          textStyle: {
-            fontSize: 17,
-            fontWeight: "normal",
-            fontFamily: "Microsoft YaHei"
-          },
-          left: 'left'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            label: {
-              backgroundColor: '#6a7985'
+    drawLine() {
+      try {
+        // 基于准备好的dom，初始化echarts实例
+        let upRateChart = echarts.init(this.$refs.upRateChart)
+        let downRateChart = echarts.init(this.$refs.downRateChart)
+        upRateChart.showLoading();
+        downRateChart.showLoading();
+        console.log("upRateChart", upRateChart);
+        console.log("downRateChart", downRateChart);
+        // 绘制图表
+        upRateChart.setOption({
+          animation: false,
+          title: {
+            text: '当前上行速率：0 k/s',
+            textStyle: {
+              fontSize: 17,
+              fontWeight: "normal",
+              fontFamily: "Microsoft YaHei"
             },
-            animation: false
+            left: 'left'
           },
-          formatter: function(params, ticket, callback) {
-            let a = params[0].value
-            if (a > 1024) {
-              a = (a / 1024).toFixed(2)
-              a = a + ' M/s'
-            } else {
-              a = a + ' k/s'
-            }
-            return a;
-          }
-        },
-        grid: {
-          x: "5%",
-          y: "20%",
-          x2: "5%",
-          y2: "10%",
-          borderWidth: 1
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisTick: {
-            show: false
-          },
-          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          hoverAnimation: false,
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          areaStyle: {}
-        }]
-      });
-      downRateChart.setOption({
-        animation: false,
-        title: {
-          text: '当前下行速率：10.2M/s',
-          textStyle: {
-            fontSize: 17,
-            fontWeight: "normal",
-            fontFamily: "Microsoft YaHei"
-          },
-          left: 'left'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            label: {
-              backgroundColor: '#6a7985'
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              label: {
+                backgroundColor: '#6a7985'
+              },
+              animation: false
+            },
+            formatter: function(params, ticket, callback) {
+              let a = params[0].value
+              if (a > 1024) {
+                a = (a / 1024).toFixed(2)
+                a = a + ' M/s'
+              } else {
+                a = a + ' k/s'
+              }
+              return a;
             }
           },
-          formatter: function(params, ticket, callback) {
-            let a = params[0].value
-            if (a > 1024) {
-              a = (a / 1024).toFixed(2)
-              a = a + ' M/s'
-            } else {
-              a = a + ' k/s'
+          grid: {
+            x: "5%",
+            y: "20%",
+            x2: "5%",
+            y2: "10%",
+            borderWidth: 1
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+          },
+          yAxis: {
+            type: 'value',
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            },
+            splitLine: {
+              show: false
             }
-            return a;
-          }
-        },
-        grid: {
-          x: "5%",
-          y: "20%",
-          x2: "5%",
-          y2: "10%",
-          borderWidth: 1
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisTick: {
-            show: false
           },
-          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            show: false
+          series: [{
+            type: 'line',
+            hoverAnimation: false,
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            areaStyle: {}
+          }]
+        });
+        downRateChart.setOption({
+          animation: false,
+          title: {
+            text: '当前下行速率：0 k/s',
+            textStyle: {
+              fontSize: 17,
+              fontWeight: "normal",
+              fontFamily: "Microsoft YaHei"
+            },
+            left: 'left'
           },
-          axisLabel: {
-            show: false
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              label: {
+                backgroundColor: '#6a7985'
+              }
+            },
+            formatter: function(params, ticket, callback) {
+              let a = params[0].value
+              if (a > 1024) {
+                a = (a / 1024).toFixed(2)
+                a = a + ' M/s'
+              } else {
+                a = a + ' k/s'
+              }
+              return a;
+            }
           },
-          splitLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          hoverAnimation: false,
-          areaStyle: {
-            color: '#AED4C2'
+          grid: {
+            x: "5%",
+            y: "20%",
+            x2: "5%",
+            y2: "10%",
+            borderWidth: 1
           },
-          lineStyle: {
-            color: '#91C7AE'
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
           },
-          itemStyle: {
-            color: '#91C7AE'
-          }
-        }]
-      });
-      // 随屏幕大小改变大小
-      window.onresize = function() {
-        upRateChart.resize()
-        downRateChart.resize()
-      };
+          yAxis: {
+            type: 'value',
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            }
+          },
+          series: [{
+            type: 'line',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            hoverAnimation: false,
+            areaStyle: {
+              color: '#AED4C2'
+            },
+            lineStyle: {
+              color: '#91C7AE'
+            },
+            itemStyle: {
+              color: '#91C7AE'
+            }
+          }]
+        });
+        upRateChart.hideLoading();
+        downRateChart.hideLoading();
+        console.log("upRateChart.getOption()", upRateChart.getOption());
+        // 随屏幕大小改变大小
+        window.onresize = function() {
+          upRateChart.resize()
+          downRateChart.resize()
+        };
+      } catch (e) {
+        setTimeout(
+          this.drawLine, 1000);
+      }
     },
     changeTabelHeigth() {
       this.openTable = !this.openTable
@@ -447,8 +393,13 @@ export default {
       downRateChartOption.title[0].text = '当前下行速率：' + currentDownRate
       downRateChart.setOption(downRateChartOption)
     },
-    getBottomfsState: function(){
-      this.bottomfsStateList = this.getBottomfsState.fsInfo
+    getBottomfsState: function() {
+      this.bottomfsStateList = []
+      for (let tempState of this.getBottomfsState.fsInfo) {
+        tempState.fsAvailable = (tempState.fsAvailable).toFixed(2) + " G"
+        tempState.fsStorage = (tempState.fsStorage).toFixed(2) + " G"
+        this.bottomfsStateList.push(tempState)
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 // localTest，本地自测试时设为true，联调设为false，使用了该变量的方法请见变量下一行的注释
-export const LOCAL_TEST = true
+export const LOCAL_TEST = false
 // api
 //  ├─acUserTable.js
 //  │   ├─GetDataTable()
@@ -54,11 +54,17 @@ export const MANAGE_USER = 18
 // GET_USER_NODE 获取user信息，测试通过
 export const GET_USER_NODE = 19
 
+// MDFS状态监控
+export const GET_MDFS_STATE = 20
+
+// 底层文件系统监控
+export const GET_BOTTOM_FS_STATE = 21
+
 // FS_ADD 新增文件系统，测试通过
-export const FS_ADD = 20
+// export const FS_ADD = 20
 
 // 文件系统监控界面 获取视图数据，测试通过
-export const MONITOR_FS = 22
+// export const MONITOR_FS = 22
 
 // 修改密码第一步获取验证码，测试通过
 export const GET_CAPTCHA = 23
@@ -189,11 +195,6 @@ export const UPDATE_LOCK_STATE = 74
 // 获取报表
 export const GET_AC_REPORT = 75
 
-// MDFS状态监控
-export const GET_MDFS_STATE = 76
-
-// 底层文件系统监控
-export const GET_BOTTOM_FS_STATE = 77
 
 
 

@@ -1,4 +1,3 @@
-# mimic
 
 > An electron-vue project
 > 主要用到element-ui、vuex、vue-router和vue，需要熟悉这些内容的API以及ES6（参考阮一峰的网站es6.ruanyifeng.com）的用法
