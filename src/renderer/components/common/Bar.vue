@@ -4,18 +4,18 @@
   <el-menu :default-active="$route.path" class="el-menu-demo" unique-opened mode="vertical" background-color="#252a2f" text-color="white" active-text-color="#00c1de" style="border:solid 1px #252a2f" @select="" v-bind:router="true">
     <el-menu-item :index="summary" v-if="getPermissionTree.summary">
       <i class="el-icon-menu"></i>
-      <span slot="title">概览</span>
+      <span slot="title">数据监控</span>
     </el-menu-item>
-    <el-submenu :index="fsUserManage" v-if="getFsUserManagePerminssion">
+<!--     <el-submenu :index="fsUserManage" v-if="getFsUserManagePerminssion">
       <template slot='title'>
         <i class="el-icon-document"></i>
-        <span>FS用户管理</span>
+        <span>用户管理</span>
       </template>
       <el-menu-item :index="userlist" v-if="getPermissionTree.user_manage">用户管理</el-menu-item>
       <el-menu-item :index="groupmanage" v-if="getPermissionTree.group_manage">组管理</el-menu-item>
       <el-menu-item :index="changepassword" v-if="getPermissionTree.user_pwd_init">用户密码重置</el-menu-item>
       <el-menu-item :index="useraudit" v-if="getPermissionTree.user_check">用户审核</el-menu-item>
-    </el-submenu>
+    </el-submenu> -->
 
     <!-- 云平台版本暂时不需要，先隐藏该路径 -->
     <!-- <el-submenu :index="cmConfig" v-if="getCmConfigPerminssion">
@@ -42,7 +42,7 @@
       <el-menu-item :index="edataeorror" v-if="getPermissionTree.meta_data_monitor">元数据监控</el-menu-item>
     </el-submenu> -->
 
-    <el-submenu :index="mounter" v-if="getMounterPerminssion">
+<!--     <el-submenu :index="mounter" v-if="getMounterPerminssion">
       <template slot='title'>
         <i class="el-icon-info"></i>
         <span>挂载管理</span>
@@ -50,21 +50,21 @@
       <el-menu-item :index="mountFS" v-if="getPermissionTree.fs_mnt_manage">文件系统挂载关系配置</el-menu-item>
       <el-menu-item :index="showfsmount" v-if="getPermissionTree.fs_mnt_view">文件系统挂载关系展示</el-menu-item>
       <el-menu-item :index="mountermanage" v-if="getPermissionTree.mnt_node_manage">挂载节点管理</el-menu-item>
-    </el-submenu>
+    </el-submenu> -->
 
     <el-submenu :index="auth" v-if="getAuthPerminssion">
       <template slot='title'>
         <i class="el-icon-bell"></i>
-        <span>异常管理</span>
+        <span>系统信息查询</span>
       </template>
-      <el-menu-item :index="errorfilemanage">异常文件管理</el-menu-item>
+<!--       <el-menu-item :index="errorfilemanage">异常文件管理</el-menu-item>
       <el-menu-item :index="errorfs">异常文件系统管理</el-menu-item>
-      <el-menu-item :index="errornotify">异常告警管理</el-menu-item>
+      <el-menu-item :index="errornotify">异常告警管理</el-menu-item> -->
       <el-menu-item :index="errormessage">异常信息查询</el-menu-item>
-      <el-menu-item :index="systemlog">系统日志</el-menu-item>
+      <el-menu-item :index="systemlog">系统日志查询</el-menu-item>
     </el-submenu>
 
-    <el-submenu :index="reportform" v-if="getReportFormPerminssion">
+<!--     <el-submenu :index="reportform" v-if="getReportFormPerminssion">
       <template slot='title'>
         <i class="el-icon-download"></i>
         <span>系统报表</span>
@@ -81,7 +81,7 @@
       <el-menu-item :index="acgroupmanage" v-if="getPermissionTree.ac_user_manage">控制台用户管理</el-menu-item>
       <el-menu-item :index="consolepermission" v-if="getPermissionTree.ac_authority_manage">控制台权限管理</el-menu-item>
       <el-menu-item :index="consolelock" v-if="getPermissionTree.lock_manage">锁定设置</el-menu-item>
-    </el-submenu>
+    </el-submenu> -->
   </el-menu>
 </el-aside>
 </template>
