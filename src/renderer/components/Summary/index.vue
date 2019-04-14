@@ -7,35 +7,35 @@
   </el-header>
   <el-main id="main" class='fullScreen'>
     <el-row :gutter="20" class='fullScreen'>
-      <el-col :span="16" class='fullScreen'>
-        <el-row :gutter="20" class='fullScreen'>
-          <div style="height:50%">
-            <el-col :span="12" class='fullScreen'>
-              <fs-state style="height:45%" />
-              <div class="" style="height:5%"></div>
-              <mounter-state style="height:45%" />
-              <div class="" style="height:5%"></div>
-            </el-col>
-            <el-col :span="12" class='fullScreen'>
-              <keep-alive>
-                <space-used style="height:95%" />
-              </keep-alive>
-              <div class="" style="height:5%"></div>
-            </el-col>
-          </div>
-          <div style="height:50%;">
-            <el-col :span="16" class='fullScreen'>
-              <safe-state class='fullScreen' />
-            </el-col>
-            <el-col :span="8" class='fullScreen'>
-              <users-state class='fullScreen' />
-            </el-col>
-          </div>
-        </el-row>
+      <!-- <el-col :span="16" class='fullScreen'>
+        <el-row :gutter="20" class='fullScreen'> -->
+      <div style="height:50%">
+        <el-col :span="12" class='fullScreen'>
+          <fs-state style="height:45%" />
+          <div class="" style="height:5%"></div>
+          <mounter-state style="height:45%" />
+          <div class="" style="height:5%"></div>
+        </el-col>
+        <el-col :span="12" class='fullScreen'>
+          <keep-alive>
+            <space-used style="height:95%" />
+          </keep-alive>
+          <div class="" style="height:5%"></div>
+        </el-col>
+      </div>
+      <div style="height:50%;">
+        <el-col :span="16" class='fullScreen'>
+          <safe-state class='fullScreen' />
+        </el-col>
+        <el-col :span="8" class='fullScreen'>
+          <users-state class='fullScreen' />
+        </el-col>
+      </div>
+      <!-- </el-row>
       </el-col>
       <el-col :span="8" class='fullScreen'>
         <fs-logs class='fullScreen' />
-      </el-col>
+      </el-col> -->
     </el-row>
   </el-main>
   <foot></foot>
@@ -80,36 +80,36 @@ export default {
     }
   },*/
   mounted: async function() {
-    this.updateSummary()
-  },
-  methods: {
-    async updateSummary() {
-      await this.$store.dispatch('getsummary', {}).catch((e) => {
+      this.updateSummary()
+    },
+    methods: {
+      async updateSummary() {
+        await this.$store.dispatch('getsummary', {}).catch((e) => {
+          if (this.$store.getters.getInSummary) {
+            Message({
+              showClose: true,
+              /*message: "获取异常：" + e.toString(),*/
+              message: "系统信息获取异常",
+              type: 'error',
+              duration: 2000
+            });
+          }
+        });
+        /*console.log("【this.$store.getters.getInSummary】" + this.$store.getters.getInSummary);*/
+        /*console.log("【this.isInSummary】" + this.isInSummary);*/
+        // 递归调度，自动从后台获取overview对象，用于更新数据
         if (this.$store.getters.getInSummary) {
-          Message({
-            showClose: true,
-            /*message: "获取异常：" + e.toString(),*/
-            message: "系统信息获取异常",
-            type: 'error',
-            duration: 2000
-          });
+          setTimeout(this.updateSummary, 2000);
         }
-      });
-      /*console.log("【this.$store.getters.getInSummary】" + this.$store.getters.getInSummary);*/
-      /*console.log("【this.isInSummary】" + this.isInSummary);*/
-      // 递归调度，自动从后台获取overview对象，用于更新数据
-      if (this.$store.getters.getInSummary) {
-        setTimeout(this.updateSummary, 2000);
+      }
+    },
+    watch: {
+      isInSummary: function() {
+        if (this.$store.getters.getInSummary == true) {
+          this.updateSummary()
+        }
       }
     }
-  },
-  watch: {
-    isInSummary: function() {
-      if (this.$store.getters.getInSummary == true) {
-        this.updateSummary()
-      }
-    }
-  }
 }
 </script>
 <style>
