@@ -7,35 +7,35 @@
   </el-header>
   <el-main id="main" class='fullScreen'>
     <el-row :gutter="20" class='fullScreen'>
-      <el-col :span="16" class='fullScreen'>
-        <el-row :gutter="20" class='fullScreen'>
-          <div style="height:50%">
-            <el-col :span="12" class='fullScreen'>
-              <fs-state style="height:45%" />
-              <div class="" style="height:5%"></div>
-              <mounter-state style="height:45%" />
-              <div class="" style="height:5%"></div>
-            </el-col>
-            <el-col :span="12" class='fullScreen'>
-              <keep-alive>
-                <space-used style="height:95%" />
-              </keep-alive>
-              <div class="" style="height:5%"></div>
-            </el-col>
-          </div>
-          <div style="height:50%;">
-            <el-col :span="16" class='fullScreen'>
-              <safe-state class='fullScreen' />
-            </el-col>
-            <el-col :span="8" class='fullScreen'>
-              <users-state class='fullScreen' />
-            </el-col>
-          </div>
-        </el-row>
+      <!-- <el-col :span="16" class='fullScreen'>
+        <el-row :gutter="20" class='fullScreen'> -->
+      <div style="height:50%">
+        <el-col :span="12" class='fullScreen'>
+          <fs-state style="height:45%" />
+          <div class="" style="height:5%"></div>
+          <mounter-state style="height:45%" />
+          <div class="" style="height:5%"></div>
+        </el-col>
+        <el-col :span="12" class='fullScreen'>
+          <keep-alive>
+            <space-used style="height:95%" />
+          </keep-alive>
+          <div class="" style="height:5%"></div>
+        </el-col>
+      </div>
+      <div style="height:50%;">
+        <el-col :span="16" class='fullScreen'>
+          <safe-state class='fullScreen' />
+        </el-col>
+        <el-col :span="8" class='fullScreen'>
+          <users-state class='fullScreen' />
+        </el-col>
+      </div>
+      <!-- </el-row>
       </el-col>
       <el-col :span="8" class='fullScreen'>
         <fs-logs class='fullScreen' />
-      </el-col>
+      </el-col> -->
     </el-row>
   </el-main>
   <foot></foot>
