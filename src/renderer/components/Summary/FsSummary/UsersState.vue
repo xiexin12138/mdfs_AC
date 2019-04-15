@@ -1,6 +1,6 @@
 <template>
   <div class="usersState">
-      <el-row style="height:20%">
++      <el-row style="height:20%;padding:0px">
         <el-col :span="24" class="usersStateTitle" style="height:100%" >
           <div class="center">用户情况</div>
         </el-col>
@@ -73,7 +73,7 @@ export default{
 }
 .usersStateDetailTitle {
   font-size: 14px;
-  padding: 10px 0px 10px 20px;
+  padding: 5px 0px 5px 10px;
 }
 .usersStateDetail {
   font-size: 30px;
