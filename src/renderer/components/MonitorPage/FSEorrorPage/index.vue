@@ -117,8 +117,11 @@ function shuffle(array){
 // var circleColorList = ["#F0F8FF","#F5FFFA","#FFFFF0"];
 // var borderColorList = ["#87CEFA","#B4EEB4","#FFEC8B"];
 // 演示
-var circleColorList = ["#F0F8FF","#F0FFFA","#FFFFF0","#FFFFF0"];
-var borderColorList = ["#87CEFA","#00EEB4","#ed7d31","#FFD700"];
+// var circleColorList = ["#F0F8FF","#F0FFFA","#FFFFF0","#FFFFF0"];
+// var borderColorList = ["#87CEFA","#00EEB4","#ed7d31","#FFD700"];
+
+var circleColorList = ["#F0F8FF","#F0FFFA","#FFFFF0"];
+var borderColorList = ["#87CEFA","#00EEB4","#ed7d31"];
 var abnormalCircleColor="#FFFAFA";
 // var abnormalBorderColor="#F08080";
 var abnormalBorderColor="#f20c00";
@@ -130,7 +133,7 @@ function getCircleColor(colorList){
 	var color = colorList[circleColorIndex];
 
 	circleColorIndex=circleColorIndex+1;
-	if(circleColorIndex==4){
+	if(circleColorIndex==3){
 		circleColorIndex=0;
 	}
     return color;
@@ -141,7 +144,7 @@ function getBordereColor(colorList){
 	var color = colorList[borderColorIndex];
 
 	borderColorIndex=borderColorIndex+1;
-	if(borderColorIndex==4){
+	if(borderColorIndex==3){
 		borderColorIndex=0;
 	}
     return color;
@@ -210,7 +213,7 @@ function circleDisplay(d){
 }
 function circleRadius(d){
 	if (d.depth == 1) {
-		return 130
+		return 160
 	}else {
 		return d.r
 	}
@@ -247,7 +250,7 @@ function handleList(init_data){
 		errortime_set.sort(sortNumber);
 
 		//取最近发生的十个错误时间,从errortime_set中
-		latest_time=errortime_set.slice(0,10);
+		latest_time=errortime_set.slice(0,15);
 
 		//根据记录的对应条目编号(errortime[0]=latest_time[0])在fs_error_set取出 push存入latest_errorData;
 		for( let errortime of latest_time){
@@ -420,15 +423,17 @@ export default {
 		async bindData() {
 			// let data = this.updateData()
 			let data = await status.MonitorFS()
+			//console.log("data",data)
 
 			this.ListData = handleList(data)
-
+ 
+            console.log("data",data)
 			for (let i = 0; i < data.length; i++) {
 				this._root.children[i].name = data[i].fs_name
 				for (let j = 0; j < data[i].fs_error.length; j++) {
 					this._root.children[i].children[j].name =
 						data[i].fs_error[j].file_name
-					// 下面两行的处理不够严谨，而且需要注意等式两边的字段没有统一
+					// // 下面两行的处理不够严谨，而且需要注意等式两边的字段没有统一
 					this._root.children[i].children[j].state =
 						+data[i].fs_error[j].repair + 1
 					this._root.children[i].children[j].repair =
@@ -436,12 +441,16 @@ export default {
 
 					this._root.children[i].children[j].time =
 						data[i].fs_error[j].time
+					//console.log("newroot",this._root.children[i].children[j])
 				}
+				console.log("rootiii",this._root.children[i])
+				
 			}
+			console.log("root",this._root)
 			await this.updateGraph()
 		},
 
-		//初始四个大圆代表四个不同的文件系统
+		//初始三个大圆代表三个不同的文件系统
 		initGraphData() {
 			let cc1 = {
 				name: 'sf1',
@@ -458,11 +467,11 @@ export default {
 				fs_type:'ceph14',
 				children: []
 			}
-			let cc4 = {
-				name: 'sf4',
-				fs_type:'ceph15',
-				children: []
-			}
+			// let cc4 = {
+			// 	name: 'sf4',
+			// 	fs_type:'ceph15',
+			// 	children: []
+			// }
 			// 初步生成内部圆的时候，一定要多留一个空白圆，这样就能保证修复圆不从错误圆里跑出来
 			for (let i = 0; i < 16; i++) {
 				let c = 0
@@ -487,17 +496,17 @@ export default {
 					state: c,
 					repair: repair
 				})
-				cc4.children.push({
-					name: 'hehe',
-					value: Math.ceil(10 * Math.random()),
-					state: c,
-					repair: repair
-				})
+				// cc4.children.push({
+				// 	name: 'hehe',
+				// 	value: Math.ceil(10 * Math.random()),
+				// 	state: c,
+				// 	repair: repair
+				// })
 			}
 			this._root.children.push(cc1)
 			this._root.children.push(cc2)
 			this._root.children.push(cc3)
-			this._root.children.push(cc4)
+			// this._root.children.push(cc4)
 		},
 
 
@@ -561,7 +570,7 @@ export default {
 				.selectAll('.recover')
 				.attr('r', 0)
 				.transition()
-				.duration(1500) // 从点变成圆花费1.5秒
+				.duration(600) // 从点变成圆花费1.5秒
 				.attr('r',circleRadius)
 				.transition()
 				.delay(2000)   // 代码执行后2秒，即变成圆后0.5秒开始消失动画，耗时0.5秒
@@ -611,12 +620,12 @@ export default {
 				.attr('cy', py)
 				.attr('r', pr)
 				.transition()
-				.duration(2000)  // 耗时2秒移动位置 正常文件
+				.duration(2500)  // 耗时2秒移动位置 正常文件
 				.attr('cx', x)
 				.attr('cy', y)
 				.attr('r', r)
 				.transition()
-				.duration(500)  // 耗时0.5秒消失，正常文件
+				.duration(2000)  // 耗时0.5秒消失，正常文件
 				.remove()
 		}
 	}

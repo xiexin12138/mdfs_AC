@@ -384,7 +384,7 @@ export async function GetfsInfo(param) {
 					}],	   //异常过多导致的离线修复类型的文件系统id列表
 
 		}
-		return obj
+		//return obj
 		let socket = new Socket()
 		let data = {
 			type:type.SIX_FS_INFO,//51
