@@ -85,9 +85,9 @@ export async function GetNodeStatus() {
 				{
 					id: 1,
 
-					name: 'Mount1',
+					name: '0-31',
 					status: 'action',
-					target: 'Mount1',
+					target: '0-31',
 					type: 'mount',
 				},
 				{
@@ -95,7 +95,7 @@ export async function GetNodeStatus() {
 
 					name: 'Guest1',
 					status: 'action',
-					target: 'Mount1',
+					target: '0-31',
 					type: 'user',
 				},
 				{
@@ -103,25 +103,25 @@ export async function GetNodeStatus() {
 
 					name: 'Guest2',
 					status: 'action',
-					target: 'Mount1',
+					target: '0-31',
 					type: 'user',
 				},
 				]
 		// let datat = GetNodeStatusHelper(newData)
-		// console.log(datat)
+		console.log(666,newData2)
 		 // return GetNodeStatusHelper(newData2)
-		 // return newData2
+		//return newData2
 		let socket = new Socket()
 		let data = {
 			type: type.GET_NODE_STATUS
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
-		// console.log(response,7)
+		 
 		let obj = JSON.parse(response)
 		if (obj.state == 0|| obj.type !=64) {
 			 // console.log(obj)
-			 // console.log(GetNodeStatusHelper(obj.node))
+			  console.log(7,GetNodeStatusHelper(obj.node))
 			 return GetNodeStatusHelper(obj.node)
 			//return obj.node
 		} else {
@@ -244,7 +244,7 @@ export async function MonitorFS(){
 		}
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
-		console.log(response,22)
+		//console.log(response,22)
 		let obj = JSON.parse(response)
 		if (obj.state == 0|| obj.type !=64) {
 			return obj.fs

@@ -10,7 +10,7 @@ import Socket from './socket'
  * @description 查询最新的20条异常信息
  */
 export async function GetRecentError(param) {
-	try {        
+	try {
 
 		let socket = new Socket()
 		let data = {
@@ -26,7 +26,7 @@ export async function GetRecentError(param) {
 		if (obj.state == 0|| obj.type !=64) {
 
 			return obj
-			
+
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -44,7 +44,7 @@ export async function GetRecentError(param) {
  * @description 按照时间查询异常信息
  */
 export async function GetErrorByTime(startTime,endTime,pageSize,currentPage) {
-	try {        
+	try {
 
 		let socket = new Socket()
 		let data = {
@@ -63,7 +63,7 @@ export async function GetErrorByTime(startTime,endTime,pageSize,currentPage) {
 		if (obj.state == 0|| obj.type !=64) {
 
 			return obj
-			
+
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -81,7 +81,7 @@ export async function GetErrorByTime(startTime,endTime,pageSize,currentPage) {
  * @description 查询最新的20条日志
  */
 export async function GetRecentLog(param) {
-	try {        
+	try {
 
 		let socket = new Socket()
 		let data = {
@@ -94,9 +94,8 @@ export async function GetRecentLog(param) {
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj.state == 0|| obj.type !=64) {
-
 			return obj
-			
+
 		} else {
 			throw new Error(obj.errormessage)
 		}
@@ -114,7 +113,7 @@ export async function GetRecentLog(param) {
  * @description 按照时间查询日志信息
  */
 export async function GetLogByTime(startTime,endTime,pageSize,currentPage) {
-	try {        
+	try {
 
 		let socket = new Socket()
 		let data = {
@@ -131,9 +130,8 @@ export async function GetLogByTime(startTime,endTime,pageSize,currentPage) {
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj.state == 0|| obj.type !=64) {
-
 			return obj
-			
+
 		} else {
 			throw new Error(obj.errormessage)
 		}

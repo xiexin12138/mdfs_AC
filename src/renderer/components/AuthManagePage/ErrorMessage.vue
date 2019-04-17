@@ -19,7 +19,7 @@
                   style="margin-bottom:15px;">
                 </el-date-picker>
     </el-col>
-    <el-button icon="el-icon-search" @click="geterrorInfo(tableData1)" style="position:absolute;left:355px;"></el-button> 
+    <el-button icon="el-icon-search" @click="geterrorInfo(tableData1)" style="position:absolute;left:355px;"></el-button>
     <el-col :span="8" inline>文件系统异常次数统计（单位：次）</el-col>
     <el-col :span="4" inline>一小时内 : {{ exStaticsHour }} </el-col> <el-col :span="3" inline justify="end">一天内 : {{ exStaticsDay }} </el-col>
   </el-row>
@@ -27,7 +27,7 @@
   <el-table
     stripe
       stripe
-  
+
     :data="tableData1"
     style="width: 100%">
     <el-table-column type="expand">
@@ -59,27 +59,27 @@
       prop="exFsPath"
       align="center"
       width="160">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="异常文件路径"
       align="center"
       prop="exFilePath">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="转储路径"
       prop="transferPath"
       align="center"
       width="220">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="修复类型"
       prop="repairType"
       align="center"
       width="210">
-    </el-table-column> 
+    </el-table-column>
 
   </el-table>
 
@@ -173,14 +173,14 @@ export default {
       }
     },
   mounted: async function() {
-    await this.updatePage()  
+    await this.updatePage()
     console.log()
 
     this.timer = setInterval(async () => {
       if(this.tableData1==""){
          await this.updatePage()
       }
-     
+
     }, 4000)
 
   },
@@ -197,7 +197,7 @@ methods: {
         this.pageSize= 20
         this.total=20
         this.tableData1 = tableData.exInfo
-        
+
         //统计信息获取
         this.exStaticsHour = tableData.exStaticsHour
         this.exStaticsDay= tableData.exStaticsDay
@@ -219,7 +219,7 @@ methods: {
         this.exStaticsHour = tableData.exStaticsHour
         this.exStaticsDay= tableData.exStaticsDay
 
-    
+
     },
     async geterrorInfo(){
       //console.log(this.timevalue[0])

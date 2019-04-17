@@ -18,9 +18,10 @@
                   style="margin-bottom:15px;">
                 </el-date-picker>
     </el-col>
-    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:355px;"></el-button> 
+    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:355px;"></el-button>
   </el-row>
-<!-- 
+<!--
+
    <div style="margin-top: 15px; margin-bottom:10px;">
     <el-col :span="15" inline>
               <el-date-picker
@@ -36,13 +37,14 @@
                   style="margin-bottom:15px;">
                 </el-date-picker>
     </el-col>
-    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:515px;"></el-button> 
+    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:515px;"></el-button>
+
    </div> -->
 
   <el-table
     stripe
       stripe
-  
+
     :data="tableData1"
     style="width: 100%">
     <el-table-column type="expand">
@@ -73,23 +75,22 @@
       align="center"
       prop="logLevel"
       width="160">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="对应级别"
       align="center"
       prop="logLevelInt"
       width="160">
-    </el-table-column> 
+    </el-table-column>
 
 
     <el-table-column
       label="日志出现的位置"
       align="center"
       prop="logLocation">
-    </el-table-column> 
+    </el-table-column>
 </el-table>
-
     <el-row type="flex" class="row-bg" justify="center">
       <el-col style="width:200px;">
         <div class="divide">
@@ -104,7 +105,6 @@
         </div>
       </el-col>
     </el-row>
-
       </div>
   </el-col>
   </el-row>
@@ -173,11 +173,11 @@ export default {
                     }
                   }]
                 },
-        
+
       }
     },
   mounted: async function() {
-    await this.updatePage()  
+    await this.updatePage()
     console.log()
 
     this.timer = setInterval(async () => {
@@ -194,7 +194,6 @@ export default {
 methods: {
      // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
-    
  		let tableData = await errormessage.GetRecentLog()
     this.pageSize= 20
     this.total=20
@@ -213,7 +212,7 @@ methods: {
         this.tableData1 = tableData.logInfo
         this.currentPage= +tableData.currentPage
         this.total= +tableData.total
-    
+
     },
     async getlogInfo(){
         let startTime = this.timevalue[0] + ' 00:00:00'
