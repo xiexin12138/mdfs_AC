@@ -3,7 +3,7 @@
   <el-col :span="8" style="height:10%;padding-top:50px">
     <el-form ref="form" :model="form" label-width="90px">
       <el-form-item label="报表类型">
-        <el-radio-group v-model="form.charttype">
+        <el-radio-group v-model="form.charttype"  size="small">
           <el-radio-button label="bar">柱状图</el-radio-button>
           <el-radio-button label="line">折线图</el-radio-button>
           <el-radio-button label="pie">饼图</el-radio-button>
@@ -11,7 +11,7 @@
       </el-form-item>
 
       <el-form-item label="报表周期">
-        <el-radio-group v-model="form.chartspan">
+        <el-radio-group v-model="form.chartspan" size="small">
           <el-radio-button label="date">日</el-radio-button>
           <!--<el-radio-button label="week">周</el-radio-button>-->
           <el-radio-button label="month">月</el-radio-button>
