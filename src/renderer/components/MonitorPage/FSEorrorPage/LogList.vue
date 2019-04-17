@@ -38,12 +38,14 @@
 		    <el-table-column
 		      label="产生时间"
 		      prop="time"
-		      width="150">
+		      width="170"
+		      align="center">
 		    </el-table-column>
 		    <el-table-column
 		      label="是否修复"
 		      prop="repair"
-		      width="90">
+		      width="90"
+		      align="center">
 		    </el-table-column>
 		  </el-table>
 	</div>
