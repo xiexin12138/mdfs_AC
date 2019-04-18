@@ -286,7 +286,6 @@ export default {
 						console.log("this._nodesReady",this._nodesReady)
 						break
 					case 'sleeping':
-
 						if(node.type=="mount"){ //如果休眠的是mount,为防止程序bug,把挂载在其上的用户节点的“显示状态”强行设为休眠（不影响现实用户实际情况）
 							for(let inode of data){
 								let i = data.indexOf(inode)

@@ -108,7 +108,7 @@ export async function GetNodeStatus() {
 				},
 				]
 		// let datat = GetNodeStatusHelper(newData)
-		console.log(666,newData2)
+		//console.log(666,newData2)
 		 // return GetNodeStatusHelper(newData2)
 		//return newData2
 		let socket = new Socket()
