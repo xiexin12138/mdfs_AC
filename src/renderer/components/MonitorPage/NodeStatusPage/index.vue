@@ -279,28 +279,42 @@ export default {
 			// 考虑连接的所有的情况，保证不会出现重复的点，首先将未出现的点加入，再将不需要的点剔除，下面的代码是为了保障剔除效果是消失而不是重绘
 			// 将action状态的节点按照type、name和target进行唯一标识
 			for (let node of data) {
+
 				switch (node.status) {
 					case 'ready':
 						this._nodesReady.push(node)
+						console.log("this._nodesReady",this._nodesReady)
 						break
 					case 'sleeping':
-						this._nodesSleeping.push(node)
+						
+						if(node.type=="mount"){ //如果休眠的是mount,为防止程序bug,把挂载在其上的用户节点的“显示状态”强行设为休眠（不影响现实用户实际情况）
+							for(let inode of data){
+								let i = data.indexOf(inode)
+								if(inode.target!=inode.name&&inode.target==node.name){
+									inode.status="sleeping"
+								}
+							}
+							this._nodesSleeping.push(node)
+						    console.log("this._nodesSleeping",this._nodesSleeping)							
+						}
+
+						// if(node.type=="mount"){
+						// 	this._nodesSleeping.push(node)
+						//     console.log("this._nodesSleeping",this._nodesSleeping)
+						// }
 						break
 					case 'shutdown':
 						this._nodesShutdown.push(node)
+						console.log("this._nodesShutdown",this._nodesShutdown)
 						break
 					case 'action':
 						hash[node.type + node.name + node.target] = 1
 						if (
-							this._nodesAllValidMap.get(
-								node.type + node.name + node.target
-							) === undefined
+							this._nodesAllValidMap.get(node.type + node.name + node.target) === undefined
 						) {
-							this._nodesAllValidMap.set(
-								node.type + node.name + node.target,
-								node
-							)
+							this._nodesAllValidMap.set(node.type + node.name + node.target,node)
 							this._nodesAction.push(node)
+							console.log("this._nodesAction",this._nodesAction)
 						}
 						break
 					default:
@@ -323,6 +337,7 @@ export default {
 			// 删除nodesAction中需要删除的节点
 			for (let node of this._nodesAllRemoveMap.values()) {
 				let i = this._nodesAction.indexOf(node)
+				//console.log("hhhhh")
 				if (i !== -1) {
 					this._nodesAction.splice(i, 1)
 				}
