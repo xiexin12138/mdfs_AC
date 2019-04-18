@@ -105,7 +105,7 @@ const mutations = {
     state.permission.ac_user_manage = payload.ac_user_manage
     state.permission.ac_authority_manage = payload.ac_authority_manage
     state.permission.lock_manage = payload.lock_manage
-    state.permission.fssafe = payload.fssafe
+    state.permission.fssafe = payload.report
   }
 }
 
