@@ -108,7 +108,7 @@
 			<el-col :span="8":offset="2"><div style="text-align:right;">状态持续时间:</div></el-col>
 			<el-col :span="8" ><div>{{mount.duration}}分钟</div></el-col>
 		</el-row> -->
-		
+
 		</el-dialog>
 	</div>
 </template>
@@ -286,7 +286,6 @@ export default {
 						console.log("this._nodesReady",this._nodesReady)
 						break
 					case 'sleeping':
-						
 						if(node.type=="mount"){ //如果休眠的是mount,为防止程序bug,把挂载在其上的用户节点的“显示状态”强行设为休眠（不影响现实用户实际情况）
 							for(let inode of data){
 								let i = data.indexOf(inode)
@@ -295,7 +294,7 @@ export default {
 								}
 							}
 							this._nodesSleeping.push(node)
-						    console.log("this._nodesSleeping",this._nodesSleeping)							
+						    console.log("this._nodesSleeping",this._nodesSleeping)
 						}
 
 						// if(node.type=="mount"){

@@ -3,12 +3,24 @@
   <el-row type="flex" class="row-bg" justify="center">
   <el-col style="width:1100px;">
   <div class="grid-content">
-  <el-row type="flex" justify="end">
-      <el-col style="width:75px;">
-       <!--  <div style="margin-bottom:10px;">
-        </div> -->
-      </el-col>
-    </el-row>
+ <el-row type="flex" style="margin-top:20px;"  inline class="stat">
+    <el-col :span="15" inline>
+              <el-date-picker
+                  v-model="timevalue"
+                  value-format="yyyy-MM-dd"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="pickerOptions2"
+                  style="margin-bottom:15px;">
+                </el-date-picker>
+    </el-col>
+    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:355px;"></el-button>
+  </el-row>
+<!--
 
    <div style="margin-top: 15px; margin-bottom:10px;">
     <el-col :span="15" inline>
@@ -25,13 +37,14 @@
                   style="margin-bottom:15px;">
                 </el-date-picker>
     </el-col>
-    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:515px;"></el-button> 
-   </div>
+    <el-button icon="el-icon-search" @click="getlogInfo()" style="position:absolute;left:515px;"></el-button>
+
+   </div> -->
 
   <el-table
     stripe
       stripe
-  
+
     :data="tableData1"
     style="width: 100%">
     <el-table-column type="expand">
@@ -62,22 +75,36 @@
       align="center"
       prop="logLevel"
       width="160">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="对应级别"
       align="center"
       prop="logLevelInt"
       width="160">
-    </el-table-column> 
+    </el-table-column>
 
 
     <el-table-column
       label="日志出现的位置"
       align="center"
       prop="logLocation">
-    </el-table-column> 
+    </el-table-column>
 </el-table>
+    <el-row type="flex" class="row-bg" justify="center">
+      <el-col style="width:200px;">
+        <div class="divide">
+          <el-pagination
+            background
+            layout="total, prev, pager, next"
+            :page-size="pageSize"
+            :total="total"
+            :current-page="currentPage"
+            @current-change="handleCurrentChange">
+          </el-pagination>
+        </div>
+      </el-col>
+    </el-row>
       </div>
   </el-col>
   </el-row>
@@ -113,6 +140,9 @@ export default {
         timer:null,
       	      	//表内数据
         tableData1: [], //
+        total:0,
+        currentPage:1,
+        pageSize:20,
 
         timevalue:'',
 
@@ -143,11 +173,11 @@ export default {
                     }
                   }]
                 },
-        
+
       }
     },
   mounted: async function() {
-    await this.updatePage()  
+    await this.updatePage()
     console.log()
 
     this.timer = setInterval(async () => {
@@ -164,14 +194,34 @@ export default {
 methods: {
      // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
- 		this.tableData1 = await errormessage.GetRecentLog()
+ 		let tableData = await errormessage.GetRecentLog()
+    this.pageSize= 20
+    this.total=20
+    this.tableData1 = tableData.logInfo
 
     },
 
+    async handleCurrentChange(val){
+
+        this.currentPage= val
+        this.pageSize= 10
+
+        let startTime = this.timevalue[0] + ' 00:00:00'
+        let endTime = this.timevalue[1] +' 23:59:59'
+        let tableData= await errormessage.GetLogByTime(startTime,endTime,this.pageSize,this.currentPage)
+        this.tableData1 = tableData.logInfo
+        this.currentPage= +tableData.currentPage
+        this.total= +tableData.total
+
+    },
     async getlogInfo(){
-      let startTime = this.timevalue[0] + ' 00:00:00'
-      let endTime = this.timevalue[1] +' 23:59:59'
-      this.tableData1= await errormessage.GetLogByTime(startTime,endTime)
+        let startTime = this.timevalue[0] + ' 00:00:00'
+        let endTime = this.timevalue[1] +' 23:59:59'
+        this.pageSize= 10
+        let tableData= await errormessage.GetLogByTime(startTime,endTime,this.pageSize,this.currentPage)
+        this.tableData1 = tableData.logInfo
+        this.currentPage= +tableData.currentPage
+        this.total= +tableData.total
     }
 
 

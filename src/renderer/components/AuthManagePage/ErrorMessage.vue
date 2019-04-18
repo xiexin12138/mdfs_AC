@@ -19,7 +19,7 @@
                   style="margin-bottom:15px;">
                 </el-date-picker>
     </el-col>
-    <el-button icon="el-icon-search" @click="geterrorInfo(tableData1)" style="position:absolute;left:355px;"></el-button> 
+    <el-button icon="el-icon-search" @click="geterrorInfo(tableData1)" style="position:absolute;left:355px;"></el-button>
     <el-col :span="8" inline>文件系统异常次数统计（单位：次）</el-col>
     <el-col :span="4" inline>一小时内 : {{ exStaticsHour }} </el-col> <el-col :span="3" inline justify="end">一天内 : {{ exStaticsDay }} </el-col>
   </el-row>
@@ -27,7 +27,7 @@
   <el-table
     stripe
       stripe
-  
+
     :data="tableData1"
     style="width: 100%">
     <el-table-column type="expand">
@@ -59,30 +59,44 @@
       prop="exFsPath"
       align="center"
       width="160">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="异常文件路径"
       align="center"
       prop="exFilePath">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="转储路径"
       prop="transferPath"
       align="center"
       width="220">
-    </el-table-column> 
+    </el-table-column>
 
     <el-table-column
       label="修复类型"
       prop="repairType"
       align="center"
       width="210">
-    </el-table-column> 
+    </el-table-column>
 
   </el-table>
 
+    <el-row type="flex" class="row-bg" justify="center">
+      <el-col style="width:200px;">
+        <div class="divide">
+          <el-pagination
+            background
+            layout="total, prev, pager, next"
+            :page-size="pageSize"
+            :total="total"
+            :current-page="currentPage"
+            @current-change="handleCurrentChange">
+          </el-pagination>
+        </div>
+      </el-col>
+    </el-row>
 
       </div>
   </el-col>
@@ -119,6 +133,9 @@ export default {
         timer:null,
       	      	//表内数据
         tableData1: [], //
+        total:0,
+        currentPage:1,
+        pageSize:20,
 
         time_error:'',
         exStaticsHour:'',
@@ -156,14 +173,14 @@ export default {
       }
     },
   mounted: async function() {
-    await this.updatePage()  
+    await this.updatePage()
     console.log()
 
     this.timer = setInterval(async () => {
       if(this.tableData1==""){
          await this.updatePage()
       }
-     
+
     }, 4000)
 
   },
@@ -174,25 +191,49 @@ export default {
 methods: {
      // 将更新整个页面的功能抽离成一个公共函数
     async updatePage(){
- 		let tableData = await errormessage.GetRecentError()
-    //console.log('hhhhhh',tableData)
+
+      //表单信息获取
+ 		    let tableData = await errormessage.GetRecentError()
+        this.pageSize= 20
+        this.total=20
         this.tableData1 = tableData.exInfo
-        //this.exStatics= tableData.exStatics
+
+        //统计信息获取
         this.exStaticsHour = tableData.exStaticsHour
-       this.exStaticsDay= tableData.exStaticsDay
+        this.exStaticsDay= tableData.exStaticsDay
 
     },
+    async handleCurrentChange(val){
 
+        this.currentPage= val
+        this.pageSize= 10
+
+        let startTime = this.timevalue[0] + ' 00:00:00'
+        let endTime = this.timevalue[1] +' 23:59:59'
+        let tableData= await errormessage.GetErrorByTime(startTime,endTime,this.pageSize,this.currentPage)
+        this.tableData1 = tableData.exInfo
+        this.currentPage= +tableData.currentPage
+        this.total= +tableData.total
+
+        //统计信息获取
+        this.exStaticsHour = tableData.exStaticsHour
+        this.exStaticsDay= tableData.exStaticsDay
+
+
+    },
     async geterrorInfo(){
-      console.log(this.timevalue[0])
+      //console.log(this.timevalue[0])
       let startTime = this.timevalue[0] + ' 00:00:00'
       let endTime = this.timevalue[1] +' 23:59:59'
-      let tableData= await errormessage.GetErrorByTime(startTime,endTime)
+      this.pageSize= 10
+      let tableData= await errormessage.GetErrorByTime(startTime,endTime,this.pageSize,this.currentPage)
       this.tableData1 = tableData.exInfo
+      this.currentPage= +tableData.currentPage
+      this.total= +tableData.total
+
+      //统计信息获取
       this.exStaticsHour = tableData.exStaticsHour
       this.exStaticsDay= tableData.exStaticsDay
-
-
     }
 
 
