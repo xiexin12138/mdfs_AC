@@ -8,15 +8,15 @@
 			  width="30%"
 			  center>
 				<el-row >
-					<el-col :span="10" ><div style="text-align:right;">ID:</div></el-col>
+					<el-col :span="12" ><div style="text-align:right;">ID:</div></el-col>
 					<el-col :span="10"><div>{{cm_info.id}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="10" ><div style="text-align:right;">IP:</div></el-col>
+					<el-col :span="12" ><div style="text-align:right;">IP:</div></el-col>
 					<el-col :span="10" ><div>{{cm_info.ip}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="10"><div style="text-align:right;">是否主CM:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">是否主CM:</div></el-col>
 					<el-col :span="10" ><div>{{cm_info.service}}</div></el-col>
 				</el-row>
 			</el-dialog>
@@ -27,51 +27,51 @@
 			  width="30%"
 			  center>
 				<el-row >
-					<el-col :span="15" ><div style="text-align:right;">ID:</div></el-col>
+					<el-col :span="12" ><div style="text-align:right;">ID :</div></el-col>
 					<el-col :span="5"><div>{{fs_info.id}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15" ><div style="text-align:right;">系统名称:</div></el-col>
+					<el-col :span="12" ><div style="text-align:right;">系统名称 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.name}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">系统类型:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">系统类型 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.type}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">挂载路径:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">挂载路径 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.mountPoint}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">服务器地址:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">服务器地址 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.mountAddr}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">端口号:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">端口号 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.mountport}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">存储空间:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">存储空间 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.fssize}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">已用空间:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">已用空间 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.fsused}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">剩余空间:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">剩余空间 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.fsavail}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">系统状态:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">系统状态 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.fsstate}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">判决服务:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">判决服务 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.judge}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="15"><div style="text-align:right;">同步情况:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">同步情况 :</div></el-col>
 					<el-col :span="5" ><div>{{fs_info.sync}}</div></el-col>
 				</el-row>
 			</el-dialog>
@@ -82,23 +82,23 @@
 			  width="30%"
 			  center>
 				<el-row >
-					<el-col :span="10" ><div style="text-align:right;">ID:</div></el-col>
+					<el-col :span="12" ><div style="text-align:right;">ID :</div></el-col>
 					<el-col :span="10"><div>{{mount_info.id}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="10" ><div style="text-align:right;">类型:</div></el-col>
-					<el-col :span="10" ><div>{{mount_info.os}}</div></el-col>
+					<el-col :span="12" ><div style="text-align:right;">类型 :</div></el-col>
+					<el-col :span="10" ><div>{{mount_info.type}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="10"><div style="text-align:right;">IP:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">IP :</div></el-col>
 					<el-col :span="10" ><div>{{mount_info.ip}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="10"><div style="text-align:right;">状态:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">状态 :</div></el-col>
 					<el-col :span="10" ><div>{{mount_info.state}}</div></el-col>
 				</el-row>
 				<el-row >
-					<el-col :span="10"><div style="text-align:right;">是否上线:</div></el-col>
+					<el-col :span="12"><div style="text-align:right;">是否上线 :</div></el-col>
 					<el-col :span="10" ><div>{{mount_info.online}}</div></el-col>
 				</el-row>
 			</el-dialog>
@@ -271,6 +271,9 @@ export default {
 	    fs_stop_running: [],     //无法修复导致的离线 类型的文件系统id列表
 	    fs_stop_repairing: [],	   //异常过多导致的离线修复类型的文件系统id列表
 
+	    fsFinalGroup:[], //按ID顺序排序的FS集合
+	    fs_img:[], //按ID顺序排序的FS配图数组
+
         fsVisible:false,                  //单击显示FS信息展示内容
         fs_info:{
 	        id:null,        //文件系统id
@@ -355,6 +358,7 @@ export default {
         //获取正在运行的CM信息
         this.cm= await fivePart.GetcmInfo() //获取正在运行的CM信息
 		this.cm_amount= this.cm.length //获取正在运行的CM个数
+		 console.log("cm",this.cm)
         for (let i=0;i<this.cm_amount;i++) //根据获取的正在运行的CM个数在坐标管理集合中得到最终需要展示的绑定数据集合
 		{
 
@@ -381,10 +385,75 @@ export default {
         this.fs_stop_running=  this.translateFS(this.fs.fs_stop_running)
         this.fs_stop_repairing= this.translateFS(this.fs.fs_stop_repairing)
 
+        //按ID整理FS顺序
+        var fsStateGroup=[]
+        fsStateGroup.push(this.fs_running)
+        fsStateGroup.push(this.fs.fs_ready)
+        fsStateGroup.push(this.fs.fs_repairing)
+        fsStateGroup.push(this.fs.fs_stop_breakdown)
+        fsStateGroup.push(this.fs.fs_stop_running)
+        fsStateGroup.push(this.fs.fs_stop_repairing)
+        //console.log("fsStateGroup555",fsStateGroup)
+
+        // var fsFinalGroup=[]
+        for(let fsgroup in fsStateGroup){
+        	if(fsStateGroup[fsgroup].length!=0){
+        		console.log(77,fsStateGroup[fsgroup])
+        		for(let fs in fsStateGroup[fsgroup]){
+		        	if(fsStateGroup[fsgroup][fs].id==1){
+		        		this.fsFinalGroup[0]=fsStateGroup[fsgroup][fs]
+		        	}
+		        	if(fsStateGroup[fsgroup][fs].id==2){
+		        		this.fsFinalGroup[1]=fsStateGroup[fsgroup][fs]
+		        	}
+		        	if(fsStateGroup[fsgroup][fs].id==3){
+		        		this.fsFinalGroup[2]=fsStateGroup[fsgroup][fs]
+		        	}
+		        	if(fsStateGroup[fsgroup][fs].id==4){
+		        		this.fsFinalGroup[3]=fsStateGroup[fsgroup][fs]
+		        	}
+		        	if(fsStateGroup[fsgroup][fs].id==5){
+		        		this.fsFinalGroup[4]=fsStateGroup[fsgroup][fs]
+		        	}
+		        	if(fsStateGroup[fsgroup][fs].id==6){
+		        		this.fsFinalGroup[5]=fsStateGroup[fsgroup][fs]
+		        	}
+		        	//console.log(fsStateGroup[fsgroup][fs].id)
+        		}
+        	}
+        	
+        }
+       //console.log("fsFinalGroup666",this.fsFinalGroup)
+
+       //按ID整理FS配图
+       for(var i in this.fsFinalGroup){
+       	     //console.log(888,this.fsFinalGroup[i].fsstate)
+       	     if(this.fsFinalGroup[i].fsstate=='正在判决'){
+       	     	this.fs_img[i]=__static+"/img/fs.jpg"
+       	     }
+       	     if(this.fsFinalGroup[i].fsstate=='准备'){
+       	     	this.fs_img[i]=__static+"/img/fs_sync.png"
+       	     }
+       	     if(this.fsFinalGroup[i].fsstate=='修复中'){
+       	     	this.fs_img[i]=__static+"/img/fs_repair.png"
+       	     }
+       	     if(this.fsFinalGroup[i].fsstate=='宕机等异常造成的离线'){
+       	     	this.fs_img[i]=__static+"/img/fs_stop.png"
+       	     }
+       	     if(this.fsFinalGroup[i].fsstate=='无法修复导致的离线'){
+       	     	this.fs_img[i]=__static+"/img/fs_stop.png"
+       	     }
+       	     if(this.fsFinalGroup[i].fsstate=='异常过多导致的离线'){
+       	     	this.fs_img[i]=__static+"/img/fs_stop.png"
+       	     }
+       	     //console.log(222,this.fs_img[i])
+       }
+      // console.log("this.fs_img999",this.fs_img)
 
         //---------------------Mount----------------------------------------
         //获取所有的Mount信息
         this.mount=  await fivePart.GetmountInfo() //获取所有的Mount信息
+        console.log(6565,this.mount)
         this.mount_amount= this.mount.length //获取正在运行的mount个数
         // this.mount= this.translateMount(this.mount)
         for (let i=0;i<this.mount_amount;i++) //根据获取的正在运行的mount个数在坐标管理集合中得到最终需要展示的绑定数据集合
@@ -452,10 +521,10 @@ export default {
 
 		this._rect_fs= this._svg
 		                       .append("rect")
-		                       .attr("width",750)		                       	
-		                       .attr("height",600)
+		                       .attr("width",182)		                       	
+		                       .attr("height",150)
 		                       .attr("x",450)
-		                       .attr("y",0)
+		                       .attr("y",350)
 		                       .attr("id","fs-wrap")
 		                       .attr("class","rect-wrap")
 		                       .attr("rx",10)
@@ -522,10 +591,10 @@ export default {
 
         var _text_cm= this._svg
                            .append("text")
-                           .attr("x",280)
+                           .attr("x",260)
                            .attr("y",225)
                            .attr("font-size",15)
-                           .text("CM集群")
+                           .text("CM集群(包含zk)")
 
         var _text_mount= this._svg
                            .append("text")
@@ -536,8 +605,8 @@ export default {
 
         var _text_fs= this._svg
                            .append("text")
-                           .attr("x",470)
-                           .attr("y",585)
+                           .attr("x",510)
+                           .attr("y",490)
                            .attr("font-size",15)
                            .text("FS POOL")
 //-----------------------setting-------------------------------------------------
@@ -605,82 +674,110 @@ export default {
  										})
 
 
-		this._fs_running= this._svg.selectAll(".fs_running")
-		                       .data(this.fs_running)
+		// this._fs_running= this._svg.selectAll(".fs_running")
+		//                        .data(this.fs_running)
+		//                        .enter().append("image")
+		//                        .attr("width",50)
+		//                        .attr("height",50)
+		//                        .attr("x",function(d,i){return 460+i*55})
+		//                        .attr("y",function(d,i){return 10})
+		//                        .attr("xlink:href",__static+"/img/fs.jpg")
+		// 					   .on('click',function(d,i){
+		// 												self.fs_info= self.fs_running[i] //读取某个fs的信息
+		// 												self.fsVisible = true
+		// 										})
+		// this._fs_ready= this._svg.selectAll(".fs_ready")
+		//                        .data(this.fs_ready)
+		//                        .enter().append("image")
+		//                        .attr("width",50)
+		//                        .attr("height",50)
+		//                        .attr("x",function(d,i){return 460+i*55})
+		//                        .attr("y",function(d,i){return 106})
+		//                        .attr("xlink:href",__static+"/img/fs_sync.png")
+		// 					   .on('click',function(d,i){
+		// 												self.fs_info= self.fs_ready[i] //读取某个fs的信息
+		// 												self.fsVisible = true
+
+		// 										})
+
+		// this._fs_repairing= this._svg.selectAll(".fs_repairing")
+		//                        .data(this.fs_repairing)
+		//                        .enter().append("image")
+		//                        .attr("width",50)
+		//                        .attr("height",50)
+		//                        .attr("x",function(d,i){return 460+i*55})
+		//                        .attr("y",function(d,i){return 207})
+		//                        .attr("xlink:href",__static+"/img/fs_repair.png")
+		// 					   .on('click',function(d,i){
+		// 												self.fs_info= self.fs_repairing[i] //读取某个fs的信息
+		// 												self.fsVisible = true
+		// 										})
+
+		// this._fs_stop_breakdown= this._svg.selectAll(".fs_stop_breakdown")
+		//                        .data(this.fs_stop_breakdown)
+		//                        .enter().append("image")
+		//                        .attr("width",50)
+		//                        .attr("height",50)
+		//                        .attr("x",function(d,i){return 460+i*55})
+		//                        .attr("y",function(d,i){return 308})
+		//                        .attr("xlink:href",__static+"/img/fs_stop.png")
+		// 					   .on('click',function(d,i){
+		// 												self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
+		// 												self.fsVisible = true
+
+		// 										})
+
+		// this._fs_stop_running= this._svg.selectAll(".fs_stop_running")
+		//                        .data(this.fs_stop_running)
+		//                        .enter().append("image")
+		//                        .attr("width",50)
+		//                        .attr("height",50)
+		//                        .attr("x",function(d,i){return 460+i*55})
+		//                        .attr("y",function(d,i){return 409})
+		//                        .attr("xlink:href",__static+"/img/fs_stop.png")
+		// 					   .on('click',function(d,i){
+		// 												self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
+		// 												self.fsVisible = true
+		// 										})
+
+		// this._fs_stop_repairing= this._svg.selectAll(".fs_stop_repairing")
+		//                        .data(this.fs_stop_repairing)
+		//                        .enter().append("image")
+		//                        .attr("width",50)
+		//                        .attr("height",50)
+		//                        .attr("x",function(d,i){return 460+i*55})
+		//                        .attr("y",function(d,i){return 505})
+		//                        .attr("xlink:href",__static+"/img/fs_stop.png")
+		// 					   .on('click',function(d,i){
+		// 												self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息
+		// 												self.fsVisible = true
+												// })
+
+		var finalFS= this._svg.selectAll(".fs_final")
+		                       .data(this.fsFinalGroup)
 		                       .enter().append("image")
 		                       .attr("width",50)
 		                       .attr("height",50)
-		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 10})
-		                       .attr("xlink:href",__static+"/img/fs.jpg")
+		                       .attr("x",function(d,i){
+		                       	if(i<=2){		              
+		                       	 	return 460+i*55	 
+		                       	}else{
+		                       		return 460+(i-3)*55	
+		                       	}
+		                       })
+		                       .attr("y",function(d,i){
+		                       	 if(i<=2){
+		                       	 	return 360
+		                       	 }else{
+		                       	 	return 420
+		                       	 }
+		                       	 
+		                       })
+		                       .attr("xlink:href",function(d,i){
+		                       	         return self.fs_img[i]
+		                       })
 							   .on('click',function(d,i){
-														self.fs_info= self.fs_running[i] //读取某个fs的信息
-														self.fsVisible = true
-												})
-		this._fs_ready= this._svg.selectAll(".fs_ready")
-		                       .data(this.fs_ready)
-		                       .enter().append("image")
-		                       .attr("width",50)
-		                       .attr("height",50)
-		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 106})
-		                       .attr("xlink:href",__static+"/img/fs_sync.png")
-							   .on('click',function(d,i){
-														self.fs_info= self.fs_ready[i] //读取某个fs的信息
-														self.fsVisible = true
-
-												})
-
-		this._fs_repairing= this._svg.selectAll(".fs_repairing")
-		                       .data(this.fs_repairing)
-		                       .enter().append("image")
-		                       .attr("width",50)
-		                       .attr("height",50)
-		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 207})
-		                       .attr("xlink:href",__static+"/img/fs_repair.png")
-							   .on('click',function(d,i){
-														self.fs_info= self.fs_repairing[i] //读取某个fs的信息
-														self.fsVisible = true
-												})
-
-		this._fs_stop_breakdown= this._svg.selectAll(".fs_stop_breakdown")
-		                       .data(this.fs_stop_breakdown)
-		                       .enter().append("image")
-		                       .attr("width",50)
-		                       .attr("height",50)
-		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 308})
-		                       .attr("xlink:href",__static+"/img/fs_stop.png")
-							   .on('click',function(d,i){
-														self.fs_info= self.fs_stop_breakdown[i] //读取某个fs的信息
-														self.fsVisible = true
-
-												})
-
-		this._fs_stop_running= this._svg.selectAll(".fs_stop_running")
-		                       .data(this.fs_stop_running)
-		                       .enter().append("image")
-		                       .attr("width",50)
-		                       .attr("height",50)
-		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 409})
-		                       .attr("xlink:href",__static+"/img/fs_stop.png")
-							   .on('click',function(d,i){
-														self.fs_info= self.fs_stop_running[i] //读取某个fs的信息
-														self.fsVisible = true
-												})
-
-		this._fs_stop_repairing= this._svg.selectAll(".fs_stop_repairing")
-		                       .data(this.fs_stop_repairing)
-		                       .enter().append("image")
-		                       .attr("width",50)
-		                       .attr("height",50)
-		                       .attr("x",function(d,i){return 460+i*55})
-		                       .attr("y",function(d,i){return 505})
-		                       .attr("xlink:href",__static+"/img/fs_stop.png")
-							   .on('click',function(d,i){
-														self.fs_info= self.fs_stop_repairing[i] //读取某个fs的信息
+														self.fs_info= self.fsFinalGroup[i] //读取某个fs的信息
 														self.fsVisible = true
 												})
 
@@ -760,8 +857,8 @@ export default {
 <style>
 .structure{
 	height:600px;
-	width:6000px;
-	margin-left: 150px;
+	width:700px;
+	margin-left: 18%;
 	margin-top: 80px;
 }
 .five-wrap{

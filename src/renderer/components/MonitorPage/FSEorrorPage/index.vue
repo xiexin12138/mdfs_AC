@@ -3,14 +3,14 @@
 		<el-row type="flex" align="middle" style="height:750">
 		<el-col style="height:750;">
 		<el-row type="flex" justify="center" >
-		<el-col style="width:100%;height:750px;">
+	<!-- 	<el-col style="width:100%;height:750px;">
 			<svg class="descrition" width="100%" height="100" ></svg>
 			<el-row type="flex" justify="center" >
 			<el-col style="width:800px;height:750px;">
 				<div class="monitor-graph"></div>
 			</el-col>
-			</el-row>
-			<el-dialog
+			</el-row> -->
+<!-- 			<el-dialog
 			  title="文件系统信息"
 			  :visible.sync="fsVisible"
 			  width="25%"
@@ -22,13 +22,8 @@
 			<el-row >
 				<el-col :span="10" :offset="2"><div style="text-align:right;">文件系统类型:</div></el-col>
 				<el-col :span="10" ><div>{{fs.type}}</div></el-col>
-			</el-row>
-		<!-- 	<el-row :gutter="20">
-				<el-col :span="8":offset="4"><div style="text-align:right;">文件系统状态:</div></el-col>
-				<el-col :span="8" ><div>{{fs.status}}</div></el-col>
 			</el-row> -->
-
-			</el-dialog>
+<!-- 			</el-dialog>
 			<el-dialog
 			  title="error信息"
 			  :visible.sync="errorVisible"
@@ -44,8 +39,8 @@
 				<el-col :span="14" ><div>{{errorObj.time}}</div></el-col>
 			</el-row>
 
-			</el-dialog>
-		</el-col>
+			</el-dialog> -->
+	<!-- 	</el-col> -->
 		<log-list :ListData="ListData" class="log_list"></log-list>
 
 		</el-row>
@@ -53,7 +48,7 @@
 		</el-row>
 
 
-		<foot></foot>
+	<!-- 	<foot></foot> -->
 
 
 	</div>
@@ -62,7 +57,7 @@
 
 	.log_list{
         float:left;
-        width: 400px;
+        width: 600px;
 		/*background-color: blue;*/
 		margin-top: 30px;
 		/*margin-left:5%;*/
@@ -293,18 +288,14 @@ export default {
 	},
 	mounted: function() {
 
-		this.init()
-		this.updateGraph()
+		// this.init()
+		// this.updateGraph()
 		this.bindData()  // 这个操作已经包含updateGraph，不过上面是为了初次渲染所以必须有一个
 
-		// setTimeout(()=>{
-		// 	console.log('begin')
-		// 	this.bindData()
-		// },5000)
-		// 设置一个变量timer用来记录这个定时器
+
 		this.timer = setInterval(()=>{
 			// console.log('begin')
-			this.bindData()
+			 this.bindData()
 		},5000)
 	},
 	// 当离开这个页面时，清除这个定时器

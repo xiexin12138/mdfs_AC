@@ -1,53 +1,48 @@
 <template>
 	<div>
-		<el-table :data="LogData" class="log-list-table">
-		    <el-table-column type="expand">
+		<el-table :data="LogData" class="log-list-table" stripe>
+		<!--     <el-table-column type="expand"> -->
 
-		      <template slot-scope="props">
-		        <el-form   class="demo-table-expand">
-		          
-		          <!-- <el-form-item label="错误类型">
-		            <span>{{ props.row.errorType }}</span>
-		          </el-form-item> -->
-		          <!-- <el-form-item label="产生时间">
-		            <span>{{ props.row.time }}</span>
-		          </el-form-item> -->
+<!-- 		      <template slot-scope="props">
+		        <el-form   class="demo-table-expand">		        	
 		          <el-form-item label="错误位置：">
 		            <span>{{ props.row.file_name }}</span>
 		          </el-form-item>
-		          
-		          <!-- <el-form-item label="是否修复">
-		            <span>{{ props.row.repair }}</span>
-		          </el-form-item> -->
 		          <el-form-item v-if="props.row.repair == '是'" label="修复来源：">
 		            <span>{{ props.row.repair_fs_file }}</span>
 		          </el-form-item>
-		          <!-- <el-form-item label="详细信息">
-		            <span>{{ props.row.detail }}</span>
-		          </el-form-item> -->
+		  
 		        </el-form>
-		      </template>
+		      </template> -->
 
-		    </el-table-column>
-<!-- 		    <el-table-column
-		      label="错误类型"
-		      prop="errorType"
-		      width="90"
-		      >
-		    </el-table-column> -->
+		 <!--    </el-table-column> -->
+		   
 		    <el-table-column
 		      label="产生时间"
 		      prop="time"
-		      width="170"
+		      width="200"
 		      align="center">
 		    </el-table-column>
 		    <el-table-column
 		      label="是否修复"
 		      prop="repair"
-		      width="90"
+		      width="100"
+		      align="center">
+		    </el-table-column>
+		    <el-table-column
+		      label="错误位置"
+		      prop="file_name"
+		      width="200"
+		      align="center">
+		    </el-table-column>
+		    <el-table-column
+		      label="修复来源"
+		      prop="repair_fs_file"
+		      width="100"
 		      align="center">
 		    </el-table-column>
 		  </el-table>
+
 	</div>
 	
 </template>
