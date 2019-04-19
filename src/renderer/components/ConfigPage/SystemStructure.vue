@@ -587,7 +587,7 @@ export default {
                            .attr("x",100)
                            .attr("y",470)
                            .attr("font-size",15)
-                           .text("LVS-DATA")
+                           .text("LVS-Data")
 
         var _text_cm= this._svg
                            .append("text")
@@ -608,7 +608,7 @@ export default {
                            .attr("x",510)
                            .attr("y",490)
                            .attr("font-size",15)
-                           .text("FS POOL")
+                           .text("FS Pool")
 //-----------------------setting-------------------------------------------------
 		// this._fs_set= this._svg.append("image")
 		// 			            .attr("width",30)
