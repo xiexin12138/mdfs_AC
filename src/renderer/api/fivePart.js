@@ -23,7 +23,7 @@ export async function GetcmInfo(param) {
 						service:"1"//表示是否是主CM，1，表示是主CM，0，表示是备CM
 				}]
 
-		return cm
+		//return cm
 		let socket = new Socket()
 		let data = {
 			type: type.RUNING_CM_INFO,
@@ -82,7 +82,7 @@ export async function GetmountInfo(param) {
 					},
 				]
 
-		return mount
+		//return mount
 		let socket = new Socket()
 		let data = {
 			type: type.GET_MOUNTERS, //34
@@ -457,7 +457,7 @@ export async function GetfsPool(param) {
 	
 		}
 
-		return poolInfo
+		//return poolInfo
 		let socket = new Socket()
 		let data = {
 			type: type.FSPOOL_INFO, //52
@@ -501,7 +501,7 @@ export async function GetfsById(param) {
 						judge:"1",		//是否提供判决服务1:提供判决服务 0：未提供判决服务
 						sync:"1",		//是否已同步，1：已同步  0：未同步
 					}] 
-		return fs
+		//return fs
 		let socket = new Socket()
 		let data = {
 			type: type.FSBYID, //53
