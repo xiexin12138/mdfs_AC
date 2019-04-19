@@ -31,7 +31,7 @@ export default {
       return this.$store.getters.getSummaryMounterSum
     },
     mounteronline () {
-       return this.$store.getters.getSummaryFsOnline
+       return this.$store.getters.getSummaryMounterOnline
      },
      mounteroffline () {
        return this.$store.getters.getSummaryMounterOffline
