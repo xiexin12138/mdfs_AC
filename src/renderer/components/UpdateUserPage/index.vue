@@ -37,10 +37,10 @@
 						  <el-col :span="8" ><div>{{user.mainboard}}</div></el-col>
 						</el-row>
 					</el-card>
-		<el-row :gutter="3">
-		  <el-col :span="3":offset="9" ><el-button  size="small" type="primary" @click="emailFormVisible = true">修改邮箱&nbsp;</el-button></el-col>
-		  <el-col :span="3" :pull="1"><el-button  size="small" type="primary" @click="expireFormVisible = true">修改有效期</el-button></el-col>
-		  <el-col :span="4" :pull="2"><el-button  size="small" type="primary" @click="clientFormVisible = true">修改绑定终端</el-button></el-col>
+		<el-row :gutter="3" style="margin-top:12px;">
+		  <el-col :span="3" offset="8"><el-button  size="small" type="primary" @click="emailFormVisible = true">修改邮箱</el-button></el-col>
+		  <el-col :span="3" ><el-button  size="small" type="primary" @click="expireFormVisible = true">修改有效期</el-button></el-col>
+		  <el-col :span="4" ><el-button  size="small" type="primary" @click="clientFormVisible = true">修改绑定终端</el-button></el-col>
 		</el-row>
     </div>
 </el-col>
@@ -118,7 +118,7 @@
 .box-card{
   position: relative;
   width: 400px;
-  height: 300px;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
 }
