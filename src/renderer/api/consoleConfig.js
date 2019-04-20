@@ -49,7 +49,7 @@ export async function Logout(username) {
     let socket = new Socket()
     let data = {
       type: type.LOGOUT,
-      name: username,
+      name: username.name,
     }
     socket.write(JSON.stringify(data))
     let response = await socket.read()
