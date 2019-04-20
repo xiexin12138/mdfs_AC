@@ -13,7 +13,7 @@
       </template>
       <el-menu-item :index="userlist" v-if="getPermissionTree.user_manage">用户管理</el-menu-item>
       <el-menu-item :index="groupmanage" v-if="getPermissionTree.group_manage">组管理</el-menu-item>
-      <el-menu-item :index="changepassword" v-if="getPermissionTree.user_pwd_init">用户密码重置</el-menu-item>
+      <!-- <el-menu-item :index="changepassword" v-if="getPermissionTree.user_pwd_init">用户密码重置</el-menu-item> -->
       <el-menu-item :index="useraudit" v-if="getPermissionTree.user_check">用户审核</el-menu-item>
     </el-submenu>
 
