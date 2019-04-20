@@ -917,5 +917,16 @@ resp{
 	state :
 	errormessage :
 }
+//修改挂载用户密码
+req{
+	“type” ：“76”，
+	“userName”：“”，
+	“password”：“”
+}
+resp{
+		“type” ： “”，	//表示请求类型
+	“state”:””,					//String  0-成功1-失败
+“errormessage”:””,			//String，错误信息
+}
 
 ```

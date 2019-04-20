@@ -186,7 +186,8 @@ export const UPDATE_LOCK_STATE = 74
 // 获取报表
 export const GET_AC_REPORT = 75
 
-
+// 修改挂载用户密码
+export const UPDATE_MOUNTUSER_PW = 76
 
 /*****************************未实现的接口***********************************************/
 

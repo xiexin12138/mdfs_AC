@@ -37,10 +37,11 @@
 						  <el-col :span="8" ><div>{{user.mainboard}}</div></el-col>
 						</el-row>
 					</el-card>
-		<el-row :gutter="3" style="margin-top:12px;">
-		  <el-col :span="3" offset="8"><el-button  size="small" type="primary" @click="emailFormVisible = true">修改邮箱</el-button></el-col>
-		  <el-col :span="3" ><el-button  size="small" type="primary" @click="expireFormVisible = true">修改有效期</el-button></el-col>
-		  <el-col :span="4" ><el-button  size="small" type="primary" @click="clientFormVisible = true">修改绑定终端</el-button></el-col>
+		<el-row :gutter="20" style="margin-top:12px;">
+		  <el-col :span="2" offset="8"><el-button  size="small" type="primary" @click="emailFormVisible = true">修改邮箱</el-button></el-col>
+		  <el-col :span="2" ><el-button  size="small" type="primary" @click="expireFormVisible = true">修改有效期</el-button></el-col>
+		  <el-col :span="2" ><el-button  size="small" type="primary" @click="clientFormVisible = true">修改绑定终端</el-button></el-col>
+		  <el-col :span="2" ><el-button  size="small" type="primary" @click="passwordFormVisible = true">修改用户密码</el-button></el-col>
 		</el-row>
     </div>
 </el-col>
@@ -102,6 +103,19 @@
 	    <el-button type="primary" @click="submitClient">确 定</el-button>
 	  </div>
 	</el-dialog>
+
+	<el-dialog title="修改密码" :visible.sync="passwordFormVisible">
+	  <el-form :model="passwordFrom" ref="passwordFrom">
+	    <el-form-item label="新密码" :label-width="formLabelWidth" prop="newPassword">
+	      <el-input v-model="passwordFrom.newPassword" auto-complete="off"></el-input>
+	    </el-form-item>
+	  </el-form>
+	  <div slot="footer" class="dialog-footer">
+	    <el-button @click="passwordFormVisible = false">取 消</el-button>
+	    <el-button type="primary" @click="submitPassword">确 定</el-button>
+	  </div>
+	</el-dialog>
+
 	<foot></foot>
 </div>
 </template>
@@ -174,6 +188,7 @@ export default {
 			emailFormVisible: false,
 			expireFormVisible: false,
 			clientFormVisible: false,
+			passwordFormVisible:false,
 			formLabelWidth: '120px',
 			user: {
 				id:userData.id,
@@ -198,6 +213,9 @@ export default {
 			},
 			emailFrom: {
 				newEmail: ''
+			},
+			passwordFrom: {
+				newPassword: ''
 			},
 			clientRules: {
 				ip: [{ validator: checkIP, trigger: 'blur,change' }]
@@ -239,6 +257,41 @@ export default {
 					return false
 				}
 				this.emailFormVisible = false
+			})
+		},
+		submitPassword(){
+			this.$refs["passwordFrom"].validate((valid)=>{
+				if (valid) {
+					let data = {
+						username:this.user.username,
+						password:this.passwordFrom.newPassword
+					}
+
+					userTable.UpdatePassword(data).then(()=>{
+							Message({
+								showClose: true,
+								message:'提交成功',
+								type:'success',
+								duration:2000
+							})
+						}).catch((e)=>{
+							Message({
+								showClose: true,
+								message:e.message,
+								type:'error',
+								duration:2000
+							})
+
+	          if(e.message=="Error: 您已在另一地点登录，请重新登录！"){
+	           this.$router.push({ path: '/'})
+	          }
+						})
+
+
+				}else{
+					return false
+				}
+				this.passwordFormVisible = false
 			})
 		},
 		submitExpire(){

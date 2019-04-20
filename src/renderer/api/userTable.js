@@ -172,6 +172,7 @@ export async function UpdateEmail(param){
 	}
 }
 
+
 /**
  * @author Craig
  * @version 1.0.0
@@ -259,6 +260,34 @@ export async function AddUser(param){
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		if (obj.state == 0 || obj.type !=64) {
+			return obj
+		} else {
+			throw new Error(obj.errormessage)
+		}
+	} catch (e) {
+		throw new Error(e.toString())
+	}
+}
+/**
+ * @author saisai
+ * @version 1.0.0
+ * @date    2018-04-20
+ * @param   {Object}   param 包含采集数据的对象
+ * @return {Boolean} true表示正确更新，false表示出错
+ * @description 更新用户密码
+ */
+export async function UpdatePassword(param){
+	try {
+		let socket = new Socket()
+		let data = {
+			type: type.UPDATE_MOUNTUSER_PW,
+			userName:param.username,
+			passWord:param.password
+		}
+		socket.write(JSON.stringify(data))
+		let response = await socket.read()
+		let obj = JSON.parse(response)
+		if (obj.state == 0|| obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
