@@ -487,7 +487,7 @@ req:
 }
 resp{
 	type : changUserDir,		//43
-state :  0,  				// 错误类型码，0表示成功
+    state :  0,  				// 错误类型码，0表示成功
 	errormessage :			// 错误信息
 }
 
@@ -606,9 +606,9 @@ res{
 	type : queryExFs	//请求码45
 	state : 0			// 错误类型码，0 表示成功
 	errormessage:'	 // 错误信息
-		total :
-pageSize: 10, 				// 每一页包含10行数据
-		currentPage: 1 			// 当前页为第一页
+    total :
+    pageSize: 10, 				// 每一页包含10行数据
+	currentPage: 1 			// 当前页为第一页
 	fsList : [{
 		id : 			//
 		fsid : 		//异常文件所在文件系统id
@@ -914,7 +914,8 @@ req{
 }
 resp{
 	type:73
-	state :
+	state 
+	:
 	errormessage :
 }
 //修改挂载用户密码

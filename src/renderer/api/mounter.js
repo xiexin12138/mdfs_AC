@@ -19,7 +19,7 @@ export async function GetMounters() {
 		let obj = JSON.parse(response)
 		console.log(obj)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			if(obj.detail){
 				return {
 					mounters:obj.detail
@@ -64,7 +64,7 @@ async function deleteMountersHelper(id){
 		let response = await socket.read()
 		console.log('delete mounter: ',response)
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -95,7 +95,7 @@ export async function AddMounter(para) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		console.log('新增挂载节点的返回结果：',obj)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -126,7 +126,7 @@ export async function UpdateMounter(para) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		console.log('更新挂载节点的返回结果：',obj)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -152,7 +152,7 @@ export async function ShowFSMount(){
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		console.log('ShowFSMount: ',obj)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type != 64) {
 			if(obj.detail){
 			  return obj.detail
 		    }

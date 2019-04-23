@@ -54,7 +54,7 @@ export async function GetDataTable() {
     let response = await socket.read()
     let obj = JSON.parse(response)
     // 没有出错是0
-    if (obj.state == 0 || obj.type != 64) {
+    if (obj.state == 0 && obj.type != 64) {
       return obj
     } else {
       return null
@@ -116,7 +116,7 @@ async function deleteOne(userId, userName) {
     let response = await socket.read()
     console.log("response:" + response)
     let obj = JSON.parse(response)
-    if (obj.state == 0 || obj.type != 64) {
+    if (obj.state == 0 && obj.type != 64) {
       return obj
     } else {
       throw new Error(obj.errormessage)
@@ -157,7 +157,7 @@ export async function UpdateAcUser(param) {
     let response = await socket.read()
     console.log("response:" + response);
     let obj = JSON.parse(response)
-    if (obj.state == 0 || obj.type != 64) {
+    if (obj.state == 0 && obj.type != 64) {
       return true
     } else {
       throw new Error(obj.errormessage)
@@ -196,7 +196,7 @@ export async function AddUser(param) {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
-    if (obj.state == 0 || obj.type != 64) {
+    if (obj.state == 0 && obj.type != 64) {
       return obj
     } else {
       throw new Error(obj.errormessage)

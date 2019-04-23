@@ -168,7 +168,7 @@ export async function GetFSSafeReport(payload) {
       let response = await socket.read()
       obj = JSON.parse(response)
     }
-    if (obj.state == 0) {
+    if (obj.state == 0 && obj.type !=64) { //64为多点登录错误类型
       return obj
     } else {
       throw new Error(obj.errormessage)

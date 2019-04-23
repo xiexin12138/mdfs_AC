@@ -23,7 +23,7 @@ export async function GetRecentError(param) {
 		let obj = JSON.parse(response)
 		//console.log('afterJSON',JSON.stringify(obj))
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 
 			return obj
 
@@ -60,7 +60,7 @@ export async function GetErrorByTime(startTime,endTime,pageSize,currentPage) {
 		console.log('MDFS23',response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 
 			return obj
 
@@ -93,7 +93,7 @@ export async function GetRecentLog(param) {
 		//console.log('MDFS24',response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 
 		} else {
@@ -129,7 +129,7 @@ export async function GetLogByTime(startTime,endTime,pageSize,currentPage) {
 		console.log('MDFS25',response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 
 		} else {

@@ -80,7 +80,7 @@ export async function GetDataTable(pageSize, currentPage) {
 		console.log(response)
 		let obj = JSON.parse(response)
 		// 没有出错是0
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 		} else {
 			return null
@@ -133,7 +133,7 @@ async function deleteOne(id){
 		let response = await socket.read()
 		console.log(response)
 		let obj = JSON.parse(response)
-		if (obj.state == 0||obj.type !=64) {
+		if (obj.state == 0&&obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -162,7 +162,7 @@ export async function UpdateEmail(param){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -192,7 +192,7 @@ export async function UpdateExpire(param){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -225,7 +225,7 @@ export async function UpdateClient(param){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -259,7 +259,7 @@ export async function AddUser(param){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0 || obj.type !=64) {
+		if (obj.state == 0 && obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)
@@ -287,7 +287,7 @@ export async function UpdatePassword(param){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return obj
 		} else {
 			throw new Error(obj.errormessage)

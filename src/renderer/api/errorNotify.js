@@ -43,7 +43,7 @@ export async function Getemails(param) {
 		//console.log(520,response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0 && obj.type !=64) {
 
 			return obj
 			
@@ -78,7 +78,7 @@ export async function ChangeStatus(id,operate) {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
-    if (obj.state == 0|| obj.type !=64) {
+    if (obj.state == 0 && obj.type !=64) {
       return true
     } else {
       throw new Error(obj.errormessage)
@@ -109,7 +109,7 @@ export async function DeleteEmail(id) {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
-    if (obj.state == 0|| obj.type !=64) {
+    if (obj.state == 0 && obj.type !=64) {
       return true
     } else {
       throw new Error(obj.errormessage)
@@ -139,11 +139,13 @@ export async function AddEmail(email) {
     // console.log(data)
     socket.write(JSON.stringify(data))
     let response = await socket.read()
+    console.log(888,response)
     let obj = JSON.parse(response)
-    if (obj.state == 0|| obj.type !=64) {
+    if (obj.state == 0 && obj.type !=64) {
       console.log(444,obj.email)
       return obj.email.id
     } else {
+      console.log(777,obj.errormessage)
       throw new Error(obj.errormessage)
     }
   } catch (e) {
@@ -172,7 +174,7 @@ export async function ChangeEmailSendStatus(param) {
     socket.write(JSON.stringify(data))
     let response = await socket.read()
     let obj = JSON.parse(response)
-    if (obj.state == 0|| obj.type !=64) {
+    if (obj.state == 0 && obj.type !=64) {
       return true
     } else {
       throw new Error(obj.errormessage)
