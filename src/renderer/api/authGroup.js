@@ -158,6 +158,7 @@ export async function GetDirs(param) {
 		socket.write(JSON.stringify(data))
 
 		let response = await socket.read()
+		console.log(response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj) {

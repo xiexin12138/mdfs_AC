@@ -859,7 +859,7 @@ export default {
 	height:600px;
 	width:700px;
 	margin-left: 18%;
-	margin-top: 80px;
+	/*margin-top: 80px;*/
 }
 .five-wrap{
 	height:100px;
