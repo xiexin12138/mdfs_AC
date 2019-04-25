@@ -19,7 +19,7 @@ export async function submitCertExpire(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -61,7 +61,7 @@ export async function submitFS(param) {
 		let response = await socket.read()
 		console.log(response,2)
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -94,7 +94,7 @@ export async function submitMount(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -125,7 +125,7 @@ export async function submitGlobal(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -161,7 +161,7 @@ export async function submitMountFS(param) {
 		let response = await socket.read()
 		console.log(response,2)
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)

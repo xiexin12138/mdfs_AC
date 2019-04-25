@@ -29,7 +29,7 @@ export async function submitAuth(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0 && obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -79,7 +79,7 @@ async function deletedirsHelper(id,username){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -120,7 +120,7 @@ export async function submitGroupManage(User,Group,Operation) {
 
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -158,6 +158,7 @@ export async function GetDirs(param) {
 		socket.write(JSON.stringify(data))
 
 		let response = await socket.read()
+		console.log(response)
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
 		if (obj) {
@@ -200,7 +201,7 @@ export async function UpdateDir(param) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		// console.log('更新挂载节点的返回结果：',obj)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -265,7 +266,7 @@ export async function DeleteGroup2(id,groupname){
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -296,7 +297,7 @@ export async function CreateGroup(param) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -325,7 +326,7 @@ export async function ChangeGroupName(ID,newGroupName) {
 		socket.write(JSON.stringify(data))
 		let response = await socket.read()
 		let obj = JSON.parse(response)
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			return true
 		} else {
 			throw new Error(obj.errormessage)
@@ -445,7 +446,7 @@ export async function GroupUserRela(groupname,dataType) {
 		let response = await socket.read()
 		let obj = JSON.parse(response)
 		// TODO 后台返回的结果缺少表示错误的字段，state and errormessage
-		if (obj.state == 0|| obj.type !=64) {
+		if (obj.state == 0&& obj.type !=64) {
 			if(dataType=="notGroupUsers")
 			{
 				return obj.notGroupUsers

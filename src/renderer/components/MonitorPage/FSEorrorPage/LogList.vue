@@ -18,7 +18,7 @@
 		 <!--    </el-table-column> -->
 		   
 		    <el-table-column
-		      label="产生时间"
+		      label="异常产生时间"
 		      prop="time"
 		      width="200"
 		      align="center">

@@ -136,12 +136,14 @@ export default {
       return arr.map(value=>{
         if (value.judge == 1) {
           value.judge = '是'
-        } else {
+        } 
+        if(value.judge == 0){
           value.judge = '否'
         }
         if (value.sync == 1) {
           value.sync = '已同步'
-        } else {
+        } 
+        if(value.sync == 0){
           value.sync = '未同步'
         }
         return value

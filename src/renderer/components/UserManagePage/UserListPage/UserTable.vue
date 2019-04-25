@@ -1,7 +1,7 @@
 <template>
 <div style="height:100%">
   <el-row type="flex" class="row-bg" justify="center">
-  <el-col style="width:900px;">
+  <el-col style="width:830px;">
   <div class="grid-content">
   <el-row type="flex" justify="end">
       <el-col style="width:250px;">
@@ -21,37 +21,43 @@
       @selection-change="handleSelectionChange">
       <el-table-column
         type="selection"
-        width="50">
+        width="35">
       </el-table-column>
       <el-table-column
         prop="username"
         label="用户名"
-        width="120">
+        width="80"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="status"
         label="用户状态"
-        width="120">
+        width="65"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="expire"
         label="有效期"
-        width="150">
+        width="180"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="last"
         label="上次登录时间"
-        width="150">
+        width="160"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="ip"
         label="登录终端IP"
-        width="150">
+        width="150"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="mac"
         label="登录终端MAC"
-        width="159">
+        width="159"
+        align="center">
       </el-table-column>
     </el-table>
     <el-row type="flex" class="row-bg" justify="end">
